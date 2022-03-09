@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import DRNavbar from './components/DRNavbar';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+  <DRNavbar injectFirst>
+    {/* <Demo /> */}
+  </DRNavbar>,
   </React.StrictMode>,
   document.getElementById('root')
 );
