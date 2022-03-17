@@ -9,11 +9,12 @@ import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 
 const pages = [
-    { title: "Products", link: "/" },
-    { title: "Pricing", link: "/" },
-    { title: "Blog", link: "/" },
+    { title: "about", path: "/" },
+    { title: "download", path: "download" },
+    { title: "translations", path: "translations" },
 ];
 
 const DRNavbar = () => {
@@ -71,7 +72,9 @@ const DRNavbar = () => {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page.title} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page.title}</Typography>
+                                    <Typography textAlign="center">
+                                        {page.title}
+                                    </Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -86,13 +89,15 @@ const DRNavbar = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
-                            <Button
-                                key={page.title}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page.title}
-                            </Button>
+                            <Link to={page.path}>
+                                <Button
+                                    key={page.title}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    {page.title}
+                                </Button>
+                            </Link>
                         ))}
                     </Box>
                 </Toolbar>
