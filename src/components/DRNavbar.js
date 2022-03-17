@@ -1,23 +1,12 @@
 import MenuIcon from '@mui/icons-material/Menu';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import * as React from 'react';
+import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-const pages = [
-    { title: "about", path: "/" },
-    { title: "download", path: "download" },
-    { title: "translations", path: "translations" },
-];
-
-const DRNavbar = () => {
+// https://mui.com/components/app-bar/
+// https://react-bootstrap.github.io/components/navbar/#home
+function DRNavbar(props) {
+    const { pages } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
