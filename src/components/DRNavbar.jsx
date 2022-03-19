@@ -1,5 +1,5 @@
+import { Payment } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import PaidIcon from '@mui/icons-material/Paid';
 import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -93,21 +93,20 @@ function DRNavbar(props) {
                     >
                         LOGO
                     </Typography>
-                    {supportPage &
+                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <Link to={supportPage.path}>
                             <IconButton
-                                href={supportPage.path}
-                                sx={{ display: { xs: 'flex', md: 'none' } }}
                                 size="large"
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
                                 color="inherit"
+                            // href={supportPage.path}
                             >
-                                <PaidIcon />
+                                <Payment href={supportPage.path} />
                             </IconButton>
                         </Link>
-                    }
+                    </Box>
                 </Toolbar>
             </Container>
         </AppBar>
