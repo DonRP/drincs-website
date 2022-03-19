@@ -14,18 +14,18 @@ const routes = [
     { title: "news", path: "news", element: <News /> },
     { title: "download", path: "download", element: <Download /> },
     { title: "translations", path: "translations", element: <Translations /> },
-    { title: "support", path: "support", element: <Support /> },
 ];
-
+const supportRoute = { title: "support", path: "support", element: <Support /> }
 function App() {
     return (
         <ErrorBoundary>
             <BrowserRouter>
-                <DRNavbar pages={routes} />
+                <DRNavbar pages={routes} supportPage={supportRoute} />
                 <Routes>
-                    {routes.map((route) => (
+                    {(routes).map((route) => (
                         <Route path={route.path} element={route.element} />
                     ))}
+                    <Route path={supportRoute.path} element={supportRoute.element} />
                 </Routes>
             </BrowserRouter>
         </ErrorBoundary>
