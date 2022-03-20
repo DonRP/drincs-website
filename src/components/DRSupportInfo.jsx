@@ -8,7 +8,7 @@ import ReactCountryFlag from 'react-country-flag';
 const columns = [
     {
         field: 'date',
-        headerName: 'Year',
+        headerName: 'Nome',
         width: 150,
     },
     {
