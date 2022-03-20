@@ -7,28 +7,29 @@ import ReactCountryFlag from 'react-country-flag';
 
 const columns = [
     {
+        field: 'date',
+        headerName: 'Year',
+        width: 150,
+    },
+    {
         field: 'fleg',
-        headerName: 'Lingua',
+        headerName: 'flag',
         width: 150,
         renderCell: (params) => (
-            <strong>
-                <ReactCountryFlag
-                    countryCode="IT"
-                    svg
-                    style={{
-                        width: '3em',
-                        height: '2em',
-                        marginRight: 16,
-                    }}
-                    title="IT"
-                />
-                Italian
-            </strong>
+            <ReactCountryFlag
+                countryCode="IT"
+                svg
+                style={{
+                    width: '3em',
+                    height: '2em',
+                }}
+                title="IT"
+            />
         ),
     },
     {
         field: 'tra',
-        headerName: 'Tradotto',
+        headerName: 'tra',
         width: 150,
         renderCell: (params) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -54,7 +55,7 @@ const columns = [
     },
     {
         field: 'pro',
-        headerName: 'Approvato',
+        headerName: 'pro',
         width: 150,
         renderCell: (params) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -80,7 +81,7 @@ const columns = [
     },
     {
         field: 'user',
-        headerName: 'Utenti',
+        headerName: 'user',
         width: 150,
         renderCell: (params) => (
             <AvatarGroup max={2}>
@@ -115,22 +116,25 @@ const columns = [
 const rows = [
     {
         id: 1,
+        date: new Date(1979, 0, 1),
         download: 1,
         pro: 0.4,
     },
     {
         id: 2,
+        date: new Date(1984, 1, 1),
         download: 1,
         pro: 43,
     },
     {
         id: 3,
+        date: new Date(1992, 2, 1),
         download: 1,
         pro: 65,
     },
 ];
 
-function DRTranslationGrid(props) {
+function TranslationGrid(props) {
 
     return (
         <Card elevation={24} >
@@ -153,4 +157,4 @@ function DRTranslationGrid(props) {
     );
 }
 
-export default DRTranslationGrid;
+export default TranslationGrid;
