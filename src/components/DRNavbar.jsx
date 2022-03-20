@@ -1,6 +1,6 @@
 import { Payment } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ function DRNavbar(props) {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     {/* PC */}
@@ -32,17 +32,34 @@ function DRNavbar(props) {
                         LOGO
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Link to={page.path}>
+                        <Grid
+                            container
+                            direction="row"
+                            justifyContent="flex-end"
+                            alignItems="center"
+                        >
+                            {pages.map((page) => (
+                                <Link to={page.path}>
+                                    <Button
+                                        key={page.title}
+                                        onClick={handleCloseNavMenu}
+                                        sx={{ my: 2, color: 'white', display: 'block' }}
+                                    >
+                                        {page.title}
+                                    </Button>
+                                </Link>
+                            ))}
+                            <Link to={supportPage.path}>
                                 <Button
-                                    key={page.title}
+                                    key={supportPage.title}
+                                    endIcon={<Payment />}
+                                    variant="contained"
                                     onClick={handleCloseNavMenu}
-                                    sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
-                                    {page.title}
+                                    {supportPage.title}
                                 </Button>
                             </Link>
-                        ))}
+                        </Grid>
                     </Box>
                     {/* Mobile */}
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -95,21 +112,17 @@ function DRNavbar(props) {
                     </Typography>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <Link to={supportPage.path}>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                color="inherit"
-                            // href={supportPage.path}
+                            <Button
+                                key={supportPage.title}
+                                variant="contained"
                             >
-                                <Payment href={supportPage.path} />
-                            </IconButton>
+                                <Payment />
+                            </Button>
                         </Link>
                     </Box>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     );
 };
 
