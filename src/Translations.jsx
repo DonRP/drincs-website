@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import TranslationGrid from 'components/TranslationGrid';
+import DRTranslationGrid from 'components/DRTranslationGrid';
 import * as React from 'react';
 
 
@@ -17,10 +17,10 @@ function Translations() {
                 mb={3}
             >
                 <Grid item  >
-                    <TranslationGrid />
+                    <DRTranslationGrid />
                 </Grid>
                 <Grid item  >
-                    <TranslationGrid />
+                    <DRTranslationGrid />
                 </Grid>
             </Grid>
         </>

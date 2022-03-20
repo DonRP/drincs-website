@@ -134,7 +134,7 @@ const rows = [
     },
 ];
 
-function TranslationGrid(props) {
+function DRTranslationGrid(props) {
 
     return (
         <Card elevation={24} >
@@ -157,4 +157,4 @@ function TranslationGrid(props) {
     );
 }
 
-export default TranslationGrid;
+export default DRTranslationGrid;
