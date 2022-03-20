@@ -11,7 +11,7 @@ import * as React from 'react';
 function DRTwitterPost(props) {
 
     return (
-        <Card elevation={24} sx={{ maxWidth: 690 }}>
+        <Card elevation={24} >
             <CardHeader
                 avatar={
                     <IconButton color="primary" aria-label="upload picture" component="span">
@@ -28,11 +28,10 @@ function DRTwitterPost(props) {
                 title="Shrimp and Chorizo Paella"
                 subheader="September 14, 2016"
             />
-            <CardActionArea>
+            <CardActionArea sx={{ maxWidth: 900, maxHeight: 900 }}>
                 <CardMedia
                     component="img"
-                    width="690"
-                    image="https://pbs.twimg.com/media/FODr029WYA07i7k?format=webp&name=small"
+                    image="https://pbs.twimg.com/media/FODr029WYA07i7k?format=webp&name=medium"
                     alt="Paella dish"
                 />
             </CardActionArea>
