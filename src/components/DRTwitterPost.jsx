@@ -11,7 +11,7 @@ import * as React from 'react';
 function DRTwitterPost(props) {
 
     return (
-        <Card sx={{ maxWidth: 690 }}>
+        <Card elevation={24} sx={{ maxWidth: 690 }}>
             <CardHeader
                 avatar={
                     <IconButton color="primary" aria-label="upload picture" component="span">
