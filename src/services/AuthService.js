@@ -1,4 +1,4 @@
-import { LISTA_PROGETTI } from "shared/DefaultValues"
+import { LISTA_TOKEN } from "shared/DefaultValues"
 
 export default class AuthService {
     // Initializing important variables
@@ -17,7 +17,7 @@ export default class AuthService {
     }
 
     getToken(nameToken) {
-        return LISTA_PROGETTI.find(element => element.nameToken === nameToken)?.token;
+        return LISTA_TOKEN.find(element => element.nameToken === nameToken)?.token;
     }
 
     fetch(url, nameToken, options) {
@@ -42,6 +42,9 @@ export default class AuthService {
                 console.log(response);
                 return response.json()
             })
+            .catch((res) => {
+                console.log(res);
+            });
     }
 
 

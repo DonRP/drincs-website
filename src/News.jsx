@@ -1,8 +1,30 @@
 import { Grid } from "@mui/material";
 import DRTwitterPost from "components/DRTwitterPost";
+import { useEffect, useState } from "react";
 import { TwitterFollowButton } from "react-twitter-embed";
+import TweetService from "services/TwitterService";
 
 function News() {
+    const [tweetList, setTweetList] = useState([]);
+    const [userInfo, setUserInfo] = useState();
+    const userId = "1402755743540039684"
+
+    useEffect(() => {
+        const abortController = new AbortController();
+        const tweetService = new TweetService();
+        tweetService.getTweets(userId, abortController).then(res => {
+            if (abortController.signal.aborted) {
+                return;
+            }
+            setTweetList(res)
+        }).catch(err => {
+            console.log(err)
+        })
+
+        return function cleanUp() {
+            abortController.abort();
+        }
+    }, [userId]);
 
     return (
         <Grid
@@ -31,12 +53,11 @@ function News() {
                             screenName={'DR_incs'}
                         />
                     </Grid>
-                    <Grid item  >
-                        <DRTwitterPost />
-                    </Grid>
-                    <Grid item  >
-                        <DRTwitterPost />
-                    </Grid>
+                    {tweetList.map((item, index) =>
+                        <Grid item  >
+                            <DRTwitterPost />
+                        </Grid>
+                    )}
                 </Grid >
             </Grid >
 
