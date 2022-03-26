@@ -5,8 +5,8 @@ import * as React from 'react';
 
 function Translations() {
     const projectsId = [
-        "461654",
-        "492487",
+        { crowdin: "492487", github: "DonRP/AFV" },
+        { crowdin: "461654", github: "DonRP/BBAS" },
     ]
 
     return (
@@ -23,7 +23,7 @@ function Translations() {
             >
                 {projectsId.map((item, index) =>
                     <Grid item  >
-                        <DRTranslationGrid projectId={item} />
+                        <DRTranslationGrid projectId={item.crowdin} gitRepo={item.github} />
                     </Grid>
                 )}
             </Grid>

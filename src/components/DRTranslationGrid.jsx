@@ -7,6 +7,7 @@ import * as React from 'react';
 import { useEffect, useState } from "react";
 import Flag from 'react-flagkit';
 import CrowdinService from 'services/CrowdinService';
+import GitHubService from 'services/GitHubService';
 
 const columns = [
     {
@@ -103,7 +104,8 @@ const columns = [
         width: 150,
         renderCell: (params) => (
             <strong>
-                v0.7
+                { }
+
                 <Button
                     variant="contained"
                     color="primary"
@@ -123,6 +125,7 @@ function DRTranslationGrid(props) {
     const [projectInfo, setProjectInfo] = useState({});
     const [languages, setLanguages] = useState([]);
     const [release, setRelease] = useState([]);
+    const test = null
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -166,8 +169,14 @@ function DRTranslationGrid(props) {
                         if (lang.twoLettersCode === "el") {
                             lang.twoLettersCode = "gr"
                         }
+                        test = lang.name
                         return lang.id === item.data.languageId
                     })[0],
+                    download: {
+                        version: release.find((item) => {
+                            return test === item.language
+                        })
+                    }
                 }
             }))
         }).catch(err => {
@@ -179,11 +188,33 @@ function DRTranslationGrid(props) {
         }
     }, [projectId, projectInfo]);
 
+    useEffect(() => {
+        const abortController = new AbortController();
+        const gitHubService = new GitHubService();
+        gitHubService.getReleases(gitRepo, abortController).then(res => {
+            if (abortController.signal.aborted) {
+                return;
+            }
+            setRelease(res.map((item) => {
+                return {
+                    version: item.tag_name.split('/')[1],
+                    language: item.tag_name.split('/')[0],
+                    download_url: item.assets[0].browser_download_url,
+                }
+            }))
+        }).catch(err => {
+            console.log(err)
+        })
+
+        return function cleanUp() {
+            abortController.abort();
+        }
+    }, [gitRepo]);
+
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-
     return (
         <Card elevation={24} sx={{ maxWidth: 900 }}>
             <CardHeader

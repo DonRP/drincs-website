@@ -27,10 +27,12 @@ export default class AuthService {
             'Content-Type': 'application/json'
         }
 
-        // Setting Authorization header
-        // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-        if (this.loggedIn()) {
-            headers['Authorization'] = 'Bearer ' + this.getToken(nameToken)
+        if (nameToken) {
+            // Setting Authorization header
+            // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
+            if (this.loggedIn()) {
+                headers['Authorization'] = 'Bearer ' + this.getToken(nameToken)
+            }
         }
 
         return fetch(url, {
