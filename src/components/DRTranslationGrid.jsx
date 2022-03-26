@@ -169,7 +169,7 @@ function DRTranslationGrid(props) {
                         if (lang.twoLettersCode === "el") {
                             lang.twoLettersCode = "gr"
                         }
-                        test = lang.name
+                        // test = lang.name
                         return lang.id === item.data.languageId
                     })[0],
                     download: {
@@ -186,7 +186,7 @@ function DRTranslationGrid(props) {
         return function cleanUp() {
             abortController.abort();
         }
-    }, [projectId, projectInfo]);
+    }, [projectId, projectInfo, release]);
 
     useEffect(() => {
         const abortController = new AbortController();

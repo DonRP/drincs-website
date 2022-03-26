@@ -6,7 +6,7 @@ import TweetService from "services/TwitterService";
 
 function News() {
     const [tweetList, setTweetList] = useState([]);
-    const [userInfo, setUserInfo] = useState();
+    // const [userInfo, setUserInfo] = useState();
     const userId = "1402755743540039684"
 
     useEffect(() => {
