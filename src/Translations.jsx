@@ -4,6 +4,11 @@ import * as React from 'react';
 
 
 function Translations() {
+    const projectsId = [
+        "461654",
+        "492487",
+    ]
+
     return (
         <>
             <h2>Altri GIochi</h2>
@@ -16,12 +21,11 @@ function Translations() {
                 pt={3}
                 mb={3}
             >
-                <Grid item  >
-                    <DRTranslationGrid />
-                </Grid>
-                <Grid item  >
-                    <DRTranslationGrid />
-                </Grid>
+                {projectsId.map((item, index) =>
+                    <Grid item  >
+                        <DRTranslationGrid projectId={item} />
+                    </Grid>
+                )}
             </Grid>
         </>
     );

@@ -1,33 +1,38 @@
-import { Avatar, AvatarGroup, Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Typography } from '@mui/material';
+import { ExpandMore } from '@mui/icons-material';
+import { Card, CardActionArea, CardActions, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
 import * as React from 'react';
-import ReactCountryFlag from 'react-country-flag';
+import { useEffect, useState } from "react";
+import Flag from 'react-flagkit';
+import CrowdinService from 'services/CrowdinService';
 
 const columns = [
     {
-        field: 'fleg',
+        field: 'targetLanguages',
         headerName: 'Lingua',
         width: 150,
         renderCell: (params) => (
             <strong>
-                <ReactCountryFlag
-                    countryCode="IT"
-                    svg
-                    style={{
-                        width: '3em',
-                        height: '2em',
-                        marginRight: 16,
-                    }}
-                    title="IT"
-                />
-                Italian
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={2}
+                >  <Grid item xs={6}>
+                        <Flag country={params.value?.twoLettersCode.toUpperCase()} size={50} alt={params.value?.name} />
+                    </Grid>
+                    <Grid item xs={6}>
+                        {params.value?.name}
+                    </Grid>
+                </Grid>
             </strong>
         ),
     },
     {
-        field: 'tra',
+        field: 'translated',
         headerName: 'Tradotto',
         width: 150,
         renderCell: (params) => (
@@ -53,7 +58,7 @@ const columns = [
         ),
     },
     {
-        field: 'pro',
+        field: 'approved',
         headerName: 'Approvato',
         width: 150,
         renderCell: (params) => (
@@ -78,20 +83,20 @@ const columns = [
             </Box>
         ),
     },
-    {
-        field: 'user',
-        headerName: 'Utenti',
-        width: 150,
-        renderCell: (params) => (
-            <AvatarGroup max={2}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-                <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-                <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-                <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-            </AvatarGroup>
-        ),
-    },
+    // {
+    //     field: 'users',
+    //     headerName: 'Utenti',
+    //     width: 150,
+    //     renderCell: (params) => (
+    //         <AvatarGroup max={2}>
+    //             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+    //             <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+    //             <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+    //             <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
+    //             <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+    //         </AvatarGroup>
+    //     ),
+    // },
     {
         field: 'download',
         headerName: 'Download',
@@ -112,42 +117,103 @@ const columns = [
     },
 ];
 
-const rows = [
-    {
-        id: 1,
-        download: 1,
-        pro: 0.4,
-    },
-    {
-        id: 2,
-        download: 1,
-        pro: 43,
-    },
-    {
-        id: 3,
-        download: 1,
-        pro: 65,
-    },
-];
-
 function DRTranslationGrid(props) {
+    const projectId = props.projectId
+    const gitRepo = props.gitRepo
+    const [projectInfo, setProjectInfo] = useState({});
+    const [languages, setLanguages] = useState([]);
+    const [release, setRelease] = useState([]);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+        const crowdinService = new CrowdinService();
+        crowdinService.getProject(projectId, abortController).then(res => {
+            if (abortController.signal.aborted) {
+                return;
+            }
+            setProjectInfo(res?.data)
+        }).catch(err => {
+            console.log(err)
+        })
+
+        return function cleanUp() {
+            abortController.abort();
+        }
+    }, [projectId]);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+        const crowdinService = new CrowdinService();
+
+        crowdinService.getLanguages(projectId, abortController).then(res => {
+            if (abortController.signal.aborted) {
+                return;
+            }
+            setLanguages(res?.data?.map((item, index) => {
+                return {
+                    id: index,
+                    translated: item.data.phrases.translated / item.data.phrases.total * 100,
+                    approved: item.data.phrases.approved / item.data.phrases.total * 100,
+                    // https://www.iban.com/country-codes
+                    targetLanguages: projectInfo.targetLanguages.filter((lang) => {
+                        if (lang.twoLettersCode === "ja") {
+                            lang.twoLettersCode = "jp"
+                        }
+                        if (lang.twoLettersCode === "zh") {
+                            lang.twoLettersCode = "cn"
+                            lang.name = "Chinese"
+                        }
+                        if (lang.twoLettersCode === "el") {
+                            lang.twoLettersCode = "gr"
+                        }
+                        return lang.id === item.data.languageId
+                    })[0],
+                }
+            }))
+        }).catch(err => {
+            console.log(err)
+        })
+
+        return function cleanUp() {
+            abortController.abort();
+        }
+    }, [projectId, projectInfo]);
+
+    const [expanded, setExpanded] = React.useState(false);
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
 
     return (
-        <Card elevation={24} >
+        <Card elevation={24} sx={{ maxWidth: 900 }}>
             <CardHeader
-                title="A Family Venture"
+                title={projectInfo?.name}
             // subheader="September 14, 2016"
             />
-            <CardActionArea sx={{ maxWidth: 900, maxHeight: 900 }}>
+            <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
                 <CardMedia
                     component="img"
-                    image="https://crowdin-static.downloads.crowdin.com/images/project-logo/461654/small/dadc51724eb59c149fb565002a2c3882363.jpg"
+                    image={projectInfo?.logo}
                     alt="Paella dish"
                 />
             </CardActionArea>
-
+            <CardActions disableSpacing>
+                <ExpandMore
+                    expand={expanded}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                >
+                    <ExpandMore />
+                </ExpandMore>
+            </CardActions>
+            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                <Typography paragraph>
+                    <div dangerouslySetInnerHTML={{ __html: projectInfo?.description }} />
+                </Typography>
+            </Collapse>
             <div style={{ height: 300, width: '100%' }}>
-                <DataGrid rows={rows} columns={columns} />
+                <DataGrid rows={languages} columns={columns} />
             </div>
         </Card>
     );
