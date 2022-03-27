@@ -1,4 +1,4 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b53106bb-5235-4cc6-890e-632c7b586319/deploy-status)](https://app.netlify.com/sites/drincs-web/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b53106bb-5235-4cc6-890e-632c7b586319/deploy-status)](https://app.netlify.com/sites/drincs-website/deploys)
 
 # Getting Started with Create React App
 
