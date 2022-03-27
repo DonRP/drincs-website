@@ -26,7 +26,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "nvm install node && nvm ls && npm install && npm run build && firebase deploy --only hosting"
+    "deploy": "nvm install node && nvm ls && npm install && npm run build && firebase deploy --only hosting",
+    "build:staging": "env-cmd -f .env.staging react-scripts build"
   },
   "eslintConfig": {
     "extends": [
