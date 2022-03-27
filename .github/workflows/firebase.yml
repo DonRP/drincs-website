@@ -48,9 +48,10 @@ jobs:
         with:
           name: build
           path: build
-      - name: Depoy to Firebase
-        uses: FirebaseExtended/action-hosting-deploy@v0
+      # https://github.com/FirebaseExtended/action-hosting-deploy
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DRINCS_WEBSITE }}'
+          expires: 30d
           projectId: drincs-website
