@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b53106bb-5235-4cc6-890e-632c7b586319/deploy-status)](https://app.netlify.com/sites/drincs-web/deploys)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
