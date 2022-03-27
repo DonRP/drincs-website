@@ -25,9 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "nvm install node && nvm ls && npm install && npm run build && firebase deploy --only hosting",
-    "build:staging": "env-cmd -f .env.staging react-scripts build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -46,5 +44,17 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "[![Netlify Status](https://api.netlify.com/api/v1/badges/b53106bb-5235-4cc6-890e-632c7b586319/deploy-status)](https://app.netlify.com/sites/drincs-website/deploys)",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonRP/website.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonRP/website/issues"
+  },
+  "homepage": "https://github.com/DonRP/website#readme"
 }
