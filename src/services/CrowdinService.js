@@ -3,7 +3,6 @@ import AuthService from "./AuthService";
 // https://support.crowdin.com/api/v2/
 class CrowdinService {
     url = "https://api.crowdin.com/api/v2/";
-    nameToken = "Crowdin";
 
     authService = new AuthService();
     showError(body) {
@@ -24,7 +23,7 @@ class CrowdinService {
         if (!projectId) {
             return null
         }
-        return this.authService.fetch(this.url + `projects/${projectId}`, this.nameToken, { signal: abortController.signal })
+        return this.authService.fetch(this.url + `projects/${projectId}`, process.env.REACT_APP_API_KEY_CROWDIN, { signal: abortController.signal })
             .then(response => {
                 return response;
             })
@@ -39,7 +38,7 @@ class CrowdinService {
         if (!projectId) {
             return null
         }
-        return this.authService.fetch(this.url + `projects/${projectId}/languages/progress`, this.nameToken, { signal: abortController.signal })
+        return this.authService.fetch(this.url + `projects/${projectId}/languages/progress`, process.env.REACT_APP_API_KEY_CROWDIN, { signal: abortController.signal })
             .then(response => {
                 return response;
             })
