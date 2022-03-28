@@ -175,6 +175,7 @@ function DRTranslationGrid(props) {
                     version: item.tag_name.split('/')[1],
                     language: item.tag_name.split('/')[0],
                     download_url: item.assets[0].browser_download_url,
+                    date: new Date(item.published_at),
                 }
             }))
         }).catch(err => {
@@ -217,7 +218,9 @@ function DRTranslationGrid(props) {
             data?.forEach((item, index) => {
                 releases?.forEach((release) => {
                     if (item?.targetLanguages.name === release.language) {
-                        data[index].release = release
+                        if (!data[index].release || data[index].release.date < release.date) {
+                            data[index].release = release
+                        }
                     }
                 })
             })
