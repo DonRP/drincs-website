@@ -122,8 +122,9 @@ const columns = [
 function DRTranslationGrid(props) {
     const projectId = props.projectId
     const gitRepo = props.gitRepo
-    const [projectInfo, setProjectInfo] = useState({});
+    const [projectInfo, setProjectInfo] = useState();
     const [languages, setLanguages] = useState([]);
+    const [data, setData] = useState([]);
     const [release, setRelease] = useState([]);
     const test = null
 
@@ -152,13 +153,25 @@ function DRTranslationGrid(props) {
             if (abortController.signal.aborted) {
                 return;
             }
-            setLanguages(res?.data?.map((item, index) => {
+            setLanguages(res?.data)
+        }).catch(err => {
+            console.log(err)
+        })
+
+        return function cleanUp() {
+            abortController.abort();
+        }
+    }, [projectId]);
+
+    useEffect(() => {
+        if (projectInfo && languages && languages.length > 0)
+            setData(languages?.map((item, index) => {
                 return {
                     id: index,
                     translated: item.data.phrases.translated / item.data.phrases.total * 100,
                     approved: item.data.phrases.approved / item.data.phrases.total * 100,
                     // https://www.iban.com/country-codes
-                    targetLanguages: projectInfo.targetLanguages.filter((lang) => {
+                    targetLanguages: projectInfo?.targetLanguages.filter((lang) => {
                         if (lang.twoLettersCode === "ja") {
                             lang.twoLettersCode = "jp"
                         }
@@ -173,20 +186,15 @@ function DRTranslationGrid(props) {
                         return lang.id === item.data.languageId
                     })[0],
                     download: {
-                        version: release.find((item) => {
+                        version: release?.find((item) => {
                             return test === item.language
                         })
                     }
                 }
             }))
-        }).catch(err => {
-            console.log(err)
-        })
+    }, [languages, projectInfo, release]);
 
-        return function cleanUp() {
-            abortController.abort();
-        }
-    }, [projectId, projectInfo, release]);
+
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -244,7 +252,7 @@ function DRTranslationGrid(props) {
                 </Typography>
             </Collapse>
             <div style={{ height: 300, width: '100%' }}>
-                <DataGrid rows={languages} columns={columns} />
+                <DataGrid rows={data} columns={columns} />
             </div>
         </Card>
     );
