@@ -99,21 +99,22 @@ const columns = [
     //     ),
     // },
     {
-        field: 'download',
+        field: 'release',
         headerName: 'Download',
         width: 150,
         renderCell: (params) => (
             <strong>
-                { }
-
-                <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    style={{ marginLeft: 16 }}
-                >
-                    Open
-                </Button>
+                {params.value &&
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        style={{ marginLeft: 16 }}
+                        target="_blank" href={params.value?.download_url}
+                    >
+                        {params.value?.version}
+                    </Button>
+                }
             </strong>
         ),
     },
@@ -125,8 +126,7 @@ function DRTranslationGrid(props) {
     const [projectInfo, setProjectInfo] = useState();
     const [languages, setLanguages] = useState([]);
     const [data, setData] = useState([]);
-    const [release, setRelease] = useState([]);
-    const test = null
+    const [releases, setRelease] = useState([]);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -164,39 +164,6 @@ function DRTranslationGrid(props) {
     }, [projectId]);
 
     useEffect(() => {
-        if (projectInfo && languages && languages.length > 0)
-            setData(languages?.map((item, index) => {
-                return {
-                    id: index,
-                    translated: item.data.phrases.translated / item.data.phrases.total * 100,
-                    approved: item.data.phrases.approved / item.data.phrases.total * 100,
-                    // https://www.iban.com/country-codes
-                    targetLanguages: projectInfo?.targetLanguages.filter((lang) => {
-                        if (lang.twoLettersCode === "ja") {
-                            lang.twoLettersCode = "jp"
-                        }
-                        if (lang.twoLettersCode === "zh") {
-                            lang.twoLettersCode = "cn"
-                            lang.name = "Chinese"
-                        }
-                        if (lang.twoLettersCode === "el") {
-                            lang.twoLettersCode = "gr"
-                        }
-                        // test = lang.name
-                        return lang.id === item.data.languageId
-                    })[0],
-                    download: {
-                        version: release?.find((item) => {
-                            return test === item.language
-                        })
-                    }
-                }
-            }))
-    }, [languages, projectInfo, release]);
-
-
-
-    useEffect(() => {
         const abortController = new AbortController();
         const gitHubService = new GitHubService();
         gitHubService.getReleases(gitRepo, abortController).then(res => {
@@ -219,10 +186,49 @@ function DRTranslationGrid(props) {
         }
     }, [gitRepo]);
 
+    useEffect(() => {
+        if (projectInfo && languages && languages.length > 0)
+            setData(languages?.map((item, index) => {
+                return {
+                    id: index,
+                    translated: item.data.phrases.translated / item.data.phrases.total * 100,
+                    approved: item.data.phrases.approved / item.data.phrases.total * 100,
+                    // https://www.iban.com/country-codes
+                    targetLanguages: projectInfo?.targetLanguages.filter((lang) => {
+                        if (lang.twoLettersCode === "ja") {
+                            lang.twoLettersCode = "jp"
+                        }
+                        if (lang.twoLettersCode === "zh") {
+                            lang.twoLettersCode = "cn"
+                            lang.name = "Chinese"
+                        }
+                        if (lang.twoLettersCode === "el") {
+                            lang.twoLettersCode = "gr"
+                        }
+                        return lang.id === item.data.languageId
+                    })[0],
+                    release: null
+                }
+            }))
+    }, [languages, projectInfo, releases]);
+
+    useEffect(() => {
+        if (data && releases && data.length > 0 && releases.length > 0) {
+            data?.forEach((item, index) => {
+                releases?.forEach((release) => {
+                    if (item?.targetLanguages.name === release.language) {
+                        data[index].release = release
+                    }
+                })
+            })
+        }
+    }, [data, releases]);
+
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
     return (
         <Card elevation={24} sx={{ maxWidth: 900 }}>
             <CardHeader
