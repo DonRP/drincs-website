@@ -1,4 +1,3 @@
-import { LISTA_TOKEN } from "shared/DefaultValues"
 
 export default class AuthService {
     // Initializing important variables
@@ -16,22 +15,18 @@ export default class AuthService {
         localStorage.setItem('id_token', idToken)
     }
 
-    getToken(nameToken) {
-        return LISTA_TOKEN.find(element => element.nameToken === nameToken)?.token;
-    }
-
-    fetch(url, nameToken, options) {
+    fetch(url, token, options) {
         // performs api calls sending the required authentication headers
         const headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
 
-        if (nameToken) {
+        if (token) {
             // Setting Authorization header
             // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
             if (this.loggedIn()) {
-                headers['Authorization'] = 'Bearer ' + this.getToken(nameToken)
+                headers['Authorization'] = 'Bearer ' + token
             }
         }
 

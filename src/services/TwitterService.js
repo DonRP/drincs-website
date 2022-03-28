@@ -3,7 +3,6 @@ import AuthService from "./AuthService";
 // https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/1fd23117345cd1dc3e75c7d69efae994e929c279/Tweet-Lookup/get_tweets_with_bearer_token.js
 class TweetService {
     url = "https://api.twitter.com/2/";
-    nameToken = "Twitter";
 
     authService = new AuthService();
     showError(body) {
@@ -24,7 +23,7 @@ class TweetService {
         if (!userId) {
             return null
         }
-        return this.authService.fetch(this.url + `users/${userId}`, this.nameToken, { signal: abortController.signal })
+        return this.authService.fetch(this.url + `users/${userId}`, process.env.REACT_APP_API_KEY_TWITTER, { signal: abortController.signal })
             .then(response => {
                 return response;
             })
@@ -39,7 +38,7 @@ class TweetService {
         if (!userId) {
             return null
         }
-        return this.authService.fetch(this.url + `users/${userId}/tweets?expansions=attachments.media_keys&tweet.fields=created_at,entities`, this.nameToken, { signal: abortController.signal })
+        return this.authService.fetch(this.url + `users/${userId}/tweets?expansions=attachments.media_keys&tweet.fields=created_at,entities`, process.env.REACT_APP_API_KEY_TWITTER, { signal: abortController.signal })
             .then(response => {
                 return response;
             })

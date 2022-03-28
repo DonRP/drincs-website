@@ -52,6 +52,5 @@ jobs:
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DRINCS_WEBSITE }}'
-          channelId: preprod
+          expires: 30d
           projectId: drincs-website
-          target: test-drincs-wbsite

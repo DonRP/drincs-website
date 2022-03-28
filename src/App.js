@@ -11,11 +11,11 @@ import Translations from "Translations";
 
 const routes = [
     { title: "about", path: "/", element: <About /> },
-    { title: "news", path: "news", element: <News /> },
-    { title: "download", path: "download", element: <Download /> },
-    { title: "translations", path: "translations", element: <Translations /> },
+    { title: "news", path: "/news", element: <News /> },
+    { title: "download", path: "/download", element: <Download /> },
+    { title: "translations", path: "/translations", element: <Translations /> },
 ];
-const supportRoute = { title: "support", path: "support", element: <Support /> }
+const supportRoute = { title: "support", path: "/support", element: <Support /> }
 function App() {
     return (
         <ErrorBoundary>

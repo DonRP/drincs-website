@@ -99,21 +99,22 @@ const columns = [
     //     ),
     // },
     {
-        field: 'download',
+        field: 'release',
         headerName: 'Download',
         width: 150,
         renderCell: (params) => (
             <strong>
-                { }
-
-                <Button
-                    variant="contained"
-                    color="primary"
-                    size="small"
-                    style={{ marginLeft: 16 }}
-                >
-                    Open
-                </Button>
+                {params.value &&
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        style={{ marginLeft: 16 }}
+                        target="_blank" href={params.value?.download_url}
+                    >
+                        {params.value?.version}
+                    </Button>
+                }
             </strong>
         ),
     },
@@ -122,10 +123,10 @@ const columns = [
 function DRTranslationGrid(props) {
     const projectId = props.projectId
     const gitRepo = props.gitRepo
-    const [projectInfo, setProjectInfo] = useState({});
+    const [projectInfo, setProjectInfo] = useState();
     const [languages, setLanguages] = useState([]);
-    const [release, setRelease] = useState([]);
-    const test = null
+    const [data, setData] = useState([]);
+    const [releases, setRelease] = useState([]);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -152,33 +153,7 @@ function DRTranslationGrid(props) {
             if (abortController.signal.aborted) {
                 return;
             }
-            setLanguages(res?.data?.map((item, index) => {
-                return {
-                    id: index,
-                    translated: item.data.phrases.translated / item.data.phrases.total * 100,
-                    approved: item.data.phrases.approved / item.data.phrases.total * 100,
-                    // https://www.iban.com/country-codes
-                    targetLanguages: projectInfo.targetLanguages.filter((lang) => {
-                        if (lang.twoLettersCode === "ja") {
-                            lang.twoLettersCode = "jp"
-                        }
-                        if (lang.twoLettersCode === "zh") {
-                            lang.twoLettersCode = "cn"
-                            lang.name = "Chinese"
-                        }
-                        if (lang.twoLettersCode === "el") {
-                            lang.twoLettersCode = "gr"
-                        }
-                        // test = lang.name
-                        return lang.id === item.data.languageId
-                    })[0],
-                    download: {
-                        version: release.find((item) => {
-                            return test === item.language
-                        })
-                    }
-                }
-            }))
+            setLanguages(res?.data)
         }).catch(err => {
             console.log(err)
         })
@@ -186,7 +161,7 @@ function DRTranslationGrid(props) {
         return function cleanUp() {
             abortController.abort();
         }
-    }, [projectId, projectInfo, release]);
+    }, [projectId]);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -200,6 +175,7 @@ function DRTranslationGrid(props) {
                     version: item.tag_name.split('/')[1],
                     language: item.tag_name.split('/')[0],
                     download_url: item.assets[0].browser_download_url,
+                    date: new Date(item.published_at),
                 }
             }))
         }).catch(err => {
@@ -211,10 +187,51 @@ function DRTranslationGrid(props) {
         }
     }, [gitRepo]);
 
+    useEffect(() => {
+        if (projectInfo && languages && languages.length > 0)
+            setData(languages?.map((item, index) => {
+                return {
+                    id: index,
+                    translated: item.data.phrases.translated / item.data.phrases.total * 100,
+                    approved: item.data.phrases.approved / item.data.phrases.total * 100,
+                    // https://www.iban.com/country-codes
+                    targetLanguages: projectInfo?.targetLanguages.filter((lang) => {
+                        if (lang.twoLettersCode === "ja") {
+                            lang.twoLettersCode = "jp"
+                        }
+                        if (lang.twoLettersCode === "zh") {
+                            lang.twoLettersCode = "cn"
+                            lang.name = "Chinese"
+                        }
+                        if (lang.twoLettersCode === "el") {
+                            lang.twoLettersCode = "gr"
+                        }
+                        return lang.id === item.data.languageId
+                    })[0],
+                    release: null
+                }
+            }))
+    }, [languages, projectInfo, releases]);
+
+    useEffect(() => {
+        if (data && releases && data.length > 0 && releases.length > 0) {
+            data?.forEach((item, index) => {
+                releases?.forEach((release) => {
+                    if (item?.targetLanguages.name === release.language) {
+                        if (!data[index].release || data[index].release.date < release.date) {
+                            data[index].release = release
+                        }
+                    }
+                })
+            })
+        }
+    }, [data, releases]);
+
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
     return (
         <Card elevation={24} sx={{ maxWidth: 900 }}>
             <CardHeader
@@ -244,7 +261,7 @@ function DRTranslationGrid(props) {
                 </Typography>
             </Collapse>
             <div style={{ height: 300, width: '100%' }}>
-                <DataGrid rows={languages} columns={columns} />
+                <DataGrid rows={data} columns={columns} />
             </div>
         </Card>
     );
