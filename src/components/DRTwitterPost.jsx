@@ -1,7 +1,6 @@
-import { Button, CardActionArea, Stack } from '@mui/material';
+import { CardActionArea } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import { red } from '@mui/material/colors';
@@ -16,7 +15,7 @@ function DRTwitterPost(props) {
                 avatar={
                     <IconButton color="primary" aria-label="upload picture" component="span">
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            <img src="https://pbs.twimg.com/profile_images/1402758075912687616/xG7Ud8g1_200x200.jpg" width={50} height={50} alt="Icon" />
+                            <img src="https://pbs.twimg.com/profile_images/1457725055178260480/_GOnheh__200x200.jpg" width={50} height={50} alt="Icon" />
                         </Avatar>
                     </IconButton>
                 }
@@ -31,7 +30,7 @@ function DRTwitterPost(props) {
             <CardActionArea sx={{ maxWidth: 900, maxHeight: 900 }}>
                 <CardMedia
                     component="img"
-                    image="https://pbs.twimg.com/media/FODr029WYA07i7k?format=webp&name=medium"
+                    image="https://pbs.twimg.com/media/FO7RV5KXEAIISGl?format=webp&name=medium"
                     alt="Paella dish"
                 />
             </CardActionArea>
@@ -39,26 +38,11 @@ function DRTwitterPost(props) {
                 <CardActionArea>
                     <CardMedia
                         component="img"
-                        image="https://pbs.twimg.com/media/FODr029WYA07i7k?format=webp&name=small"
+                        image="https://pbs.twimg.com/media/FO7RV5KXEAIISGl?format=webp&name=small"
                         alt="Paella dish"
                     />
                 </CardActionArea>
             </Card>
-            <CardActions disableSpacing>
-                <Stack direction="row" spacing={2}>
-                    <Button variant="outlined" startIcon={
-
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Patreon_logomark.svg/1024px-Patreon_logomark.svg.png" width={24} height={24} alt="Logo" />
-
-                    }>
-
-                        Open Patreon
-                    </Button>
-                    <Button variant="contained" >
-                        Login
-                    </Button>
-                </Stack>
-            </CardActions>
         </Card>
     );
 }
