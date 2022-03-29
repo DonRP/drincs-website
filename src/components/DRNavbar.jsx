@@ -49,7 +49,7 @@ function DRNavbar(props) {
                                     </Button>
                                 </Link>
                             ))}
-                            <Link to={supportPage.path}>
+                            {supportPage && <Link to={supportPage.path}>
                                 <Button
                                     key={supportPage.title}
                                     endIcon={<Payment />}
@@ -58,7 +58,7 @@ function DRNavbar(props) {
                                 >
                                     {supportPage.title}
                                 </Button>
-                            </Link>
+                            </Link>}
                         </Grid>
                     </Box>
                     {/* Mobile */}
@@ -110,7 +110,7 @@ function DRNavbar(props) {
                     >
                         LOGO
                     </Typography>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                    {supportPage && <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <Link to={supportPage.path}>
                             <Button
                                 key={supportPage.title}
@@ -119,7 +119,7 @@ function DRNavbar(props) {
                                 <Payment />
                             </Button>
                         </Link>
-                    </Box>
+                    </Box>}
                 </Toolbar>
             </Container>
         </AppBar >
