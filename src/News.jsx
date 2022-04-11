@@ -53,9 +53,9 @@ function News() {
                             screenName={'DR_incs'}
                         />
                     </Grid>
-                    {tweetList?.map((item, index) =>
+                    {tweetList?.map((item) =>
                         <Grid item  >
-                            <DRTwitterPost />
+                            <DRTwitterPost twitterPost={item} />
                         </Grid>
                     )}
                 </Grid >

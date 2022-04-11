@@ -1,4 +1,4 @@
-import { Button, CardActionArea, Stack } from '@mui/material';
+import { Button, CardActionArea, Grid, Stack } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -9,6 +9,31 @@ import IconButton from '@mui/material/IconButton';
 import * as React from 'react';
 
 function DRTwitterPost(props) {
+    const twitterPost = props.twitterPost
+    const [media, setMedia] = React.useState([]);
+    const [urls, setUrls] = React.useState([]);
+    const [currentMedia, setCurrentMedia] = React.useState();
+    const [title, setTitle] = React.useState();
+    const [date, setDate] = React.useState();
+
+    const handleMediaIcon = (item) => {
+        setCurrentMedia(item)
+    };
+
+
+    React.useEffect(() => {
+        setMedia(twitterPost?.extended_entities?.media)
+        setUrls(twitterPost?.entities?.urls)
+        setTitle(twitterPost?.full_text?.split("http")[0])
+        var date = new Date(twitterPost?.created_at)
+        setDate((date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()))
+    }, [twitterPost]);
+
+    React.useEffect(() => {
+        if (media?.length > 0) {
+            setCurrentMedia(media[0])
+        }
+    }, [media]);
 
     return (
         <Card elevation={24} >
@@ -25,25 +50,46 @@ function DRTwitterPost(props) {
                         <img src="https://upload.wikimedia.org/wikipedia/it/0/09/Twitter_bird_logo.png" width={30} height={24} alt="Logo" />
                     </IconButton>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="September 14, 2016"
+                title={title}
+                subheader={date}
             />
-            <CardActionArea sx={{ maxWidth: 900, maxHeight: 900 }}>
+            {currentMedia &&
                 <CardMedia
+                    sx={{ maxWidth: 900, maxHeight: 900 }}
                     component="img"
-                    image="https://pbs.twimg.com/media/FODr029WYA07i7k?format=webp&name=medium"
+                    image={currentMedia.media_url_https?.split(".jpg")[0] + "?format=webp&name=medium"}
                     alt="Paella dish"
                 />
-            </CardActionArea>
-            <Card sx={{ maxWidth: 130, maxHeight: 90 }}>
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        image="https://pbs.twimg.com/media/FODr029WYA07i7k?format=webp&name=small"
-                        alt="Paella dish"
-                    />
-                </CardActionArea>
-            </Card>
+            }
+            {media?.length > 1 &&
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    spacing={1}
+                >
+                    {
+                        media?.map((item) =>
+                            <Grid item  >
+                                <Card sx={{ maxWidth: 130, maxHeight: 90 }}>
+                                    <CardActionArea
+                                        onClick={() => {
+                                            handleMediaIcon(item)
+                                        }}
+                                    >
+                                        <CardMedia
+                                            component="img"
+                                            image={item.media_url_https?.split(".jpg")[0] + "?format=webp&name=small"}
+                                            alt="Paella dish"
+                                        />
+                                    </CardActionArea>
+                                </Card>
+                            </Grid >
+                        )
+                    }
+                </Grid>
+            }
             <CardActions disableSpacing>
                 <Stack direction="row" spacing={2}>
                     <Button variant="outlined" startIcon={
@@ -54,9 +100,9 @@ function DRTwitterPost(props) {
 
                         Open Patreon
                     </Button>
-                    <Button variant="contained" >
+                    {/* <Button variant="contained" >
                         Login
-                    </Button>
+                    </Button> */}
                 </Stack>
             </CardActions>
         </Card>

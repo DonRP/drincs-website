@@ -38,7 +38,7 @@ class TweetService {
         if (!userId) {
             return null
         }
-        return this.authService.fetch(this.url + `users/${userId}/tweets?expansions=attachments.media_keys&tweet.fields=created_at,entities`, process.env.REACT_APP_API_KEY_TWITTER, { signal: abortController.signal })
+        return this.authService.fetch('https://v1.nocodeapi.com/drincs/twitter/xzgqNgMpxDHWebzY?type=user_timeline', null, { signal: abortController.signal })
             .then(response => {
                 return response;
             })
