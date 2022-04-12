@@ -39,14 +39,22 @@ function DRTwitterPost(props) {
         <Card elevation={24} >
             <CardHeader
                 avatar={
-                    <IconButton color="primary" aria-label="upload picture" component="span">
+                    <IconButton color="primary" aria-label="upload picture" component="span"
+                        onClick={() => {
+                            window.open("https://twitter.com/intent/follow?original_referer=http%3A%2F%2Flocalhost%3A3000%2F&ref_src=twsrc%5Etfw%7Ctwcamp%5Ebuttonembed%7Ctwterm%5Efollow%7Ctwgr%5EDR_incs&screen_name=DR_incs")
+                        }}
+                    >
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
                             <img src="https://pbs.twimg.com/profile_images/1402758075912687616/xG7Ud8g1_200x200.jpg" width={50} height={50} alt="Icon" />
                         </Avatar>
                     </IconButton>
                 }
                 action={
-                    <IconButton aria-label="var sul twit">
+                    <IconButton aria-label="var sul twit"
+                        onClick={() => {
+                            window.open("https://twitter.com/DR_incs/status/" + twitterPost?.id_str)
+                        }}
+                    >
                         <img src="https://upload.wikimedia.org/wikipedia/it/0/09/Twitter_bird_logo.png" width={30} height={24} alt="Logo" />
                     </IconButton>
                 }
@@ -90,21 +98,26 @@ function DRTwitterPost(props) {
                     }
                 </Grid>
             }
-            <CardActions disableSpacing>
-                <Stack direction="row" spacing={2}>
-                    <Button variant="outlined" startIcon={
-
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Patreon_logomark.svg/1024px-Patreon_logomark.svg.png" width={24} height={24} alt="Logo" />
-
-                    }>
-
-                        Open Patreon
-                    </Button>
-                    {/* <Button variant="contained" >
+            {urls.length > 0 &&
+                <CardActions disableSpacing>
+                    <Stack direction="row" spacing={2}>
+                        <Button
+                            variant="outlined"
+                            startIcon={
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Patreon_logomark.svg/1024px-Patreon_logomark.svg.png" width={24} height={24} alt="Logo" />
+                            }
+                            onClick={() => {
+                                window.open(urls[0].url)
+                            }}
+                        >
+                            Open Patreon
+                        </Button>
+                        {/* <Button variant="contained" >
                         Login
                     </Button> */}
-                </Stack>
-            </CardActions>
+                    </Stack>
+                </CardActions>
+            }
         </Card>
     );
 }
