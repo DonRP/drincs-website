@@ -45,7 +45,7 @@ function DRTwitterPost(props) {
                         }}
                     >
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                            <img src="https://pbs.twimg.com/profile_images/1402758075912687616/xG7Ud8g1_200x200.jpg" width={50} height={50} alt="Icon" />
+                            <img src="https://avatars.githubusercontent.com/u/67595890?s=400&u=fb2c3c0e4d6846e73bfdbbde76c52ed06f14c9ef&v=4" width={50} height={50} alt="Icon" />
                         </Avatar>
                     </IconButton>
                 }
