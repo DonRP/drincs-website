@@ -4,27 +4,39 @@ import { useEffect, useState } from "react";
 import { TwitterFollowButton } from "react-twitter-embed";
 import TweetService from "services/TwitterService";
 
+const urlNoApiCode = [
+    "https://v1.nocodeapi.com/drincs/twitter/xzgqNgMpxDHWebzY",
+    "https://v1.nocodeapi.com/test536345/twitter/aiyPnsUXqMkyGXgb",
+    "https://v1.nocodeapi.com/test435345/twitter/jyfdshSKzfwjXoos",
+    "https://v1.nocodeapi.com/test435435345/twitter/tpyJIswMXJsvbTCt",
+    "https://v1.nocodeapi.com/test43545345/twitter/jLutCbnyHTFjEMEt",
+]
+
 function News() {
     const [tweetList, setTweetList] = useState([]);
     // const [userInfo, setUserInfo] = useState();
-    const userId = "1402755743540039684"
+    // const userId = "1402755743540039684"
 
     useEffect(() => {
         const abortController = new AbortController();
         const tweetService = new TweetService();
-        tweetService.getTweets(userId, abortController).then(res => {
-            if (abortController.signal.aborted) {
-                return;
-            }
-            setTweetList(res)
-        }).catch(err => {
-            console.log(err)
-        })
-
+        urlNoApiCode.forEach(element => {
+            tweetService.getTweets(element + "?type=user_timeline", abortController).then(res => {
+                if (abortController.signal.aborted) {
+                    return;
+                }
+                if (res) {
+                    setTweetList(res)
+                    return
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        });
         return function cleanUp() {
             abortController.abort();
         }
-    }, [userId]);
+    }, []);
 
     return (
         <Grid

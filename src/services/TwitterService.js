@@ -34,11 +34,8 @@ class TweetService {
             });
     }
 
-    async getTweets(userId, abortController) {
-        if (!userId) {
-            return null
-        }
-        return this.authService.fetch('https://v1.nocodeapi.com/drincs/twitter/xzgqNgMpxDHWebzY?type=user_timeline', null, { signal: abortController.signal })
+    async getTweets(nocodeapilink, abortController) {
+        return this.authService.fetch(nocodeapilink, null, { signal: abortController.signal })
             .then(response => {
                 return response;
             })
