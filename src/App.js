@@ -26,9 +26,9 @@ function App() {
                 <DRNavbar pages={routes} supportPage={supportRoute} extern_link={extern_link} injectFirst />
                 <Routes>
                     {(routes).map((route) => (
-                        <Route path={route.path} element={route.element} />
+                        <Route key={route.title} path={route.path} element={route.element} />
                     ))}
-                    <Route path={supportRoute.path} element={supportRoute.element} />
+                    <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
                 </Routes>
             </BrowserRouter>
         </ErrorBoundary>

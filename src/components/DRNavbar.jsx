@@ -39,7 +39,10 @@ function DRNavbar(props) {
                             alignItems="center"
                         >
                             {pages.map((page) => (
-                                <Link to={page.path}>
+                                <Link
+                                    to={page.path}
+                                    key={page.title + "_link"}
+                                >
                                     <Button
                                         key={page.title}
                                         onClick={handleCloseNavMenu}
@@ -60,7 +63,10 @@ function DRNavbar(props) {
                                     {page.title}
                                 </Button>
                             ))}
-                            <Link to={supportPage.path}>
+                            <Link
+                                to={supportPage.path}
+                                key={supportPage.title + "_link"}
+                            >
                                 <Button
                                     key={supportPage.title}
                                     endIcon={<Payment />}
@@ -103,7 +109,10 @@ function DRNavbar(props) {
                             }}
                         >
                             {pages.map((page) => (
-                                <Link to={page.path}>
+                                <Link
+                                    to={page.path}
+                                    key={page.title + "_link"}
+                                >
                                     <MenuItem
                                         key={page.title}
                                         onClick={handleCloseNavMenu}
@@ -137,7 +146,10 @@ function DRNavbar(props) {
                         LOGO
                     </Typography>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <Link to={supportPage.path}>
+                        <Link
+                            to={supportPage.path}
+                            key={supportPage.title + "_link"}
+                        >
                             <Button
                                 key={supportPage.title}
                                 variant="contained"
