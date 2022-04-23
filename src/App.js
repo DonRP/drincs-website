@@ -15,12 +15,15 @@ const routes = [
     { title: "download", path: "/download", element: <Download /> },
     { title: "translations", path: "/translations", element: <Translations /> },
 ];
+const extern_link = [
+    { title: "wiki", path: "https://github.com/DonRP/ABFD/wiki" },
+];
 const supportRoute = { title: "support", path: "/support", element: <Support /> }
 function App() {
     return (
         <ErrorBoundary>
             <BrowserRouter>
-                <DRNavbar pages={routes} supportPage={supportRoute} injectFirst />
+                <DRNavbar pages={routes} supportPage={supportRoute} extern_link={extern_link} injectFirst />
                 <Routes>
                     {(routes).map((route) => (
                         <Route path={route.path} element={route.element} />
