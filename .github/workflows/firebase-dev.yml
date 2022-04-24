@@ -27,6 +27,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: npm install and ci and build
+      env:
+        REACT_APP_API_KEY_CROWDIN: ${{ secrets.API_KEY_CROWDIN }}
+        REACT_APP_API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
       run: |
         npm install
         npm run build
@@ -49,9 +52,6 @@ jobs:
           path: build
       # https://github.com/FirebaseExtended/action-hosting-deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
-        env:
-          REACT_APP_API_KEY_CROWDIN: ${{ secrets.API_KEY_CROWDIN }}
-          REACT_APP_API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DRINCS_WEBSITE }}'
