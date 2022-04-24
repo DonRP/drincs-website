@@ -66,7 +66,6 @@ function DRTwitterPost(props) {
                     sx={{ maxWidth: 900, maxHeight: 900 }}
                     component="img"
                     image={currentMedia.media_url_https?.split(".jpg")[0] + "?format=webp&name=medium"}
-                    alt="Paella dish"
                 />
             }
             {media?.length > 1 &&
@@ -89,7 +88,6 @@ function DRTwitterPost(props) {
                                         <CardMedia
                                             component="img"
                                             image={item.media_url_https?.split(".jpg")[0] + "?format=webp&name=small"}
-                                            alt="Paella dish"
                                         />
                                     </CardActionArea>
                                 </Card>
