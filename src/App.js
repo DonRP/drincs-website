@@ -12,15 +12,16 @@ import Translations from "Translations";
 
 const routes = [
     { title: "about", path: "/", element: <About /> },
-    { title: "news", path: "/news", element: <News /> },
-    { title: "download", path: "/download", element: <Download /> },
-    { title: "translations", path: "/translations", element: <Translations /> },
-    { title: "bug/request", path: "/report", element: <Report /> },
+    { title: "🗞️news", path: "/news", element: <News /> },
+    { title: "⬇️download", path: "/download", element: <Download /> },
+    { title: "🌍translations", path: "/translations", element: <Translations /> },
+    { title: "🐞bug/request", path: "/report", element: <Report /> },
 ];
 const extern_link = [
-    { title: "wiki", path: "https://github.com/DonRP/ABFD/wiki" },
+    { title: "📖wiki", path: "https://github.com/DonRP/ABFD/wiki" },
+    { title: "💬discord", path: "https://discord.gg/HFfeJKR" },
 ];
-const supportRoute = { title: "support", path: "/support", element: <Support /> }
+const supportRoute = { title: "support🙏", path: "/support", element: <Support /> }
 function App() {
     return (
         <ErrorBoundary>

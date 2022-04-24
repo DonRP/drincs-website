@@ -1,6 +1,6 @@
 
 class AuthService {
-    async fetch(url, token, options) {
+    async fetch(url, token, options, tokenType = "Bearer") {
         // performs api calls sending the required authentication headers
         const headers = {
             'Accept': 'application/json',
@@ -10,7 +10,7 @@ class AuthService {
         if (token) {
             // Setting Authorization header
             // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-            headers['Authorization'] = 'Bearer ' + token
+            headers['Authorization'] = tokenType + ' ' + token
         }
 
         return fetch(url, {
