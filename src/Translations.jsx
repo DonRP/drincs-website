@@ -11,7 +11,6 @@ function Translations() {
 
     return (
         <>
-
             <Grid
                 container
                 direction="column"

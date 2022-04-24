@@ -242,7 +242,6 @@ function DRTranslationGrid(props) {
                 <CardMedia
                     component="img"
                     image={projectInfo?.logo}
-                    alt="Paella dish"
                 />
             </CardActionArea>
             <CardActions disableSpacing>
