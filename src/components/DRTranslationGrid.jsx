@@ -12,7 +12,7 @@ import GitHubService from 'services/GitHubService';
 const columns = [
     {
         field: 'targetLanguages',
-        headerName: 'Lingua',
+        headerName: 'Language',
         width: 150,
         renderCell: (params) => (
             <strong>
@@ -34,7 +34,7 @@ const columns = [
     },
     {
         field: 'translated',
-        headerName: 'Tradotto',
+        headerName: 'Translated',
         width: 150,
         renderCell: (params) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -60,7 +60,7 @@ const columns = [
     },
     {
         field: 'approved',
-        headerName: 'Approvato',
+        headerName: 'Approved',
         width: 150,
         renderCell: (params) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>

@@ -11,7 +11,7 @@ function Translations() {
 
     return (
         <>
-            <h2>Altri GIochi</h2>
+
             <Grid
                 container
                 direction="column"
@@ -21,6 +21,7 @@ function Translations() {
                 pt={3}
                 mb={3}
             >
+                <h2>Other Games</h2>
                 {projectsId.map((item, index) =>
                     <Grid item key={item.crowdin} >
                         <DRTranslationGrid projectId={item.crowdin} gitRepo={item.github} />

@@ -33,5 +33,36 @@ class GitHubService {
                 });
             });
     }
+
+    async createIssue(repo, title, body = "", labels = [], abortController) {
+        if (!repo) {
+            return null
+        }
+
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json;charset=utf-8');
+
+        const requestOptions = {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+                title,
+                body,
+                labels
+            })
+        };
+
+        const request = new Request(this.url + `${repo}/issues`, requestOptions);
+
+        return this.authService.fetch(request, process.env.REACT_APP_API_KEY_GITHUB, { signal: abortController.signal }, "token")
+            .then(response => {
+                return response;
+            })
+            .catch((res) => {
+                return res.response.json().then((body) => {
+                    this.showError(body)
+                });
+            });
+    }
 }
 export default GitHubService;
