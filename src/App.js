@@ -6,6 +6,7 @@ import Download from "Download";
 import ErrorBoundary from "errer_check/ErrorBoundary";
 import News from "News";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Report from "Report";
 import Support from "Support";
 import Translations from "Translations";
 
@@ -14,6 +15,7 @@ const routes = [
     { title: "news", path: "/news", element: <News /> },
     { title: "download", path: "/download", element: <Download /> },
     { title: "translations", path: "/translations", element: <Translations /> },
+    { title: "bug/request", path: "/report", element: <Report /> },
 ];
 const extern_link = [
     { title: "wiki", path: "https://github.com/DonRP/ABFD/wiki" },
