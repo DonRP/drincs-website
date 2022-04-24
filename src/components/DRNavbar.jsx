@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
 function DRNavbar(props) {
-    const { pages, supportPage = null } = props;
+    const { pages = [], supportPage = null, extern_link = [] } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 
     const handleOpenNavMenu = (event) => {
@@ -39,7 +39,10 @@ function DRNavbar(props) {
                             alignItems="center"
                         >
                             {pages.map((page) => (
-                                <Link to={page.path}>
+                                <Link
+                                    to={page.path}
+                                    key={page.title + "_link"}
+                                >
                                     <Button
                                         key={page.title}
                                         onClick={handleCloseNavMenu}
@@ -49,7 +52,21 @@ function DRNavbar(props) {
                                     </Button>
                                 </Link>
                             ))}
-                            <Link to={supportPage.path}>
+                            {extern_link.map((page) => (
+                                <Button
+                                    key={page.title}
+                                    onClick={() => {
+                                        window.open(page.path)
+                                    }}
+                                    sx={{ my: 2, color: 'white', display: 'block' }}
+                                >
+                                    {page.title}
+                                </Button>
+                            ))}
+                            <Link
+                                to={supportPage.path}
+                                key={supportPage.title + "_link"}
+                            >
                                 <Button
                                     key={supportPage.title}
                                     endIcon={<Payment />}
@@ -92,13 +109,31 @@ function DRNavbar(props) {
                             }}
                         >
                             {pages.map((page) => (
-                                <Link to={page.path}>
-                                    <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                                <Link
+                                    to={page.path}
+                                    key={page.title + "_link"}
+                                >
+                                    <MenuItem
+                                        key={page.title}
+                                        onClick={handleCloseNavMenu}
+                                    >
                                         <Typography textAlign="center">
                                             {page.title}
                                         </Typography>
                                     </MenuItem>
                                 </Link>
+                            ))}
+                            {extern_link.map((page) => (
+                                <MenuItem
+                                    key={page.title}
+                                    onClick={() => {
+                                        window.open(page.path)
+                                    }}
+                                >
+                                    <Typography textAlign="center">
+                                        {page.title}
+                                    </Typography>
+                                </MenuItem>
                             ))}
                         </Menu>
                     </Box>
@@ -111,7 +146,10 @@ function DRNavbar(props) {
                         LOGO
                     </Typography>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <Link to={supportPage.path}>
+                        <Link
+                            to={supportPage.path}
+                            key={supportPage.title + "_link"}
+                        >
                             <Button
                                 key={supportPage.title}
                                 variant="contained"

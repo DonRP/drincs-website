@@ -1,21 +1,6 @@
 
-export default class AuthService {
-    // Initializing important variables
-    constructor(domain) {
-        this.domain = domain || process.env.REACT_APP_APIUrl // API server domain
-        this.fetch = this.fetch.bind(this) // React binding stuff
-    }
-
-    loggedIn() {
-        return true
-    }
-
-    setToken(idToken) {
-        // Saves user token to localStorage
-        localStorage.setItem('id_token', idToken)
-    }
-
-    fetch(url, token, options) {
+class AuthService {
+    async fetch(url, token, options) {
         // performs api calls sending the required authentication headers
         const headers = {
             'Accept': 'application/json',
@@ -25,9 +10,7 @@ export default class AuthService {
         if (token) {
             // Setting Authorization header
             // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-            if (this.loggedIn()) {
-                headers['Authorization'] = 'Bearer ' + token
-            }
+            headers['Authorization'] = 'Bearer ' + token
         }
 
         return fetch(url, {
@@ -44,7 +27,6 @@ export default class AuthService {
             });
     }
 
-
     _checkStatus(response) {
         // raises an error in case response status is not a success
         if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
@@ -55,6 +37,5 @@ export default class AuthService {
             throw error
         }
     }
-
 }
-
+export default AuthService;

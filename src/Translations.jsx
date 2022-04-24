@@ -22,7 +22,7 @@ function Translations() {
                 mb={3}
             >
                 {projectsId.map((item, index) =>
-                    <Grid item  >
+                    <Grid item key={item.crowdin} >
                         <DRTranslationGrid projectId={item.crowdin} gitRepo={item.github} />
                     </Grid>
                 )}
