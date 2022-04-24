@@ -3,9 +3,9 @@
 import About from "About";
 import DRNavbar from "components/DRNavbar";
 import Download from "Download";
+import ErrorBoundary from "errer_check/ErrorBoundary";
 import News from "News";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ErrorBoundary from "shared/ErrorBoundary";
 import Support from "Support";
 import Translations from "Translations";
 
