@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, TextField } from "@mui/material";
+import { Button, DialogContentText, Grid } from "@mui/material";
 import axios from 'axios';
 import DRAutocomplete from "components/DRAutocomplete";
 import DRDialog from "components/DRDialog";
@@ -10,8 +10,9 @@ function Report() {
     const [openBugDialog, setOpenBugDialog] = useState(false);
     const [openRequestDialog, setOpenRequestDialog] = useState(false);
     const [bugItemToEdit, setBugItemToEdit] = useState();
-    const deviceOptions = ['Option 1', 'Option 2'];
-    const projectOptions = ['Option 1', 'Option 2'];
+    const [reuestItemToEdit, setRequestItemToEdit] = useState();
+    const deviceOptions = ['All Device', 'Windows', 'Linux', 'MacOS', 'Android', 'IOS'];
+    const projectOptions = ['A Big Family in Debit', 'Web Site'];
 
     function handleInputChangeGeneric(event, newVal, itemToEdit, setItemToEdit, id) {
         const target = event.target;
@@ -224,28 +225,82 @@ function Report() {
                 />
             </DRDialog>
             {/* Request Dialog */}
-            <Dialog open={openRequestDialog} onClose={handleClose}>
-                <DialogTitle>Feature request</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
-                    </DialogContentText>
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        label="Email Address"
-                        type="email"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Subscribe</Button>
-                </DialogActions>
-            </Dialog>
+            <DRDialog
+                open={openRequestDialog}
+                title="Request Dialog"
+                maxWidth={200}
+                actions={
+                    <>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={handleClose}>Send</Button>
+                    </>
+                }
+            >
+                <DialogContentText>
+                    If you want you can use GitHub (here you can upload multiple files)
+                </DialogContentText>
+                <DRAutocomplete
+                    id="project"
+                    label="Project"
+                    defaultValue={reuestItemToEdit?.project || projectOptions[0]}
+                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit, "project")}
+                    options={projectOptions}
+                />
+                <DRTextField
+                    id="nickname"
+                    label="Your nickname"
+                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    defaultValue={reuestItemToEdit?.nickname || ""}
+                />
+                <DRTextField
+                    id="title"
+                    label="Issues title*"
+                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    defaultValue={reuestItemToEdit?.title || ""}
+                />
+                <DRTextField
+                    id="description"
+                    label="Is your feature request related to a problem? Please describe.*"
+                    aria-label="A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]"
+                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    defaultValue={reuestItemToEdit?.description || ""}
+                    rows={3}
+                />
+                <DRTextField
+                    id="posibleSolution"
+                    label="Describe the solution you'd like"
+                    aria-label="A clear and concise description of what you want to happen."
+                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    defaultValue={reuestItemToEdit?.posibleSolution || ""}
+                    rows={3}
+                />
+                <DRTextField
+                    id="alternatives"
+                    label="Describe alternatives you've considered"
+                    aria-label="A clear and concise description of any alternative solutions or features you've considered."
+                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    defaultValue={reuestItemToEdit?.alternatives || ""}
+                    rows={3}
+                />
+                <DRAutocomplete
+                    id="device"
+                    label="Device"
+                    defaultValue={reuestItemToEdit?.device || deviceOptions[0]}
+                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit, "device")}
+                    options={deviceOptions}
+                />
+                <div>
+                    Screenshots: <input type="file" multiple accept="image/*,audio/*,video/*" onChange={onFileChange} />
+                </div>
+                <DRTextField
+                    id="additional"
+                    label="Additional context"
+                    aria-label="Add any other context about the problem here."
+                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    defaultValue={reuestItemToEdit?.additional || ""}
+                    rows={3}
+                />
+            </DRDialog>
         </>
     )
 }
