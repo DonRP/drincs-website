@@ -8,7 +8,7 @@ const columns = [
         field: 'device',
         headerName: 'Device',
         width: 150,
-        renderCell: (params) => (
+        renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 {params.value}
             </Box>
@@ -19,7 +19,7 @@ const columns = [
         headerName: 'Version',
         width: 70,
         height: 200,
-        renderCell: (params) => (
+        renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 {params.value}
             </Box>
@@ -29,7 +29,7 @@ const columns = [
         field: 'download',
         headerName: 'Download',
         width: 375,
-        renderCell: (params) => (
+        renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 <Grid
                     container
@@ -81,28 +81,50 @@ const columns = [
         ),
     },
 ];
+type IDownloadLink = {
+    mega: string,
+    mediafire: string,
+    sha: string,
+}
+type IDownloadGridRow = {
+    id: number,
+    device: string,
+    version: string,
+    download: IDownloadLink,
+}
+type IDRDownloadGridProps = {
+    title: string,
+    data: IDownloadGridRow[],
+    logoImage: string | null,
+    height: number,
+}
 
-function DRDownloadGrid(props) {
+function DRDownloadGrid(props: IDRDownloadGridProps) {
     const { title, data, logoImage, height = 350 } = props;
 
-    return (
-        <Card elevation={24} sx={{ maxWidth: 900, minWidth: 700 }}>
-            <CardHeader
-                title={title}
-            />
-            {logoImage && <CardMedia
-                component="img"
-                image={logoImage}
-            />}
-            <div style={{ height: height, width: '100%' }}>
-                <DataGrid
-                    rows={data}
-                    columns={columns}
-                    rowHeight={75}
+    try {
+        return (
+            <Card elevation={24} sx={{ maxWidth: 900, minWidth: 700 }}>
+                <CardHeader
+                    title={title}
                 />
-            </div>
-        </Card>
-    );
+                {logoImage && <CardMedia
+                    component="img"
+                    image={logoImage}
+                />}
+                <div style={{ height: height, width: '100%' }}>
+                    <DataGrid
+                        rows={data}
+                        columns={columns}
+                        rowHeight={75}
+                    />
+                </div>
+            </Card>
+        );
+    } catch (error) {
+        console.error(error)
+        return <div style={{ color: "red" }}>DRDownloadGrid error</div>
+    }
 }
 
 export default DRDownloadGrid;

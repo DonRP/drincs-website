@@ -1,5 +1,4 @@
-import { ExpandMore } from '@mui/icons-material';
-import { Card, CardActionArea, CardActions, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
+import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
@@ -14,7 +13,7 @@ const columns = [
         field: 'targetLanguages',
         headerName: 'Language',
         width: 150,
-        renderCell: (params) => (
+        renderCell: (params: any) => (
             <strong>
                 <Grid
                     container
@@ -36,7 +35,7 @@ const columns = [
         field: 'translated',
         headerName: 'Translated',
         width: 150,
-        renderCell: (params) => (
+        renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 <CircularProgress variant="determinate" value={params.value} />
                 <Box
@@ -62,7 +61,7 @@ const columns = [
         field: 'approved',
         headerName: 'Approved',
         width: 150,
-        renderCell: (params) => (
+        renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 <CircularProgress variant="determinate" value={params.value} />
                 <Box
@@ -102,7 +101,7 @@ const columns = [
         field: 'release',
         headerName: 'Download',
         width: 150,
-        renderCell: (params) => (
+        renderCell: (params: any) => (
             <strong>
                 {params.value &&
                     <Button
@@ -120,13 +119,37 @@ const columns = [
     },
 ];
 
-function DRTranslationGrid(props) {
-    const projectId = props.projectId
-    const gitRepo = props.gitRepo
-    const [projectInfo, setProjectInfo] = useState();
-    const [languages, setLanguages] = useState([]);
-    const [data, setData] = useState([]);
-    const [releases, setRelease] = useState([]);
+type IDRTranslationGridProps = {
+    projectId: string,
+    gitRepo: string,
+}
+
+type IGitHubRelease = {
+    published_at: string,
+    assets: any[],
+    tag_name: string,
+}
+
+type IRowsLanguage = {
+    id: number,
+    translated: number,
+    approved: number,
+    targetLanguages: any,
+    release: any,
+}
+type IProjectInfo = {
+    targetLanguages: any[],
+    description: string,
+    name: string,
+    logo: string,
+}
+
+function DRTranslationGrid(props: IDRTranslationGridProps) {
+    const { projectId, gitRepo } = props
+    const [projectInfo, setProjectInfo] = useState<IProjectInfo>()
+    const [languages, setLanguages] = useState([])
+    const [data, setData] = useState<IRowsLanguage[]>([])
+    const [releases, setRelease] = useState([])
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -166,11 +189,11 @@ function DRTranslationGrid(props) {
     useEffect(() => {
         const abortController = new AbortController();
         const gitHubService = new GitHubService();
-        gitHubService.getReleases(gitRepo, abortController).then(res => {
+        gitHubService.getReleases(gitRepo, abortController).then((res) => {
             if (abortController.signal.aborted) {
                 return;
             }
-            setRelease(res.map((item) => {
+            setRelease(res.map((item: IGitHubRelease) => {
                 return {
                     version: item.tag_name.split('/')[1],
                     language: item.tag_name.split('/')[0],
@@ -189,7 +212,7 @@ function DRTranslationGrid(props) {
 
     useEffect(() => {
         if (projectInfo && languages && languages.length > 0)
-            setData(languages?.map((item, index) => {
+            setData(languages?.map((item: any, index: number) => {
                 return {
                     id: index,
                     translated: item.data.phrases.translated / item.data.phrases.total * 100,
@@ -216,9 +239,9 @@ function DRTranslationGrid(props) {
     useEffect(() => {
         if (data && releases && data.length > 0 && releases.length > 0) {
             data?.forEach((item, index) => {
-                releases?.forEach((release) => {
-                    if (item?.targetLanguages.name === release.language) {
-                        if (!data[index].release || data[index].release.date < release.date) {
+                releases?.forEach((release: any) => {
+                    if (item?.targetLanguages.name === release?.language) {
+                        if (!data[index].release || data[index]?.release?.date < release?.date) {
                             data[index].release = release
                         }
                     }
@@ -232,38 +255,45 @@ function DRTranslationGrid(props) {
         setExpanded(!expanded);
     };
 
-    return (
-        <Card elevation={24} sx={{ maxWidth: 900 }}>
-            <CardHeader
-                title={projectInfo?.name}
-            // subheader="September 14, 2016"
-            />
-            <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
-                <CardMedia
-                    component="img"
-                    image={projectInfo?.logo}
+    try {
+        return (
+            <Card elevation={24} sx={{ maxWidth: 900 }}>
+                <CardHeader
+                    title={projectInfo?.name}
+                // subheader="September 14, 2016"
                 />
-            </CardActionArea>
-            <CardActions disableSpacing>
+                <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
+                    <CardMedia
+                        component="img"
+                        image={projectInfo?.logo}
+                    />
+                </CardActionArea>
+                {/* <CardActions disableSpacing>
                 <ExpandMore
-                    expand={expanded}
+                     expand={expanded}
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
                     aria-label="show more"
                 >
                     <ExpandMore />
                 </ExpandMore>
-            </CardActions>
-            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                <Typography paragraph>
-                    <div dangerouslySetInnerHTML={{ __html: projectInfo?.description }} />
-                </Typography>
-            </Collapse>
-            <div style={{ height: 300, width: '100%' }}>
-                <DataGrid rows={data} columns={columns} />
-            </div>
-        </Card>
-    );
+            </CardActions> */}
+                {projectInfo?.description &&
+                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        <Typography paragraph>
+                            <div dangerouslySetInnerHTML={{ __html: projectInfo.description }} />
+                        </Typography>
+                    </Collapse>
+                }
+                <div style={{ height: 300, width: '100%' }}>
+                    <DataGrid rows={data} columns={columns} />
+                </div>
+            </Card>
+        );
+    } catch (error) {
+        console.error(error)
+        return <div style={{ color: "red" }}>DRTranslationGrid error</div>
+    }
 }
 
 export default DRTranslationGrid;
