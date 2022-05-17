@@ -7,77 +7,98 @@ const columns = [
     {
         field: 'device',
         headerName: 'Device',
-        width: 150,
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: any) => (
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                {params.value}
-            </Box>
+            <strong>
+                <Grid
+                    container
+                    direction={{ xs: "column", sm: "row" }}
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={{ xs: 0, sm: 2, md: 2 }}
+                >
+                    {params.value?.icon &&
+                        < Grid item  >
+                            {params.value?.icon}
+                        </Grid>
+                    }
+                    <Grid item  >
+                        {params.value?.name}
+                    </Grid>
+                </Grid>
+            </strong >
         ),
     },
     {
         field: 'version',
         headerName: 'Version',
-        width: 70,
-        height: 200,
+        flex: 1,
+        minWidth: 50,
         renderCell: (params: any) => (
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                {params.value}
-            </Box>
+            <strong>
+                <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                    {params.value}
+                </Box>
+            </strong >
         ),
     },
     {
         field: 'download',
         headerName: 'Download',
-        width: 375,
+        flex: 1,
+        minWidth: 375,
         renderCell: (params: any) => (
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                <Grid
-                    container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
+            <strong>
+                <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     <Grid
                         container
-                        direction="row"
-                        justifyContent="flex-start"
+                        direction="column"
+                        justifyContent="center"
                         alignItems="center"
-                        spacing={1}
                     >
-                        <Grid item>
-                            {params.value?.mediafire &&
-                                <Button
-                                    variant="outlined"
-                                    startIcon={
-                                        <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
-                                    }
-                                    onClick={() => {
-                                        window.open(params.value?.mediafire)
-                                    }}
-                                >
-                                    Mediafire
-                                </Button>
-                            }
+                        <Grid
+                            container
+                            direction="row"
+                            justifyContent="flex-start"
+                            alignItems="center"
+                            spacing={1}
+                        >
+                            <Grid item>
+                                {params.value?.mediafire &&
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={
+                                            <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
+                                        }
+                                        onClick={() => {
+                                            window.open(params.value?.mediafire)
+                                        }}
+                                    >
+                                        Mediafire
+                                    </Button>
+                                }
+                            </Grid>
+                            <Grid item>
+                                {params.value?.mega &&
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={
+                                            <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
+                                        }
+                                        onClick={() => {
+                                            window.open(params.value?.mega)
+                                        }}
+                                    >
+                                        Mega
+                                    </Button>
+                                }
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            {params.value?.mega &&
-                                <Button
-                                    variant="outlined"
-                                    startIcon={
-                                        <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
-                                    }
-                                    onClick={() => {
-                                        window.open(params.value?.mega)
-                                    }}
-                                >
-                                    Mega
-                                </Button>
-                            }
-                        </Grid>
+                        {params.value?.sha && "SHA1: " + params.value?.sha}
                     </Grid>
-                    {params.value?.sha && "SHA1: " + params.value?.sha}
-                </Grid>
-            </Box>
+                </Box>
+            </strong >
         ),
     },
 ];
@@ -88,7 +109,7 @@ type IDownloadLink = {
 }
 type IDownloadGridRow = {
     id: number,
-    device: string,
+    device: { name: string, icon?: JSX.Element }
     version: string,
     download: IDownloadLink,
 }
@@ -96,15 +117,16 @@ type IDRDownloadGridProps = {
     title: string,
     data: IDownloadGridRow[],
     logoImage?: string,
-    height: number,
+    height?: number,
+    rowHeight?: number,
 }
 
 function DRDownloadGrid(props: IDRDownloadGridProps) {
-    const { title, data, logoImage, height = 350 } = props;
+    const { title, data, logoImage, height = 350, rowHeight = 75 } = props;
 
     try {
         return (
-            <Card elevation={24} sx={{ maxWidth: 900, minWidth: 700 }}>
+            <Card elevation={24} sx={{ maxWidth: 900 }}>
                 <CardHeader
                     title={title}
                 />
@@ -116,7 +138,7 @@ function DRDownloadGrid(props: IDRDownloadGridProps) {
                     <DataGrid
                         rows={data}
                         columns={columns}
-                        rowHeight={75}
+                        rowHeight={rowHeight}
                     />
                 </div>
             </Card>
