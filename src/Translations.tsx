@@ -23,7 +23,12 @@ function Translations() {
                 <h2>Other Games</h2>
                 {projectsId.map((item, index) =>
                     <Grid item key={item.crowdin} >
-                        <DRTranslationGrid projectId={item.crowdin} gitRepo={item.github} />
+                        <DRTranslationGrid
+                            projectId={item.crowdin}
+                            gitRepo={item.github}
+                            height={500}
+                            rowHeight={70}
+                        />
                     </Grid>
                 )}
             </Grid>

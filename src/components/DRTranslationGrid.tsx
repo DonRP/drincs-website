@@ -1,3 +1,4 @@
+import DownloadIcon from '@mui/icons-material/Download';
 import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
@@ -12,29 +13,57 @@ const columns = [
     {
         field: 'targetLanguages',
         headerName: 'Language',
-        width: 150,
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: any) => (
             <strong>
                 <Grid
                     container
-                    direction="row"
+                    direction={{ xs: "column", sm: "row" }}
                     justifyContent="center"
                     alignItems="center"
-                    spacing={2}
-                >  <Grid item xs={6}>
+                    spacing={{ xs: 0, sm: 2, md: 2 }}
+                >
+                    <Grid item sx={{ display: { xs: 'flex', md: 'none' } }} >
                         <Flag country={params.value?.twoLettersCode.toUpperCase()} size={50} alt={params.value?.name} />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item sx={{ display: { xs: 'none', md: 'flex' } }} >
+                        <Flag country={params.value?.twoLettersCode.toUpperCase()} size={65} alt={params.value?.name} />
+                    </Grid>
+                    <Grid item  >
                         {params.value?.name}
                     </Grid>
                 </Grid>
+            </strong >
+        ),
+    },
+    {
+        field: 'release',
+        headerName: 'Download',
+        flex: 1,
+        minWidth: 150,
+        renderCell: (params: any) => (
+            <strong>
+                {params.value &&
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        style={{ marginLeft: 16 }}
+                        target="_blank" href={params.value?.download_url}
+                        startIcon={<DownloadIcon />}
+                    >
+                        {params.value?.version}
+                    </Button>
+                }
             </strong>
         ),
     },
     {
         field: 'translated',
         headerName: 'Translated',
-        width: 150,
+        flex: 1,
+        minWidth: 50,
         renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 <CircularProgress variant="determinate" value={params.value} />
@@ -60,7 +89,8 @@ const columns = [
     {
         field: 'approved',
         headerName: 'Approved',
-        width: 150,
+        flex: 1,
+        minWidth: 50,
         renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 <CircularProgress variant="determinate" value={params.value} />
@@ -97,31 +127,13 @@ const columns = [
     //         </AvatarGroup>
     //     ),
     // },
-    {
-        field: 'release',
-        headerName: 'Download',
-        width: 150,
-        renderCell: (params: any) => (
-            <strong>
-                {params.value &&
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        style={{ marginLeft: 16 }}
-                        target="_blank" href={params.value?.download_url}
-                    >
-                        {params.value?.version}
-                    </Button>
-                }
-            </strong>
-        ),
-    },
 ];
 
 type IDRTranslationGridProps = {
     projectId: string,
     gitRepo: string,
+    height?: number,
+    rowHeight?: number,
 }
 
 type IGitHubRelease = {
@@ -145,7 +157,7 @@ type IProjectInfo = {
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const { projectId, gitRepo } = props
+    const { projectId, gitRepo, height = 350, rowHeight = 75 } = props
     const [projectInfo, setProjectInfo] = useState<IProjectInfo>()
     const [languages, setLanguages] = useState([])
     const [data, setData] = useState<IRowsLanguage[]>([])
@@ -285,8 +297,12 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                         </Typography>
                     </Collapse>
                 }
-                <div style={{ height: 300, width: '100%' }}>
-                    <DataGrid rows={data} columns={columns} />
+                <div style={{ height: height, width: '100%' }}>
+                    <DataGrid
+                        rows={data}
+                        columns={columns}
+                        rowHeight={rowHeight}
+                    />
                 </div>
             </Card>
         );
