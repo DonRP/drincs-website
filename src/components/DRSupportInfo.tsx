@@ -1,14 +1,33 @@
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Card, CardHeader } from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Box, Card, CardHeader, IconButton } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import * as React from 'react';
 
 const columns = [
     {
+        field: 'link',
+        headerName: '',
+        flex: 1,
+        minWidth: 25,
+        renderCell: (params: any) => (
+            <IconButton
+                color="primary"
+                aria-label="add to shopping cart"
+                onClick={(params: any) => {
+                    window.open(params?.value?.toString())
+                }}
+            >
+                <OpenInNewIcon />
+            </IconButton>
+        )
+    },
+    {
         field: 'platform',
         headerName: 'Sito',
-        width: 150,
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 {params.value}
@@ -18,7 +37,8 @@ const columns = [
     {
         field: 'membership',
         headerName: 'Topo supporto',
-        width: 150,
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 {params.value}
@@ -28,7 +48,8 @@ const columns = [
     {
         field: 'month_price',
         headerName: 'prezzio',
-        width: 150,
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                 {params.value + "€"}
@@ -38,7 +59,8 @@ const columns = [
     {
         field: 'discord',
         headerName: 'Nome',
-        width: 150,
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: any) => (
             <>
                 {params.value &&
@@ -53,7 +75,8 @@ const columns = [
     {
         field: 'news',
         headerName: 'Nome',
-        width: 150,
+        flex: 1,
+        minWidth: 100,
         renderCell: (params: any) => (
             <>
                 {params.value &&
@@ -79,11 +102,12 @@ type ISupportGridRow = {
 type IDRDownloadGridProps = {
     title: string,
     data: ISupportGridRow[],
-    height: number,
+    height?: number,
+    rowHeight?: number,
 }
 
 function DRSupportInfoGrid(props: IDRDownloadGridProps) {
-    const { title, data, height = 350 } = props;
+    const { title, data, height = 350, rowHeight = 75 } = props;
 
     try {
         return (
@@ -95,7 +119,7 @@ function DRSupportInfoGrid(props: IDRDownloadGridProps) {
                     <DataGrid
                         rows={data}
                         columns={columns}
-                        rowHeight={75}
+                        rowHeight={rowHeight}
                     />
                 </div>
             </Card>

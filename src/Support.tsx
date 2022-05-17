@@ -21,6 +21,7 @@ function Support() {
                 pt={3}
                 mb={3}
             >
+                <h2>Support</h2>
                 <DRSupportInfoGrid
                     title="A Big Family in Debit"
                     data={rowsABFD}
