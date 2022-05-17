@@ -82,9 +82,9 @@ const columns = [
     },
 ];
 type IDownloadLink = {
-    mega: string,
-    mediafire: string,
-    sha: string,
+    mega?: string,
+    mediafire?: string,
+    sha?: string,
 }
 type IDownloadGridRow = {
     id: number,
@@ -95,7 +95,7 @@ type IDownloadGridRow = {
 type IDRDownloadGridProps = {
     title: string,
     data: IDownloadGridRow[],
-    logoImage: string | null,
+    logoImage?: string,
     height: number,
 }
 

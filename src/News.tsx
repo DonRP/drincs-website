@@ -49,7 +49,15 @@ function News() {
             mb={3}
         >
             <Grid item md={5} lg={5} sx={{ display: { xs: 'none', sm: 'none', md: 'contents' } }} >
-                <iframe title="discordServer" src="https://discord.com/widget?id=688162156151439536&theme=dark" width="300" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                <iframe
+                    title="discordServer"
+                    src="https://discord.com/widget?id=688162156151439536&theme=dark"
+                    width="300"
+                    height="500"
+                    allowTransparency={true}
+                    frameBorder={0}
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                />
             </Grid>
             <Grid item xs={12} sm={12} md={7} lg={8}>
                 <Grid
