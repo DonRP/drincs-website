@@ -1,4 +1,6 @@
-import { Card, CardHeader } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
+import { Box, Card, CardHeader } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import * as React from 'react';
 
@@ -29,7 +31,7 @@ const columns = [
         width: 150,
         renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                {params.value}
+                { }
             </Box>
         ),
     },
@@ -37,18 +39,37 @@ const columns = [
         field: 'discord',
         headerName: 'Nome',
         width: 150,
+        renderCell: (params: any) => (
+            <>
+                {params.value &&
+                    <CheckIcon sx={{ color: "green" }} />
+                }
+                {!params.value &&
+                    <CloseIcon sx={{ color: "red" }} />
+                }
+            </>
+        )
     },
     {
         field: 'news',
         headerName: 'Nome',
         width: 150,
+        renderCell: (params: any) => (
+            <>
+                {params.value &&
+                    <CheckIcon sx={{ color: "green" }} />
+                }
+                {!params.value &&
+                    <CloseIcon sx={{ color: "red" }} />
+                }
+            </>
+        )
     },
 ];
 
 type ISupportGridRow = {
     id: number,
-    icon: string,
-    platform: string,
+    platform: "patreon" | "buymeacoffee"
     membership: string,
     month_price: number,
     discord: boolean,
