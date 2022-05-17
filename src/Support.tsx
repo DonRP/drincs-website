@@ -1,16 +1,32 @@
+import { Grid } from "@mui/material";
+import DRSupportInfoGrid from "components/DRSupportInfo";
 
+
+const rowsABFD = [
+    { id: 0, platform: "patreon", membership: 'v0.1.1', month_price: 2, discord: true, news: true, link: "string" },
+    { id: 1, platform: "patreon", membership: 'v0.1.1', month_price: 3, discord: true, news: true, link: "string" },
+    { id: 2, platform: "buymeacoffee", membership: 'v0.1.1', month_price: 4, discord: true, news: false, link: "string" },
+    { id: 3, platform: "buymeacoffee", membership: 'v0.1.1', month_price: 5, discord: false, news: false, link: "string" },
+];
 
 function Support() {
     return (
         <>
-            <a href="https://www.patreon.com/bePatron?u=31938454" data-patreon-widget-type="become-patron-button">Become a Patron!</a><script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
-
-            <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="DRincs" data-color="#FFDD00" data-emoji="" data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
-
-
-
-
-
+            <Grid
+                container
+                direction="column"
+                justifyContent="flex-start"
+                alignItems="center"
+                spacing={4}
+                pt={3}
+                mb={3}
+            >
+                <DRSupportInfoGrid
+                    title="A Big Family in Debit"
+                    data={rowsABFD}
+                    height={411}
+                />
+            </Grid>
         </>
     );
 }

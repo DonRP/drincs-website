@@ -31,7 +31,7 @@ const columns = [
         width: 150,
         renderCell: (params: any) => (
             <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                { }
+                {params.value + "€"}
             </Box>
         ),
     },
@@ -69,11 +69,12 @@ const columns = [
 
 type ISupportGridRow = {
     id: number,
-    platform: "patreon" | "buymeacoffee"
+    platform: string | "patreon" | "buymeacoffee"
     membership: string,
     month_price: number,
     discord: boolean,
     news: boolean,
+    link: string,
 }
 type IDRDownloadGridProps = {
     title: string,
