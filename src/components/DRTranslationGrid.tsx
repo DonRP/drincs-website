@@ -1,3 +1,4 @@
+import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -65,25 +66,30 @@ const columns = [
         flex: 1,
         minWidth: 50,
         renderCell: (params: any) => (
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                <CircularProgress variant="determinate" value={params.value} />
-                <Box
-                    sx={{
-                        top: 0,
-                        left: 0,
-                        bottom: 0,
-                        right: 0,
-                        position: 'absolute',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Typography variant="caption" component="div" color="text.secondary">
-                        {`${Math.round(params.value)}%`}
-                    </Typography>
-                </Box>
-            </Box>
+            <strong>
+                {params.value !== 100 &&
+                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                        <CircularProgress variant="determinate" value={params.value} />
+                        <Box
+                            sx={{
+                                top: 0,
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                position: 'absolute',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            {`${Math.round(params.value)}%`}
+                        </Box>
+                    </Box>
+                }
+                {params.value === 100 &&
+                    <CheckIcon sx={{ color: "green" }} />
+                }
+            </strong>
         ),
     },
     {
@@ -92,25 +98,30 @@ const columns = [
         flex: 1,
         minWidth: 50,
         renderCell: (params: any) => (
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                <CircularProgress variant="determinate" value={params.value} />
-                <Box
-                    sx={{
-                        top: 0,
-                        left: 0,
-                        bottom: 0,
-                        right: 0,
-                        position: 'absolute',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <Typography variant="caption" component="div" color="text.secondary">
-                        {`${Math.round(params.value)}%`}
-                    </Typography>
-                </Box>
-            </Box>
+            <strong>
+                {params.value !== 100 &&
+                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                        <CircularProgress variant="determinate" value={params.value} />
+                        <Box
+                            sx={{
+                                top: 0,
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                position: 'absolute',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            {`${Math.round(params.value)}%`}
+                        </Box>
+                    </Box>
+                }
+                {params.value === 100 &&
+                    <CheckIcon sx={{ color: "green" }} />
+                }
+            </strong>
         ),
     },
     // {
