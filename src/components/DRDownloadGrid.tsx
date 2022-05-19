@@ -8,25 +8,19 @@ const columns = [
         field: 'device',
         headerName: 'Device',
         flex: 1,
-        minWidth: 100,
+        minWidth: 25,
         renderCell: (params: any) => (
             <strong>
-                <Grid
-                    container
-                    direction={{ xs: "column", sm: "row" }}
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={{ xs: 0, sm: 2, md: 2 }}
-                >
-                    {params.value?.icon &&
-                        < Grid item  >
-                            {params.value?.icon}
-                        </Grid>
-                    }
-                    <Grid item  >
+                {params.value?.element &&
+                    <>
+                        {params.value?.element}
+                    </>
+                }
+                {!params.value?.element &&
+                    <>
                         {params.value?.name}
-                    </Grid>
-                </Grid>
+                    </>
+                }
             </strong >
         ),
     },
@@ -34,7 +28,7 @@ const columns = [
         field: 'version',
         headerName: 'Version',
         flex: 1,
-        minWidth: 50,
+        minWidth: 25,
         renderCell: (params: any) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -46,8 +40,7 @@ const columns = [
     {
         field: 'download',
         headerName: 'Download',
-        flex: 1,
-        minWidth: 375,
+        minWidth: 350,
         renderCell: (params: any) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -109,7 +102,7 @@ type IDownloadLink = {
 }
 type IDownloadGridRow = {
     id: number,
-    device: { name: string, icon?: JSX.Element }
+    device: { name: string, element?: JSX.Element }
     version: string,
     download: IDownloadLink,
 }
@@ -126,7 +119,7 @@ function DRDownloadGrid(props: IDRDownloadGridProps) {
 
     try {
         return (
-            <Card elevation={24} sx={{ maxWidth: 900 }}>
+            <Card elevation={24} sx={{ maxWidth: 1100, minWidth: { xs: 470, sm: 600, md: 900 } }}>
                 <CardHeader
                     title={title}
                 />
