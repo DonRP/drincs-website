@@ -19,7 +19,7 @@ class AuthService {
         })
             .then(this._checkStatus)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 return response.json()
             })
             .catch((res) => {
