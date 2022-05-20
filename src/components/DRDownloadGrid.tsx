@@ -119,7 +119,7 @@ function DRDownloadGrid(props: IDRDownloadGridProps) {
 
     try {
         return (
-            <Card elevation={24} sx={{ maxWidth: 1100, minWidth: { xs: 470, sm: 600, md: 900 } }}>
+            <Card elevation={24} sx={{ minWidth: { xs: 470, sm: 600, md: 900 } }}>
                 <CardHeader
                     title={title}
                 />
