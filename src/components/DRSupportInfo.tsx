@@ -7,60 +7,121 @@ import * as React from 'react';
 
 const columns = [
     {
-        field: 'link',
+        field: 'link_support',
         headerName: '',
-        flex: 1,
-        minWidth: 25,
+        width: 20,
         renderCell: (params: any) => (
-            <IconButton
-                color="primary"
-                aria-label="add to shopping cart"
-                onClick={(params: any) => {
-                    window.open(params?.value?.toString())
-                }}
-            >
-                <OpenInNewIcon />
-            </IconButton>
+            <>
+                {params?.value &&
+                    <IconButton
+                        color="primary"
+                        aria-label="add to shopping cart"
+                        onClick={() => {
+                            window.open(params?.value)
+                        }}
+                    >
+                        <OpenInNewIcon />
+                    </IconButton>
+                }
+            </>
         )
     },
     {
-        field: 'platform',
-        headerName: 'Sito',
-        flex: 1,
-        minWidth: 100,
+        field: 'site',
+        headerName: '',
+        width: 20,
         renderCell: (params: any) => (
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                {params.value}
-            </Box>
+            <strong>
+                {params?.value === "patreon" &&
+                    <IconButton
+                        onClick={() => {
+                            window.open("https://www.patreon.com/DRincs")
+                        }}
+                    >
+                        <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Patreon_logomark.svg/1024px-Patreon_logomark.svg.png"
+                            width={24}
+                            height={24}
+                            alt="Logo"
+                        />
+                    </IconButton>
+                }
+
+                {params?.value === "buymeacoffee" &&
+                    <IconButton
+                        onClick={() => {
+                            window.open("https://www.buymeacoffee.com/DRincs")
+                        }}
+                    >
+                        <img
+                            src="https://s3-eu-west-1.amazonaws.com/tpd/logos/5c58570cfdd26f0001068f06/0x0.png"
+                            width={24}
+                            height={24}
+                            alt="Logo"
+                        />
+                    </IconButton>
+                }
+            </strong >
         ),
     },
     {
         field: 'membership',
-        headerName: 'Topo supporto',
+        headerName: 'Membership',
         flex: 1,
-        minWidth: 100,
+        minWidth: 50,
         renderCell: (params: any) => (
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                {params.value}
-            </Box>
+            <>
+                <Box sx={{ display: { xs: 'none', sm: 'none', md: 'flex' }, position: 'relative' }}>
+                    {params.value.long}
+                </Box>
+                <Box sx={{ display: { xs: 'none', sm: 'flex', md: 'none' }, position: 'relative' }}>
+                    {params.value.medium}
+                </Box>
+                <Box sx={{ display: { xs: 'flex', sm: 'none', md: 'none' }, position: 'relative' }}>
+                    {params.value.short}
+                </Box>
+            </>
         ),
     },
     {
         field: 'month_price',
-        headerName: 'prezzio',
+        headerName: 'Month',
         flex: 1,
-        minWidth: 100,
+        maxWidth: 60,
         renderCell: (params: any) => (
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                {params.value + "€"}
-            </Box>
+            <>
+                {params.value &&
+                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                        {params.value}
+                    </Box>
+                }
+                {!params.value &&
+                    <CloseIcon sx={{ color: "red" }} />
+                }
+            </>
         ),
     },
     {
-        field: 'discord',
-        headerName: 'Nome',
-        flex: 1,
-        minWidth: 100,
+        field: 'year_price',
+        headerName: 'Year',
+        maxWidth: 40,
+        renderCell: (params: any) => (
+            <>
+                {params.value &&
+                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                        {params.value}
+                    </Box>
+                }
+                {!params.value &&
+                    <CloseIcon sx={{ color: "red" }} />
+                }
+            </>
+        ),
+    },
+    {
+        field: 'news',
+        headerName: 'News',
+        maxWidth: 20,
         renderCell: (params: any) => (
             <>
                 {params.value &&
@@ -73,10 +134,39 @@ const columns = [
         )
     },
     {
-        field: 'news',
-        headerName: 'Nome',
-        flex: 1,
-        minWidth: 100,
+        field: 'last_version',
+        headerName: 'Last version',
+        maxWidth: 70,
+        renderCell: (params: any) => (
+            <>
+                {params.value &&
+                    <CheckIcon sx={{ color: "green" }} />
+                }
+                {!params.value &&
+                    <CloseIcon sx={{ color: "red" }} />
+                }
+            </>
+        )
+    },
+    {
+        field: 'android',
+        headerName: 'Android',
+        maxWidth: 60,
+        renderCell: (params: any) => (
+            <>
+                {params.value &&
+                    <CheckIcon sx={{ color: "green" }} />
+                }
+                {!params.value &&
+                    <CloseIcon sx={{ color: "red" }} />
+                }
+            </>
+        )
+    },
+    {
+        field: 'qhd',
+        headerName: 'QHD',
+        maxWidth: 20,
         renderCell: (params: any) => (
             <>
                 {params.value &&
@@ -92,12 +182,15 @@ const columns = [
 
 type ISupportGridRow = {
     id: number,
-    platform: string | "patreon" | "buymeacoffee"
-    membership: string,
-    month_price: number,
-    discord: boolean,
+    link_support?: string,
+    site: string | "patreon" | "buymeacoffee",
+    membership: { short: string, long: string },
+    month_price: string,
+    year_price?: string,
     news: boolean,
-    link: string,
+    last_version: boolean,
+    android: boolean,
+    qhd: boolean,
 }
 type IDRDownloadGridProps = {
     title: string,
@@ -111,7 +204,7 @@ function DRSupportInfoGrid(props: IDRDownloadGridProps) {
 
     try {
         return (
-            <Card elevation={24} sx={{ maxWidth: 900, minWidth: 700 }}>
+            <Card elevation={24} sx={{ minWidth: { xs: 470, sm: 600, md: 900 } }}>
                 <CardHeader
                     title={title}
                 />
