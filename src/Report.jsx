@@ -1,3 +1,6 @@
+import BugReportIcon from '@mui/icons-material/BugReport';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import { Button, CircularProgress, DialogContentText, Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import DRAutocomplete from "components/DRAutocomplete";
@@ -194,9 +197,10 @@ function Report() {
                         onClick={() => {
                             handleClickOpen("bug")
                         }}
+                        startIcon={<BugReportIcon />}
                     >
                         <strong>
-                            🐞Bug report: Create a report to help us improve
+                            Bug report: Create a report to help us improve
                         </strong>
                     </Button>
                 </Grid>
@@ -206,6 +210,7 @@ function Report() {
                         onClick={() => {
                             handleClickOpen("request")
                         }}
+                        startIcon={<HistoryEduIcon />}
                     >
                         <strong>
                             Feature request: Suggest an idea for this project
@@ -218,6 +223,7 @@ function Report() {
                         onClick={() => {
                             window.open("https://github.com/DonRP/ABFD/issues/new/choose")
                         }}
+                        startIcon={<GitHubIcon />}
                     >
                         <strong>
                             Quest: Suggest an Quest/mission (requires a GitHub account)
