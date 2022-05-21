@@ -125,7 +125,7 @@ const columns = [
         renderCell: (params: any) => (
             <>
                 {params.value &&
-                    <CheckIcon sx={{ color: "green" }} />
+                    <CheckIcon sx={{ color: "springgreen" }} />
                 }
                 {!params.value &&
                     <CloseIcon sx={{ color: "red" }} />
@@ -140,7 +140,7 @@ const columns = [
         renderCell: (params: any) => (
             <>
                 {params.value &&
-                    <CheckIcon sx={{ color: "green" }} />
+                    <CheckIcon sx={{ color: "springgreen" }} />
                 }
                 {!params.value &&
                     <CloseIcon sx={{ color: "red" }} />
@@ -155,7 +155,7 @@ const columns = [
         renderCell: (params: any) => (
             <>
                 {params.value &&
-                    <CheckIcon sx={{ color: "green" }} />
+                    <CheckIcon sx={{ color: "springgreen" }} />
                 }
                 {!params.value &&
                     <CloseIcon sx={{ color: "red" }} />
@@ -170,7 +170,7 @@ const columns = [
         renderCell: (params: any) => (
             <>
                 {params.value &&
-                    <CheckIcon sx={{ color: "green" }} />
+                    <CheckIcon sx={{ color: "springgreen" }} />
                 }
                 {!params.value &&
                     <CloseIcon sx={{ color: "red" }} />

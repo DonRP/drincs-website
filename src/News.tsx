@@ -1,4 +1,5 @@
 import { Grid } from "@mui/material";
+import CircularIndeterminate from "components/CircularIndeterminate";
 import DRTwitterPost from "components/DRTwitterPost";
 import { useEffect, useState } from "react";
 import { TwitterFollowButton } from "react-twitter-embed";
@@ -73,11 +74,17 @@ function News() {
                             screenName={'DR_incs'}
                         />
                     </Grid>
-                    {tweetList?.map((item) =>
+                    {tweetList.length > 0 &&
+                        tweetList?.map((item) =>
+                            <Grid item  >
+                                <DRTwitterPost twitterPost={item} />
+                            </Grid>
+                        )}
+                    {tweetList.length < 1 &&
                         <Grid item  >
-                            <DRTwitterPost twitterPost={item} />
+                            <CircularIndeterminate />
                         </Grid>
-                    )}
+                    }
                 </Grid >
             </Grid >
 

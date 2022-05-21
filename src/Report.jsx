@@ -185,8 +185,9 @@ function Report() {
                 justifyContent="space-evenly"
                 alignItems="center"
                 spacing={2}
+                pt={3}
             >
-                <h1>Report</h1>
+                <h2>Report</h2>
                 <Grid item>
                     <Button
                         variant="contained"
@@ -194,7 +195,9 @@ function Report() {
                             handleClickOpen("bug")
                         }}
                     >
-                        🐞Bug report: Create a report to help us improve
+                        <strong>
+                            🐞Bug report: Create a report to help us improve
+                        </strong>
                     </Button>
                 </Grid>
                 <Grid item>
@@ -204,7 +207,9 @@ function Report() {
                             handleClickOpen("request")
                         }}
                     >
-                        Feature request: Suggest an idea for this project
+                        <strong>
+                            Feature request: Suggest an idea for this project
+                        </strong>
                     </Button>
                 </Grid>
                 <Grid item>
@@ -214,7 +219,9 @@ function Report() {
                             window.open("https://github.com/DonRP/ABFD/issues/new/choose")
                         }}
                     >
-                        Quest: Suggest an Quest/mission (requires a GitHub account)
+                        <strong>
+                            Quest: Suggest an Quest/mission (requires a GitHub account)
+                        </strong>
                     </Button>
                 </Grid>
             </Grid>

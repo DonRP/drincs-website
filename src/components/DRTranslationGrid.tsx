@@ -87,7 +87,7 @@ const columns = [
                     </Box>
                 }
                 {params.value === 100 &&
-                    <CheckIcon sx={{ color: "green" }} />
+                    <CheckIcon sx={{ color: "springgreen" }} />
                 }
             </strong>
         ),
@@ -119,7 +119,7 @@ const columns = [
                     </Box>
                 }
                 {params.value === 100 &&
-                    <CheckIcon sx={{ color: "green" }} />
+                    <CheckIcon sx={{ color: "springgreen" }} />
                 }
             </strong>
         ),
@@ -280,18 +280,23 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
 
     try {
         return (
-            <Card elevation={24} sx={{ maxWidth: 900 }}>
-                <CardHeader
-                    title={projectInfo?.name}
-                // subheader="September 14, 2016"
-                />
-                <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
-                    <CardMedia
-                        component="img"
-                        image={projectInfo?.logo}
-                    />
-                </CardActionArea>
-                {/* <CardActions disableSpacing>
+            <>
+                {!projectInfo &&
+                    null
+                }
+                {projectInfo &&
+                    <Card elevation={24} sx={{ maxWidth: 900 }}>
+                        <CardHeader
+                            title={projectInfo?.name}
+                        // subheader="September 14, 2016"
+                        />
+                        <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
+                            <CardMedia
+                                component="img"
+                                image={projectInfo?.logo}
+                            />
+                        </CardActionArea>
+                        {/* <CardActions disableSpacing>
                 <ExpandMore
                      expand={expanded}
                     onClick={handleExpandClick}
@@ -301,21 +306,23 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     <ExpandMore />
                 </ExpandMore>
             </CardActions> */}
-                {projectInfo?.description &&
-                    <Collapse in={expanded} timeout="auto" unmountOnExit>
-                        <Typography paragraph>
-                            <div dangerouslySetInnerHTML={{ __html: projectInfo.description }} />
-                        </Typography>
-                    </Collapse>
+                        {projectInfo?.description &&
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <Typography paragraph>
+                                    <div dangerouslySetInnerHTML={{ __html: projectInfo.description }} />
+                                </Typography>
+                            </Collapse>
+                        }
+                        <div style={{ height: height, width: '100%' }}>
+                            <DataGrid
+                                rows={data}
+                                columns={columns}
+                                rowHeight={rowHeight}
+                            />
+                        </div>
+                    </Card>
                 }
-                <div style={{ height: height, width: '100%' }}>
-                    <DataGrid
-                        rows={data}
-                        columns={columns}
-                        rowHeight={rowHeight}
-                    />
-                </div>
-            </Card>
+            </>
         );
     } catch (error) {
         console.error(error)

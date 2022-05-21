@@ -4,6 +4,8 @@ import '../src/css/about.css';
 // https://www.w3schools.com/howto/howto_css_blurred_background.asp
 
 function About() {
+
+
     // const style = {
     //     heroImage: {
     //           /* Add the blur effect */
@@ -29,11 +31,6 @@ function About() {
     // };
     return (
         <>
-            <div className="bgImage"></div>
-            <div >
-                <h1>I am John Doe</h1>
-                <p>And I'm a Photographer</p>
-            </div>
         </>
     );
 }

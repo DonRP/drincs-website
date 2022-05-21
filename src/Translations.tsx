@@ -17,8 +17,7 @@ function Translations() {
                 justifyContent="flex-start"
                 alignItems="center"
                 spacing={4}
-                pt={3}
-                mb={3}
+                pt={4}
             >
                 <h2>Other Games</h2>
                 {projectsId.map((item, index) =>

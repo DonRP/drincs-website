@@ -150,7 +150,7 @@ function Support() {
             >
                 <h2>Support</h2>
                 <DRSupportInfoGrid
-                    title="A Big Family in Debit"
+                    title="THANKS!! In advance!❤️"
                     data={rowsABFD}
                     height={900}
                 />

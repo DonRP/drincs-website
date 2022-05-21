@@ -1,5 +1,6 @@
-import { Payment } from '@mui/icons-material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuIcon from '@mui/icons-material/Menu';
+import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import { AppBar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import React from 'react';
 import { Link, To } from 'react-router-dom';
@@ -59,7 +60,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         <Button
                                             key={page.title}
                                             onClick={handleCloseNavMenu}
-                                            sx={{ my: 2, color: 'white', display: 'block' }}
+                                            sx={{ my: 2, color: 'white', display: 'inline-table' }}
                                         >
                                             {page.title}
                                         </Button>
@@ -71,7 +72,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         onClick={() => {
                                             window.open(page.path.toString())
                                         }}
-                                        sx={{ my: 2, color: 'white', display: 'block' }}
+                                        sx={{ my: 2, color: 'white', display: 'inline-table' }}
                                     >
                                         {page.title}
                                     </Button>
@@ -82,11 +83,14 @@ function DRNavbar(props: IDRNavbarProps) {
                                 >
                                     <Button
                                         key={supportPage?.title}
-                                        endIcon={<Payment />}
+                                        endIcon={<FavoriteIcon />}
                                         variant="contained"
                                         onClick={handleCloseNavMenu}
+                                        sx={{ my: 2, display: 'inline-table', backgroundColor: "gold", }}
                                     >
-                                        {supportPage?.title}
+                                        <strong>
+                                            {supportPage?.title}
+                                        </strong>
                                     </Button>
                                 </Link>
                             </Grid>
@@ -166,8 +170,9 @@ function DRNavbar(props: IDRNavbarProps) {
                                 <Button
                                     key={supportPage?.title}
                                     variant="contained"
+                                    sx={{ backgroundColor: "gold", }}
                                 >
-                                    <Payment />
+                                    <VolunteerActivismIcon />
                                 </Button>
                             </Link>
                         </Box>
