@@ -51,7 +51,7 @@ const rowsABFD = [
                 </Grid>
             </>
         }, version: 'v0.1.1', download: {
-            mega: "https://mega.nz/file/b1tQnKjT#Q0WG8su9jv994F2Hn7u31_I9HkBpDP5afUCsa6lBCfk"
+            discord: true,
         }
     },
     {

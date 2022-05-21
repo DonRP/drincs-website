@@ -87,6 +87,21 @@ const columns = [
                                     </Button>
                                 }
                             </Grid>
+                            <Grid item>
+                                {params.value?.discord &&
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={
+                                            <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
+                                        }
+                                        onClick={() => {
+                                            window.open("https://discord.gg/HFfeJKR")
+                                        }}
+                                    >
+                                        Discord - Supporter
+                                    </Button>
+                                }
+                            </Grid>
                         </Grid>
                         {params.value?.sha && "SHA1: " + params.value?.sha}
                     </Grid>
@@ -98,6 +113,7 @@ const columns = [
 type IDownloadLink = {
     mega?: string,
     mediafire?: string,
+    discord?: boolean,
     sha?: string,
 }
 type IDownloadGridRow = {
