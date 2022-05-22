@@ -1,5 +1,6 @@
 // import your route components too
 
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { GlobalStyles } from '@mui/styled-engine';
 import About from "About";
@@ -22,6 +23,11 @@ const routes = [
 const extern_link = [
     { title: "📖wiki", path: "https://github.com/DonRP/ABFD/wiki" },
     { title: "💬discord", path: "https://discord.gg/HFfeJKR" },
+    {
+        title: <><GitHubIcon sx={{
+            fontSize: "15px",
+        }} />discord</>, path: "https://github.com/orgs/DRincs-Productions/projects/1"
+    },
 ];
 const supportRoute = { title: "support", path: "/support", element: <Support /> }
 
