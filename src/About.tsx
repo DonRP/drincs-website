@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Button, Card, CardMedia, Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
 import '../src/css/about.css';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
@@ -103,76 +104,88 @@ function About() {
                         }}
                     >
                         <Grid item >
-                            <Button
-                                key={"Support"}
-                                variant="contained"
-                                sx={{
-                                    my: 2,
-                                    display: 'inline-table',
-                                    backgroundColor: "gold",
-                                    width: "40vh",
-                                    height: "8vh",
-                                    minHeight: "50px",
-                                    minWidth: "170px",
-                                    fontSize: "3vh",
-                                }}
-                                size="large"
+                            <Link
+                                to={"/support"}
+                                key={"logo_link"}
                             >
-                                <strong>
-                                    <Grid item container
-                                        direction="row"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
-                                    >
-                                        <Grid item >
-                                            <FavoriteIcon sx={{
-                                                fontSize: "4vh",
-                                            }} />
+                                <Button
+                                    key={"Support"}
+                                    variant="contained"
+                                    sx={{
+                                        my: 2,
+                                        display: 'inline-table',
+                                        backgroundColor: "gold",
+                                        width: "40vh",
+                                        height: "8vh",
+                                        minHeight: "50px",
+                                        minWidth: "170px",
+                                        fontSize: "3vh",
+                                    }}
+                                    size="large"
+                                >
+                                    <strong>
+                                        <Grid item container
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
+                                        >
+                                            <Grid item >
+                                                <FavoriteIcon sx={{
+                                                    fontSize: "4vh",
+                                                    minFontSize: "150px",
+                                                    marginTop: '8px',
+                                                }} />
+                                            </Grid>
+                                            <Grid item >
+                                                Support
+                                            </Grid>
                                         </Grid>
-                                        <Grid item >
-                                            Support
-                                        </Grid>
-                                    </Grid>
-
-                                </strong>
-                            </Button>
+                                    </strong>
+                                </Button>
+                            </Link>
                         </Grid>
                         <Grid item >
-                            <Button
-                                key={"Download"}
-                                variant="contained"
-                                sx={{
-                                    my: 2,
-                                    display: 'inline-table',
-                                    width: "40vh",
-                                    height: "8vh",
-                                    minHeight: "50px",
-                                    minWidth: "170px",
-                                    fontSize: "3vh",
-                                    minFontSize: "150px",
-                                }}
-                                size="large"
+                            <Link
+                                to={"/download"}
+                                key={"logo_link"}
                             >
-                                <strong>
-                                    <Grid item container
-                                        direction="row"
-                                        justifyContent="center"
-                                        alignItems="center"
-                                        spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
-                                    >
-                                        <Grid item >
-                                            <DownloadIcon sx={{
-                                                fontSize: "4vh",
-                                                minFontSize: "150px",
-                                            }} />
+                                <Button
+                                    key={"Download"}
+                                    variant="contained"
+                                    sx={{
+                                        my: 2,
+                                        display: 'inline-table',
+                                        width: "40vh",
+                                        height: "8vh",
+                                        minHeight: "50px",
+                                        minWidth: "170px",
+                                        fontSize: "3vh",
+                                        minFontSize: "150px",
+                                    }}
+                                    size="large"
+                                >
+                                    <strong>
+                                        <Grid item container
+                                            direction="row"
+                                            justifyContent="center"
+                                            alignItems="center"
+                                            spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
+                                        >
+                                            <Grid item >
+                                                <DownloadIcon sx={{
+                                                    fontSize: "4vh",
+                                                    minFontSize: "150px",
+                                                    marginTop: '8px',
+                                                }} />
+                                            </Grid>
+                                            <Grid item >
+                                                Download
+                                            </Grid>
                                         </Grid>
-                                        <Grid item >
-                                            Download
-                                        </Grid>
-                                    </Grid>
-                                </strong>
-                            </Button>
+                                    </strong>
+                                </Button>
+                            </Link>
                         </Grid>
                     </Grid>
                 </Grid>

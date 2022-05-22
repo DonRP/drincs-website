@@ -46,6 +46,10 @@ function DRNavbar(props: IDRNavbarProps) {
                             <Link
                                 to={"/"}
                                 key={"logo_link"}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: "white",
+                                }}
                             >
                                 <strong>DR</strong>incs
                             </Link>
@@ -61,6 +65,10 @@ function DRNavbar(props: IDRNavbarProps) {
                                     <Link
                                         to={page.path}
                                         key={page.title + "_link"}
+                                        style={{
+                                            textDecoration: 'none',
+                                            color: "white",
+                                        }}
                                     >
                                         <Button
                                             key={page.title}
@@ -85,6 +93,10 @@ function DRNavbar(props: IDRNavbarProps) {
                                 <Link
                                     to={supportPage!.path}
                                     key={supportPage?.title + "_link"}
+                                    style={{
+                                        textDecoration: 'none',
+                                        color: "white",
+                                    }}
                                 >
                                     <Button
                                         key={supportPage?.title}
@@ -134,6 +146,10 @@ function DRNavbar(props: IDRNavbarProps) {
                                     <Link
                                         to={page.path}
                                         key={page.title + "_link"}
+                                        style={{
+                                            textDecoration: 'none',
+                                            color: "white",
+                                        }}
                                     >
                                         <MenuItem
                                             key={page.title}
@@ -168,6 +184,10 @@ function DRNavbar(props: IDRNavbarProps) {
                             <Link
                                 to={"/"}
                                 key={"logo_link"}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: "white",
+                                }}
                             >
                                 <strong>DR</strong>incs
                             </Link>
@@ -176,6 +196,10 @@ function DRNavbar(props: IDRNavbarProps) {
                             <Link
                                 to={supportPage!.path}
                                 key={supportPage?.title + "_link"}
+                                style={{
+                                    textDecoration: 'none',
+                                    color: "white",
+                                }}
                             >
                                 <Button
                                     key={supportPage?.title}
