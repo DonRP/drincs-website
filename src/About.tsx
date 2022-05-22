@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Button, Card, CardMedia, Grid } from '@mui/material';
 import '../src/css/about.css';
@@ -74,7 +75,7 @@ function About() {
                     <Grid item
                         sx={{
                             position: "absolute",
-                            top: "20vh",
+                            bottom: "36vh",
                             textAlign: "center!important",
 
                             animationName: "pulse",
@@ -84,7 +85,7 @@ function About() {
                     >
                         <Keyframes>
                             <CardMedia sx={{
-                                maxWidth: 800,
+                                maxWidth: 600,
                             }}
                                 component="img"
                                 image={"/images/logo.webp"}
@@ -92,10 +93,10 @@ function About() {
                         </Keyframes>
                     </Grid>
                     <Grid item container
-                        direction="row"
+                        direction={{ xs: "column", md: "row" }}
                         justifyContent="center"
                         alignItems="center"
-                        spacing={3}
+                        spacing={{ xs: 1, sm: 3 }}
                         sx={{
                             position: "absolute",
                             bottom: "50px",
@@ -104,7 +105,6 @@ function About() {
                         <Grid item >
                             <Button
                                 key={"Support"}
-                                endIcon={<FavoriteIcon />}
                                 variant="contained"
                                 sx={{
                                     my: 2,
@@ -112,30 +112,65 @@ function About() {
                                     backgroundColor: "gold",
                                     width: "40vh",
                                     height: "8vh",
+                                    minHeight: "50px",
+                                    minWidth: "170px",
+                                    fontSize: "3vh",
                                 }}
                                 size="large"
                             >
                                 <strong>
-                                    Support
+                                    <Grid item container
+                                        direction="row"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
+                                    >
+                                        <Grid item >
+                                            <FavoriteIcon sx={{
+                                                fontSize: "4vh",
+                                            }} />
+                                        </Grid>
+                                        <Grid item >
+                                            Support
+                                        </Grid>
+                                    </Grid>
+
                                 </strong>
                             </Button>
                         </Grid>
                         <Grid item >
                             <Button
                                 key={"Download"}
-                                endIcon={<FavoriteIcon />}
                                 variant="contained"
                                 sx={{
                                     my: 2,
                                     display: 'inline-table',
-                                    backgroundColor: "gold",
                                     width: "40vh",
                                     height: "8vh",
+                                    minHeight: "50px",
+                                    minWidth: "170px",
+                                    fontSize: "3vh",
+                                    minFontSize: "150px",
                                 }}
                                 size="large"
                             >
                                 <strong>
-                                    Download
+                                    <Grid item container
+                                        direction="row"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
+                                    >
+                                        <Grid item >
+                                            <DownloadIcon sx={{
+                                                fontSize: "4vh",
+                                                minFontSize: "150px",
+                                            }} />
+                                        </Grid>
+                                        <Grid item >
+                                            Download
+                                        </Grid>
+                                    </Grid>
                                 </strong>
                             </Button>
                         </Grid>
