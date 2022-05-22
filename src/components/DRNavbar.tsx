@@ -43,7 +43,12 @@ function DRNavbar(props: IDRNavbarProps) {
                             component="div"
                             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                         >
-                            LOGO
+                            <Link
+                                to={"/"}
+                                key={"logo_link"}
+                            >
+                                <img src="/images/logo.webp" width={100} height={55} alt="Logo" />
+                            </Link>
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                             <Grid
@@ -160,7 +165,12 @@ function DRNavbar(props: IDRNavbarProps) {
                             component="div"
                             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                         >
-                            LOGO
+                            <Link
+                                to={"/"}
+                                key={"logo_link"}
+                            >
+                                <img src="/images/logo.webp" width={90} height={50} alt="Logo" />
+                            </Link>
                         </Typography>
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                             <Link
