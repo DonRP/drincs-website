@@ -47,7 +47,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                 to={"/"}
                                 key={"logo_link"}
                             >
-                                <img src="/images/logo.webp" width={100} height={55} alt="Logo" />
+                                <strong>DR</strong>incs
                             </Link>
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -77,7 +77,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         onClick={() => {
                                             window.open(page.path.toString())
                                         }}
-                                        sx={{ my: 2, color: 'white', display: 'inline-table' }}
+                                        sx={{ my: 2, color: 'white', display: { md: 'none', lg: 'inline-table' } }}
                                     >
                                         {page.title}
                                     </Button>
@@ -169,7 +169,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                 to={"/"}
                                 key={"logo_link"}
                             >
-                                <img src="/images/logo.webp" width={90} height={50} alt="Logo" />
+                                <strong>DR</strong>incs
                             </Link>
                         </Typography>
                         <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
