@@ -1,12 +1,12 @@
 import { Grid } from '@mui/material';
 import DRTranslationGrid from 'components/DRTranslationGrid';
-import * as React from 'react';
 
 
 function Translations() {
     const projectsId = [
         { crowdin: "492487", github: "DonRP/AFV" },
         { crowdin: "461654", github: "DonRP/BBAS" },
+        { crowdin: "507994", github: "DonRP/BM" },
     ]
 
     return (
