@@ -6,11 +6,17 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Edge against localhost",
+            "name": "Launch Edge localhost 3000",
             "request": "launch",
             "type": "msedge",
             "url": "http://localhost:3000",
-            "webRoot": "${workspaceFolder}"
-        }
+            "webRoot": "${workspaceFolder}",
+        },
+        {
+            "command": "npm install",
+            "name": "Run npm install",
+            "request": "launch",
+            "type": "node-terminal"
+        },
     ]
 }
