@@ -4,8 +4,8 @@ import DRTranslationGrid from 'components/DRTranslationGrid';
 
 function Translations() {
     const projectsId = [
-        { crowdin: "528084", github: "DonRP/AmityPark" },
         { crowdin: "492487", github: "DonRP/AFV" },
+        { crowdin: "528084", github: "DonRP/AmityPark" },
         { crowdin: "461654", github: "DonRP/BBAS" },
         { crowdin: "507994", github: "DonRP/BM" },
     ]
