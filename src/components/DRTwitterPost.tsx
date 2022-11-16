@@ -8,12 +8,18 @@ import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import * as React from 'react';
 
+export type ITwitterPost = {
+    id: string,
+    text: string,
+    edit_history_tweet_id: string[],
+}
+
 type IDRTwitterPostProps = {
-    twitterPost: any,
+    twitterPost: ITwitterPost,
 }
 
 function DRTwitterPost(props: IDRTwitterPostProps) {
-    const twitterPost = props.twitterPost
+    const { twitterPost } = props
     const [media, setMedia] = React.useState<any[]>([]);
     const [urls, setUrls] = React.useState<any[]>([]);
     const [currentMedia, setCurrentMedia] = React.useState<any>();

@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
 import CircularIndeterminate from "components/CircularIndeterminate";
-import DRTwitterPost from "components/DRTwitterPost";
+import DRTwitterPost, { ITwitterPost } from "components/DRTwitterPost";
 import { useEffect, useState } from "react";
 import { TwitterFollowButton } from "react-twitter-embed";
 import TweetService from "services/TwitterService";
@@ -14,7 +14,9 @@ const urlNoApiCode = [
 ]
 
 function News() {
-    const [tweetList, setTweetList] = useState([]);
+    const [tweetList, setTweetList] = useState<any>(
+        { data: [], meta: {} }
+    );
     // const [userInfo, setUserInfo] = useState();
     // const userId = "1402755743540039684"
 
@@ -27,7 +29,7 @@ function News() {
                     return;
                 }
                 if (res) {
-                    setTweetList(res)
+                    setTweetList(res[0])
                     return
                 }
             }).catch(err => {
@@ -75,7 +77,7 @@ function News() {
                         />
                     </Grid>
                     {tweetList.length > 0 &&
-                        tweetList?.map((item) =>
+                        tweetList[0]?.data?.map((item: ITwitterPost) =>
                             <Grid item  >
                                 <DRTwitterPost twitterPost={item} />
                             </Grid>
