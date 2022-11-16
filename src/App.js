@@ -1,17 +1,15 @@
-// import your route components too
-
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { GlobalStyles } from '@mui/styled-engine';
-import About from "About";
-import DRNavbar from "components/DRNavbar";
-import Download from "Download";
-import ErrorBoundary from "errer_check/ErrorBoundary";
-import News from "News";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Report from "Report";
-import Support from "Support";
-import Translations from "Translations";
+import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
+import About from 'About';
+import DRNavbar from 'components/DRNavbar';
+import Download from 'Download';
+import ErrorBoundary from 'errer_check/ErrorBoundary';
+import News from 'News';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Report from 'Report';
+import Support from 'Support';
+import Translations from 'Translations';
+import './App.css';
 
 const routes = [
     { title: "about", path: "/", element: <About /> },
