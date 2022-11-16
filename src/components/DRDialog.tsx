@@ -5,8 +5,8 @@ type IDRDialogProps = {
     open: boolean,
     maxWidth: false | undefined,
     title: string,
-    children: object,
-    actions: object,
+    children: React.ReactNode,
+    actions: React.ReactNode,
 }
 
 function DRDialog(props: IDRDialogProps) {
