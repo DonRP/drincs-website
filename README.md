@@ -1,4 +1,17 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b53106bb-5235-4cc6-890e-632c7b586319/deploy-status)](https://app.netlify.com/sites/drincs-website/deploys)
+# Install in WLS2
+More Info: https://learn.microsoft.com/it-it/windows/dev-environment/javascript/nodejs-on-wsl
+
+```shell
+sudo apt install curl
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+command -v nvm
+nvm ls
+nvm install node
+nvm ls
+node -v
+npm i
+```
 
 # Getting Started with Create React App
 
