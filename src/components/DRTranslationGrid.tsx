@@ -4,11 +4,11 @@ import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
+import { TranslationResult } from 'model/TranslationResult';
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import Flag from 'react-flagkit';
-import CrowdinService from 'services/CrowdinService';
-import GitHubService from 'services/GitHubService';
+import TranslationService from 'services/TranslationService';
 
 const columns = [
     {
@@ -147,41 +147,19 @@ type IDRTranslationGridProps = {
     rowHeight?: number,
 }
 
-type IGitHubRelease = {
-    published_at: string,
-    assets: any[],
-    tag_name: string,
-}
-
-type IRowsLanguage = {
-    id: number,
-    translated: number,
-    approved: number,
-    targetLanguages: any,
-    release: any,
-}
-type IProjectInfo = {
-    targetLanguages: any[],
-    description: string,
-    name: string,
-    logo: string,
-}
-
 function DRTranslationGrid(props: IDRTranslationGridProps) {
     const { projectId, gitRepo, height = 350, rowHeight = 75 } = props
-    const [projectInfo, setProjectInfo] = useState<IProjectInfo>()
-    const [languages, setLanguages] = useState([])
-    const [data, setData] = useState<IRowsLanguage[]>([])
-    const [releases, setRelease] = useState([])
+    const [data, setData] = useState<TranslationResult>()
 
     useEffect(() => {
         const abortController = new AbortController();
-        const crowdinService = new CrowdinService();
-        crowdinService.getProject(projectId, abortController).then(res => {
+        const translationService = new TranslationService();
+
+        translationService.getLanguages(gitRepo, projectId, abortController).then(res => {
             if (abortController.signal.aborted) {
                 return;
             }
-            setProjectInfo(res?.data)
+            setData(res?.content)
         }).catch(err => {
             console.log(err)
         })
@@ -189,89 +167,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         return function cleanUp() {
             abortController.abort();
         }
-    }, [projectId]);
-
-    useEffect(() => {
-        const abortController = new AbortController();
-        const crowdinService = new CrowdinService();
-
-        crowdinService.getLanguages(projectId, abortController).then(res => {
-            if (abortController.signal.aborted) {
-                return;
-            }
-            setLanguages(res?.data)
-        }).catch(err => {
-            console.log(err)
-        })
-
-        return function cleanUp() {
-            abortController.abort();
-        }
-    }, [projectId]);
-
-    useEffect(() => {
-        const abortController = new AbortController();
-        const gitHubService = new GitHubService();
-        gitHubService.getReleases(gitRepo, abortController).then((res) => {
-            if (abortController.signal.aborted) {
-                return;
-            }
-            setRelease(res.map((item: IGitHubRelease) => {
-                return {
-                    version: item.tag_name.split('/')[1],
-                    language: item.tag_name.split('/')[0],
-                    download_url: item.assets[0].browser_download_url,
-                    date: new Date(item.published_at),
-                }
-            }))
-        }).catch(err => {
-            console.log(err)
-        })
-
-        return function cleanUp() {
-            abortController.abort();
-        }
-    }, [gitRepo]);
-
-    useEffect(() => {
-        if (projectInfo && languages && languages.length > 0)
-            setData(languages?.map((item: any, index: number) => {
-                return {
-                    id: index,
-                    translated: item.data.phrases.translated / item.data.phrases.total * 100,
-                    approved: item.data.phrases.approved / item.data.phrases.total * 100,
-                    // https://www.iban.com/country-codes
-                    targetLanguages: projectInfo?.targetLanguages.filter((lang) => {
-                        if (lang.twoLettersCode === "ja") {
-                            lang.twoLettersCode = "jp"
-                        }
-                        if (lang.twoLettersCode === "zh") {
-                            lang.twoLettersCode = "cn"
-                            lang.name = "Chinese"
-                        }
-                        if (lang.twoLettersCode === "el") {
-                            lang.twoLettersCode = "gr"
-                        }
-                        return lang.id === item.data.languageId
-                    })[0],
-                    release: null
-                }
-            }))
-    }, [languages, projectInfo, releases]);
-
-    useEffect(() => {
-        if (data && releases && data.length > 0 && releases.length > 0) {
-            data?.forEach((item, index) => {
-                releases?.forEach((release: any) => {
-                    if (item?.targetLanguages.name === release?.language) {
-                        if (!data[index].release || data[index]?.release?.date < release?.date) {
-                            data[index].release = release
-                        }
-                    }
-                })
-            })
-        }
-    }, [data, releases]);
+    }, [projectId, gitRepo]);
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -281,19 +177,19 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     try {
         return (
             <>
-                {!projectInfo &&
+                {!data &&
                     null
                 }
-                {projectInfo &&
+                {data &&
                     <Card elevation={24} sx={{ maxWidth: 900 }}>
                         <CardHeader
-                            title={projectInfo?.name}
+                            title={data?.name}
                         // subheader="September 14, 2016"
                         />
                         <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
                             <CardMedia
                                 component="img"
-                                image={projectInfo?.logo}
+                                image={data?.logo || ""}
                             />
                         </CardActionArea>
                         {/* <CardActions disableSpacing>
@@ -306,16 +202,16 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     <ExpandMore />
                 </ExpandMore>
             </CardActions> */}
-                        {projectInfo?.description &&
+                        {data?.description &&
                             <Collapse in={expanded} timeout="auto" unmountOnExit>
                                 <Typography paragraph>
-                                    <div dangerouslySetInnerHTML={{ __html: projectInfo.description }} />
+                                    <div dangerouslySetInnerHTML={{ __html: data.description }} />
                                 </Typography>
                             </Collapse>
                         }
                         <div style={{ height: height, width: '100%' }}>
                             <DataGrid
-                                rows={data}
+                                rows={data.list}
                                 columns={columns}
                                 rowHeight={rowHeight}
                             />

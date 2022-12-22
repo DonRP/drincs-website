@@ -39,3 +39,18 @@ class AuthService {
     }
 }
 export default AuthService;
+
+
+export function showError(body) {
+    console.log(body)
+    if (body.error) {
+        window.alert(body.error)
+    } else if (body.message) {
+        window.alert(body.message)
+    } else {
+        window.alert("basdfas")
+    }
+    throw Object.assign(
+        new Error(body)
+    );
+}

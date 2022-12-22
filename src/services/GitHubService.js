@@ -19,21 +19,6 @@ class GitHubService {
         );
     }
 
-    async getReleases(repo, abortController) {
-        if (!repo) {
-            return null
-        }
-        return this.authService.fetch(this.url + `${repo}/releases`, null, { signal: abortController.signal })
-            .then(response => {
-                return response;
-            })
-            .catch((res) => {
-                return res.response.json().then((body) => {
-                    this.showError(body)
-                });
-            });
-    }
-
     async createIssue(repo, title, body = "", labels = [], abortController) {
         if (!repo) {
             return null
