@@ -4,6 +4,7 @@
         "ms-vscode.vscode-typescript-next",
         "toba.vsfire",
         "dbaeumer.vscode-eslint",
-        "ms-edgedevtools.vscode-edge-devtools"
+        "ms-edgedevtools.vscode-edge-devtools",
+        "adrianwilczynski.csharp-to-typescript"
     ]
 }
