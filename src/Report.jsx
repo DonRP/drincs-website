@@ -7,7 +7,7 @@ import DRAutocomplete from "components/DRAutocomplete";
 import DRDialog from "components/DRDialog";
 import DRTextField from "components/DRTextField";
 import { useState } from "react";
-import GitHubService from "services/GitHubService";
+import GitService from "services/GitHubService";
 
 // https://www.geeksforgeeks.org/file-uploading-in-react-js/
 function Report() {
@@ -125,7 +125,7 @@ function Report() {
         setOpenProgressBarDialog(true);
 
         const abortController = new AbortController();
-        const githubService = new GitHubService();
+        const githubService = new GitService();
         githubService.createIssue(repo, title, body, labels, abortController).then(res => {
             if (abortController.signal.aborted) {
                 return;
