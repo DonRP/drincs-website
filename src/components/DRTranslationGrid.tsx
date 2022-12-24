@@ -1,5 +1,6 @@
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
+import GTranslateIcon from '@mui/icons-material/GTranslate';
 import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
@@ -141,21 +142,22 @@ const columns = [
 ];
 
 type IDRTranslationGridProps = {
-    projectId: string,
-    gitRepo: string,
+    crowdinProjectId: string,
+    crowdinLink: string,
+    githubRepoName: string,
     height?: number,
     rowHeight?: number,
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const { projectId, gitRepo, height = 350, rowHeight = 75 } = props
+    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75 } = props
     const [data, setData] = useState<TranslationResult>()
 
     useEffect(() => {
         const abortController = new AbortController();
         const translationService = new TranslationService();
 
-        translationService.getLanguages(gitRepo, projectId, abortController).then(res => {
+        translationService.getLanguages(gitRepo, crowdinProjectId, abortController).then(res => {
             if (abortController.signal.aborted) {
                 return;
             }
@@ -167,7 +169,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         return function cleanUp() {
             abortController.abort();
         }
-    }, [projectId, gitRepo]);
+    }, [crowdinProjectId, gitRepo]);
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -183,8 +185,20 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                 {data &&
                     <Card elevation={24} sx={{ maxWidth: 900 }}>
                         <CardHeader
+                            action={
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    style={{ marginLeft: 16 }}
+                                    href={crowdinLink}
+                                    endIcon={<GTranslateIcon />}
+                                >
+                                    <Typography>
+                                        Translate
+                                    </Typography>
+                                </Button>
+                            }
                             title={data?.name}
-                        // subheader="September 14, 2016"
                         />
                         <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
                             <CardMedia
