@@ -24,7 +24,7 @@ const extern_link = [
     {
         title: <><GitHubIcon sx={{
             fontSize: "15px",
-        }} />discord</>, path: "https://github.com/orgs/DRincs-Productions/projects/1"
+        }} />GitHub</>, path: "https://github.com/orgs/DRincs-Productions/projects/1"
     },
 ];
 const supportRoute = { title: "support", path: "/support", element: <Support /> }
