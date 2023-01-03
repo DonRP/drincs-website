@@ -4,8 +4,8 @@ import GTranslateIcon from '@mui/icons-material/GTranslate';
 import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
-import { DataGrid } from '@mui/x-data-grid';
-import { TranslationResult } from 'model/TranslationResult';
+import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
+import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/TranslationResult';
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import Flag from 'react-flagkit';
@@ -17,7 +17,7 @@ const columns = [
         headerName: 'Language',
         flex: 1,
         minWidth: 100,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<TargetLanguages, any, any>) => (
             <strong>
                 <Grid
                     container
@@ -44,7 +44,7 @@ const columns = [
         headerName: 'Download',
         flex: 1,
         minWidth: 150,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<GitHubTranslationRelease, any, any>) => (
             <strong>
                 {params.value &&
                     <Button
@@ -52,7 +52,7 @@ const columns = [
                         color="primary"
                         size="small"
                         style={{ marginLeft: 16 }}
-                        target="_blank" href={params.value?.download_url}
+                        target="_blank" href={params.value?.downloadUrl}
                         startIcon={<DownloadIcon />}
                     >
                         {params.value?.version}
@@ -66,7 +66,7 @@ const columns = [
         headerName: 'Translated',
         flex: 1,
         minWidth: 50,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<number, any, any>) => (
             <strong>
                 {params.value !== 100 &&
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -83,7 +83,7 @@ const columns = [
                                 justifyContent: 'center',
                             }}
                         >
-                            {`${Math.round(params.value)}%`}
+                            {params.value ? `${Math.round(params.value)}%` : ""}
                         </Box>
                     </Box>
                 }
@@ -98,7 +98,7 @@ const columns = [
         headerName: 'Approved',
         flex: 1,
         minWidth: 50,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<number, any, any>) => (
             <strong>
                 {params.value !== 100 &&
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -115,7 +115,7 @@ const columns = [
                                 justifyContent: 'center',
                             }}
                         >
-                            {`${Math.round(params.value)}%`}
+                            {params.value ? `${Math.round(params.value)}%` : ""}
                         </Box>
                     </Box>
                 }
@@ -190,7 +190,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                     variant="contained"
                                     color="primary"
                                     style={{ marginLeft: 16 }}
-                                    href={crowdinLink}
+                                    onClick={() => {
+                                        window.open(crowdinLink)
+                                    }}
                                     endIcon={<GTranslateIcon />}
                                 >
                                     <Typography>

@@ -5,7 +5,7 @@ export interface TranslationResult {
     description: string | null;
 }
 
-interface TranslationResultItem {
+export interface TranslationResultItem {
     id: number;
     translated: number;
     approved: number;
@@ -13,14 +13,14 @@ interface TranslationResultItem {
     targetLanguages: TargetLanguages | null;
 }
 
-interface GitHubTranslationRelease {
+export interface GitHubTranslationRelease {
     version: string;
     language: string;
     downloadUrl: string;
     date: string;
 }
 
-interface TargetLanguages {
+export interface TargetLanguages {
     id: string;
     name: string;
     editorCode: string;
