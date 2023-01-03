@@ -5,7 +5,7 @@ export class TranslationResult {
     description: string | null = null;
 }
 
-export class TranslationResultItem {
+class TranslationResultItem {
     id: number = 0;
     translated: number = 0;
     approved: number = 0;
