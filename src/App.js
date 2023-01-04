@@ -1,14 +1,16 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
+import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
 import About from 'About';
-import DRNavbar from 'components/DRNavbar';
 import Download from 'Download';
-import ErrorBoundary from 'errer_check/ErrorBoundary';
 import News from 'News';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Report from 'Report';
 import Support from 'Support';
 import Translations from 'Translations';
+import DRNavbar from 'components/DRNavbar';
+import SignInSide from 'components/Login';
+import SignUp from 'components/SignUp';
+import ErrorBoundary from 'errer_check/ErrorBoundary';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 
 const routes = [
@@ -17,6 +19,8 @@ const routes = [
     { title: "⬇️download", path: "/download", element: <Download /> },
     { title: "🌍translations", path: "/translations", element: <Translations /> },
     { title: "🐞bug/request", path: "/report", element: <Report /> },
+    { title: "login", path: "/login", element: <SignInSide /> },
+    { title: "signup", path: "/signup", element: <SignUp /> },
 ];
 const extern_link = [
     { title: "📖wiki", path: "https://github.com/DonRP/ABFD/wiki" },
