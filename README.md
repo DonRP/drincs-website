@@ -1,5 +1,5 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b53106bb-5235-4cc6-890e-632c7b586319/deploy-status)](https://app.netlify.com/sites/drincs-website/deploys)
-# Edit 
+# Fast editor with codesandbox 
 https://codesandbox.io/p/github/DRincs-Productions/drincs-website
 
 # Install in WLS2
