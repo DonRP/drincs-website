@@ -60,10 +60,29 @@ export default function SignInSide(props: any) {
     };
 
     return (
-        <Grid container component="main" >
+        <Grid container component="main"
+            style={{
+                height: "100vh",
+                // backgroundImage: `url(${image})`,
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                // backgroundColor:
+                //   theme.palette.type === "light"
+                //     ? theme.palette.grey[50]
+                //     : theme.palette.grey[900],
+
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center"
+            }}
+        >
             <CssBaseline />
-            {/* <Grid item xs={false} sm={4} md={7} className={classes.image} /> */}
             <Grid
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                }}
                 item
                 xs={12}
                 sm={8}
@@ -71,15 +90,35 @@ export default function SignInSide(props: any) {
                 component={Paper}
                 elevation={1}
                 square
+                justifyContent="center"
+                alignItems="center"
             >
-                <div >
-                    <Avatar >
+                <div
+                    style={{
+                        // margin: theme.spacing(2, 6),
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center"
+                    }}
+                >
+                    <Avatar
+                        style={{
+                            margin: 20,
+                            // backgroundColor: theme.palette.secondary.main
+                        }}
+                    >
                         <GitHub />
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form noValidate>
+                    <form
+                        style={{
+                            width: "100%", // Fix IE 11 issue.
+                            marginTop: 10
+                        }}
+                        noValidate
+                    >
                         <TextField
                             onChange={(event: any) => handelAccount("username", event)}
                             variant="outlined"
@@ -113,6 +152,12 @@ export default function SignInSide(props: any) {
                             variant="contained"
                             color="primary"
                             onClick={handelLogin}
+                            style={{
+                                marginTop: 20,
+                                marginBottom: 10,
+                                marginLeft: 2,
+                                marginRight: 2,
+                            }}
                         >
                             Sign In
                         </Button>
@@ -123,7 +168,10 @@ export default function SignInSide(props: any) {
                                 </Link>
                             </Grid>
                         </Grid>
-                        <Box mt={5}>
+                        <Box
+                            mt={5}
+                            mb={3}
+                        >
                             <Copyright />
                         </Box>
                     </form>
