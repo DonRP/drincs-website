@@ -1,10 +1,10 @@
 import { HttpResponse } from "model/HttpResponse";
-import AuthService, { showError } from "./AuthService";
+import RestService, { showError } from "./RestService";
 
 class GitService {
     url = "https://drincs-website-back-end-production.up.railway.app";
 
-    authService = new AuthService();
+    authService = new RestService();
 
     async createIssue(repo: string, title: string, body = "", labels = [], abortController: any): Promise<HttpResponse<any>> {
         if (!repo) {

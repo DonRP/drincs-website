@@ -1,5 +1,5 @@
 
-class AuthService {
+class RestService {
     async fetch(url, token, options, tokenType = "Bearer") {
         // performs api calls sending the required authentication headers
         const headers = {
@@ -38,7 +38,7 @@ class AuthService {
         }
     }
 }
-export default AuthService;
+export default RestService;
 
 
 export function showError(body) {

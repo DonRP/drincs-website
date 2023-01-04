@@ -1,10 +1,10 @@
-import AuthService from "./AuthService";
+import RestService from "./RestService";
 
 // https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/1fd23117345cd1dc3e75c7d69efae994e929c279/Tweet-Lookup/get_tweets_with_bearer_token.js
 class TweetService {
     url = "https://api.twitter.com/2/";
 
-    authService = new AuthService();
+    authService = new RestService();
     showError(body) {
         console.log(body)
         if (body.error) {

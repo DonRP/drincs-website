@@ -1,12 +1,12 @@
 import { HttpResponse } from "model/HttpResponse";
 import { TranslationResult } from "model/TranslationResult";
-import AuthService, { showError } from "./AuthService";
+import RestService, { showError } from "./RestService";
 
 // https://support.crowdin.com/api/v2/
 class TranslationService {
     url = "https://drincs-website-back-end-production.up.railway.app";
 
-    authService = new AuthService();
+    authService = new RestService();
 
     async getLanguages(repositoryName: string, crowdinProjectId: string, abortController: any): Promise<HttpResponse<TranslationResult>> {
         if (!repositoryName || !crowdinProjectId) {
