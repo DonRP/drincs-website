@@ -8,7 +8,6 @@ import SignInSide from 'SignInSide';
 import Support from 'Support';
 import Translations from 'Translations';
 import DRNavbar from 'components/DRNavbar';
-import SignUp from 'components/SignUp';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
@@ -20,7 +19,6 @@ const routes = [
     { title: "🌍translations", path: "/translations", element: <Translations /> },
     { title: "🐞bug/request", path: "/report", element: <Report /> },
     { title: "login", path: "/login", element: <SignInSide /> },
-    { title: "signup", path: "/signup", element: <SignUp /> },
 ];
 const extern_link = [
     { title: "📖wiki", path: "https://github.com/DonRP/ABFD/wiki" },

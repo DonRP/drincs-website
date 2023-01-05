@@ -1,50 +1,17 @@
 import GitHub from "@mui/icons-material/GitHub";
-import { Avatar, Box, Button, Checkbox, CssBaseline, FormControlLabel, Grid, Link, Paper, TextField, Typography } from "@mui/material";
-import React from "react";
+import { Avatar, Box, CssBaseline, Grid, Link, Paper, Typography } from "@mui/material";
+import Login from "components/SignInSide/Login";
+import SignUp from "components/SignInSide/SignUp";
+import { useState } from "react";
 import AuthService from "services/AuthService";
 import Copyright from "./components/Copyright";
 
-const users = [
-
-    { username: "ankur", password: "123456", type: "buyer" },
-    { username: "Soap_McTive", password: "23449$#@!", type: "seller" }
-
-];
-
 function SignInSide(props: any) {
+    const [isLogin, setIsLogin] = useState<boolean>(true);
 
     if (AuthService.isLoggedIn()) {
-
         props.history.push("./home");
-
     }
-
-    const [account, setAccount] = React.useState({ username: "", password: "" });
-
-    const handelAccount = (property: "username" | "password", event: any) => {
-
-        const accountCopy = { ...account };
-        accountCopy[property] = event.target.value;
-
-        setAccount(accountCopy);
-
-    }
-
-    const isVarifiedUser = (username: string, password: string) => {
-
-        return users.find((user) => user.username === username && user.password === password);
-
-    };
-
-
-    const handelLogin = () => {
-        if (isVarifiedUser(account.username, account.password)) {
-            AuthService.doLogIn(account.username);
-            setAccount({ username: "", password: "" });
-            props.history.push("/home");
-
-        }
-    };
 
     return (
         <Grid container component="main"
@@ -97,8 +64,9 @@ function SignInSide(props: any) {
                     >
                         <GitHub />
                     </Avatar>
+
                     <Typography component="h1" variant="h5">
-                        Sign in
+                        {isLogin ? "Sign in" : "Sign up"}
                     </Typography>
                     <form
                         style={{
@@ -107,52 +75,15 @@ function SignInSide(props: any) {
                         }}
                         noValidate
                     >
-                        <TextField
-                            onChange={(event: any) => handelAccount("username", event)}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="username"
-                            label="Username"
-                            name="username"
-                            autoFocus
-                        />
-                        <TextField
-                            onChange={(event: any) => handelAccount("password", event)}
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
-                        />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            onClick={handelLogin}
-                            style={{
-                                marginTop: 20,
-                                marginBottom: 10,
-                                marginLeft: 2,
-                                marginRight: 2,
-                            }}
-                        >
-                            Sign In
-                        </Button>
+                        {isLogin ? <Login /> : <SignUp />}
                         <Grid container>
                             <Grid item>
-                                <Link href="#" variant="body2">
-                                    {"Don't have an account? Sign Up"}
+                                <Link variant="body2"
+                                    onClick={() => {
+                                        setIsLogin(!isLogin)
+                                    }}
+                                >
+                                    {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign in"}
                                 </Link>
                             </Grid>
                         </Grid>
