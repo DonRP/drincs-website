@@ -147,11 +147,10 @@ type IDRTranslationGridProps = {
     githubRepoName: string,
     height?: number,
     rowHeight?: number,
-    completeLoading: () => void,
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75, completeLoading } = props
+    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75 } = props
     const [data, setData] = useState<TranslationResult>()
 
     useEffect(() => {
@@ -159,7 +158,6 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         const translationService = new TranslationService();
 
         translationService.getLanguages(gitRepo, crowdinProjectId, abortController).then(res => {
-            completeLoading()
             if (abortController.signal.aborted) {
                 return;
             }
@@ -171,7 +169,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         return function cleanUp() {
             abortController.abort();
         }
-    }, [crowdinProjectId, gitRepo, completeLoading]);
+    }, [crowdinProjectId, gitRepo]);
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -179,38 +177,37 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     };
 
     try {
-        return (
-            <>
-                {!data &&
-                    null
-                }
-                {data &&
-                    <Card elevation={24} sx={{ maxWidth: 900 }}>
-                        <CardHeader
-                            action={
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    style={{ marginLeft: 16 }}
-                                    onClick={() => {
-                                        window.open(crowdinLink)
-                                    }}
-                                    endIcon={<GTranslateIcon />}
-                                >
-                                    <Typography>
-                                        Translate
-                                    </Typography>
-                                </Button>
-                            }
-                            title={data?.name}
+        if (!data) {
+            return <CircularProgress />
+        }
+        else {
+            return (
+                <Card elevation={24} sx={{ maxWidth: 900 }}>
+                    <CardHeader
+                        action={
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                style={{ marginLeft: 16 }}
+                                onClick={() => {
+                                    window.open(crowdinLink)
+                                }}
+                                endIcon={<GTranslateIcon />}
+                            >
+                                <Typography>
+                                    Translate
+                                </Typography>
+                            </Button>
+                        }
+                        title={data?.name}
+                    />
+                    <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
+                        <CardMedia
+                            component="img"
+                            image={data?.logo || ""}
                         />
-                        <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
-                            <CardMedia
-                                component="img"
-                                image={data?.logo || ""}
-                            />
-                        </CardActionArea>
-                        {/* <CardActions disableSpacing>
+                    </CardActionArea>
+                    {/* <CardActions disableSpacing>
                 <ExpandMore
                      expand={expanded}
                     onClick={handleExpandClick}
@@ -220,24 +217,23 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     <ExpandMore />
                 </ExpandMore>
             </CardActions> */}
-                        {data?.description &&
-                            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                                <Typography paragraph>
-                                    <div dangerouslySetInnerHTML={{ __html: data.description }} />
-                                </Typography>
-                            </Collapse>
-                        }
-                        <div style={{ height: height, width: '100%' }}>
-                            <DataGrid
-                                rows={data.list}
-                                columns={columns}
-                                rowHeight={rowHeight}
-                            />
-                        </div>
-                    </Card>
-                }
-            </>
-        );
+                    {data?.description &&
+                        <Collapse in={expanded} timeout="auto" unmountOnExit>
+                            <Typography paragraph>
+                                <div dangerouslySetInnerHTML={{ __html: data.description }} />
+                            </Typography>
+                        </Collapse>
+                    }
+                    <div style={{ height: height, width: '100%' }}>
+                        <DataGrid
+                            rows={data.list}
+                            columns={columns}
+                            rowHeight={rowHeight}
+                        />
+                    </div>
+                </Card>
+            );
+        }
     } catch (error) {
         console.error(error)
         return <div style={{ color: "red" }}>DRTranslationGrid error</div>

@@ -1,7 +1,5 @@
 import { Grid } from '@mui/material';
 import DRTranslationGrid from 'components/DRTranslationGrid';
-import { useState } from 'react';
-
 
 function Translations() {
     const projectsId = [
@@ -10,7 +8,6 @@ function Translations() {
         { crowdin: "461654", github: "DonRP/BBAS", crowdinLink: "https://crowdin.com/project/big-brother-as" },
         { crowdin: "507994", github: "DonRP/BM", crowdinLink: "https://crowdin.com/project/bad-memories" },
     ]
-    const [loading, setLoading] = useState<object>({})
 
     return (
         <>
@@ -26,12 +23,6 @@ function Translations() {
                 {projectsId.map((item, index) =>
                     <Grid item key={item.crowdin} >
                         <DRTranslationGrid
-                            completeLoading={() => {
-                                setLoading({
-                                    ...loading,
-                                    [item.crowdin]: true,
-                                })
-                            }}
                             crowdinProjectId={item.crowdin}
                             githubRepoName={item.github}
                             crowdinLink={item.crowdinLink}
