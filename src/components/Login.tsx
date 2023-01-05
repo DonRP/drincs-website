@@ -2,6 +2,7 @@ import GitHub from "@mui/icons-material/GitHub";
 import { Avatar, Box, Button, Checkbox, CssBaseline, FormControlLabel, Grid, Link, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
 import AuthService from "services/AuthService";
+import Copyright from "./Copyright";
 
 const users = [
 
@@ -9,20 +10,6 @@ const users = [
     { username: "Soap_McTive", password: "23449$#@!", type: "seller" }
 
 ];
-
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {"Copyright © "}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{" "}
-            {new Date().getFullYear()}
-            {"."}
-        </Typography>
-    );
-}
 
 export default function SignInSide(props: any) {
 
@@ -79,10 +66,10 @@ export default function SignInSide(props: any) {
         >
             <CssBaseline />
             <Grid
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                }}
+                // style={{
+                //     display: "flex",
+                //     flexDirection: "column",
+                // }}
                 item
                 xs={12}
                 sm={8}
@@ -92,6 +79,7 @@ export default function SignInSide(props: any) {
                 square
                 justifyContent="center"
                 alignItems="center"
+                padding={5}
             >
                 <div
                     style={{
@@ -103,7 +91,7 @@ export default function SignInSide(props: any) {
                 >
                     <Avatar
                         style={{
-                            margin: 20,
+                            marginBottom: 20,
                             // backgroundColor: theme.palette.secondary.main
                         }}
                     >
@@ -169,8 +157,7 @@ export default function SignInSide(props: any) {
                             </Grid>
                         </Grid>
                         <Box
-                            mt={5}
-                            mb={3}
+                            mt={3}
                         >
                             <Copyright />
                         </Box>
