@@ -2,7 +2,7 @@ import GitHub from "@mui/icons-material/GitHub";
 import { Avatar, Box, Button, Checkbox, CssBaseline, FormControlLabel, Grid, Link, Paper, TextField, Typography } from "@mui/material";
 import React from "react";
 import AuthService from "services/AuthService";
-import Copyright from "./Copyright";
+import Copyright from "./components/Copyright";
 
 const users = [
 
