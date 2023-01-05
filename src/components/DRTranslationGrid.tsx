@@ -147,10 +147,11 @@ type IDRTranslationGridProps = {
     githubRepoName: string,
     height?: number,
     rowHeight?: number,
+    completeLoading: () => void,
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75 } = props
+    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75, completeLoading } = props
     const [data, setData] = useState<TranslationResult>()
 
     useEffect(() => {
@@ -158,6 +159,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         const translationService = new TranslationService();
 
         translationService.getLanguages(gitRepo, crowdinProjectId, abortController).then(res => {
+            completeLoading()
             if (abortController.signal.aborted) {
                 return;
             }
@@ -169,7 +171,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         return function cleanUp() {
             abortController.abort();
         }
-    }, [crowdinProjectId, gitRepo]);
+    }, [crowdinProjectId, gitRepo, completeLoading]);
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
