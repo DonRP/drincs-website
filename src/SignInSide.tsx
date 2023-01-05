@@ -11,7 +11,7 @@ const users = [
 
 ];
 
-export default function SignInSide(props: any) {
+function SignInSide(props: any) {
 
     if (AuthService.isLoggedIn()) {
 
@@ -167,3 +167,5 @@ export default function SignInSide(props: any) {
         </Grid>
     );
 }
+
+export default SignInSide;
