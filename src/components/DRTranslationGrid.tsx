@@ -9,6 +9,7 @@ import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'mo
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import Flag from 'react-flagkit';
+import { RecoilState, useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
 
 const columns = [
@@ -147,15 +148,31 @@ type IDRTranslationGridProps = {
     githubRepoName: string,
     height?: number,
     rowHeight?: number,
+    NotCompleteListAtom: RecoilState<string[]>
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75 } = props
+    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75, NotCompleteListAtom } = props
     const [data, setData] = useState<TranslationResult>()
+    const [loading, setLoading] = useState(true)
+    const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(NotCompleteListAtom);
+    const test = () => {
+        if (loading) {
+            setLoading(false)
+            setOltherTranslationNotComplete(oltherTranslationNotComplete.filter((id: string) => {
+                return id !== crowdinProjectId
+            }))
+            return true
+        }
+        else {
+            return false
+        }
+    }
 
     useEffect(() => {
         const abortController = new AbortController();
         const translationService = new TranslationService();
+        setLoading(true)
 
         translationService.getLanguages(gitRepo, crowdinProjectId, abortController).then(res => {
             if (abortController.signal.aborted) {
@@ -178,36 +195,43 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
 
     try {
         if (!data) {
-            return <CircularProgress />
+            if (crowdinProjectId === oltherTranslationNotComplete[oltherTranslationNotComplete.length - 1]) {
+                return <CircularProgress />
+            }
+            else {
+                return null
+            }
         }
         else {
             return (
-                <Card elevation={24} sx={{ maxWidth: 900 }}>
-                    <CardHeader
-                        action={
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                style={{ marginLeft: 16 }}
-                                onClick={() => {
-                                    window.open(crowdinLink)
-                                }}
-                                endIcon={<GTranslateIcon />}
-                            >
-                                <Typography>
-                                    Translate
-                                </Typography>
-                            </Button>
-                        }
-                        title={data?.name}
-                    />
-                    <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
-                        <CardMedia
-                            component="img"
-                            image={data?.logo || ""}
+                <>
+                    {loading && test()}
+                    <Card elevation={24} sx={{ maxWidth: 900 }}>
+                        <CardHeader
+                            action={
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    style={{ marginLeft: 16 }}
+                                    onClick={() => {
+                                        window.open(crowdinLink)
+                                    }}
+                                    endIcon={<GTranslateIcon />}
+                                >
+                                    <Typography>
+                                        Translate
+                                    </Typography>
+                                </Button>
+                            }
+                            title={data?.name}
                         />
-                    </CardActionArea>
-                    {/* <CardActions disableSpacing>
+                        <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
+                            <CardMedia
+                                component="img"
+                                image={data?.logo || ""}
+                            />
+                        </CardActionArea>
+                        {/* <CardActions disableSpacing>
                 <ExpandMore
                      expand={expanded}
                     onClick={handleExpandClick}
@@ -217,21 +241,22 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     <ExpandMore />
                 </ExpandMore>
             </CardActions> */}
-                    {data?.description &&
-                        <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <Typography paragraph>
-                                <div dangerouslySetInnerHTML={{ __html: data.description }} />
-                            </Typography>
-                        </Collapse>
-                    }
-                    <div style={{ height: height, width: '100%' }}>
-                        <DataGrid
-                            rows={data.list}
-                            columns={columns}
-                            rowHeight={rowHeight}
-                        />
-                    </div>
-                </Card>
+                        {data?.description &&
+                            <Collapse in={expanded} timeout="auto" unmountOnExit>
+                                <Typography paragraph>
+                                    <div dangerouslySetInnerHTML={{ __html: data.description }} />
+                                </Typography>
+                            </Collapse>
+                        }
+                        <div style={{ height: height, width: '100%' }}>
+                            <DataGrid
+                                rows={data.list}
+                                columns={columns}
+                                rowHeight={rowHeight}
+                            />
+                        </div>
+                    </Card>
+                </>
             );
         }
     } catch (error) {
