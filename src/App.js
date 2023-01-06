@@ -1,14 +1,15 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
+import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
 import About from 'About';
-import DRNavbar from 'components/DRNavbar';
 import Download from 'Download';
-import ErrorBoundary from 'errer_check/ErrorBoundary';
 import News from 'News';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Report from 'Report';
 import Support from 'Support';
 import Translations from 'Translations';
+import DRNavbar from 'components/DRNavbar';
+import ErrorBoundary from 'errer_check/ErrorBoundary';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import './App.css';
 
 const routes = [
@@ -45,13 +46,15 @@ function App() {
                 <GlobalStyles styles={{ h1: { color: 'white' }, h2: { color: 'white' }, body: { backgroundColor: '#6c4b73', } }} />
 
                 <BrowserRouter>
-                    <DRNavbar pages={routes} supportPage={supportRoute} extern_link={extern_link} injectFirst />
-                    <Routes>
-                        {(routes).map((route) => (
-                            <Route key={route.title} path={route.path} element={route.element} />
-                        ))}
-                        <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
-                    </Routes>
+                    <RecoilRoot>
+                        <DRNavbar pages={routes} supportPage={supportRoute} extern_link={extern_link} injectFirst />
+                        <Routes>
+                            {(routes).map((route) => (
+                                <Route key={route.title} path={route.path} element={route.element} />
+                            ))}
+                            <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
+                        </Routes>
+                    </RecoilRoot>
                 </BrowserRouter>
             </ThemeProvider>
         </ErrorBoundary>
