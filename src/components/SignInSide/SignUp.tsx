@@ -13,6 +13,7 @@ function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                margin="normal"
             />
             <TextField
                 variant="outlined"
@@ -22,6 +23,7 @@ function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                margin="normal"
             />
             <TextField
                 variant="outlined"
@@ -31,6 +33,7 @@ function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                margin="normal"
             />
             <TextField
                 variant="outlined"
@@ -41,6 +44,7 @@ function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                margin="normal"
             />
             <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -51,6 +55,12 @@ function SignUp() {
                 fullWidth
                 variant="contained"
                 color="primary"
+                style={{
+                    marginTop: 20,
+                    marginBottom: 10,
+                    marginLeft: 2,
+                    marginRight: 2,
+                }}
             >
                 Sign Up
             </Button>

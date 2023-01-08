@@ -17,7 +17,8 @@ function SignInSide(props: any) {
         <Grid container component="main"
             style={{
                 height: "100vh",
-                // backgroundImage: `url(${image})`,
+                backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
+                backgroundColor: "##000",
                 backgroundRepeat: "no-repeat",
                 backgroundPosition: "center",
                 backgroundSize: "cover",
@@ -26,6 +27,7 @@ function SignInSide(props: any) {
                 //     ? theme.palette.grey[50]
                 //     : theme.palette.grey[900],
 
+                marginTop: '-72px',
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center"
