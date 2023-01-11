@@ -1,0 +1,7 @@
+img[src*="#markdownimg"] {
+  max-width: 100%;
+}
+
+a {
+  color: aquamarine;
+}
