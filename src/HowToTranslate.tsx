@@ -1,6 +1,7 @@
 import { Card, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import './HowToTranslate.css';
 
 function HowToTranslate() {
     const [content, setContent] = useState("");
@@ -26,8 +27,9 @@ function HowToTranslate() {
                 }}>
                 <ReactMarkdown
                     children={content}
+                    // https://dzone.com/articles/how-to-style-images-with-markdown
                     transformImageUri={(src: string, alt: string, title: string | null) => {
-                        return `${src} =x20`
+                        return `${src}#markdownimg`
                     }}
                 />
             </Card>
