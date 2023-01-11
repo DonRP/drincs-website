@@ -1,15 +1,20 @@
 import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
-import { ElementContent } from "react-markdown/lib/ast-to-react";
+import { ElementContent, TransformLink } from "react-markdown/lib/ast-to-react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import '../Markdown.css';
+
 type IMarkdownCardProps = {
-    markdownLink: string
+    markdownLink: string,
+    transformLinkUri?: TransformLink,
+    minWidth?: number,
 }
 
 function MarkdownCard(props: IMarkdownCardProps) {
     const [text, setText] = useState("");
     const url = props.markdownLink;
+    const transformLinkUri = props.transformLinkUri;
+    const minWidth = props.minWidth;
 
     useEffect(() => {
         fetch(url)
@@ -21,15 +26,16 @@ function MarkdownCard(props: IMarkdownCardProps) {
         <Card elevation={24}
             sx={{
                 maxWidth: 1000,
+                minWidth: minWidth,
                 padding: 5,
             }}>
             <ReactMarkdown
                 children={text}
                 // https://dzone.com/articles/how-to-style-images-with-markdown
                 transformImageUri={(src: string, alt: string, title: string | null) => {
-                    return ``
+                    return src + '#markdownimg'
                 }}
-                transformLinkUri={(href: string, children: Array<ElementContent>, title: string | null) => {
+                transformLinkUri={transformLinkUri ? transformLinkUri : (href: string, children: Array<ElementContent>, title: string | null) => {
                     return href
                 }}
             />
