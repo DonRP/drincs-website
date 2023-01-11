@@ -15,6 +15,7 @@ function MarkdownPage(props: IHowToTranslateProps) {
             justifyContent="flex-start"
             alignItems="center"
             marginTop={5}
+            marginBottom={5}
         >
             <MarkdownCard
                 markdownLink={url}
