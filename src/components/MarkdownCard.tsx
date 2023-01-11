@@ -27,7 +27,7 @@ function MarkdownCard(props: IMarkdownCardProps) {
                 children={text}
                 // https://dzone.com/articles/how-to-style-images-with-markdown
                 transformImageUri={(src: string, alt: string, title: string | null) => {
-                    return `${src}#markdownimg`
+                    return ``
                 }}
                 transformLinkUri={(href: string, children: Array<ElementContent>, title: string | null) => {
                     return href
