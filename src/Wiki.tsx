@@ -2,11 +2,11 @@ import { Card, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
-function HowToTranslate() {
+function Wiki() {
     const [content, setContent] = useState("");
 
     useEffect(() => {
-        fetch("https://raw.githubusercontent.com/wiki/DonRP/AmityPark/Home.md")
+        fetch("https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/Home.md")
             .then((res) => res.text())
             .then((text) => setContent(text));
     }, []);
@@ -24,15 +24,10 @@ function HowToTranslate() {
                     maxWidth: 1000,
                     padding: 5,
                 }}>
-                <ReactMarkdown
-                    children={content}
-                    transformImageUri={(src: string, alt: string, title: string | null) => {
-                        return `${src} =x20`
-                    }}
-                />
+                <ReactMarkdown children={content} />
             </Card>
         </Grid>
     );
 };
 
-export default HowToTranslate;
+export default Wiki;

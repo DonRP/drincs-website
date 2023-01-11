@@ -209,19 +209,28 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     <Card elevation={24} sx={{ maxWidth: 900 }}>
                         <CardHeader
                             action={
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    style={{ marginLeft: 16 }}
-                                    onClick={() => {
-                                        window.open(crowdinLink)
-                                    }}
-                                    endIcon={<GTranslateIcon />}
-                                >
-                                    <Typography>
-                                        Translate
-                                    </Typography>
-                                </Button>
+                                <>
+                                    <GTranslateIcon
+                                        style={{ marginTop: 10 }}
+                                        onClick={handleExpandClick}
+                                    />
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        style={{
+                                            marginLeft: 16,
+                                            marginBottom: 10
+                                        }}
+                                        onClick={() => {
+                                            window.open(crowdinLink)
+                                        }}
+                                        endIcon={<GTranslateIcon />}
+                                    >
+                                        <Typography>
+                                            Translate
+                                        </Typography>
+                                    </Button>
+                                </>
                             }
                             title={data?.name}
                         />
