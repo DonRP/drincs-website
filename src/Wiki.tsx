@@ -1,16 +1,7 @@
-import { Card, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { Grid } from "@mui/material";
+import MarkdownCard from "components/MarkdownCard";
 
 function Wiki() {
-    const [content, setContent] = useState("");
-
-    useEffect(() => {
-        fetch("https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/Home.md")
-            .then((res) => res.text())
-            .then((text) => setContent(text));
-    }, []);
-
     return (
         <Grid
             container
@@ -19,13 +10,7 @@ function Wiki() {
             alignItems="center"
             marginTop={5}
         >
-            <Card elevation={24}
-                sx={{
-                    maxWidth: 1000,
-                    padding: 5,
-                }}>
-                <ReactMarkdown children={content} />
-            </Card>
+            <MarkdownCard markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/Home.md' />
         </Grid>
     );
 };
