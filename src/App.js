@@ -1,17 +1,17 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
+import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
 import About from 'About';
-import DRNavbar from 'components/DRNavbar';
 import Download from 'Download';
-import ErrorBoundary from 'errer_check/ErrorBoundary';
-import HowToTranslate from 'HowToTranslate';
+import MarkdownPage from 'MarkdownPage';
 import News from 'News';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import Report from 'Report';
 import Support from 'Support';
 import Translations from 'Translations';
 import Wiki from 'Wiki';
+import DRNavbar from 'components/DRNavbar';
+import ErrorBoundary from 'errer_check/ErrorBoundary';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import './App.css';
 
 const routes = [
@@ -55,7 +55,7 @@ function App() {
                                 <Route key={route.title} path={route.path} element={route.element} />
                             ))}
                             <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
-                            <Route key="howtotranslate" path="/howtotranslate" element={<HowToTranslate />} />
+                            <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DonRP/AmityPark/Home.md' />} />
                         </Routes>
                     </RecoilRoot>
                 </BrowserRouter>

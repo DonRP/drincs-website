@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 import { ElementContent } from "react-markdown/lib/ast-to-react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import './Markdown.css';
+type IHowToTranslateProps = {
+    markdownLink: string
+}
 
-function HowToTranslate() {
-    const [content, setContent] = useState("");
+function MarkdownPage(props: IHowToTranslateProps) {
+    const [text, setText] = useState("");
+    const url = props.markdownLink;
 
     useEffect(() => {
-        fetch("https://raw.githubusercontent.com/wiki/DonRP/AmityPark/Home.md")
+        fetch(url)
             .then((res) => res.text())
-            .then((text) => setContent(text));
-    }, []);
+            .then((text) => setText(text));
+    }, [url]);
 
     return (
         <Grid
@@ -27,7 +31,7 @@ function HowToTranslate() {
                     padding: 5,
                 }}>
                 <ReactMarkdown
-                    children={content}
+                    children={text}
                     // https://dzone.com/articles/how-to-style-images-with-markdown
                     transformImageUri={(src: string, alt: string, title: string | null) => {
                         return `${src}#markdownimg`
@@ -41,4 +45,4 @@ function HowToTranslate() {
     );
 };
 
-export default HowToTranslate;
+export default MarkdownPage;
