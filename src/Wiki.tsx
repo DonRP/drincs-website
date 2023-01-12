@@ -1,10 +1,8 @@
 import { Grid } from "@mui/material";
 import MarkdownCard from "components/MarkdownCard";
-import { useEffect, useState } from "react";
 import { ElementContent } from "react-markdown/lib/ast-to-react";
 
 function Wiki() {
-    const [route, setRoute] = useState<string | null>(null)
     const transformLinkUri = (href: string, children: Array<ElementContent>, title: string | null) => {
         if (href.includes("https")) {
             return href
@@ -13,11 +11,8 @@ function Wiki() {
             return `wiki?route=${href}`
         }
     }
-    useEffect(() => {
-        const queryParameters = new URLSearchParams(window.location.search)
-        const route = queryParameters.get("route")
-        setRoute(route)
-    }, [])
+    const queryParameters = new URLSearchParams(window.location.search)
+    const route = queryParameters.get("route")
 
     return (
         <Grid
