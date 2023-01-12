@@ -1,7 +1,24 @@
 import { Grid } from "@mui/material";
 import MarkdownCard from "components/MarkdownCard";
+import { useEffect, useState } from "react";
+import { ElementContent } from "react-markdown/lib/ast-to-react";
 
 function Wiki() {
+    const [route, setRoute] = useState<string | null>(null)
+    const transformLinkUri = (href: string, children: Array<ElementContent>, title: string | null) => {
+        if (href.includes("https")) {
+            return href
+        }
+        else {
+            return `wiki?route=${href}`
+        }
+    }
+    useEffect(() => {
+        const queryParameters = new URLSearchParams(window.location.search)
+        const route = queryParameters.get("route")
+        setRoute(route)
+    }, [])
+
     return (
         <Grid
             container
@@ -20,11 +37,15 @@ function Wiki() {
                 <MarkdownCard
                     minWidth={150}
                     markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/_Sidebar.md'
+                    transformLinkUri={transformLinkUri}
                 />
             </Grid>
             <Grid item xs={7}>
                 <MarkdownCard
-                    markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/Home.md'
+                    markdownLink={route ?
+                        `https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/${route}.md` :
+                        `https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/Home.md`}
+                    transformLinkUri={transformLinkUri}
                 />
             </Grid>
             <Grid item xs={2}
@@ -33,6 +54,7 @@ function Wiki() {
                 <MarkdownCard
                     minWidth={150}
                     markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/_Sidebar.md'
+                    transformLinkUri={transformLinkUri}
                 />
             </Grid>
             <Grid item xs={2}
