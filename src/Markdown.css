@@ -5,3 +5,8 @@ img[src*="#markdownimg"] {
 a {
   color: aquamarine;
 }
+
+img[src*="#icon"] {
+  width: 100px;
+  height: 100px;
+}
