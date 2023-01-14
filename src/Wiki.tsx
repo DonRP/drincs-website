@@ -44,8 +44,8 @@ function Wiki() {
                     transformLinkUri={transformLinkUri}
                 />
             </Grid>
-            <Grid item xs={2}
-                sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            <Grid item xs={12}
+                sx={{ flexGrow: 1, display: { xs: 'grid', md: 'none' } }}
             >
                 <MarkdownCard
                     minWidth={150}
