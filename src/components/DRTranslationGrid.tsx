@@ -1,7 +1,8 @@
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
-import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
@@ -209,19 +210,30 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     <Card elevation={24} sx={{ maxWidth: 900 }}>
                         <CardHeader
                             action={
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    style={{ marginLeft: 16 }}
-                                    onClick={() => {
-                                        window.open(crowdinLink)
-                                    }}
-                                    endIcon={<GTranslateIcon />}
-                                >
-                                    <Typography>
-                                        Translate
-                                    </Typography>
-                                </Button>
+                                <>
+                                    <IconButton
+                                        onClick={handleExpandClick}
+                                        style={{ marginBottom: 10 }}
+                                    >
+                                        <HelpOutlineIcon />
+                                    </IconButton>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        style={{
+                                            marginLeft: 16,
+                                            marginBottom: 10
+                                        }}
+                                        onClick={() => {
+                                            window.open(crowdinLink)
+                                        }}
+                                        endIcon={<GTranslateIcon />}
+                                    >
+                                        <Typography>
+                                            Translate
+                                        </Typography>
+                                    </Button>
+                                </>
                             }
                             title={data?.name}
                         />

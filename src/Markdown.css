@@ -1,0 +1,12 @@
+img[src*="#markdownimg"] {
+  max-width: 100%;
+}
+
+a {
+  color: aquamarine;
+}
+
+img[src*="#icon"] {
+  width: 100px;
+  height: 100px;
+}

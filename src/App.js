@@ -2,10 +2,12 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
 import About from 'About';
 import Download from 'Download';
+import MarkdownPage from 'MarkdownPage';
 import News from 'News';
 import Report from 'Report';
 import Support from 'Support';
 import Translations from 'Translations';
+import Wiki from 'Wiki';
 import DRNavbar from 'components/DRNavbar';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -17,10 +19,10 @@ const routes = [
     { title: "🗞️news", path: "/news", element: <News /> },
     { title: "⬇️download", path: "/download", element: <Download /> },
     { title: "🌍translations", path: "/translations", element: <Translations /> },
+    { title: "📖wiki", path: "/wiki", element: <Wiki /> },
     { title: "🐞bug/request", path: "/report", element: <Report /> },
 ];
 const extern_link = [
-    { title: "📖wiki", path: "https://github.com/DonRP/ABFD/wiki" },
     { title: "💬discord", path: "https://discord.gg/HFfeJKR" },
     {
         title: <><GitHubIcon sx={{
@@ -53,6 +55,7 @@ function App() {
                                 <Route key={route.title} path={route.path} element={route.element} />
                             ))}
                             <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
+                            <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DonRP/AmityPark/Home.md' />} />
                         </Routes>
                     </RecoilRoot>
                 </BrowserRouter>
