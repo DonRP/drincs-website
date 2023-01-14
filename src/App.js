@@ -27,7 +27,7 @@ const extern_link = [
     {
         title: <><GitHubIcon sx={{
             fontSize: "15px",
-        }} />GitHub</>, path: "https://github.com/orgs/DRincs-Productions/projects/1"
+        }} />GitHub</>, path: "https://github.com/DRincs-Productions"
     },
 ];
 const supportRoute = { title: "support", path: "/support", element: <Support /> }
