@@ -19,8 +19,8 @@ const routes = [
     { title: "🗞️news", path: "/news", element: <News /> },
     { title: "⬇️download", path: "/download", element: <Download /> },
     { title: "🌍translations", path: "/translations", element: <Translations /> },
-    { title: "🐞bug/request", path: "/report", element: <Report /> },
     { title: "📖wiki", path: "/wiki", element: <Wiki /> },
+    { title: "🐞bug/request", path: "/report", element: <Report /> },
 ];
 const extern_link = [
     { title: "💬discord", path: "https://discord.gg/HFfeJKR" },

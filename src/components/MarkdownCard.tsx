@@ -2,6 +2,7 @@ import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
 import { ElementContent, TransformLink } from "react-markdown/lib/ast-to-react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import remarkGfm from 'remark-gfm';
 import '../Markdown.css';
 
 type IMarkdownCardProps = {
@@ -31,6 +32,7 @@ function MarkdownCard(props: IMarkdownCardProps) {
             }}>
             <ReactMarkdown
                 children={text}
+                remarkPlugins={[remarkGfm]}
                 // https://dzone.com/articles/how-to-style-images-with-markdown
                 transformImageUri={(src: string, alt: string, title: string | null) => {
                     return src + '#markdownimg'

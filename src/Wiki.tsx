@@ -22,6 +22,7 @@ function Wiki() {
             alignItems={{ xs: "stretch", md: "flex-start" }}
             spacing={0}
             marginTop={5}
+            marginBottom={5}
         >
             <Grid item xs={1}
                 sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
