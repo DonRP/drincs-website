@@ -5,6 +5,7 @@
         "toba.vsfire",
         "dbaeumer.vscode-eslint",
         "ms-edgedevtools.vscode-edge-devtools",
-        "adrianwilczynski.csharp-to-typescript"
+        "adrianwilczynski.csharp-to-typescript",
+        "github.vscode-pull-request-github"
     ]
 }
