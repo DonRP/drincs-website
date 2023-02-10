@@ -2,7 +2,7 @@ import { HttpResponse } from "model/HttpResponse";
 import RestService, { showError } from "./RestService";
 
 class GitService {
-    url = "https://drincs-website-back-end-production.up.railway.app";
+    url = "https://drincs-website-back-end.onrender.com";
 
     authService = new RestService();
 

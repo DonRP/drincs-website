@@ -1,4 +1,3 @@
-
 class RestService {
     async fetch(url, token, options, tokenType = "Bearer") {
         // performs api calls sending the required authentication headers

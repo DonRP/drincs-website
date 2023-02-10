@@ -1,38 +1,38 @@
-export interface TranslationResult {
-    list: TranslationResultItem[];
-    name: string | null;
-    logo: string | null;
-    description: string | null;
+export class TranslationResult {
+    list: TranslationResultItem[] = [];
+    name: string | null = null;
+    logo: string | null = null;
+    description: string | null = null;
 }
 
-interface TranslationResultItem {
-    id: number;
-    translated: number;
-    approved: number;
-    release: GitHubTranslationRelease | null;
-    targetLanguages: TargetLanguages | null;
+class TranslationResultItem {
+    id: number = 0;
+    translated: number = 0;
+    approved: number = 0;
+    release: GitHubTranslationRelease | null = null;
+    targetLanguages: TargetLanguages | null = null;
 }
 
-interface GitHubTranslationRelease {
-    version: string;
-    language: string;
-    downloadUrl: string;
-    date: string;
+export class GitHubTranslationRelease {
+    version: string = "";
+    language: string = "";
+    downloadUrl: string = "";
+    date: string = "";
 }
 
-interface TargetLanguages {
-    id: string;
-    name: string;
-    editorCode: string;
-    twoLettersCode: string;
-    threeLettersCode: string;
-    locale: string;
-    androidCode: string;
-    osxCode: string;
-    osxLocale: string;
-    pluralCategoryNames: string[];
-    pluralRules: string;
-    pluralExamples: string[];
-    textDirection: string;
+export class TargetLanguages {
+    id: string = "";
+    name: string = "";
+    editorCode: string = "";
+    twoLettersCode: string = "";
+    threeLettersCode: string = "";
+    locale: string = "";
+    androidCode: string = "";
+    osxCode: string = "";
+    osxLocale: string = "";
+    pluralCategoryNames: string[] = [];
+    pluralRules: string = "";
+    pluralExamples: string[] = [];
+    textDirection: string = "";
     dialectOf: any;
 }

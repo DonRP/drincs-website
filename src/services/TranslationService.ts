@@ -4,7 +4,7 @@ import RestService, { showError } from "./RestService";
 
 // https://support.crowdin.com/api/v2/
 class TranslationService {
-    url = "https://drincs-website-back-end-production.up.railway.app";
+    url = "https://drincs-website-back-end.onrender.com";
 
     authService = new RestService();
 

@@ -1,4 +1,7 @@
 [![Netlify Status](https://api.netlify.com/api/v1/badges/b53106bb-5235-4cc6-890e-632c7b586319/deploy-status)](https://app.netlify.com/sites/drincs-website/deploys)
+# Fast editor with CodeSandbox 
+https://codesandbox.io/p/github/DRincs-Productions/drincs-website
+
 # Install in WLS2
 More Info: https://learn.microsoft.com/it-it/windows/dev-environment/javascript/nodejs-on-wsl
 

@@ -1,14 +1,16 @@
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
-import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, Typography } from '@mui/material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
-import { DataGrid } from '@mui/x-data-grid';
-import { TranslationResult } from 'model/TranslationResult';
+import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
+import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/TranslationResult';
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import Flag from 'react-flagkit';
+import { RecoilState, useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
 
 const columns = [
@@ -17,7 +19,7 @@ const columns = [
         headerName: 'Language',
         flex: 1,
         minWidth: 100,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<TargetLanguages, any, any>) => (
             <strong>
                 <Grid
                     container
@@ -44,7 +46,7 @@ const columns = [
         headerName: 'Download',
         flex: 1,
         minWidth: 150,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<GitHubTranslationRelease, any, any>) => (
             <strong>
                 {params.value &&
                     <Button
@@ -52,7 +54,7 @@ const columns = [
                         color="primary"
                         size="small"
                         style={{ marginLeft: 16 }}
-                        target="_blank" href={params.value?.download_url}
+                        target="_blank" href={params.value?.downloadUrl}
                         startIcon={<DownloadIcon />}
                     >
                         {params.value?.version}
@@ -66,7 +68,7 @@ const columns = [
         headerName: 'Translated',
         flex: 1,
         minWidth: 50,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<number, any, any>) => (
             <strong>
                 {params.value !== 100 &&
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -83,7 +85,7 @@ const columns = [
                                 justifyContent: 'center',
                             }}
                         >
-                            {`${Math.round(params.value)}%`}
+                            {params.value ? `${Math.round(params.value)}%` : ""}
                         </Box>
                     </Box>
                 }
@@ -98,7 +100,7 @@ const columns = [
         headerName: 'Approved',
         flex: 1,
         minWidth: 50,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<number, any, any>) => (
             <strong>
                 {params.value !== 100 &&
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -115,7 +117,7 @@ const columns = [
                                 justifyContent: 'center',
                             }}
                         >
-                            {`${Math.round(params.value)}%`}
+                            {params.value ? `${Math.round(params.value)}%` : ""}
                         </Box>
                     </Box>
                 }
@@ -147,15 +149,31 @@ type IDRTranslationGridProps = {
     githubRepoName: string,
     height?: number,
     rowHeight?: number,
+    NotCompleteListAtom: RecoilState<string[]>
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75 } = props
+    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75, NotCompleteListAtom } = props
     const [data, setData] = useState<TranslationResult>()
+    const [loading, setLoading] = useState(true)
+    const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(NotCompleteListAtom);
+    const test = () => {
+        if (loading) {
+            setLoading(false)
+            setOltherTranslationNotComplete(oltherTranslationNotComplete.filter((id: string) => {
+                return id !== crowdinProjectId
+            }))
+            return true
+        }
+        else {
+            return false
+        }
+    }
 
     useEffect(() => {
         const abortController = new AbortController();
         const translationService = new TranslationService();
+        setLoading(true)
 
         translationService.getLanguages(gitRepo, crowdinProjectId, abortController).then(res => {
             if (abortController.signal.aborted) {
@@ -177,26 +195,45 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     };
 
     try {
-        return (
-            <>
-                {!data &&
-                    null
-                }
-                {data &&
+        if (!data) {
+            if (crowdinProjectId === oltherTranslationNotComplete[oltherTranslationNotComplete.length - 1]) {
+                return <CircularProgress />
+            }
+            else {
+                return null
+            }
+        }
+        else {
+            return (
+                <>
+                    {loading && test()}
                     <Card elevation={24} sx={{ maxWidth: 900 }}>
                         <CardHeader
                             action={
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    style={{ marginLeft: 16 }}
-                                    href={crowdinLink}
-                                    endIcon={<GTranslateIcon />}
-                                >
-                                    <Typography>
-                                        Translate
-                                    </Typography>
-                                </Button>
+                                <>
+                                    <IconButton
+                                        onClick={handleExpandClick}
+                                        style={{ marginBottom: 10 }}
+                                    >
+                                        <HelpOutlineIcon />
+                                    </IconButton>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        style={{
+                                            marginLeft: 16,
+                                            marginBottom: 10
+                                        }}
+                                        onClick={() => {
+                                            window.open(crowdinLink)
+                                        }}
+                                        endIcon={<GTranslateIcon />}
+                                    >
+                                        <Typography>
+                                            Translate
+                                        </Typography>
+                                    </Button>
+                                </>
                             }
                             title={data?.name}
                         />
@@ -231,9 +268,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             />
                         </div>
                     </Card>
-                }
-            </>
-        );
+                </>
+            );
+        }
     } catch (error) {
         console.error(error)
         return <div style={{ color: "red" }}>DRTranslationGrid error</div>
