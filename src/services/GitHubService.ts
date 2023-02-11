@@ -1,11 +1,7 @@
 import { HttpResponse } from "model/HttpResponse";
-import RestService, { showError } from "./RestService";
+import BaseRestService from "./BaseRestService";
 
-class GitService {
-    url = "https://drincs-website-back-end.onrender.com";
-
-    authService = new RestService();
-
+class GitService extends BaseRestService {
     async createIssue(repo: string, title: string, body = "", labels = [], abortController: any): Promise<HttpResponse<any>> {
         if (!repo) {
             return new HttpResponse()
@@ -24,15 +20,13 @@ class GitService {
             })
         };
 
-        const request = new Request(this.url + `/GitHub/CreateIssue?repositoryName=${repo}`, requestOptions);
-
-        return this.authService.fetch(request, null, { signal: abortController.signal })
+        return this.customFetch(this.urlwebapi + `/GitHub/CreateIssue?repositoryName=${repo}`, requestOptions)
             .then(response => {
                 return response;
             })
             .catch((res) => {
                 return res.response.json().then((body: any) => {
-                    showError(body)
+                    this.showError(body)
                 });
             });
     }

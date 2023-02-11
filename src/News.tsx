@@ -22,7 +22,7 @@ function News() {
         const abortController = new AbortController();
         const tweetService = new TweetService();
         urlNoApiCode.forEach(element => {
-            tweetService.getTweets(element + "?type=user_timeline", abortController).then(res => {
+            tweetService.getTweets(element + "?type=user_timeline").then(res => {
                 if (abortController.signal.aborted) {
                     return;
                 }

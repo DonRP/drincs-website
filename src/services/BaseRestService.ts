@@ -1,7 +1,28 @@
-class RestService {
-    async fetch(url, token, options, tokenType = "Bearer") {
+type HeadersType = {
+    'Accept': string
+    'Content-Type': string
+    'Authorization'?: string
+}
+
+class BaseRestService {
+    urlwebapi = "https://drincs-website-back-end.onrender.com";
+    showError(body: any) {
+        console.log(body)
+        if (body.error) {
+            window.alert(body.error)
+        } else if (body.message) {
+            window.alert(body.message)
+        } else {
+            window.alert("basdfas")
+        }
+        throw Object.assign(
+            new Error(body)
+        );
+    }
+
+    async customFetch(url: URL | string, options: any = {}, token?: string, tokenType = "Bearer") {
         // performs api calls sending the required authentication headers
-        const headers = {
+        const headers: HeadersType = {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
@@ -26,30 +47,16 @@ class RestService {
             });
     }
 
-    _checkStatus(response) {
+    _checkStatus(response: any) {
         // raises an error in case response status is not a success
         if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
             return response
         } else {
             var error = new Error(response.statusText)
-            error.response = response
+            // error.response = response
             throw error
         }
     }
 }
-export default RestService;
+export default BaseRestService;
 
-
-export function showError(body) {
-    console.log(body)
-    if (body.error) {
-        window.alert(body.error)
-    } else if (body.message) {
-        window.alert(body.message)
-    } else {
-        window.alert("basdfas")
-    }
-    throw Object.assign(
-        new Error(body)
-    );
-}

@@ -175,7 +175,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         const translationService = new TranslationService();
         setLoading(true)
 
-        translationService.getLanguages(gitRepo, crowdinProjectId, abortController).then(res => {
+        translationService.getLanguages(gitRepo, crowdinProjectId).then(res => {
             if (abortController.signal.aborted) {
                 return;
             }
