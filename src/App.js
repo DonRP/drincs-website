@@ -1,24 +1,24 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
+import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
 import About from 'About';
+import DRNavbar from 'components/DRNavbar';
 import Download from 'Download';
+import ErrorBoundary from 'errer_check/ErrorBoundary';
 import MarkdownPage from 'MarkdownPage';
 import News from 'News';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
 import Report from 'Report';
 import SignInSide from 'SignInSide';
 import Support from 'Support';
 import Translations from 'Translations';
 import Wiki from 'Wiki';
-import DRNavbar from 'components/DRNavbar';
-import ErrorBoundary from 'errer_check/ErrorBoundary';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import './App.css';
 
 const routes = [
     { title: "about", path: "/", element: <About /> },
-    { title: "🗞️news", path: "/news", element: <News /> },
     { title: "⬇️download", path: "/download", element: <Download /> },
+    { title: "🗞️news", path: "/news", element: <News /> },
     { title: "🌍translations", path: "/translations", element: <Translations /> },
     { title: "📖wiki", path: "/wiki", element: <Wiki /> },
     { title: "🐞bug/request", path: "/report", element: <Report /> },
