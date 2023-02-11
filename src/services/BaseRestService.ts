@@ -43,7 +43,7 @@ class BaseRestService {
                 return response.json()
             })
             .catch((res) => {
-                console.log(res);
+                console.error("fetch Error", res);
             });
     }
 
