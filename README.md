@@ -1,3 +1,5 @@
+[![Production Deployment](https://github.com/DRincs-Productions/drincs-website/actions/workflows/antivirus.yml/firebase.svg)](https://github.com/DRincs-Productions/drincs-website/actions/workflows/firebase.yml)
+
 # Fast editor with CodeSandbox 
 https://codesandbox.io/p/github/DRincs-Productions/drincs-website
 
