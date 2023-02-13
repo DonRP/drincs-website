@@ -17,7 +17,7 @@ node -v
 npm i
 ```
 
-# interface
+# Interface
 The interface was developed with [MUI](https://mui.com/components/).
 
 # Getting Started with Create React App
