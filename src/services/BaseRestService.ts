@@ -5,7 +5,15 @@ type HeadersType = {
 }
 
 class BaseRestService {
-    urlwebapi = "https://drincs-website-back-end.onrender.com";
+    urlwebapi = this.geturlwebapi();
+    private geturlwebapi(): string {
+        if (process.env.NODE_ENV !== 'production') {
+            return "https://localhost:7289"
+        }
+        else {
+            return "https://drincs-website-back-end.onrender.com"
+        }
+    }
     showError(body: any) {
         console.log(body)
         if (body.error) {
