@@ -12,12 +12,12 @@
         "editor.defaultFormatter": "vscode.typescript-language-features",
         "editor.formatOnSave": true
     },
-    "[css]": {
-        "editor.defaultFormatter": "vscode.css-language-features",
-        "editor.formatOnSave": true
-    },
     "[typescriptreact]": {
         "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.formatOnSave": true
+    },
+    "[css]": {
+        "editor.defaultFormatter": "vscode.css-language-features",
         "editor.formatOnSave": true
     },
     "[html]": {
@@ -41,5 +41,4 @@
     "git.enableSmartCommit": true,
     "extensions.ignoreRecommendations": false,
     "diffEditor.ignoreTrimWhitespace": false,
-    "workbench.startupEditor": "newUntitledFile",
 }
