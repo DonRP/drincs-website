@@ -1,8 +1,7 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b53106bb-5235-4cc6-890e-632c7b586319/deploy-status)](https://app.netlify.com/sites/drincs-website/deploys)
 # Fast editor with CodeSandbox 
 https://codesandbox.io/p/github/DRincs-Productions/drincs-website
 
-# Install in WLS2
+# Install Node in WLS2
 More Info: https://learn.microsoft.com/it-it/windows/dev-environment/javascript/nodejs-on-wsl
 
 ```shell
@@ -16,6 +15,9 @@ node -v
 npm i
 ```
 
+# interface
+The interface was developed with [MUI](https://mui.com/components/).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -27,7 +29,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:3005](http://localhost:3005) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
