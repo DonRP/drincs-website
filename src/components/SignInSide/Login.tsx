@@ -1,6 +1,8 @@
 import { Button, Checkbox, FormControlLabel } from '@mui/material';
 import { handleInputChangeByFieldName } from 'Utility/UtilityComponenets';
+import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
 import DRTextField from 'components/DRTextField';
+import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doLogIn } from 'services/AuthService';
@@ -8,24 +10,41 @@ import { doLogIn } from 'services/AuthService';
 function Login() {
     let navigate = useNavigate();
 
-    const [account, setAccount] = useState({ username: "", password: "" });
+    const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
+    const [errorFields, setErrorFields] = useState<string[]>([])
+
+    const validateLogin = (account: LoginAccount): string[] => {
+        let fields = [];
+        if (isNullOrEmpty(account.email)) {
+            fields.push("email")
+        }
+        if (isNullOrEmpty(account.password)) {
+            fields.push("password")
+        }
+        return fields;
+    }
 
     const handelLogin = () => {
-        doLogIn()
-        navigate("/");
+        let errorFields = validateLogin(account)
+        setErrorFields(errorFields)
+        if (errorFields.length === 0) {
+            doLogIn()
+            navigate("/");
+        }
     };
 
     try {
         return (
             <>
                 <DRTextField
-                    fieldName="username"
-                    label="Username"
+                    fieldName="email"
+                    label="Email"
                     onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     margin="normal"
                     required
                     autoFocus
+                    errorFields={errorFields}
                 />
                 <DRTextField
                     fieldName="password"
@@ -34,6 +53,7 @@ function Login() {
                     variant="outlined"
                     margin="normal"
                     required
+                    errorFields={errorFields}
                 />
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
