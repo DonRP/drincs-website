@@ -3,7 +3,7 @@ import { FocusEventHandler } from 'react';
 
 type IDRTextFieldProps = {
     onChangeValue: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-    rows: number;
+    rows?: number;
     fieldsError?: string[];
     fieldName: string;
 } & TextFieldProps

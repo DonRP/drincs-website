@@ -1,5 +1,5 @@
 import { HttpResponse } from "model/HttpResponse";
-import { TranslationResult } from "model/TranslationResult";
+import { TranslationResult } from "model/Translation/TranslationResult";
 import BaseRestService from "./BaseRestService";
 
 // https://support.crowdin.com/api/v2/

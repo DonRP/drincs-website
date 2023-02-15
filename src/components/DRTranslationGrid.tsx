@@ -6,7 +6,7 @@ import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
-import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/TranslationResult';
+import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/Translation/TranslationResult';
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import Flag from 'react-flagkit';
@@ -54,7 +54,8 @@ const columns = [
                         color="primary"
                         size="small"
                         style={{ marginLeft: 16 }}
-                        target="_blank" href={params.value?.downloadUrl}
+                        target="_blank"
+                        href={params.value?.downloadUrl}
                         startIcon={<DownloadIcon />}
                     >
                         {params.value?.version}
