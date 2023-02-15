@@ -257,13 +257,13 @@ function Report() {
                 <DRTextField
                     id="nickname"
                     label="Your nickname"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.nickname || ""}
                 />
                 <DRTextField
                     id="title"
                     label="Issues title*"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.title || ""}
                     error={errorFields.includes("title")}
                 />
@@ -271,7 +271,7 @@ function Report() {
                     id="description"
                     label="Describe the bug*"
                     aria-label="A clear and concise description of what the bug is."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.description || ""}
                     rows={3}
                     error={errorFields.includes("description")}
@@ -280,7 +280,7 @@ function Report() {
                     id="expectedBehavior"
                     label="Expected behavior"
                     aria-label="A clear and concise description of what you expected to happen."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.expectedBehavior || ""}
                     rows={3}
                 />
@@ -310,7 +310,7 @@ function Report() {
                     id="additional"
                     label="Additional context"
                     aria-label="Add any other context about the problem here."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.additional || ""}
                     rows={3}
                 />
@@ -340,13 +340,13 @@ function Report() {
                 <DRTextField
                     id="nickname"
                     label="Your nickname"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
                     defaultValue={reuestItemToEdit?.nickname || ""}
                 />
                 <DRTextField
                     id="title"
                     label="Issues title*"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
                     defaultValue={reuestItemToEdit?.title || ""}
                     error={errorFields.includes("title")}
                 />
@@ -354,7 +354,7 @@ function Report() {
                     id="description"
                     label="Is your feature request related to a problem? Please describe.*"
                     aria-label="A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
                     defaultValue={reuestItemToEdit?.description || ""}
                     rows={3}
                     error={errorFields.includes("description")}
@@ -363,7 +363,7 @@ function Report() {
                     id="posibleSolution"
                     label="Describe the solution you'd like"
                     aria-label="A clear and concise description of what you want to happen."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
                     defaultValue={reuestItemToEdit?.posibleSolution || ""}
                     rows={3}
                 />
@@ -371,7 +371,7 @@ function Report() {
                     id="alternatives"
                     label="Describe alternatives you've considered"
                     aria-label="A clear and concise description of any alternative solutions or features you've considered."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
                     defaultValue={reuestItemToEdit?.alternatives || ""}
                     rows={3}
                 />
@@ -394,7 +394,7 @@ function Report() {
                     id="additional"
                     label="Additional context"
                     aria-label="Add any other context about the problem here."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
                     defaultValue={reuestItemToEdit?.additional || ""}
                     rows={3}
                 />

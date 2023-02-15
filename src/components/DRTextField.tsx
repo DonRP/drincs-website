@@ -1,32 +1,21 @@
-import { TextField } from '@mui/material';
-import React, { FocusEventHandler } from 'react';
+import { TextField, TextFieldProps } from '@mui/material';
+import { FocusEventHandler } from 'react';
 
 type IDRTextFieldProps = {
-    id: string,
-    onChange: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>,
-    defaultValue: string,
-    disabled: boolean,
-    type: string,
-    variant: "standard" | "filled" | "outlined" | undefined,
-    rows: number,
-    multiline: boolean,
-    errorMessage: boolean,
-    label: string,
-    fieldName: string,
-    fullWidth: boolean,
-    error: boolean | undefined,
-    helperText: string,
-    rest: AnalyserNode,
-}
+    onChangeValue: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+    rows: number;
+    errorMessage: boolean;
+    fieldName: string;
+} & TextFieldProps
 
 function DRTextField(props: IDRTextFieldProps) {
-    const { id, onChange, defaultValue, disabled, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), errorMessage, label, fieldName, fullWidth, error, helperText, ...rest } = props;
+    const { id, onChangeValue, defaultValue, disabled, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), errorMessage, label, fieldName, fullWidth, error, helperText, ...rest } = props;
 
     try {
         return (
             <TextField
                 id={id}
-                label={label || id?.toLowerCase()}
+                label={label}
                 fullWidth={fullWidth === false ? false : true}
                 type={type}
                 error={error}
@@ -35,7 +24,7 @@ function DRTextField(props: IDRTextFieldProps) {
                 aria-describedby={id}
                 defaultValue={defaultValue}
                 name={fieldName || id}
-                onBlur={onChange}
+                onBlur={onChangeValue}
                 helperText={helperText || ""}
                 rows={rows}
                 multiline={multiline}
