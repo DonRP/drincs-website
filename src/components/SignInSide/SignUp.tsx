@@ -1,60 +1,81 @@
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
+import { Button } from "@mui/material";
+import { handleInputChangeByFieldName } from "Utility/UtilityComponenets";
+import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
+import DRTextField from "components/DRTextField";
+import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { useState } from 'react';
 
 function SignUp() {
+    const [account, setAccount] = useState<NewAccountRecord>(new NewAccountRecord());
+    const [errorFields, setErrorFields] = useState<string[]>([])
+
+    const validateLogin = (account: NewAccountRecord): string[] => {
+        let fields = [];
+        if (isNullOrEmpty(account.email)) {
+            fields.push("email")
+        }
+        if (isNullOrEmpty(account.password)) {
+            fields.push("password")
+        }
+        if (isNullOrEmpty(account.displayName)) {
+            fields.push("displayName")
+        }
+        return fields;
+    }
+
+    const handelSignUp = () => {
+        let errorFields = validateLogin(account)
+        setErrorFields(errorFields)
+        if (errorFields.length === 0) {
+        }
+    };
 
     return (
         <>
-            <TextField
-                autoComplete="fname"
-                name="firstName"
+            <DRTextField
+                fieldName="displayName"
+                label="Username"
+                onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                 variant="outlined"
                 required
-                fullWidth
-                id="firstName"
-                label="First Name"
                 autoFocus
                 margin="normal"
+                errorFields={errorFields}
             />
-            <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-                margin="normal"
-            />
-            <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="email"
+            <DRTextField
+                fieldName="email"
                 label="Email Address"
-                name="email"
+                onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                variant="outlined"
+                required
+                fullWidth
                 autoComplete="email"
                 margin="normal"
+                errorFields={errorFields}
             />
-            <TextField
+            <DRTextField
+                fieldName="password"
+                label="Password"
+                onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                 variant="outlined"
                 required
                 fullWidth
-                name="password"
-                label="Password"
-                type="password"
                 id="password"
                 autoComplete="current-password"
                 margin="normal"
+                errorFields={errorFields}
             />
-            <FormControlLabel
+            {/* // TODO: To Implement  */}
+            {/* <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
-            />
+            /> */}
             <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 color="primary"
+                onClick={handelSignUp}
                 style={{
                     marginTop: 20,
                     marginBottom: 10,
