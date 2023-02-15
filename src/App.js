@@ -22,7 +22,6 @@ const routes = [
     { title: "🌍translations", path: "/translations", element: <Translations /> },
     { title: "📖wiki", path: "/wiki", element: <Wiki /> },
     { title: "🐞bug/request", path: "/report", element: <Report /> },
-    { title: "login", path: "/login", element: <SignInSide /> },
 ];
 const extern_link = [
     { title: "💬discord", path: "https://discord.gg/HFfeJKR" },
@@ -58,6 +57,7 @@ function App() {
                             ))}
                             <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
                             <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DonRP/AmityPark/Home.md' />} />
+                            <Route key="login" path="/login" element={<SignInSide />} />
                         </Routes>
                     </RecoilRoot>
                 </BrowserRouter>

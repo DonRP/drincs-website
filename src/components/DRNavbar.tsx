@@ -1,9 +1,11 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-import { AppBar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { Link, To } from 'react-router-dom';
+import { isLoggedIn, logOut } from 'services/AuthService';
 
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
@@ -22,6 +24,7 @@ type IDRNavbarProps = {
 function DRNavbar(props: IDRNavbarProps) {
     const { pages = [], supportPage = null, extern_link = [] } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: any) => {
         setAnchorElNav(event.currentTarget);
@@ -30,6 +33,15 @@ function DRNavbar(props: IDRNavbarProps) {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
+
 
     try {
         return (
@@ -90,6 +102,55 @@ function DRNavbar(props: IDRNavbarProps) {
                                         {page.title}
                                     </Button>
                                 ))}
+                                <Tooltip title="Open settings">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                        {!isLoggedIn() &&
+                                            <VpnKeyIcon />
+                                        }
+                                        {isLoggedIn() &&
+                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                        }
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    {!isLoggedIn() &&
+                                        <Link
+                                            to={"/login"}
+                                            // key={page.title + "_link"}
+                                            style={{
+                                                textDecoration: 'none',
+                                                color: "white",
+                                            }}
+                                        >
+                                            <MenuItem key={1} onClick={handleCloseUserMenu}>
+                                                <Typography textAlign="center">Login</Typography>
+                                            </MenuItem>
+                                        </Link>
+                                    }
+                                    {isLoggedIn() &&
+                                        <MenuItem key={2} onClick={() => {
+                                            logOut()
+                                            handleCloseUserMenu()
+                                        }}>
+                                            <Typography textAlign="center">Login</Typography>
+                                        </MenuItem>
+                                    }
+                                </Menu>
                                 <Link
                                     to={supportPage!.path}
                                     key={supportPage?.title + "_link"}

@@ -1,23 +1,13 @@
-const doLogIn = (username: string) => {
-    localStorage.setItem("username", username);
-    localStorage.setItem("isLoggedIn", true.toString());
+export const doLogIn = () => {
+    localStorage.setItem("username", "username");
+    localStorage.setItem("isLoggedIn", "true.toString()");
 };
 
-const isLoggedIn = () => {
+export const isLoggedIn = () => {
     return Boolean(localStorage.getItem("isLoggedIn"));
 };
 
-
-const logOut = (props: any) => {
-
+export const logOut = () => {
     localStorage.removeItem("username");
     localStorage.removeItem("isLoggedIn");
-    props.history.push("/login");
-
-};
-
-export default {
-    doLogIn,
-    isLoggedIn,
-    logOut
 };

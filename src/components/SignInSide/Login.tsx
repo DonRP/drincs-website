@@ -1,40 +1,22 @@
 import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import { useState } from 'react';
-import AuthService from 'services/AuthService';
+import { useNavigate } from 'react-router-dom';
+import { doLogIn } from 'services/AuthService';
 
-const users = [
-
-    { username: "ankur", password: "123456", type: "buyer" },
-    { username: "Soap_McTive", password: "23449$#@!", type: "seller" }
-
-];
-
-function Login(props: any) {
+function Login() {
+    let navigate = useNavigate();
 
     const [account, setAccount] = useState({ username: "", password: "" });
 
     const handelAccount = (property: "username" | "password", event: any) => {
-
         const accountCopy = { ...account };
         accountCopy[property] = event.target.value;
-
         setAccount(accountCopy);
-
     }
 
-    const isVarifiedUser = (username: string, password: string) => {
-
-        return users.find((user) => user.username === username && user.password === password);
-
-    };
-
     const handelLogin = () => {
-        if (isVarifiedUser(account.username, account.password)) {
-            AuthService.doLogIn(account.username);
-            setAccount({ username: "", password: "" });
-            props.history.push("/home");
-
-        }
+        doLogIn()
+        navigate("/");
     };
 
     try {

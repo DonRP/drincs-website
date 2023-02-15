@@ -3,15 +3,11 @@ import { Avatar, Box, CssBaseline, Grid, Link, Paper, Typography } from "@mui/ma
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
 import { useState } from "react";
-import AuthService from "services/AuthService";
+import { isLoggedIn } from "services/AuthService";
 import Copyright from "./components/Copyright";
 
-function SignInSide(props: any) {
+function SignInSide() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
-
-    if (AuthService.isLoggedIn()) {
-        props.history.push("./home");
-    }
 
     return (
         <Grid container component="main"
@@ -67,34 +63,32 @@ function SignInSide(props: any) {
                         <GitHub />
                     </Avatar>
 
-                    <Typography component="h1" variant="h5">
-                        {isLogin ? "Sign in" : "Sign up"}
-                    </Typography>
-                    <form
-                        style={{
-                            width: "100%", // Fix IE 11 issue.
-                            marginTop: 10
-                        }}
-                        noValidate
-                    >
-                        {isLogin ? <Login /> : <SignUp />}
-                        <Grid container>
-                            <Grid item>
-                                <Link variant="body2"
-                                    onClick={() => {
-                                        setIsLogin(!isLogin)
-                                    }}
-                                >
-                                    {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign in"}
-                                </Link>
+
+                    {isLoggedIn() ? "You are already logged in" :
+                        <>
+                            <Typography component="h1" variant="h5">
+                                {isLogin ? "Sign in" : "Sign up"}
+                            </Typography>
+                            {isLogin ? <Login /> : <SignUp />}
+                            <Grid container>
+                                <Grid item>
+                                    <Link variant="body2"
+                                        onClick={() => {
+                                            setIsLogin(!isLogin)
+                                        }}
+                                    >
+                                        {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign in"}
+                                    </Link>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                        <Box
-                            mt={3}
-                        >
-                            <Copyright />
-                        </Box>
-                    </form>
+                        </>
+                    }
+
+                    <Box
+                        mt={3}
+                    >
+                        <Copyright />
+                    </Box>
                 </div>
             </Grid>
         </Grid>
