@@ -1,15 +1,19 @@
-import { TextField, TextFieldProps } from '@mui/material';
-import { FocusEventHandler } from 'react';
+import { InputBaseProps, TextField, TextFieldProps } from '@mui/material';
+import { FocusEvent } from 'react';
 
 type IDRTextFieldProps = {
-    onChangeValue: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+    onChangeValue: (fieldName: string, value: any) => void;
     rows?: number;
-    fieldsError?: string[];
+    errorFields?: string[];
     fieldName: string;
 } & TextFieldProps
 
 function DRTextField(props: IDRTextFieldProps) {
-    const { id, onChangeValue, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), fieldsError = [], fieldName, fullWidth, helperText, error, ...rest } = props;
+    const { id, onChangeValue, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), errorFields = [], fieldName, fullWidth, helperText, error, ...rest } = props;
+
+    const drTextFieldOnChange: InputBaseProps['onBlur'] = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
+        onChangeValue(fieldName, event.target.value)
+    }
 
     try {
         return (
@@ -21,11 +25,11 @@ function DRTextField(props: IDRTextFieldProps) {
                 fullWidth={fullWidth === false ? false : true}
                 type={type}
                 variant={variant}
-                onBlur={onChangeValue}
+                onBlur={drTextFieldOnChange}
                 helperText={helperText || ""}
                 rows={rows}
                 multiline={multiline}
-                error={error || fieldsError.includes(fieldName)}
+                error={error || errorFields.includes(fieldName)}
             />);
     } catch (error) {
         console.error(error)

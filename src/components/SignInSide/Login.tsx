@@ -1,4 +1,6 @@
-import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { Button, Checkbox, FormControlLabel } from '@mui/material';
+import { handleInputChangeByFieldName } from 'Utility/UtilityComponenets';
+import DRTextField from 'components/DRTextField';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doLogIn } from 'services/AuthService';
@@ -8,12 +10,6 @@ function Login() {
 
     const [account, setAccount] = useState({ username: "", password: "" });
 
-    const handelAccount = (property: "username" | "password", event: any) => {
-        const accountCopy = { ...account };
-        accountCopy[property] = event.target.value;
-        setAccount(accountCopy);
-    }
-
     const handelLogin = () => {
         doLogIn()
         navigate("/");
@@ -22,28 +18,22 @@ function Login() {
     try {
         return (
             <>
-                <TextField
-                    onChange={(event: any) => handelAccount("username", event)}
+                <DRTextField
+                    fieldName="username"
+                    label="Username"
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     margin="normal"
                     required
-                    fullWidth
-                    id="username"
-                    label="Username"
-                    name="username"
                     autoFocus
                 />
-                <TextField
-                    onChange={(event: any) => handelAccount("password", event)}
+                <DRTextField
+                    fieldName="password"
+                    label="Password"
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     margin="normal"
                     required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
                 />
                 <FormControlLabel
                     control={<Checkbox value="remember" color="primary" />}
