@@ -4,26 +4,28 @@ import { FocusEventHandler } from 'react';
 type IDRTextFieldProps = {
     onChangeValue: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
     rows: number;
-    errorMessage: boolean;
+    fieldsError?: string[];
     fieldName: string;
 } & TextFieldProps
 
 function DRTextField(props: IDRTextFieldProps) {
-    const { id, onChangeValue, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), errorMessage, fieldName, fullWidth, helperText, ...rest } = props;
+    const { id, onChangeValue, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), fieldsError = [], fieldName, fullWidth, helperText, error, ...rest } = props;
 
     try {
         return (
             <TextField
+                {...rest}
+                id={fieldName}
+                name={fieldName}
+                aria-describedby={fieldName}
                 fullWidth={fullWidth === false ? false : true}
                 type={type}
                 variant={variant}
-                aria-describedby={id}
-                name={fieldName || id}
                 onBlur={onChangeValue}
                 helperText={helperText || ""}
                 rows={rows}
                 multiline={multiline}
-                {...rest}
+                error={error || fieldsError.includes(fieldName)}
             />);
     } catch (error) {
         console.error(error)
