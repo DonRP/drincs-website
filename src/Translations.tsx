@@ -8,6 +8,7 @@ const OtherTranslationProjectsData = [
     { crowdin: "528084", github: "DonRP/AmityPark", crowdinLink: "https://crowdin.com/project/amity-park" },
     { crowdin: "461654", github: "DonRP/BBAS", crowdinLink: "https://crowdin.com/project/big-brother-as" },
     { crowdin: "507994", github: "DonRP/BM", crowdinLink: "https://crowdin.com/project/bad-memories" },
+    { crowdin: "557133", github: "DonRP/WitchHunter", crowdinLink: "https://crowdin.com/project/witch-hunter" },
 ]
 
 function Translations() {
