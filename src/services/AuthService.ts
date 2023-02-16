@@ -1,4 +1,4 @@
-export const doLogIn = (): boolean => {
+export const doLogIn = (rememberMe: boolean): boolean => {
     localStorage.setItem("username", "username");
     localStorage.setItem("isLoggedIn", "true.toString()");
     return true

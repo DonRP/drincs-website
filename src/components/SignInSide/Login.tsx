@@ -1,4 +1,4 @@
-import { Button, Checkbox, FormControlLabel } from '@mui/material';
+import { Button } from '@mui/material';
 import { handleInputChangeByFieldName } from 'Utility/UtilityComponenets';
 import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
 import DRTextField from 'components/DRTextField';
@@ -6,12 +6,14 @@ import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { doLogIn } from 'services/AuthService';
+import DRCheckBox from './DeltaCheckbox';
 
 function Login() {
     let navigate = useNavigate();
 
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
     const [errorFields, setErrorFields] = useState<string[]>([])
+    const [rememberMe, setRememberMe] = useState<boolean>(true)
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
@@ -28,7 +30,7 @@ function Login() {
         let errorFields = validateLogin(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            doLogIn()
+            doLogIn(rememberMe)
             navigate("/");
         }
         else {
@@ -58,9 +60,11 @@ function Login() {
                     required
                     errorFields={errorFields}
                 />
-                <FormControlLabel
-                    control={<Checkbox value="remember" color="primary" />}
-                    label="Remember me"
+                <DRCheckBox
+                    fieldName="rememberMe"
+                    label={"Remember me"}
+                    checked={rememberMe}
+                    onChangeValue={(fieldName, value) => setRememberMe(value)}
                 />
                 <Button
                     type="submit"

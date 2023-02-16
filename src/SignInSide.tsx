@@ -1,4 +1,3 @@
-import GitHub from "@mui/icons-material/GitHub";
 import { Avatar, Box, CssBaseline, Grid, Link, Paper, Typography } from "@mui/material";
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";

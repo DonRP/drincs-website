@@ -1,4 +1,4 @@
-import { InputBaseProps, TextField, TextFieldProps } from '@mui/material';
+import { InputBaseProps, TextField, TextFieldProps, useTheme } from '@mui/material';
 import { FocusEvent } from 'react';
 
 type IDRTextFieldProps = {
@@ -10,7 +10,7 @@ type IDRTextFieldProps = {
 
 function DRTextField(props: IDRTextFieldProps) {
     const { id, onChangeValue, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), errorFields = [], fieldName, fullWidth, helperText, error, ...rest } = props;
-
+    const theme = useTheme();
     const drTextFieldOnChange: InputBaseProps['onBlur'] = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
         onChangeValue(fieldName, event.target.value)
     }
@@ -33,7 +33,7 @@ function DRTextField(props: IDRTextFieldProps) {
             />);
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRTextField error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRTextField error</div>
     }
 }
 
