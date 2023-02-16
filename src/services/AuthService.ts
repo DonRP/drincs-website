@@ -1,6 +1,7 @@
-export const doLogIn = () => {
+export const doLogIn = (): boolean => {
     localStorage.setItem("username", "username");
     localStorage.setItem("isLoggedIn", "true.toString()");
+    return true
 };
 
 export const isLoggedIn = () => {
