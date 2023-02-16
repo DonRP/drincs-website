@@ -2,11 +2,16 @@ import { Avatar, Box, CssBaseline, Grid, Link, Paper, Typography } from "@mui/ma
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
 import { useState } from "react";
-import { isLoggedIn } from "services/AuthService";
+import AuthService, { isLoggedIn } from "services/AuthService";
 import Copyright from "./components/Copyright";
+
+export type ISignInSidePageProps = {
+    authService: AuthService
+}
 
 function SignInSide() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
+    const authService = new AuthService();
 
     return (
         <Grid container component="main"
@@ -65,7 +70,7 @@ function SignInSide() {
                             <Typography component="h1" variant="h5">
                                 {isLogin ? "Sign in" : "Sign up"}
                             </Typography>
-                            {isLogin ? <Login /> : <SignUp />}
+                            {isLogin ? <Login authService={authService} /> : <SignUp authService={authService} />}
                             <Grid container>
                                 <Grid item>
                                     <Link variant="body2"

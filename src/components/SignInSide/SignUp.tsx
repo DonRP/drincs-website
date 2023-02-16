@@ -1,15 +1,17 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Button, Typography } from "@mui/material";
+import { ISignInSidePageProps } from 'SignInSide';
 import { handleInputChangeByFieldName } from "Utility/UtilityComponenets";
 import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { useState } from 'react';
 
-function SignUp() {
+function SignUp(props: ISignInSidePageProps) {
     const [account, setAccount] = useState<NewAccountRecord>(new NewAccountRecord());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [emailVerification, setEmailVerification] = useState<boolean>(false)
+    const { authService } = props;
 
     const validateLogin = (account: NewAccountRecord): string[] => {
         let fields = [];

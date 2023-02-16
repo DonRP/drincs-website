@@ -5,7 +5,7 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import React from 'react';
 import { Link, To } from 'react-router-dom';
-import { isLoggedIn, logOut } from 'services/AuthService';
+import AuthService, { isLoggedIn } from 'services/AuthService';
 
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
@@ -144,7 +144,8 @@ function DRNavbar(props: IDRNavbarProps) {
                                     }
                                     {isLoggedIn() &&
                                         <MenuItem key={2} onClick={() => {
-                                            logOut()
+                                            let authService = new AuthService();
+                                            authService.logOut()
                                             handleCloseUserMenu()
                                         }}>
                                             <Typography textAlign="center">Login</Typography>

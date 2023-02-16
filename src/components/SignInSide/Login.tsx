@@ -1,19 +1,19 @@
 import { Button } from '@mui/material';
+import { ISignInSidePageProps } from 'SignInSide';
 import { handleInputChangeByFieldName } from 'Utility/UtilityComponenets';
 import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doLogIn } from 'services/AuthService';
-import DRCheckBox from './DeltaCheckbox';
+import DRCheckBox from '../DeltaCheckbox';
 
-function Login() {
+function Login(props: ISignInSidePageProps) {
     let navigate = useNavigate();
-
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [rememberMe, setRememberMe] = useState<boolean>(true)
+    const { authService } = props;
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
@@ -30,7 +30,7 @@ function Login() {
         let errorFields = validateLogin(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            doLogIn(rememberMe)
+            authService.doLogIn(rememberMe)
             navigate("/");
         }
         else {
