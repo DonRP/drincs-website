@@ -55,13 +55,10 @@ function SignInSide() {
                     }}
                 >
                     <Avatar
-                        style={{
-                            marginBottom: 20,
-                            // backgroundColor: theme.palette.secondary.main
-                        }}
-                    >
-                        <GitHub />
-                    </Avatar>
+                        src="logo512.png"
+                        sizes="large"
+                        sx={{ width: 56, height: 56, marginBottom: 2 }}
+                    />
 
 
                     {isLoggedIn() ? "You are already logged in" :
