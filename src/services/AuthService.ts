@@ -1,7 +1,6 @@
 import { AuthData } from "model/Auth/AuthData";
 import { LoginAccount } from "model/Auth/LoginAccount";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
-import { UserRecord } from "model/Auth/UserRecord";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
@@ -65,7 +64,7 @@ class AuthService extends BaseRestService {
             body: JSON.stringify(account)
         };
 
-        return this.customFetch<UserRecord>(this.urlwebapi + `/Auth/CreateAccount`, requestOptions)
+        return this.customFetch<AuthData>(this.urlwebapi + `/Auth/CreateAccount`, requestOptions)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     // TODO: log
