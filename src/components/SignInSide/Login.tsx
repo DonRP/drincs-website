@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import DRCheckBox from '../DeltaCheckbox';
 
 function Login(props: ISignInSidePageProps) {
+    var validator = require('validator');
     const theme = useTheme();
     let navigate = useNavigate();
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
@@ -25,6 +26,10 @@ function Login(props: ISignInSidePageProps) {
         if (isNullOrEmpty(account.password)) {
             fields.push("password")
         }
+        if (!validator.isEmail(account.email)) {
+            fields.push("email")
+            // TODO message
+        }
         return fields;
     }
 
@@ -33,6 +38,10 @@ function Login(props: ISignInSidePageProps) {
         if (isNullOrEmpty(account.email)) {
             fields.push("email")
         }
+        if (!validator.isEmail(account.email)) {
+            fields.push("email")
+            // TODO message
+        }
         return fields;
     }
 
@@ -40,8 +49,17 @@ function Login(props: ISignInSidePageProps) {
         let errorFields = validateLogin(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            authService.doLogIn(account, rememberMe)
-            navigate("/");
+            authService.doLogIn(account, rememberMe).then(res => {
+                if (res) {
+                    navigate("/");
+                }
+                else {
+                    // TODO: errore
+                }
+            }).catch(err => {
+                // TODO: errore
+                console.log(err)
+            })
         }
         else {
             // TODO: errore

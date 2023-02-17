@@ -1,3 +1,4 @@
+import { AuthData } from "model/Auth/AuthData";
 import { LoginAccount } from "model/Auth/LoginAccount";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import BaseRestService from "./BaseRestService";
@@ -8,9 +9,41 @@ export const isLoggedIn = () => {
 
 class AuthService extends BaseRestService {
     async doLogIn(account: LoginAccount, rememberMe: boolean) {
-        localStorage.setItem("username", "username");
-        localStorage.setItem("isLoggedIn", "true.toString()");
-        return true
+        if (!account) {
+            return false
+        }
+
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json;charset=utf-8');
+
+        const requestOptions = {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(account)
+        };
+
+        return this.customFetch<AuthData>(this.urlwebapi + `/Auth/SignInWithEmailAndPassword`, requestOptions)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    // TODO: log
+                    return false
+                }
+                if (rememberMe) {
+                    localStorage.setItem("username", response.content.username ?? "");
+                    localStorage.setItem("username_token", response.content.token ?? "");
+                }
+                else {
+                    sessionStorage.setItem("username", response.content.username ?? "");
+                    sessionStorage.setItem("username_token", response.content.token ?? "");
+                }
+                return true
+            })
+            .catch((res) => {
+                return res.response.json().then((body: any) => {
+                    this.showError(body)
+                    return false
+                });
+            });
     };
 
     async resetPoassword(email: string) {
@@ -23,7 +56,9 @@ class AuthService extends BaseRestService {
 
     async logOut() {
         localStorage.removeItem("username");
-        localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("username_token");
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("username_token");
     };
 }
 

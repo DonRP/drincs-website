@@ -8,6 +8,7 @@ import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { useState } from 'react';
 
 function SignUp(props: ISignInSidePageProps) {
+    var validator = require('validator');
     const [account, setAccount] = useState<NewAccountRecord>(new NewAccountRecord());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [emailVerification, setEmailVerification] = useState<boolean>(false)
@@ -23,6 +24,10 @@ function SignUp(props: ISignInSidePageProps) {
         }
         if (isNullOrEmpty(account.displayName)) {
             fields.push("displayName")
+        }
+        if (!validator.isEmail(account.email)) {
+            fields.push("email")
+            // TODO message
         }
         return fields;
     }

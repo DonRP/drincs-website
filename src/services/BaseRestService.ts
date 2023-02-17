@@ -1,3 +1,5 @@
+import { HttpResponse } from "model/HttpResponse";
+
 type HeadersType = {
     'Accept': string
     'Content-Type': string
@@ -15,6 +17,7 @@ class BaseRestService {
         }
     }
     showError(body: any) {
+        // TODO: ti improve
         console.log(body)
         if (body.error) {
             window.alert(body.error)
@@ -28,7 +31,7 @@ class BaseRestService {
         );
     }
 
-    async customFetch(url: URL | string, options: any = {}, token?: string, tokenType = "Bearer") {
+    async customFetch<T>(url: URL | string, options: any = {}, token?: string, tokenType = "Bearer"): Promise<HttpResponse<T>> {
         // performs api calls sending the required authentication headers
         const headers: HeadersType = {
             'Accept': 'application/json',
