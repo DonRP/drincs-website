@@ -2,7 +2,7 @@ import { HttpResponse } from "model/HttpResponse";
 import BaseRestService from "./BaseRestService";
 
 class GitService extends BaseRestService {
-    async createIssue(repo: string, title: string, body = "", labels = [], abortController: any): Promise<HttpResponse<any>> {
+    async createIssue(repo: string, title: string, body = "", labels = []): Promise<HttpResponse<any>> {
         if (!repo) {
             return new HttpResponse()
         }

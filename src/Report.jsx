@@ -125,22 +125,14 @@ function Report() {
         setOpenErrorDialog(false);
         setOpenProgressBarDialog(true);
 
-        const abortController = new AbortController();
         const githubService = new GitService();
-        githubService.createIssue(repo, title, body, labels, abortController).then(res => {
-            if (abortController.signal.aborted) {
-                return;
-            }
+        githubService.createIssue(repo, title, body, labels).then(res => {
             setOpenProgressBarDialog(false);
         }).catch(err => {
             console.log(err)
             setOpenProgressBarDialog(false);
             setOpenErrorDialog(true);
         })
-
-        return function cleanUp() {
-            abortController.abort();
-        }
     }
 
     // // On file select (from the pop up)

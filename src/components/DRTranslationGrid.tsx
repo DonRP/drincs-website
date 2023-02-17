@@ -173,22 +173,14 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     }
 
     useEffect(() => {
-        const abortController = new AbortController();
         const translationService = new TranslationService();
         setLoading(true)
 
         translationService.getLanguages(gitRepo, crowdinProjectId).then(res => {
-            if (abortController.signal.aborted) {
-                return;
-            }
             setData(res?.content)
         }).catch(err => {
             console.log(err)
         })
-
-        return function cleanUp() {
-            abortController.abort();
-        }
     }, [crowdinProjectId, gitRepo]);
 
     const [expanded, setExpanded] = React.useState(false);

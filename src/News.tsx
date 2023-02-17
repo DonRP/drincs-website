@@ -19,13 +19,9 @@ function News() {
     // const userId = "1402755743540039684"
 
     useEffect(() => {
-        const abortController = new AbortController();
         const tweetService = new TweetService();
         urlNoApiCode.forEach(element => {
             tweetService.getTweets(element + "?type=user_timeline").then(res => {
-                if (abortController.signal.aborted) {
-                    return;
-                }
                 if (res) {
                     setTweetList(res)
                     return
@@ -34,9 +30,6 @@ function News() {
                 console.log(err)
             })
         });
-        return function cleanUp() {
-            abortController.abort();
-        }
     }, []);
 
     return (
