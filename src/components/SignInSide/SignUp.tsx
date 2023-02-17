@@ -36,8 +36,20 @@ function SignUp(props: ISignInSidePageProps) {
         let errorFields = validateSignUp(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            authService.SignUp(account)
-            setEmailVerification(true)
+            authService.SignUp(account).then(res => {
+                if (res) {
+                    setEmailVerification(true)
+                }
+                else {
+                    // TODO: errore
+                }
+            }).catch(err => {
+                // TODO: errore
+                console.log(err)
+            })
+        }
+        else {
+            // TODO: errore
         }
     };
 

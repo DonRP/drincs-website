@@ -1,6 +1,7 @@
 import { AuthData } from "model/Auth/AuthData";
 import { LoginAccount } from "model/Auth/LoginAccount";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { UserRecord } from "model/Auth/UserRecord";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
@@ -51,7 +52,33 @@ class AuthService extends BaseRestService {
     };
 
     async SignUp(account: NewAccountRecord) {
-        return true
+        if (!account) {
+            return false
+        }
+
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json;charset=utf-8');
+
+        const requestOptions = {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(account)
+        };
+
+        return this.customFetch<UserRecord>(this.urlwebapi + `/Auth/CreateAccount`, requestOptions)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    // TODO: log
+                    return false
+                }
+                return true
+            })
+            .catch((res) => {
+                return res.response.json().then((body: any) => {
+                    this.showError(body)
+                    return false
+                });
+            });
     };
 
     async logOut() {
