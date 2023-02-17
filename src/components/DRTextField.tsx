@@ -6,6 +6,7 @@ type IDRTextFieldProps = {
     rows?: number;
     errorFields?: string[];
     fieldName: string;
+    defaultValue: string;
 } & TextFieldProps
 
 function DRTextField(props: IDRTextFieldProps) {

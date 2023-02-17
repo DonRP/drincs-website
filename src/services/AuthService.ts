@@ -1,3 +1,5 @@
+import { LoginAccount } from "model/Auth/LoginAccount";
+import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
@@ -5,9 +7,17 @@ export const isLoggedIn = () => {
 };
 
 class AuthService extends BaseRestService {
-    async doLogIn(rememberMe: boolean) {
+    async doLogIn(account: LoginAccount, rememberMe: boolean) {
         localStorage.setItem("username", "username");
         localStorage.setItem("isLoggedIn", "true.toString()");
+        return true
+    };
+
+    async resetPoassword(email: string) {
+        return true
+    };
+
+    async SignUp(account: NewAccountRecord) {
         return true
     };
 

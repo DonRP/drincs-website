@@ -2,7 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Typography } from '@mui/material';
+import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Typography, useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
@@ -154,6 +154,7 @@ type IDRTranslationGridProps = {
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
+    const theme = useTheme();
     const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75, NotCompleteListAtom } = props
     const [data, setData] = useState<TranslationResult>()
     const [loading, setLoading] = useState(true)
@@ -274,7 +275,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         }
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRTranslationGrid error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRTranslationGrid error</div>
     }
 }
 

@@ -13,7 +13,7 @@ function SignUp(props: ISignInSidePageProps) {
     const [emailVerification, setEmailVerification] = useState<boolean>(false)
     const { authService } = props;
 
-    const validateLogin = (account: NewAccountRecord): string[] => {
+    const validateSignUp = (account: NewAccountRecord): string[] => {
         let fields = [];
         if (isNullOrEmpty(account.email)) {
             fields.push("email")
@@ -28,9 +28,10 @@ function SignUp(props: ISignInSidePageProps) {
     }
 
     const handelSignUp = () => {
-        let errorFields = validateLogin(account)
+        let errorFields = validateSignUp(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
+            authService.SignUp(account)
             setEmailVerification(true)
         }
     };
@@ -38,9 +39,13 @@ function SignUp(props: ISignInSidePageProps) {
     if (!emailVerification) {
         return (
             <>
+                <Typography component="h1" variant="h5">
+                    {"Sign up"}
+                </Typography>
                 <DRTextField
                     fieldName="displayName"
                     label="Username"
+                    defaultValue={account.displayName}
                     onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     required
@@ -51,22 +56,25 @@ function SignUp(props: ISignInSidePageProps) {
                 <DRTextField
                     fieldName="email"
                     label="Email Address"
+                    defaultValue={account.email}
                     onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     required
                     fullWidth
                     autoComplete="email"
+                    type='email'
                     margin="normal"
                     errorFields={errorFields}
                 />
                 <DRTextField
                     fieldName="password"
                     label="Password"
+                    defaultValue={account.password}
                     onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
+                    type='password'
                     required
                     fullWidth
-                    id="password"
                     autoComplete="current-password"
                     margin="normal"
                     errorFields={errorFields}

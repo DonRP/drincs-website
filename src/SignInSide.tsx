@@ -1,4 +1,4 @@
-import { Avatar, Box, CssBaseline, Grid, Link, Paper, Typography } from "@mui/material";
+import { Avatar, Box, CssBaseline, Grid, Link, Paper } from "@mui/material";
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
 import { useState } from "react";
@@ -67,9 +67,6 @@ function SignInSide() {
 
                     {isLoggedIn() ? "You are already logged in" :
                         <>
-                            <Typography component="h1" variant="h5">
-                                {isLogin ? "Sign in" : "Sign up"}
-                            </Typography>
                             {isLogin ? <Login authService={authService} /> : <SignUp authService={authService} />}
                             <Grid container>
                                 <Grid item>

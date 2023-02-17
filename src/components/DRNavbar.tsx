@@ -2,7 +2,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, useTheme } from '@mui/material';
 import React from 'react';
 import { Link, To } from 'react-router-dom';
 import AuthService, { isLoggedIn } from 'services/AuthService';
@@ -22,6 +22,7 @@ type IDRNavbarProps = {
 }
 
 function DRNavbar(props: IDRNavbarProps) {
+    const theme = useTheme();
     const { pages = [], supportPage = null, extern_link = [] } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -278,7 +279,7 @@ function DRNavbar(props: IDRNavbarProps) {
         );
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRNavbar error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRNavbar error</div>
     }
 };
 
