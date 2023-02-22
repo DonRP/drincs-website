@@ -31,7 +31,8 @@ const extern_link = [
         }} />GitHub</>, path: "https://github.com/DRincs-Productions"
     },
 ];
-const supportRoute = { title: "support", path: "/support", element: <Support /> }
+const supportRoute = { title: "support me", path: "/support", element: <Support /> }
+const loginRoute = { title: "login", path: "/login", element: <SignInSide /> }
 
 const darkTheme = createTheme({
     body: {
@@ -50,14 +51,19 @@ function App() {
 
                 <BrowserRouter>
                     <RecoilRoot>
-                        <DRNavbar pages={routes} supportPage={supportRoute} extern_link={extern_link} injectFirst />
+                        <DRNavbar
+                            pages={routes}
+                            supportPage={supportRoute}
+                            loginPage={loginRoute}
+                            extern_link={extern_link}
+                            injectFirst />
                         <Routes>
                             {(routes).map((route) => (
                                 <Route key={route.title} path={route.path} element={route.element} />
                             ))}
                             <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
+                            <Route key={loginRoute.title} path={loginRoute.path} element={loginRoute.element} />
                             <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DonRP/AmityPark/Home.md' />} />
-                            <Route key="login" path="/login" element={<SignInSide />} />
                         </Routes>
                     </RecoilRoot>
                 </BrowserRouter>
