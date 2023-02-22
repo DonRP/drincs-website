@@ -47,10 +47,35 @@ class AuthService extends BaseRestService {
     };
 
     async resetPoassword(email: string) {
-        return true
+        if (!email) {
+            return false
+        }
+
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json;charset=utf-8');
+
+        const requestOptions = {
+            method: 'POST',
+            headers,
+        };
+
+        return this.customFetch<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`, requestOptions)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    // TODO: log
+                    return false
+                }
+                return true
+            })
+            .catch((res) => {
+                return res.response.json().then((body: any) => {
+                    this.showError(body)
+                    return false
+                });
+            });
     };
 
-    async SignUp(account: NewAccountRecord) {
+    async signUp(account: NewAccountRecord) {
         if (!account) {
             return false
         }

@@ -70,8 +70,17 @@ function Login(props: ISignInSidePageProps) {
         let errorFields = validateResetPassword(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            authService.resetPoassword(account.email)
-            setOpenChangePassword(false)
+            authService.resetPoassword(account.email).then(res => {
+                if (res) {
+                    setOpenChangePassword(false)
+                }
+                else {
+                    // TODO: errore
+                }
+            }).catch(err => {
+                // TODO: errore
+                console.log(err)
+            })
         }
         else {
             // TODO: errore

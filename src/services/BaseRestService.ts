@@ -50,7 +50,6 @@ class BaseRestService {
         })
             .then(this._checkStatus)
             .then(response => {
-                // console.log(response);
                 return response.json()
             })
             .catch((res) => {
