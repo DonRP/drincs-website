@@ -135,56 +135,6 @@ function DRNavbar(props: IDRNavbarProps) {
                                             {page.title}
                                         </Button>
                                     ))}
-                                    <Tooltip title="Open settings">
-                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            {!isLoggedIn() &&
-                                                <VpnKeyIcon />
-                                            }
-                                            {isLoggedIn() &&
-                                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                                            }
-                                        </IconButton>
-                                    </Tooltip>
-                                    <Menu
-                                        sx={{ mt: '45px' }}
-                                        id="menu-appbar"
-                                        anchorEl={anchorElUser}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={Boolean(anchorElUser)}
-                                        onClose={handleCloseUserMenu}
-                                    >
-                                        {!isLoggedIn() &&
-                                            <Link
-                                                to={"/login"}
-                                                // key={page.title + "_link"}
-                                                style={{
-                                                    textDecoration: 'none',
-                                                    color: "white",
-                                                }}
-                                            >
-                                                <MenuItem key={1} onClick={handleCloseUserMenu}>
-                                                    <Typography textAlign="center">Login</Typography>
-                                                </MenuItem>
-                                            </Link>
-                                        }
-                                        {isLoggedIn() &&
-                                            <MenuItem key={2} onClick={() => {
-                                                let authService = new AuthService();
-                                                authService.logOut()
-                                                handleCloseUserMenu()
-                                            }}>
-                                                <Typography textAlign="center">Login</Typography>
-                                            </MenuItem>
-                                        }
-                                    </Menu>
                                     {!isLoggedIn() &&
                                         <Button
                                             key={loginPage?.title}
@@ -198,7 +148,37 @@ function DRNavbar(props: IDRNavbarProps) {
                                         </Button>
                                     }
                                     {isLoggedIn() &&
-                                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                        <>
+                                            <Tooltip title="Open settings">
+                                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Menu
+                                                sx={{ mt: '45px' }}
+                                                id="menu-appbar"
+                                                anchorEl={anchorElUser}
+                                                anchorOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                keepMounted
+                                                transformOrigin={{
+                                                    vertical: 'top',
+                                                    horizontal: 'right',
+                                                }}
+                                                open={Boolean(anchorElUser)}
+                                                onClose={handleCloseUserMenu}
+                                            >
+                                                <MenuItem key={2} onClick={() => {
+                                                    let authService = new AuthService();
+                                                    authService.logOut()
+                                                    handleCloseUserMenu()
+                                                }}>
+                                                    <Typography textAlign="center">Login</Typography>
+                                                </MenuItem>
+                                            </Menu>
+                                        </>
                                     }
                                 </Grid>
                             </Box>
@@ -282,15 +262,50 @@ function DRNavbar(props: IDRNavbarProps) {
                                     <strong>DR</strong>incs
                                 </Link>
                             </Typography>
-                            <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                                <Button
-                                    key={loginPage?.title}
-                                    variant="contained"
-                                    onClick={goToLogin}
-                                >
-                                    <VpnKeyIcon />
-                                </Button>
-                            </Box>
+                            {!isLoggedIn() &&
+                                <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+                                    <Button
+                                        key={loginPage?.title}
+                                        variant="contained"
+                                        onClick={goToLogin}
+                                    >
+                                        <VpnKeyIcon />
+                                    </Button>
+                                </Box>
+                            }
+                            {isLoggedIn() &&
+                                <>
+                                    <Tooltip title="Open settings">
+                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: '45px' }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorElUser}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorElUser)}
+                                        onClose={handleCloseUserMenu}
+                                    >
+                                        <MenuItem key={2} onClick={() => {
+                                            let authService = new AuthService();
+                                            authService.logOut()
+                                            handleCloseUserMenu()
+                                        }}>
+                                            <Typography textAlign="center">Login</Typography>
+                                        </MenuItem>
+                                    </Menu>
+                                </>
+                            }
                         </Toolbar>
                     </Container>
                 </AppBar >
