@@ -4,7 +4,10 @@ import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
-    return Boolean(localStorage.getItem("isLoggedIn"));
+    return Boolean(localStorage.getItem("username_token"));
+};
+export const getUserName = (): string => {
+    return localStorage.getItem("username") || "";
 };
 
 class AuthService extends BaseRestService {

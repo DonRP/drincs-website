@@ -147,39 +147,6 @@ function DRNavbar(props: IDRNavbarProps) {
                                             </strong>
                                         </Button>
                                     }
-                                    {isLoggedIn() &&
-                                        <>
-                                            <Tooltip title="Open settings">
-                                                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                                                </IconButton>
-                                            </Tooltip>
-                                            <Menu
-                                                sx={{ mt: '45px' }}
-                                                id="menu-appbar"
-                                                anchorEl={anchorElUser}
-                                                anchorOrigin={{
-                                                    vertical: 'top',
-                                                    horizontal: 'right',
-                                                }}
-                                                keepMounted
-                                                transformOrigin={{
-                                                    vertical: 'top',
-                                                    horizontal: 'right',
-                                                }}
-                                                open={Boolean(anchorElUser)}
-                                                onClose={handleCloseUserMenu}
-                                            >
-                                                <MenuItem key={2} onClick={() => {
-                                                    let authService = new AuthService();
-                                                    authService.logOut()
-                                                    handleCloseUserMenu()
-                                                }}>
-                                                    <Typography textAlign="center">Login</Typography>
-                                                </MenuItem>
-                                            </Menu>
-                                        </>
-                                    }
                                 </Grid>
                             </Box>
                             {/* Mobile */}
@@ -273,6 +240,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                     </Button>
                                 </Box>
                             }
+                            {/* PC and Mobile */}
                             {isLoggedIn() &&
                                 <>
                                     <Tooltip title="Open settings">
@@ -301,7 +269,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                             authService.logOut()
                                             handleCloseUserMenu()
                                         }}>
-                                            <Typography textAlign="center">Login</Typography>
+                                            <Typography textAlign="center">Log Out</Typography>
                                         </MenuItem>
                                     </Menu>
                                 </>
