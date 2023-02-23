@@ -6,7 +6,7 @@ import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import React from 'react';
 import { Link, To, useLocation, useNavigate } from 'react-router-dom';
-import AuthService, { isLoggedIn } from 'services/AuthService';
+import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
 
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
@@ -245,7 +245,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                 <>
                                     <Tooltip title="Open settings">
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                            <Avatar alt={getUserName()} src="/static/images/avatar/2.jpg" />
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
