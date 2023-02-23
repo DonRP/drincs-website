@@ -1,0 +1,139 @@
+import EmailIcon from '@mui/icons-material/Email';
+import { Button, Typography } from "@mui/material";
+import { ISignInSidePageProps } from 'SignInSide';
+import { handleInputChangeByFieldName } from "Utility/UtilityComponenets";
+import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
+import DRTextField from "components/DRTextField";
+import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { useState } from 'react';
+
+function SignUp(props: ISignInSidePageProps) {
+    var validator = require('validator');
+    const [account, setAccount] = useState<NewAccountRecord>(new NewAccountRecord());
+    const [errorFields, setErrorFields] = useState<string[]>([])
+    const [emailVerification, setEmailVerification] = useState<boolean>(false)
+    const { authService } = props;
+
+    const validateSignUp = (account: NewAccountRecord): string[] => {
+        let fields = [];
+        if (isNullOrEmpty(account.email)) {
+            fields.push("email")
+        }
+        if (isNullOrEmpty(account.password)) {
+            fields.push("password")
+        }
+        if (isNullOrEmpty(account.displayName)) {
+            fields.push("displayName")
+        }
+        if (!validator.isEmail(account.email)) {
+            fields.push("email")
+            // TODO message
+        }
+        return fields;
+    }
+
+    const handelSignUp = () => {
+        let errorFields = validateSignUp(account)
+        setErrorFields(errorFields)
+        if (errorFields.length === 0) {
+            authService.signUp(account).then(res => {
+                if (res) {
+                    setEmailVerification(true)
+                }
+                else {
+                    // TODO: errore
+                }
+            }).catch(err => {
+                // TODO: errore
+                console.log(err)
+            })
+        }
+        else {
+            // TODO: errore
+        }
+    };
+
+    if (!emailVerification) {
+        return (
+            <>
+                <Typography component="h1" variant="h5">
+                    {"Sign up"}
+                </Typography>
+                <DRTextField
+                    fieldName="displayName"
+                    label="Username"
+                    defaultValue={account.displayName}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    variant="outlined"
+                    required
+                    autoFocus
+                    margin="normal"
+                    errorFields={errorFields}
+                />
+                <DRTextField
+                    fieldName="email"
+                    label="Email Address"
+                    defaultValue={account.email}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    variant="outlined"
+                    required
+                    fullWidth
+                    autoComplete="email"
+                    type='email'
+                    margin="normal"
+                    errorFields={errorFields}
+                />
+                <DRTextField
+                    fieldName="password"
+                    label="Password"
+                    defaultValue={account.password}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    variant="outlined"
+                    type='password'
+                    required
+                    fullWidth
+                    autoComplete="current-password"
+                    margin="normal"
+                    errorFields={errorFields}
+                />
+                {/* // TODO: To Implement  */}
+                {/* <FormControlLabel
+                control={<Checkbox value="allowExtraEmails" color="primary" />}
+                label="I want to receive inspiration, marketing promotions and updates via email."
+            /> */}
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={handelSignUp}
+                    style={{
+                        marginTop: 20,
+                        marginBottom: 10,
+                        marginLeft: 2,
+                        marginRight: 2,
+                    }}
+                >
+                    Sign Up
+                </Button>
+            </>
+        );
+    }
+    else {
+        return (
+            <>
+                <EmailIcon fontSize='large' color='action'
+                    style={{
+                        marginTop: 50,
+                        // backgroundColor: theme.palette.secondary.main
+                    }}
+                />
+                <Typography marginBottom={10} marginTop={1}>
+                    A verification email was sent.
+                </Typography>
+            </>
+        )
+    }
+}
+
+export default SignUp;

@@ -1,49 +1,40 @@
-import { TextField } from '@mui/material';
-import React, { FocusEventHandler } from 'react';
+import { InputBaseProps, TextField, TextFieldProps, useTheme } from '@mui/material';
+import { FocusEvent } from 'react';
 
 type IDRTextFieldProps = {
-    id: string,
-    onChange: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>,
-    defaultValue: string,
-    disabled: boolean,
-    type: string,
-    variant: "standard" | "filled" | "outlined" | undefined,
-    rows: number,
-    multiline: boolean,
-    errorMessage: boolean,
-    label: string,
-    fieldName: string,
-    fullWidth: boolean,
-    error: boolean | undefined,
-    helperText: string,
-    rest: AnalyserNode,
-}
+    onChangeValue: (fieldName: string, value: any) => void;
+    rows?: number;
+    errorFields?: string[];
+    fieldName: string;
+    defaultValue: string;
+} & TextFieldProps
 
 function DRTextField(props: IDRTextFieldProps) {
-    const { id, onChange, defaultValue, disabled, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), errorMessage, label, fieldName, fullWidth, error, helperText, ...rest } = props;
+    const { id, onChangeValue, type = "string", variant = "standard", rows = 1, multiline = (rows > 1), errorFields = [], fieldName, fullWidth, helperText, error, ...rest } = props;
+    const theme = useTheme();
+    const drTextFieldOnChange: InputBaseProps['onBlur'] = (event: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>) => {
+        onChangeValue(fieldName, event.target.value)
+    }
 
     try {
         return (
             <TextField
-                id={id}
-                label={label || id?.toLowerCase()}
+                {...rest}
+                id={fieldName}
+                name={fieldName}
+                aria-describedby={fieldName}
                 fullWidth={fullWidth === false ? false : true}
                 type={type}
-                error={error}
                 variant={variant}
-                disabled={disabled}
-                aria-describedby={id}
-                defaultValue={defaultValue}
-                name={fieldName || id}
-                onBlur={onChange}
+                onBlur={drTextFieldOnChange}
                 helperText={helperText || ""}
                 rows={rows}
                 multiline={multiline}
-                {...rest}
+                error={error || errorFields.includes(fieldName)}
             />);
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRTextField error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRTextField error</div>
     }
 }
 

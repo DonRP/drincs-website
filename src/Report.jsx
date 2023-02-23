@@ -3,6 +3,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import { Button, CircularProgress, DialogContentText, Grid } from "@mui/material";
 import { Box } from "@mui/system";
+import { handleInputChangeByFieldName } from 'Utility/UtilityComponenets';
 import DRAutocomplete from "components/DRAutocomplete";
 import DRDialog from "components/DRDialog";
 import DRTextField from "components/DRTextField";
@@ -124,22 +125,14 @@ function Report() {
         setOpenErrorDialog(false);
         setOpenProgressBarDialog(true);
 
-        const abortController = new AbortController();
         const githubService = new GitService();
-        githubService.createIssue(repo, title, body, labels, abortController).then(res => {
-            if (abortController.signal.aborted) {
-                return;
-            }
+        githubService.createIssue(repo, title, body, labels).then(res => {
             setOpenProgressBarDialog(false);
         }).catch(err => {
             console.log(err)
             setOpenProgressBarDialog(false);
             setOpenErrorDialog(true);
         })
-
-        return function cleanUp() {
-            abortController.abort();
-        }
     }
 
     // // On file select (from the pop up)
@@ -255,32 +248,32 @@ function Report() {
                     options={projectOptions}
                 />
                 <DRTextField
-                    id="nickname"
+                    fieldName="nickname"
                     label="Your nickname"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.nickname || ""}
                 />
                 <DRTextField
-                    id="title"
+                    fieldName="title"
                     label="Issues title*"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.title || ""}
-                    error={errorFields.includes("title")}
+                    errorFields={errorFields}
                 />
                 <DRTextField
-                    id="description"
+                    fieldName="description"
                     label="Describe the bug*"
                     aria-label="A clear and concise description of what the bug is."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.description || ""}
                     rows={3}
-                    error={errorFields.includes("description")}
+                    errorFields={errorFields}
                 />
                 <DRTextField
-                    id="expectedBehavior"
+                    fieldName="expectedBehavior"
                     label="Expected behavior"
                     aria-label="A clear and concise description of what you expected to happen."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.expectedBehavior || ""}
                     rows={3}
                 />
@@ -307,10 +300,10 @@ function Report() {
                     />
                 </div> */}
                 <DRTextField
-                    id="additional"
+                    fieldName="additional"
                     label="Additional context"
                     aria-label="Add any other context about the problem here."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, bugItemToEdit, setBugItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={bugItemToEdit?.additional || ""}
                     rows={3}
                 />
@@ -338,40 +331,40 @@ function Report() {
                     options={projectOptions}
                 />
                 <DRTextField
-                    id="nickname"
+                    fieldName="nickname"
                     label="Your nickname"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={reuestItemToEdit?.nickname || ""}
                 />
                 <DRTextField
-                    id="title"
+                    fieldName="title"
                     label="Issues title*"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={reuestItemToEdit?.title || ""}
-                    error={errorFields.includes("title")}
+                    errorFields={errorFields}
                 />
                 <DRTextField
-                    id="description"
+                    fieldName="description"
                     label="Is your feature request related to a problem? Please describe.*"
                     aria-label="A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]"
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={reuestItemToEdit?.description || ""}
                     rows={3}
-                    error={errorFields.includes("description")}
+                    errorFields={errorFields}
                 />
                 <DRTextField
-                    id="posibleSolution"
+                    fieldName="posibleSolution"
                     label="Describe the solution you'd like"
                     aria-label="A clear and concise description of what you want to happen."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={reuestItemToEdit?.posibleSolution || ""}
                     rows={3}
                 />
                 <DRTextField
-                    id="alternatives"
+                    fieldName="alternatives"
                     label="Describe alternatives you've considered"
                     aria-label="A clear and concise description of any alternative solutions or features you've considered."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={reuestItemToEdit?.alternatives || ""}
                     rows={3}
                 />
@@ -391,10 +384,10 @@ function Report() {
                     /> */}
                 </div>
                 <DRTextField
-                    id="additional"
+                    fieldName="additional"
                     label="Additional context"
                     aria-label="Add any other context about the problem here."
-                    onChange={(event, newVal) => handleInputChangeGeneric(event, newVal, reuestItemToEdit, setRequestItemToEdit)}
+                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                     defaultValue={reuestItemToEdit?.additional || ""}
                     rows={3}
                 />

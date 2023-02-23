@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@mui/material';
 import * as React from 'react';
 
 type IDRDialogProps = {
@@ -10,6 +10,7 @@ type IDRDialogProps = {
 }
 
 function DRDialog(props: IDRDialogProps) {
+    const theme = useTheme();
     const { open = false, maxWidth = false, title, children, actions } = props;
 
     try {
@@ -30,7 +31,7 @@ function DRDialog(props: IDRDialogProps) {
         );
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRDialog error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRDialog error</div>
     }
 }
 

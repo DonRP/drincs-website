@@ -1,5 +1,4 @@
-import { Autocomplete, TextField } from '@mui/material';
-import React from 'react';
+import { Autocomplete, TextField, useTheme } from '@mui/material';
 
 type IDRAutocompleteProps = {
     id: string,
@@ -10,6 +9,7 @@ type IDRAutocompleteProps = {
 }
 
 function DRAutocomplete(props: IDRAutocompleteProps) {
+    const theme = useTheme();
     const { id, label, defaultValue, onChange, options } = props
 
     try {
@@ -29,7 +29,7 @@ function DRAutocomplete(props: IDRAutocompleteProps) {
         )
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRAutocomplete error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRAutocomplete error</div>
     }
 }
 

@@ -2,11 +2,11 @@ import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Typography } from '@mui/material';
+import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Typography, useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
-import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/TranslationResult';
+import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/Translation/TranslationResult';
 import * as React from 'react';
 import { useEffect, useState } from "react";
 import Flag from 'react-flagkit';
@@ -54,7 +54,8 @@ const columns = [
                         color="primary"
                         size="small"
                         style={{ marginLeft: 16 }}
-                        target="_blank" href={params.value?.downloadUrl}
+                        target="_blank"
+                        href={params.value?.downloadUrl}
                         startIcon={<DownloadIcon />}
                     >
                         {params.value?.version}
@@ -153,6 +154,7 @@ type IDRTranslationGridProps = {
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
+    const theme = useTheme();
     const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75, NotCompleteListAtom } = props
     const [data, setData] = useState<TranslationResult>()
     const [loading, setLoading] = useState(true)
@@ -171,22 +173,14 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     }
 
     useEffect(() => {
-        const abortController = new AbortController();
         const translationService = new TranslationService();
         setLoading(true)
 
-        translationService.getLanguages(gitRepo, crowdinProjectId, abortController).then(res => {
-            if (abortController.signal.aborted) {
-                return;
-            }
+        translationService.getLanguages(gitRepo, crowdinProjectId).then(res => {
             setData(res?.content)
         }).catch(err => {
             console.log(err)
         })
-
-        return function cleanUp() {
-            abortController.abort();
-        }
     }, [crowdinProjectId, gitRepo]);
 
     const [expanded, setExpanded] = React.useState(false);
@@ -273,7 +267,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         }
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRTranslationGrid error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRTranslationGrid error</div>
     }
 }
 

@@ -60,7 +60,7 @@ function About() {
                 backgroundSize: "cover",
                 height: "100vh",
                 position: "relative",
-                marginTop: '-70px',
+                marginTop: '-72px',
                 fontSize: '50px',
             }}>
 

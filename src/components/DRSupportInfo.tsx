@@ -1,9 +1,8 @@
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { Box, Card, CardHeader, IconButton } from '@mui/material';
+import { Box, Card, CardHeader, IconButton, useTheme } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
-import * as React from 'react';
 
 const columns = [
     {
@@ -200,6 +199,7 @@ type IDRDownloadGridProps = {
 }
 
 function DRSupportInfoGrid(props: IDRDownloadGridProps) {
+    const theme = useTheme();
     const { title, data, height = 350, rowHeight = 75 } = props;
 
     try {
@@ -219,7 +219,7 @@ function DRSupportInfoGrid(props: IDRDownloadGridProps) {
         );
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRSupportInfoGrid error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRSupportInfoGrid error</div>
     }
 }
 

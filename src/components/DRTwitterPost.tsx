@@ -1,4 +1,4 @@
-import { Button, CardActionArea, Grid, Stack } from '@mui/material';
+import { Button, CardActionArea, Grid, Stack, useTheme } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -13,6 +13,7 @@ type IDRTwitterPostProps = {
 }
 
 function DRTwitterPost(props: IDRTwitterPostProps) {
+    const theme = useTheme();
     const twitterPost = props.twitterPost
     const [media, setMedia] = React.useState<any[]>([]);
     const [urls, setUrls] = React.useState<any[]>([]);
@@ -124,7 +125,7 @@ function DRTwitterPost(props: IDRTwitterPostProps) {
         );
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRTwitterPost error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRTwitterPost error</div>
     }
 }
 

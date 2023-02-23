@@ -1,7 +1,6 @@
-import { Button, Card, CardHeader, CardMedia, Grid } from '@mui/material';
+import { Button, Card, CardHeader, CardMedia, Grid, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
-import * as React from 'react';
 
 const columns = [
     {
@@ -131,6 +130,7 @@ type IDRDownloadGridProps = {
 }
 
 function DRDownloadGrid(props: IDRDownloadGridProps) {
+    const theme = useTheme();
     const { title, data, logoImage, height = 350, rowHeight = 75 } = props;
 
     try {
@@ -154,7 +154,7 @@ function DRDownloadGrid(props: IDRDownloadGridProps) {
         );
     } catch (error) {
         console.error(error)
-        return <div style={{ color: "red" }}>DRDownloadGrid error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRDownloadGrid error</div>
     }
 }
 
