@@ -287,11 +287,15 @@ function DRNavbar(props: IDRNavbarProps) {
                     }}
                     unmountOnExit
                 >
-                    <Fab variant="extended" color="primary" aria-label="add"
+                    <Fab
+                        variant="extended"
+                        color="primary"
+                        aria-label="add"
+                        // position="sticky"
                         onClick={goToSupport}
                         sx={{
                             mr: 1,
-                            position: "absolute",
+                            position: "fixed",
                             right: "2%",
                             bottom: "2%",
                             backgroundColor: "gold",
