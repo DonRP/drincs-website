@@ -1,7 +1,8 @@
-import { Button, Grid, Link, Typography, useTheme } from '@mui/material';
+import { Grid, Link, Typography, useTheme } from '@mui/material';
 import { ISignInSidePageProps } from 'SignInSide';
 import { handleInputChangeByFieldName } from 'Utility/UtilityComponenets';
 import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
+import DRLoadingButton from 'components/DRLoadingButton';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
@@ -17,6 +18,7 @@ function Login(props: ISignInSidePageProps) {
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [rememberMe, setRememberMe] = useState<boolean>(true)
     const [openChangePassword, setOpenChangePassword] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
     const { authService, enqueueSnackbar } = props;
 
     const validateLogin = (account: LoginAccount): string[] => {
@@ -47,6 +49,7 @@ function Login(props: ISignInSidePageProps) {
     }
 
     const handelLogin = () => {
+        setLoading(true)
         let errorFields = validateLogin(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
@@ -54,11 +57,15 @@ function Login(props: ISignInSidePageProps) {
                 if (res) {
                     navigate("/");
                 }
+                setLoading(false)
+            }).catch(() => {
+                setLoading(false)
             })
         }
     };
 
     const handelResetPassword = () => {
+        setLoading(true)
         let errorFields = validateResetPassword(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
@@ -66,6 +73,9 @@ function Login(props: ISignInSidePageProps) {
                 if (res) {
                     setOpenChangePassword(false)
                 }
+                setLoading(false)
+            }).catch(() => {
+                setLoading(false)
             })
         }
     };
@@ -106,21 +116,11 @@ function Login(props: ISignInSidePageProps) {
                         checked={rememberMe}
                         onChangeValue={(fieldName, value) => setRememberMe(value)}
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
+                    <DRLoadingButton
+                        titleButton='Sign In'
                         onClick={handelLogin}
-                        style={{
-                            marginTop: 20,
-                            marginBottom: 10,
-                            marginLeft: 2,
-                            marginRight: 2,
-                        }}
-                    >
-                        Sign In
-                    </Button>
+                        loading={loading}
+                    />
                 </>}
                 {openChangePassword && <>
                     <Typography component="h1" variant="h5">
@@ -138,21 +138,11 @@ function Login(props: ISignInSidePageProps) {
                         autoFocus
                         errorFields={errorFields}
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
+                    <DRLoadingButton
+                        titleButton='Send email'
                         onClick={handelResetPassword}
-                        style={{
-                            marginTop: 20,
-                            marginBottom: 10,
-                            marginLeft: 2,
-                            marginRight: 2,
-                        }}
-                    >
-                        Send email
-                    </Button>
+                        loading={loading}
+                    />
                 </>}
 
                 <Grid container>

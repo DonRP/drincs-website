@@ -1,8 +1,9 @@
 import EmailIcon from '@mui/icons-material/Email';
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { ISignInSidePageProps } from 'SignInSide';
 import { handleInputChangeByFieldName } from "Utility/UtilityComponenets";
 import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
+import DRLoadingButton from 'components/DRLoadingButton';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { useState } from 'react';
@@ -13,6 +14,7 @@ function SignUp(props: ISignInSidePageProps) {
     const [account, setAccount] = useState<NewAccountRecord>(new NewAccountRecord());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [emailVerification, setEmailVerification] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
     const { authService, enqueueSnackbar } = props;
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
@@ -34,6 +36,7 @@ function SignUp(props: ISignInSidePageProps) {
     }
 
     const handelSignUp = () => {
+        setLoading(true)
         let errorFields = validateSignUp(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
@@ -41,6 +44,9 @@ function SignUp(props: ISignInSidePageProps) {
                 if (res) {
                     setEmailVerification(true)
                 }
+                setLoading(false)
+            }).catch(() => {
+                setLoading(false)
             })
         }
     };
@@ -93,21 +99,11 @@ function SignUp(props: ISignInSidePageProps) {
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
             /> */}
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
+                <DRLoadingButton
+                    titleButton='Sign Up'
                     onClick={handelSignUp}
-                    style={{
-                        marginTop: 20,
-                        marginBottom: 10,
-                        marginLeft: 2,
-                        marginRight: 2,
-                    }}
-                >
-                    Sign Up
-                </Button>
+                    loading={loading}
+                />
             </>
         );
     }
