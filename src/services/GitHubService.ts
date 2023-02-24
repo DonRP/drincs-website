@@ -22,6 +22,9 @@ class GitService extends BaseRestService {
 
         return this.customFetch(this.urlwebapi + `/GitHub/CreateIssue?repositoryName=${repo}`, requestOptions)
             .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    this.showMessage(response?.messagesToShow, 'error')
+                }
                 return response;
             })
             .catch((res) => {

@@ -1,4 +1,5 @@
 import { HttpResponse } from "model/HttpResponse";
+import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from "notistack";
 
 type HeadersType = {
     'Accept': string
@@ -7,7 +8,13 @@ type HeadersType = {
 }
 
 class BaseRestService {
+    constructor(enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) {
+        if (enqueueSnackbar) {
+            this.enqueueSnackbar = enqueueSnackbar
+        }
+    }
     urlwebapi = this.geturlwebapi();
+    enqueueSnackbar: null | ((message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) = null
     private geturlwebapi(): string {
         if (process.env.NODE_ENV !== 'production') {
             return "https://localhost:7289"
@@ -17,11 +24,15 @@ class BaseRestService {
         }
     }
     showError(body: any) {
-        // TODO: ti improve
+        this.showMessage("There was an error in the server", 'error')
         console.log(body)
         if (body.error) {
             window.alert(body.error)
-        } else if (body.message) {
+        }
+        else if (body.messagesToShow) {
+            window.alert(body.messagesToShow)
+        }
+        else if (body.message) {
             window.alert(body.message)
         } else {
             window.alert("basdfas")
@@ -67,6 +78,15 @@ class BaseRestService {
             throw error
         }
     }
+
+    showMessage = (message: string | undefined | null, variant: VariantType) => {
+        if (this.enqueueSnackbar) {
+            if (!message) {
+                message = "There was an error in the server"
+            }
+            this.enqueueSnackbar(message, { variant });
+        }
+    };
 }
 export default BaseRestService;
 

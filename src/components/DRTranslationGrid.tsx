@@ -7,8 +7,9 @@ import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/Translation/TranslationResult';
+import { useSnackbar } from 'notistack';
 import * as React from 'react';
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Flag from 'react-flagkit';
 import { RecoilState, useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
@@ -155,10 +156,13 @@ type IDRTranslationGridProps = {
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = useTheme();
+    const { enqueueSnackbar } = useSnackbar();
     const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75, NotCompleteListAtom } = props
     const [data, setData] = useState<TranslationResult>()
     const [loading, setLoading] = useState(true)
     const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(NotCompleteListAtom);
+    const translationService = useMemo(() => { return new TranslationService(enqueueSnackbar) }, [enqueueSnackbar]);
+
     const test = () => {
         if (loading) {
             setLoading(false)
@@ -173,7 +177,6 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     }
 
     useEffect(() => {
-        const translationService = new TranslationService();
         setLoading(true)
 
         translationService.getLanguages(gitRepo, crowdinProjectId).then(res => {
@@ -181,7 +184,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         }).catch(err => {
             console.log(err)
         })
-    }, [crowdinProjectId, gitRepo]);
+    }, [crowdinProjectId, gitRepo, translationService]);
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {

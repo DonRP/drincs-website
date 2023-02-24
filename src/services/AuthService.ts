@@ -28,7 +28,7 @@ class AuthService extends BaseRestService {
         return this.customFetch<AuthData>(this.urlwebapi + `/Auth/SignInWithEmailAndPassword`, requestOptions)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
-                    // TODO: log
+                    this.showMessage(response?.messagesToShow, 'error')
                     return false
                 }
                 if (rememberMe) {
@@ -65,7 +65,7 @@ class AuthService extends BaseRestService {
         return this.customFetch<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`, requestOptions)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
-                    // TODO: log
+                    this.showMessage(response?.messagesToShow, 'error')
                     return false
                 }
                 return true
@@ -95,7 +95,7 @@ class AuthService extends BaseRestService {
         return this.customFetch<AuthData>(this.urlwebapi + `/Auth/CreateAccount`, requestOptions)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
-                    // TODO: log
+                    this.showMessage(response?.messagesToShow, 'error')
                     return false
                 }
                 return true
