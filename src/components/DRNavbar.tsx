@@ -4,6 +4,7 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, useTheme } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import { useSnackbar } from 'notistack';
 import React from 'react';
 import { Link, To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
@@ -11,22 +12,23 @@ import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
 
-type IPage = {
+export type IPageDRNavbar = {
     title: string,
     path: To,
 }
 
 type IDRNavbarProps = {
-    pages: IPage[],
-    supportPage: IPage | null,
-    loginPage: IPage | null,
-    extern_link: IPage[],
+    pages: IPageDRNavbar[],
+    supportPage: IPageDRNavbar | null,
+    loginPage: IPageDRNavbar | null,
+    extern_link: IPageDRNavbar[],
 }
 
 function DRNavbar(props: IDRNavbarProps) {
     const location = useLocation();
     const theme = useTheme();
     let navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
     const { pages = [], supportPage, extern_link = [], loginPage } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -265,7 +267,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         onClose={handleCloseUserMenu}
                                     >
                                         <MenuItem key={2} onClick={() => {
-                                            let authService = new AuthService();
+                                            let authService = new AuthService(enqueueSnackbar);
                                             authService.logOut()
                                             handleCloseUserMenu()
                                         }}>

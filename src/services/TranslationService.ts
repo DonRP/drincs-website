@@ -10,6 +10,9 @@ class TranslationService extends BaseRestService {
         }
         return this.customFetch(this.urlwebapi + `/Translation/GetTranslations?repositoryName=${repositoryName}&crowdinProjectId=${crowdinProjectId}`)
             .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    this.showMessage(response?.messagesToShow, 'error')
+                }
                 return response;
             })
             .catch((res) => {

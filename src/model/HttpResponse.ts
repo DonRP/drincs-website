@@ -13,4 +13,5 @@ export class HttpResponse<T> extends HttpResponseMessage {
     content: T | undefined;
     messages: string = "";
     messagesAlert: string | null = null;
+    messagesToShow: string | null = null;
 }

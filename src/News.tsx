@@ -1,7 +1,8 @@
 import { Grid } from "@mui/material";
 import CircularIndeterminate from "components/CircularIndeterminate";
 import DRTwitterPost from "components/DRTwitterPost";
-import { useEffect, useState } from "react";
+import { useSnackbar } from "notistack";
+import { useEffect, useMemo, useState } from "react";
 import { TwitterFollowButton } from "react-twitter-embed";
 import TweetService from "services/TwitterService";
 
@@ -15,11 +16,10 @@ const urlNoApiCode = [
 
 function News() {
     const [tweetList, setTweetList] = useState([]);
-    // const [userInfo, setUserInfo] = useState();
-    // const userId = "1402755743540039684"
+    const { enqueueSnackbar } = useSnackbar();
+    const tweetService = useMemo(() => { return new TweetService(enqueueSnackbar) }, [enqueueSnackbar]);
 
     useEffect(() => {
-        const tweetService = new TweetService();
         urlNoApiCode.forEach(element => {
             tweetService.getTweets(element + "?type=user_timeline").then(res => {
                 if (res) {
@@ -30,7 +30,7 @@ function News() {
                 console.log(err)
             })
         });
-    }, []);
+    }, [tweetService]);
 
     return (
         <Grid

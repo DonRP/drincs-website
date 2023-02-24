@@ -1,6 +1,7 @@
 import { Avatar, Box, CssBaseline, Grid, Link, Paper } from "@mui/material";
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
+import { useSnackbar } from "notistack";
 import { useState } from "react";
 import AuthService, { isLoggedIn } from "services/AuthService";
 import Copyright from "./components/Copyright";
@@ -11,7 +12,8 @@ export type ISignInSidePageProps = {
 
 function SignInSide() {
     const [isLogin, setIsLogin] = useState<boolean>(true);
-    const authService = new AuthService();
+    const { enqueueSnackbar } = useSnackbar();
+    const authService = new AuthService(enqueueSnackbar);
 
     return (
         <Grid container component="main"
