@@ -64,7 +64,7 @@ class AuthService extends BaseRestService {
 
         return this.customFetch<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`, requestOptions)
             .then(response => {
-                if (!response || !response.isSuccessStatusCode || !response.content) {
+                if (!response || !response.isSuccessStatusCode) {
                     this.showMessage(response?.messagesToShow, 'error')
                     return false
                 }
