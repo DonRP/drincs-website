@@ -6,13 +6,14 @@ import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { useState } from 'react';
+import { showMessage } from 'services/BaseRestService';
 
 function SignUp(props: ISignInSidePageProps) {
     var validator = require('validator');
     const [account, setAccount] = useState<NewAccountRecord>(new NewAccountRecord());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [emailVerification, setEmailVerification] = useState<boolean>(false)
-    const { authService } = props;
+    const { authService, enqueueSnackbar } = props;
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
         let fields = [];
@@ -27,7 +28,7 @@ function SignUp(props: ISignInSidePageProps) {
         }
         if (!validator.isEmail(account.email)) {
             fields.push("email")
-            // TODO message
+            showMessage(enqueueSnackbar, "The email is invalid", 'error');
         }
         return fields;
     }
@@ -40,16 +41,7 @@ function SignUp(props: ISignInSidePageProps) {
                 if (res) {
                     setEmailVerification(true)
                 }
-                else {
-                    // TODO: errore
-                }
-            }).catch(err => {
-                // TODO: errore
-                console.log(err)
             })
-        }
-        else {
-            // TODO: errore
         }
     };
 

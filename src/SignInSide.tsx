@@ -1,13 +1,14 @@
 import { Avatar, Box, CssBaseline, Grid, Link, Paper } from "@mui/material";
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
-import { useSnackbar } from "notistack";
+import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
 import { useState } from "react";
 import AuthService, { isLoggedIn } from "services/AuthService";
 import Copyright from "./components/Copyright";
 
 export type ISignInSidePageProps = {
-    authService: AuthService
+    authService: AuthService,
+    enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey,
 }
 
 function SignInSide() {
@@ -69,7 +70,7 @@ function SignInSide() {
 
                     {isLoggedIn() ? "You are already logged in" :
                         <>
-                            {isLogin ? <Login authService={authService} /> : <SignUp authService={authService} />}
+                            {isLogin ? <Login authService={authService} enqueueSnackbar={enqueueSnackbar} /> : <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} />}
                             <Grid container>
                                 <Grid item>
                                     <Link variant="body2"

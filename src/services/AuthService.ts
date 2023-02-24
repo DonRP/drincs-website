@@ -68,6 +68,7 @@ class AuthService extends BaseRestService {
                     this.showMessage(response?.messagesToShow, 'error')
                     return false
                 }
+                this.showMessage("Email was sent to reset the password", 'success');
                 return true
             })
             .catch((res) => {

@@ -6,6 +6,7 @@ import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { showMessage } from 'services/BaseRestService';
 import DRCheckBox from '../DeltaCheckbox';
 
 function Login(props: ISignInSidePageProps) {
@@ -16,7 +17,7 @@ function Login(props: ISignInSidePageProps) {
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [rememberMe, setRememberMe] = useState<boolean>(true)
     const [openChangePassword, setOpenChangePassword] = useState<boolean>(false)
-    const { authService } = props;
+    const { authService, enqueueSnackbar } = props;
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
@@ -28,7 +29,7 @@ function Login(props: ISignInSidePageProps) {
         }
         if (!validator.isEmail(account.email)) {
             fields.push("email")
-            // TODO message
+            showMessage(enqueueSnackbar, "The email is invalid", 'error');
         }
         return fields;
     }
@@ -40,7 +41,7 @@ function Login(props: ISignInSidePageProps) {
         }
         if (!validator.isEmail(account.email)) {
             fields.push("email")
-            // TODO message
+            showMessage(enqueueSnackbar, "The email is invalid", 'error');
         }
         return fields;
     }
@@ -53,16 +54,7 @@ function Login(props: ISignInSidePageProps) {
                 if (res) {
                     navigate("/");
                 }
-                else {
-                    // TODO: errore
-                }
-            }).catch(err => {
-                // TODO: errore
-                console.log(err)
             })
-        }
-        else {
-            // TODO: errore
         }
     };
 
@@ -74,16 +66,7 @@ function Login(props: ISignInSidePageProps) {
                 if (res) {
                     setOpenChangePassword(false)
                 }
-                else {
-                    // TODO: errore
-                }
-            }).catch(err => {
-                // TODO: errore
-                console.log(err)
             })
-        }
-        else {
-            // TODO: errore
         }
     };
 

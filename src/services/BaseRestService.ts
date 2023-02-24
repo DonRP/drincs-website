@@ -7,6 +7,10 @@ type HeadersType = {
     'Authorization'?: string
 }
 
+export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey, message: string | undefined | null, variant: VariantType) => {
+    enqueueSnackbar(message, { variant });
+};
+
 class BaseRestService {
     constructor(enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) {
         if (enqueueSnackbar) {
