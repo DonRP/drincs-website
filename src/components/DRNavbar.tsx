@@ -80,7 +80,7 @@ function DRNavbar(props: IDRNavbarProps) {
     try {
         return (
             <>
-                <AppBar position="sticky">
+                <AppBar position="fixed">
                     <Container maxWidth="xl">
                         <Toolbar disableGutters>
                             {/* PC */}
