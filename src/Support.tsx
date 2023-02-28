@@ -1,16 +1,34 @@
 import { Grid } from "@mui/material";
-import DRSupportInfoGrid from "components/DRSupportInfo";
+import DRSupportCard from "components/DRSupportCard";
+import DRTable from "components/DRTable";
+import { ReactElement } from "react-markdown/lib/react-markdown";
 
-const rowsABFD = [
+type SupportDataType = {
+    card?: ReactElement,
+    link_support: string,
+    site: string,
+    membership?: {
+        long: string,
+        medium: string,
+        short: string,
+    },
+    month_price: string,
+    last_version: boolean,
+    news: boolean,
+    qhd: boolean,
+    android: boolean,
+}
+
+const data: SupportDataType[] = [
     {
-        id: 0,
+        card: <DRSupportCard />,
         link_support: "https://www.patreon.com/join/DRincs/checkout?rid=4882255",
         site: "patreon",
-        membership: {
-            long: 'Official Supporter ⭐',
-            medium: 'Official Supporter',
-            short: "⭐",
-        },
+        // membership: {
+        //     long: 'Official Supporter ⭐',
+        //     medium: 'Official Supporter',
+        //     short: "⭐",
+        // },
         month_price: "1€",
         last_version: false,
         news: true,
@@ -18,14 +36,14 @@ const rowsABFD = [
         android: false,
     },
     {
-        id: 1,
+        card: <DRSupportCard />,
         link_support: "https://www.patreon.com/join/DRincs/checkout?rid=4743216",
         site: "patreon",
-        membership: {
-            long: 'Super Supporter ⭐⭐',
-            medium: 'Super Supporter',
-            short: "⭐⭐",
-        },
+        // membership: {
+        //     long: 'Super Supporter ⭐⭐',
+        //     medium: 'Super Supporter',
+        //     short: "⭐⭐",
+        // },
         month_price: "5€",
         last_version: true,
         news: true,
@@ -33,110 +51,50 @@ const rowsABFD = [
         android: true,
     },
     {
-        id: 2,
+        card: <DRSupportCard />,
         link_support: "https://www.patreon.com/join/DRincs/checkout?rid=4743248",
         site: "patreon",
-        membership: {
-            long: 'Mega Supporter ⭐⭐⭐',
-            medium: 'Mega Supporter',
-            short: "Mega",
-        },
+        // membership: {
+        //     long: 'Mega Supporter ⭐⭐⭐',
+        //     medium: 'Mega Supporter',
+        //     short: "Mega",
+        // },
         month_price: "10€",
         last_version: true,
         news: true,
         qhd: false,
         android: true,
     },
-    {
-        id: 3,
-        link_support: "https://www.patreon.com/join/DRincs/checkout?rid=4743218",
-        site: "patreon",
-        membership: {
-            long: 'Ultra Supporter ⭐⭐⭐⭐',
-            medium: 'Ultra Supporter',
-            short: "Ultra",
-        },
-        month_price: "15€",
-        last_version: true,
-        news: true,
-        qhd: true,
-        android: true,
-    },
-    {
-        id: 4,
-        link_support: "https://www.patreon.com/join/DRincs/checkout?rid=4743258",
-        site: "patreon",
-        membership: {
-            long: 'VIP Supporter ⭐⭐⭐⭐⭐',
-            medium: 'VIP Supporter',
-            short: "VIP⭐",
-        },
-        month_price: "20€",
-        last_version: true,
-        news: true,
-        qhd: true,
-        android: true,
-    },
-    {
-        id: 5,
-        site: "buymeacoffee",
-        membership: {
-            long: 'Super Supporter ⭐⭐',
-            medium: 'Super Supporter',
-            short: "⭐⭐",
-        },
-        month_price: "4€",
-        year_price: "40€",
-        last_version: true,
-        news: false,
-        qhd: false,
-        android: true,
-    },
-    {
-        id: 6,
-        site: "buymeacoffee",
-        membership: {
-            long: 'Mega Supporter ⭐⭐⭐',
-            medium: 'Mega Supporter',
-            short: "Mega",
-        },
-        month_price: "8€",
-        year_price: "80€",
-        last_version: true,
-        news: false,
-        qhd: false,
-        android: true,
-    },
-    {
-        id: 7,
-        site: "buymeacoffee",
-        membership: {
-            long: 'Ultra Supporter ⭐⭐⭐⭐',
-            medium: 'Ultra Supporter',
-            short: "Ultra",
-        },
-        month_price: "12€",
-        year_price: "120€",
-        last_version: true,
-        news: false,
-        qhd: true,
-        android: true,
-    },
-    {
-        id: 8,
-        site: "buymeacoffee",
-        membership: {
-            long: 'VIP Supporter ⭐⭐⭐⭐⭐',
-            medium: 'VIP Supporter',
-            short: "VIP⭐",
-        },
-        month_price: "15€",
-        year_price: "150€",
-        last_version: true,
-        news: false,
-        qhd: true,
-        android: true,
-    },
+    // {
+    //     card: <DRSupportCard />,
+    //     link_support: "https://www.patreon.com/join/DRincs/checkout?rid=4743218",
+    //     site: "patreon",
+    //     // membership: {
+    //     //     long: 'Ultra Supporter ⭐⭐⭐⭐',
+    //     //     medium: 'Ultra Supporter',
+    //     //     short: "Ultra",
+    //     // },
+    //     month_price: "15€",
+    //     last_version: true,
+    //     news: true,
+    //     qhd: true,
+    //     android: true,
+    // },
+    // {
+    //     card: <DRSupportCard />,
+    //     link_support: "https://www.patreon.com/join/DRincs/checkout?rid=4743258",
+    //     site: "patreon",
+    //     // membership: {
+    //     //     long: 'VIP Supporter ⭐⭐⭐⭐⭐',
+    //     //     medium: 'VIP Supporter',
+    //     //     short: "VIP⭐",
+    //     // },
+    //     month_price: "20€",
+    //     last_version: true,
+    //     news: true,
+    //     qhd: true,
+    //     android: true,
+    // },
 ];
 
 function Support() {
@@ -149,10 +107,10 @@ function Support() {
                 alignItems="center"
             >
                 <h2>Support</h2>
-                <DRSupportInfoGrid
-                    title="THANKS!! In advance!❤️"
-                    data={rowsABFD}
-                    height={900}
+                <DRTable
+                    titles={["Plans", "last_version", "news", "qhd", "android"]}
+                    data={data}
+                    toMirrorAcrossDiagonal
                 />
             </Grid>
         </>
