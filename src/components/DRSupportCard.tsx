@@ -3,19 +3,23 @@ import Grid2 from '@mui/material/Unstable_Grid2';
 
 type IDRSupportCardProps = {
     stars: number;
+    title: string;
+    month_price: number;
 }
 
 function DRSupportCard(props: IDRSupportCardProps) {
     const theme = useTheme();
+    const { stars, title, month_price } = props;
 
     try {
         return (
             <Card sx={{ minWidth: 275 }}>
                 <CardHeader
-                    action={
+                    title={title}
+                    subheader={
                         <Rating
                             name="read-only"
-                            value={1}
+                            value={stars}
                             readOnly
                             sx={{
                                 marginTop: 1,
@@ -23,15 +27,15 @@ function DRSupportCard(props: IDRSupportCardProps) {
                             }}
                         />
                     }
-                    title={"Official Supporter"}
-                    subheader={".............."}
                 />
                 <CardContent>
+
                     <Grid2
                         container
                         direction="row"
                         justifyContent="flex-start"
                         alignItems="center"
+                        spacing={1}
                     >
                         <Grid2
                             direction="row"
@@ -39,7 +43,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                             alignItems="center"
                         >
                             <Typography variant="h4" >
-                                €1
+                                €{month_price}
                             </Typography>
                         </Grid2>
                         <Grid2>
