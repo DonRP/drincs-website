@@ -77,8 +77,6 @@ function Support() {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
-                spacing={4}
-                pt={4}
             >
                 <DRTable
                     titles={["Plans", "last_version", "news", "qhd", "android"]}
