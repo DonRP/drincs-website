@@ -24,28 +24,38 @@ function DRTableCell(props: IDRTableCell) {
     try {
         if (isBoolean(element)) {
             if (element) {
-                return <TableCell >
+                return <TableCell align="center">
                     <Avatar
                         sx={{
                             bgcolor: green[500],
-                            width: 24,
-                            height: 24
+                            width: 20,
+                            height: 20
                         }}
                     >
-                        <CheckIcon />
+                        <CheckIcon
+                            sx={{
+                                width: 15,
+                                height: 15
+                            }}
+                        />
                     </Avatar>
                 </TableCell>
             }
             else {
-                return <TableCell >
+                return <TableCell align="center">
                     <Avatar
                         sx={{
                             bgcolor: red[500],
-                            width: 24,
-                            height: 24
+                            width: 20,
+                            height: 20
                         }}
                     >
-                        <ClearIcon />
+                        <ClearIcon
+                            sx={{
+                                width: 15,
+                                height: 15
+                            }}
+                        />
                     </Avatar>
                 </TableCell>
             }
