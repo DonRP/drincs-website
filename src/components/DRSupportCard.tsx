@@ -13,9 +13,13 @@ function DRSupportCard(props: IDRSupportCardProps) {
 
     try {
         return (
-            <Card sx={{ minWidth: 275 }}>
+            <Card sx={{ maxWidth: 200 }}>
                 <CardHeader
-                    title={title}
+                    title={
+                        <Typography variant="h6" align="left">
+                            {title}
+                        </Typography>
+                    }
                     subheader={
                         <Rating
                             name="read-only"
@@ -23,7 +27,6 @@ function DRSupportCard(props: IDRSupportCardProps) {
                             readOnly
                             sx={{
                                 marginTop: 1,
-                                marginLeft: 1,
                             }}
                         />
                     }
@@ -32,31 +35,41 @@ function DRSupportCard(props: IDRSupportCardProps) {
 
                     <Grid2
                         container
-                        direction="row"
+                        direction="column"
                         justifyContent="flex-start"
-                        alignItems="center"
+                        alignItems="start"
                         spacing={1}
                     >
                         <Grid2
+                            container
                             direction="row"
                             justifyContent="flex-start"
                             alignItems="center"
+                            spacing={1}
                         >
-                            <Typography variant="h4" >
-                                €{month_price}
-                            </Typography>
+                            <Grid2
+                                direction="row"
+                                justifyContent="flex-start"
+                                alignItems="center"
+                            >
+                                <Typography variant="h4" >
+                                    €{month_price}
+                                </Typography>
+                            </Grid2>
+                            <Grid2>
+                                <Typography color="text.secondary">
+                                    / month
+                                </Typography>
+                            </Grid2>
                         </Grid2>
                         <Grid2>
-                            <Typography color="text.secondary">
-                                / month
+                            <Typography variant="body2" align="left">
+                                well meaning and kindly.
+                                <br />
+                                {'"a benevolent smile"'}
                             </Typography>
                         </Grid2>
                     </Grid2>
-                    <Typography variant="body2">
-                        well meaning and kindly.
-                        <br />
-                        {'"a benevolent smile"'}
-                    </Typography>
                 </CardContent>
                 <CardActions>
                     <Button size="small">Learn More</Button>

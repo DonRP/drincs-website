@@ -1,6 +1,6 @@
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Avatar, Paper, Table, TableBody, TableCell, TableContainer, TableRow, useTheme } from '@mui/material';
+import { Avatar, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, useTheme } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import { isBoolean, isObject } from 'Utility/UtilityFunctionts';
 
@@ -25,46 +25,60 @@ function DRTableCell(props: IDRTableCell) {
         if (isBoolean(element)) {
             if (element) {
                 return <TableCell align="center">
-                    <Avatar
-                        sx={{
-                            bgcolor: green[500],
-                            width: 20,
-                            height: 20
-                        }}
+                    <Grid
+                        container
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="center"
                     >
-                        <CheckIcon
-                            sx={{
-                                width: 15,
-                                height: 15
-                            }}
-                        />
-                    </Avatar>
+                        <Grid item>
+                            <Avatar
+                                sx={{
+                                    bgcolor: green[500],
+                                    width: 20,
+                                    height: 20
+                                }}
+                            >
+                                <CheckIcon
+                                    sx={{
+                                        width: 15,
+                                        height: 15
+                                    }}
+                                />
+                            </Avatar>
+                        </Grid>
+                    </Grid>
                 </TableCell>
             }
             else {
                 return <TableCell align="center">
-                    <Avatar
-                        sx={{
-                            bgcolor: red[500],
-                            width: 20,
-                            height: 20
-                        }}
+                    <Grid
+                        container
+                        direction="column"
+                        justifyContent="flex-start"
+                        alignItems="center"
                     >
-                        <ClearIcon
-                            sx={{
-                                width: 15,
-                                height: 15
-                            }}
-                        />
-                    </Avatar>
+                        <Grid item>
+                            <Avatar
+                                sx={{
+                                    bgcolor: red[500],
+                                    width: 20,
+                                    height: 20
+                                }}
+                            >
+                                <ClearIcon
+                                    sx={{
+                                        width: 15,
+                                        height: 15
+                                    }}
+                                />
+                            </Avatar>
+                        </Grid>
+                    </Grid>
                 </TableCell>
             }
         }
-        // if (isObject(element)) {
-        //     return <TableCell >
-        //     </TableCell>
-        // }
-        return <TableCell >
+        return <TableCell align="center">
             {element}
         </TableCell>
     } catch (error) {
