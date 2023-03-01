@@ -1,6 +1,6 @@
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Avatar, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableRow, useTheme } from '@mui/material';
+import { Avatar, Grid, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableRow, Theme, useTheme } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import { isBoolean, isObject } from 'Utility/UtilityFunctionts';
 
@@ -11,6 +11,7 @@ type IDRTable = {
     width?: number,
     height?: number,
     toMirrorAcrossDiagonal?: boolean,
+    sx?: SxProps<Theme>;
 }
 
 type IDRTableCell = {
@@ -124,11 +125,14 @@ function convertData(oldData: any[][] | object[] = [], revert = false): any[][] 
 
 function DRTable(props: IDRTable) {
     const theme = useTheme();
-    const { verticalTitle, toMirrorAcrossDiagonal, titles, data } = props;
+    const { verticalTitle, toMirrorAcrossDiagonal, titles, data, sx } = props;
     const dataUsed = convertData(data, toMirrorAcrossDiagonal)
     try {
         return (
-            <TableContainer component={Paper}>
+            <TableContainer
+                component={Paper}
+                sx={sx}
+            >
                 <Table >
                     <TableBody>
                         {verticalTitle && titles &&
@@ -156,8 +160,7 @@ function DRTable(props: IDRTable) {
                                     />
                                 })}
                             </TableRow>
-                        })
-                        }
+                        })}
                     </TableBody>
                 </Table>
             </TableContainer>
