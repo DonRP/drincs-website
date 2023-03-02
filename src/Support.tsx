@@ -7,10 +7,8 @@ import { ReactElement } from "react-markdown/lib/react-markdown";
 
 type SupportDataType = {
     card: ReactElement,
-    last_version: boolean,
+    voting_power: boolean,
     news: boolean,
-    qhd: boolean,
-    android: boolean,
 }
 
 const data: SupportDataType[] = [
@@ -20,10 +18,8 @@ const data: SupportDataType[] = [
             title="Official Supporter"
             month_price={2}
         />,
-        last_version: false,
         news: true,
-        qhd: false,
-        android: false,
+        voting_power: false,
     },
     {
         card: <DRSupportCard
@@ -31,10 +27,8 @@ const data: SupportDataType[] = [
             title="Super Supporter"
             month_price={5}
         />,
-        last_version: true,
         news: true,
-        qhd: false,
-        android: true,
+        voting_power: true,
     },
     {
         card: <DRSupportCard
@@ -42,10 +36,8 @@ const data: SupportDataType[] = [
             title="Mega Supporter"
             month_price={10}
         />,
-        last_version: true,
         news: true,
-        qhd: false,
-        android: true,
+        voting_power: true,
     },
     {
         card: <DRSupportCard
@@ -53,10 +45,8 @@ const data: SupportDataType[] = [
             title="Ultra Supporter"
             month_price={15}
         />,
-        last_version: true,
         news: true,
-        qhd: true,
-        android: true,
+        voting_power: true,
     },
     {
         card: <DRSupportCard
@@ -64,10 +54,8 @@ const data: SupportDataType[] = [
             title="VIP Supporter"
             month_price={20}
         />,
-        last_version: true,
         news: true,
-        qhd: true,
-        android: true,
+        voting_power: true,
     },
 ];
 
@@ -89,7 +77,7 @@ function Support() {
                 {/* pc */}
                 <DRTable
                     sx={{ display: { xs: 'none', lg: 'flex' } }}
-                    titles={["Plans", "last_version", "news", "qhd", "android"]}
+                    titles={["Plans", "News", "Voting Power"]}
                     data={data}
                     toMirrorAcrossDiagonal
                 />
@@ -115,7 +103,7 @@ function Support() {
                             return <TabPanel value={index.toString()}>
                                 {item.card}
                                 <DRTable
-                                    titles={["last_version", "news", "qhd", "android"]}
+                                    titles={["News", "Voting Power"]}
                                     data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
                                     toMirrorAcrossDiagonal
                                 />
