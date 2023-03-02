@@ -15,7 +15,6 @@ function DRSupportCard(props: IDRSupportCardProps) {
     try {
         return (
             <Card sx={{
-                maxWidth: { lg: 200 },
                 backgroundColor: "#19759554",
                 border: 1,
                 "border-color": "#197595",
