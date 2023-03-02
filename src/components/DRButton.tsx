@@ -3,8 +3,11 @@ import { Button, useTheme } from '@mui/material';
 type IDRButtonProps = {
     onClick?: () => void,
     startIcon?: React.ReactNode,
-    titleButton: string,
+    children: any,
     disabled?: boolean,
+    ariaLabel?: string,
+    marginTop?: number,
+    marginBottom?: number,
 }
 
 function DRButton(props: IDRButtonProps) {
@@ -12,14 +15,19 @@ function DRButton(props: IDRButtonProps) {
     const {
         onClick,
         startIcon,
-        titleButton,
-        disabled
+        children,
+        disabled,
+        ariaLabel,
+        marginTop = 20,
+        marginBottom = 10,
     } = props;
 
     try {
         return (
             <Button
                 fullWidth
+                aria-label={ariaLabel}
+                title={ariaLabel}
                 variant="contained"
                 color="primary"
                 disabled={disabled}
@@ -27,13 +35,15 @@ function DRButton(props: IDRButtonProps) {
                 onClick={onClick}
                 startIcon={startIcon}
                 style={{
-                    marginTop: 20,
-                    marginBottom: 10,
+                    marginTop: marginTop,
+                    marginBottom: marginBottom,
                     marginLeft: 2,
                     marginRight: 2,
                 }}
             >
-                {titleButton}
+                <strong>
+                    {children}
+                </strong>
             </Button>
         );
     } catch (error) {

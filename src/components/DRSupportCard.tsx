@@ -1,4 +1,5 @@
 import { Card, CardActions, CardContent, CardHeader, Rating, Typography, useTheme } from '@mui/material';
+import Chip from '@mui/material/Chip';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import DRButton from './DRButton';
 
@@ -88,9 +89,37 @@ function DRSupportCard(props: IDRSupportCardProps) {
                     </Grid2>
                 </CardContent>
                 <CardActions>
-                    <DRButton
-                        titleButton="Support me"
-                    />
+                    <Grid2 xs={12}
+                        container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={1}
+                    >
+                        <Grid2 xs={12}>
+                            <DRButton
+                                ariaLabel='8% retained by Patreon'
+                                marginTop={0}
+                                marginBottom={0}
+                            >
+                                Patreon
+                                <Chip label="8%"
+                                    sx={{ color: "red" }}
+                                />
+                            </DRButton>
+                        </Grid2>
+                        <Grid2 xs={12}>
+                            <DRButton ariaLabel='0% retained by BuyMeACoffe'
+                                marginTop={0}
+                                marginBottom={0}
+                            >
+                                Buy Me A Coffe
+                                <Chip label="0%"
+                                    sx={{ color: "green" }}
+                                />
+                            </DRButton>
+                        </Grid2>
+                    </Grid2>
                 </CardActions>
             </Card>
         );
