@@ -13,7 +13,12 @@ function DRSupportCard(props: IDRSupportCardProps) {
 
     try {
         return (
-            <Card sx={{ maxWidth: 200 }}>
+            <Card sx={{
+                maxWidth: { lg: 200 },
+                backgroundColor: "#19759554",
+                border: 1,
+                "border-color": "#197595",
+            }}>
                 <CardHeader
                     title={
                         <Typography variant="h6" align="left">
@@ -27,6 +32,18 @@ function DRSupportCard(props: IDRSupportCardProps) {
                             readOnly
                             sx={{
                                 marginTop: 1,
+                                display: { xs: 'none', lg: 'flex' },
+                            }}
+                        />
+                    }
+                    action={
+                        <Rating
+                            name="read-only"
+                            value={stars}
+                            readOnly
+                            sx={{
+                                marginTop: 1,
+                                display: { xs: 'flex', lg: 'none' },
                             }}
                         />
                     }
@@ -65,7 +82,6 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         <Grid2>
                             <Typography variant="body2" align="left">
                                 well meaning and kindly.
-                                <br />
                                 {'"a benevolent smile"'}
                             </Typography>
                         </Grid2>

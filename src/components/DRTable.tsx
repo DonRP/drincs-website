@@ -146,7 +146,7 @@ function DRTable(props: IDRTable) {
                         }
 
                         {dataUsed.map((item, index) => {
-                            return <TableRow  >
+                            return item.length > 0 ? <TableRow  >
                                 {!verticalTitle && titles &&
                                     <TableCell >
                                         {titles.length > index && <>
@@ -160,6 +160,7 @@ function DRTable(props: IDRTable) {
                                     />
                                 })}
                             </TableRow>
+                                : <></>
                         })}
                     </TableBody>
                 </Table>
