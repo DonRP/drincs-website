@@ -1,38 +1,31 @@
-import LoadingButton from '@mui/lab/LoadingButton';
-import { useTheme } from '@mui/material';
+import { Button, useTheme } from '@mui/material';
 
-type IDRLoadingButtonProps = {
-    onClick: () => void,
+type IDRButtonProps = {
+    onClick?: () => void,
     startIcon?: React.ReactNode,
     titleButton: string,
     disabled?: boolean,
-    loading?: boolean,
 }
 
-function DRLoadingButton(props: IDRLoadingButtonProps) {
+function DRButton(props: IDRButtonProps) {
     const theme = useTheme();
     const {
         onClick,
         startIcon,
         titleButton,
-        disabled,
-        loading = false,
+        disabled
     } = props;
 
     try {
         return (
-            <LoadingButton
-                // {...props}
-                type="submit"
+            <Button
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={onClick}
-                autoFocus
-                startIcon={startIcon}
                 disabled={disabled}
-                loading={loading}
-
+                size="large"
+                onClick={onClick}
+                startIcon={startIcon}
                 style={{
                     marginTop: 20,
                     marginBottom: 10,
@@ -41,12 +34,12 @@ function DRLoadingButton(props: IDRLoadingButtonProps) {
                 }}
             >
                 {titleButton}
-            </LoadingButton>
+            </Button>
         );
     } catch (error) {
         console.error(error)
-        return <div style={{ color: theme.palette.error.main }}>DRLoadingButton error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRButton error</div>
     }
 }
 
-export default DRLoadingButton;
+export default DRButton;

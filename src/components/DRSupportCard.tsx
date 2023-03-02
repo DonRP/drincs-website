@@ -1,5 +1,6 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Rating, Typography, useTheme } from '@mui/material';
+import { Card, CardActions, CardContent, CardHeader, Rating, Typography, useTheme } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2';
+import DRButton from './DRButton';
 
 type IDRSupportCardProps = {
     stars: number;
@@ -88,7 +89,9 @@ function DRSupportCard(props: IDRSupportCardProps) {
                     </Grid2>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Learn More</Button>
+                    <DRButton
+                        titleButton="Support me"
+                    />
                 </CardActions>
             </Card>
         );
