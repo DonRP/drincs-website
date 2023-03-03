@@ -1,7 +1,10 @@
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import { Box, Card, Grid, Tab } from "@mui/material";
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import DRSupportCard from "components/DRSupportCard";
 import DRTable from "components/DRTable";
+import * as React from 'react';
 import { useState } from "react";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 
@@ -74,9 +77,25 @@ function Support() {
                 justifyContent="flex-start"
                 alignItems="center"
             >
+                <Stack
+                    spacing={0.2}
+                    sx={{
+                        width: "98%",
+                        marginBottom: 2,
+                    }}
+                >
+                    <Alert severity="warning">I premi sono ancora in fase di sviluppo per maggiore informazione</Alert>
+                    <Alert severity="info">Per ottenere i premi dovrai regisatrarti a questo sito e collegarti con discord</Alert>
+                    <Alert severity="info">Per favore non sostenermi per ottenere ....</Alert>
+                    <Alert severity="info">La percentuale attorno i bottoni è la percentuale che verra trattenuta dal sito di supporto. Quindi più è alta la percentuale più ci andro a perdere</Alert>
+                </Stack>
                 {/* pc */}
                 <DRTable
-                    sx={{ display: { xs: 'none', lg: 'flex' } }}
+                    sx={{
+                        display: { xs: 'none', lg: 'flex' },
+                        width: "98%",
+                        marginBottom: 2,
+                    }}
                     titles={["Plans", "News", "Voting Power"]}
                     data={data}
                     toMirrorAcrossDiagonal
