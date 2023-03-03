@@ -82,8 +82,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         </Grid2>
                         <Grid2>
                             <Typography variant="body2" align="left">
-                                well meaning and kindly.
-                                {'"a benevolent smile"'}
+                                Per favore non sostenermi per ottenere ....
                             </Typography>
                         </Grid2>
                     </Grid2>
