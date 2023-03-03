@@ -85,7 +85,7 @@ function Support() {
                     }}
                 >
                     <Alert severity="warning">I premi sono ancora in fase di sviluppo per maggiore informazione</Alert>
-                    <Alert severity="info">Per ottenere i premi dovrai regisatrarti a questo sito e collegarti con discord</Alert>
+                    <Alert severity="info">Per ottenere i premi dovrai regisatrarti a questo sito e collegarti con discord (aggiori informazioni qui), oppure collegariti con la pagina di supporto dedicata (in fase di sviluppo)</Alert>
                     <Alert severity="info">Per favore non sostenermi per ottenere ....</Alert>
                     <Alert severity="info">La percentuale attorno i bottoni è la percentuale che verra trattenuta dal sito di supporto. Quindi più è alta la percentuale più ci andro a perdere</Alert>
                 </Stack>
