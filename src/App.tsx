@@ -30,7 +30,7 @@ function App() {
     const routes = [
         { title: "about", path: "/", element: <About /> },
         { title: "⬇️download", path: "/download", element: <Download /> },
-        { title: "🗞️news", path: "/news", element: <News /> },
+        // { title: "🗞️news", path: "/news", element: <News /> },
         { title: "🌍translations", path: "/translations", element: <Translations /> },
         { title: "📖wiki", path: "/wiki", element: <Wiki /> },
         { title: "🐞bug/request", path: "/report", element: <Report /> },
