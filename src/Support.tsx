@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 
 type SupportDataType = {
     card: ReactElement,
+    discord_role: boolean,
     voting_power: boolean,
     news: boolean,
 }
@@ -23,6 +24,7 @@ const data: SupportDataType[] = [
             month_price={2}
             year_price={20}
         />,
+        discord_role: true,
         news: true,
         voting_power: false,
     },
@@ -34,6 +36,7 @@ const data: SupportDataType[] = [
             month_price={5}
             year_price={50}
         />,
+        discord_role: true,
         news: true,
         voting_power: true,
     },
@@ -44,6 +47,7 @@ const data: SupportDataType[] = [
             month_price={10}
             year_price={100}
         />,
+        discord_role: true,
         news: true,
         voting_power: true,
     },
@@ -54,6 +58,7 @@ const data: SupportDataType[] = [
             month_price={15}
             year_price={150}
         />,
+        discord_role: true,
         news: true,
         voting_power: true,
     },
@@ -64,6 +69,7 @@ const data: SupportDataType[] = [
             month_price={20}
             year_price={200}
         />,
+        discord_role: true,
         news: true,
         voting_power: true,
     },
@@ -102,7 +108,7 @@ function Support() {
                         width: "98%",
                         marginBottom: 2,
                     }}
-                    titles={["Plans", "News", "Voting Power"]}
+                    titles={["Plans", "Discord Role", "Private News", "Voting Power"]}
                     data={data}
                     toMirrorAcrossDiagonal
                 />
@@ -128,7 +134,7 @@ function Support() {
                             return <TabPanel value={index.toString()}>
                                 {item.card}
                                 <DRTable
-                                    titles={["News", "Voting Power"]}
+                                    titles={["Discord Role", "Private News", "Voting Power"]}
                                     data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
                                     toMirrorAcrossDiagonal
                                 />

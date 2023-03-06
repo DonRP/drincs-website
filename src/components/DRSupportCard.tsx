@@ -138,6 +138,9 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 ariaLabel='8% retained by Patreon'
                                 marginTop={0}
                                 marginBottom={0}
+                                onClick={() => {
+                                    window.open("https://www.buymeacoffee.com/DRincs")
+                                }}
                             >
                                 Patreon
                                 <Chip label="8%"
@@ -146,9 +149,13 @@ function DRSupportCard(props: IDRSupportCardProps) {
                             </DRButton>
                         </Grid2>
                         <Grid2 xs={12}>
-                            <DRButton ariaLabel='0% retained by BuyMeACoffe'
+                            <DRButton
+                                ariaLabel='0% retained by BuyMeACoffe'
                                 marginTop={0}
                                 marginBottom={0}
+                                onClick={() => {
+                                    window.open("https://www.buymeacoffee.com/DRincs")
+                                }}
                             >
                                 Buy Me A Coffe
                                 <Chip label="0%"
