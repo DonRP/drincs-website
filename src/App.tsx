@@ -4,7 +4,6 @@ import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
 import Download from 'Download';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
 import MarkdownPage from 'MarkdownPage';
-import News from 'News';
 import { SnackbarProvider } from 'notistack';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
@@ -30,7 +29,7 @@ function App() {
     const routes = [
         { title: "about", path: "/", element: <About /> },
         { title: "⬇️download", path: "/download", element: <Download /> },
-        { title: "🗞️news", path: "/news", element: <News /> },
+        // { title: "🗞️news", path: "/news", element: <News /> },
         { title: "🌍translations", path: "/translations", element: <Translations /> },
         { title: "📖wiki", path: "/wiki", element: <Wiki /> },
         { title: "🐞bug/request", path: "/report", element: <Report /> },
@@ -65,7 +64,7 @@ function App() {
                                 ))}
                                 <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
                                 <Route key={loginRoute.title} path={loginRoute.path} element={loginRoute.element} />
-                                <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DonRP/AmityPark/Home.md' />} />
+                                <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-translate.md' />} />
                                 <Route key="howtoconnectwithdiscord" path="/howtoconnectwithdiscord" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-connect-with-discord.md' />} />
                             </Routes>
                         </SnackbarProvider>
