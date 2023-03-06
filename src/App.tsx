@@ -4,7 +4,6 @@ import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
 import Download from 'Download';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
 import MarkdownPage from 'MarkdownPage';
-import News from 'News';
 import { SnackbarProvider } from 'notistack';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
