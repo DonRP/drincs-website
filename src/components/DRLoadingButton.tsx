@@ -1,5 +1,5 @@
 import LoadingButton from '@mui/lab/LoadingButton';
-import { useTheme } from '@mui/system';
+import { useTheme } from '@mui/material';
 
 type IDRLoadingButtonProps = {
     onClick: () => void,
@@ -45,7 +45,7 @@ function DRLoadingButton(props: IDRLoadingButtonProps) {
         );
     } catch (error) {
         console.error(error)
-        return <div style={{ color: theme.palette.error }}>DRLoadingButton error</div>
+        return <div style={{ color: theme.palette.error.main }}>DRLoadingButton error</div>
     }
 }
 

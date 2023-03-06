@@ -80,7 +80,7 @@ function DRNavbar(props: IDRNavbarProps) {
     try {
         return (
             <>
-                <AppBar position="fixed">
+                <AppBar position="fixed" >
                     <Container maxWidth="xl">
                         <Toolbar disableGutters>
                             {/* PC */}
@@ -279,6 +279,10 @@ function DRNavbar(props: IDRNavbarProps) {
                         </Toolbar>
                     </Container>
                 </AppBar >
+                {/* space for the AppBar */}
+                <Box sx={{ minHeight: 75 }}>
+
+                </Box>
                 <Zoom
                     in={suppertIsVisible()}
                     timeout={transitionDuration}

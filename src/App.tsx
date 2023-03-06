@@ -65,6 +65,7 @@ function App() {
                                 <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
                                 <Route key={loginRoute.title} path={loginRoute.path} element={loginRoute.element} />
                                 <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-translate.md' />} />
+                                <Route key="howtoconnectwithdiscord" path="/howtoconnectwithdiscord" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-connect-with-discord.md' />} />
                             </Routes>
                         </SnackbarProvider>
                     </RecoilRoot>
