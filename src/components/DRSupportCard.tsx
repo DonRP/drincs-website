@@ -1,4 +1,5 @@
-import { Card, CardActions, CardContent, CardHeader, Rating, Typography, useTheme } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+import { Alert, Card, CardActions, CardContent, CardHeader, IconButton, Rating, Typography, useTheme } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import DRButton from './DRButton';
@@ -7,11 +8,12 @@ type IDRSupportCardProps = {
     stars: number;
     title: string;
     month_price: number;
+    year_price: number;
 }
 
 function DRSupportCard(props: IDRSupportCardProps) {
     const theme = useTheme();
-    const { stars, title, month_price } = props;
+    const { stars, title, month_price, year_price } = props;
 
     try {
         return (
@@ -80,21 +82,57 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 </Typography>
                             </Grid2>
                         </Grid2>
-                        <Grid2>
-                            <Typography variant="body2" align="left">
-                                Per favore non sostenermi per ottenere ....
-                            </Typography>
+                        <Grid2
+                            container
+                            direction="row"
+                            justifyContent="flex-start"
+                            alignItems="center"
+                            spacing={1}
+                        >
+                            <Grid2
+                                direction="row"
+                                justifyContent="flex-start"
+                                alignItems="center"
+                            >
+                                <Typography variant="h4" >
+                                    €{year_price}
+                                </Typography>
+                            </Grid2>
+                            <Grid2>
+                                <Typography color="text.secondary">
+                                    / year
+                                </Typography>
+                            </Grid2>
+                            <Grid2>
+                                <IconButton
+                                    color="primary"
+                                    aria-label="Annual price is only for sites where it is available"
+                                    title="Annual price is only for sites where it is available"
+                                    size="small"
+                                >
+                                    <InfoIcon />
+                                </IconButton>
+                            </Grid2>
+                            {/* <Grid2>
+                                <Typography variant="body2" align="left">
+                                    ....
+                                </Typography>
+                            </Grid2> */}
                         </Grid2>
                     </Grid2>
                 </CardContent>
                 <CardActions>
-                    <Grid2 xs={12}
+                    <Grid2
+                        xs={12}
                         container
                         direction="column"
                         justifyContent="center"
                         alignItems="center"
                         spacing={1}
                     >
+                        <Grid2 xs={12}>
+                            <Alert severity="info" icon={false}>Don't support me for gifts, but to give me the time to spend on the project</Alert>
+                        </Grid2>
                         <Grid2 xs={12}>
                             <DRButton
                                 ariaLabel='8% retained by Patreon'

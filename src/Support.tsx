@@ -7,6 +7,7 @@ import DRTable from "components/DRTable";
 import * as React from 'react';
 import { useState } from "react";
 import { ReactElement } from "react-markdown/lib/react-markdown";
+import { Link } from "react-router-dom";
 
 type SupportDataType = {
     card: ReactElement,
@@ -20,15 +21,18 @@ const data: SupportDataType[] = [
             stars={1}
             title="Official Supporter"
             month_price={2}
+            year_price={20}
         />,
         news: true,
         voting_power: false,
     },
+
     {
         card: <DRSupportCard
             stars={2}
             title="Super Supporter"
             month_price={5}
+            year_price={50}
         />,
         news: true,
         voting_power: true,
@@ -38,6 +42,7 @@ const data: SupportDataType[] = [
             stars={3}
             title="Mega Supporter"
             month_price={10}
+            year_price={100}
         />,
         news: true,
         voting_power: true,
@@ -47,6 +52,7 @@ const data: SupportDataType[] = [
             stars={4}
             title="Ultra Supporter"
             month_price={15}
+            year_price={150}
         />,
         news: true,
         voting_power: true,
@@ -56,6 +62,7 @@ const data: SupportDataType[] = [
             stars={5}
             title="VIP Supporter"
             month_price={20}
+            year_price={200}
         />,
         news: true,
         voting_power: true,
@@ -84,10 +91,9 @@ function Support() {
                         marginBottom: 2,
                     }}
                 >
-                    <Alert severity="warning">I premi sono ancora in fase di sviluppo per maggiore informazione</Alert>
-                    <Alert severity="info">lo scopo di questo sito e svincolarmi dalle regole delle siti per il supporto e centralizzari tutto i benefici in un solo sito. per questo motivo ti richedero di registrarti</Alert>
-                    <Alert severity="info">Per ottenere i premi dovrai regisatrarti a questo sito e collegarti con discord (aggiori informazioni qui), oppure collegariti con la pagina di supporto dedicata (in fase di sviluppo)</Alert>
-                    <Alert severity="info">La percentuale attorno i bottoni è la percentuale che verra trattenuta dal sito di supporto. Quindi più è alta la percentuale più ci andro a perdere</Alert>
+                    <Alert severity="warning">The awards are still under development. For more information read: <a href="https://github.com/DRincs-Productions/drincs-website/issues/37">GitHub issue</a></Alert>
+                    <Alert severity="info">To get the rewards you will have to connect to Discord (information <Link to={"howtoconnectwithdiscord"}>here</Link>), or connect with the dedicated support page, es Patreon (<a href="https://github.com/DRincs-Productions/drincs-website/issues/38">under development</a>)</Alert>
+                    <Alert severity="info">The percentage next to the buttons is the percentage that will be retained by the support site. So the higher the percentage the more I'm going to lose out on it</Alert>
                 </Stack>
                 {/* pc */}
                 <DRTable
