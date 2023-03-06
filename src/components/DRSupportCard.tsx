@@ -139,7 +139,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 marginTop={0}
                                 marginBottom={0}
                                 onClick={() => {
-                                    window.open("https://www.buymeacoffee.com/DRincs")
+                                    window.open("https://www.patreon.com/DRincs")
                                 }}
                             >
                                 Patreon
