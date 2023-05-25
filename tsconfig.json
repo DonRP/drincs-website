@@ -24,7 +24,6 @@
     },
     "include": [
         "src",
-        "public/js/UserStatusChart.js"
     ],
     "exclude": [
         "node_modules"
