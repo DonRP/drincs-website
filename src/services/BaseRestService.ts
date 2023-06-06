@@ -11,6 +11,8 @@ export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?
     enqueueSnackbar(message, { variant });
 };
 
+const use_local_webapi = false
+
 class BaseRestService {
     constructor(enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) {
         if (enqueueSnackbar) {
@@ -18,13 +20,22 @@ class BaseRestService {
         }
     }
     urlwebapi = this.geturlwebapi();
+    urlwebapijs = this.geturlwebapijs();
     enqueueSnackbar: null | ((message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) = null
     private geturlwebapi(): string {
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
             return "https://localhost:7289"
         }
         else {
             return "https://drincs-website-back-end.onrender.com"
+        }
+    }
+    private geturlwebapijs(): string {
+        if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+            return "https://localhost:5000"
+        }
+        else {
+            return "https://drincs-website-back-end.vercel.app/api"
         }
     }
     showError(body: any) {
