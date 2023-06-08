@@ -1,7 +1,8 @@
 {
   "name": "drincs-website",
-  "author": "DRincs",
-  "version": "0.1.0",
+  "author": "DRincs Productions",
+  "license": "GPL-3.0",
+  "version": "1.0.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
