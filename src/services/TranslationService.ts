@@ -8,7 +8,7 @@ class TranslationService extends BaseRestService {
         if (!repositoryName || !crowdinProjectId) {
             return new HttpResponse()
         }
-        return this.customFetch(this.urlwebapijs + `/Translation/GetTranslations?repositoryName=${repositoryName}&crowdinProjectId=${crowdinProjectId}`)
+        return this.customFetch(this.urlwebapi + `/Translation/GetTranslations?repositoryName=${repositoryName}&crowdinProjectId=${crowdinProjectId}`)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
