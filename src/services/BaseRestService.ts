@@ -32,7 +32,7 @@ class BaseRestService {
     }
     private geturlwebapijs(): string {
         if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "https://localhost:7289"
+            return "http://localhost:7289"
         }
         else {
             return "https://drincs-website-back-end.vercel.app/api"
