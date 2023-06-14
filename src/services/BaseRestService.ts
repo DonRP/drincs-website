@@ -27,12 +27,12 @@ class BaseRestService {
             return "https://localhost:7289"
         }
         else {
-            return "https://drincs-website-back-end.onrender.com"
+            return "https://drincs-website-back-end.onrender.com/api"
         }
     }
     private geturlwebapijs(): string {
         if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "https://localhost:5000"
+            return "https://localhost:7289"
         }
         else {
             return "https://drincs-website-back-end.vercel.app/api"
