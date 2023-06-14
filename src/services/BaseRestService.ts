@@ -25,7 +25,7 @@ class BaseRestService {
     enqueueSnackbar: null | ((message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) = null
     private geturlwebapi(): string {
         if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "http://localhost:7289"
+            return "http://localhost:7289/api"
         }
         else {
             return "https://drincs-website-back-end.onrender.com/api"
@@ -41,7 +41,7 @@ class BaseRestService {
     }
     private geturlwebapivercel(): string {
         if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "http://localhost:7289"
+            return "http://localhost:7289/api"
         }
         else {
             return "https://drincs-website-back-end.vercel.app/api"
