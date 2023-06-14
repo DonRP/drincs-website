@@ -1,3 +1,4 @@
+import axios from "axios";
 import { HttpResponse } from "model/HttpResponse";
 import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from "notistack";
 
@@ -68,7 +69,7 @@ class BaseRestService {
         );
     }
 
-    async customFetch<T>(url: URL | string, options: any = {}, token?: string, tokenType = "Bearer"): Promise<HttpResponse<T>> {
+    private inizialHeaders(options: any = {}, token?: string, tokenType = "Bearer") {
         // performs api calls sending the required authentication headers
         const headers: HeadersType = {
             'Accept': 'application/json',
@@ -81,16 +82,31 @@ class BaseRestService {
             headers['Authorization'] = tokenType + ' ' + token
         }
 
-        return fetch(url, {
+        return {
             headers,
             ...options
-        })
+        }
+    }
+
+    async getRequest<T>(url: string, options: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.get<T>(url, this.inizialHeaders(options, token, tokenType))
             .then(this._checkStatus)
             .then(response => {
-                return response.json()
+                return response?.data
             })
             .catch((res) => {
-                console.error("fetch Error", res);
+                console.error("getRequest Error", res);
+            });
+    }
+
+    async postRequest<T>(url: string, body: any, options: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.post<T>(url, body, this.inizialHeaders(options, token, tokenType))
+            .then(this._checkStatus)
+            .then(response => {
+                return response?.data
+            })
+            .catch((res) => {
+                console.error("postRequest Error", res);
             });
     }
 

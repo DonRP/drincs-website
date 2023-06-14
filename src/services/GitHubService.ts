@@ -11,7 +11,6 @@ class GitService extends BaseRestService {
         headers.append('Content-Type', 'application/json;charset=utf-8');
 
         const requestOptions = {
-            method: 'POST',
             headers,
             body: JSON.stringify({
                 title,
@@ -20,7 +19,7 @@ class GitService extends BaseRestService {
             })
         };
 
-        return this.customFetch(this.urlwebapi + `/GitHub/CreateIssue?repositoryName=${repo}`, requestOptions)
+        return this.postRequest(this.urlwebapi + `/GitHub/CreateIssue?repositoryName=${repo}`, requestOptions)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
