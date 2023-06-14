@@ -13,40 +13,42 @@ export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?
 
 const use_local_webapi = false
 
+export function geturlwebapi(): string {
+    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+        return "http://localhost:7289/api"
+    }
+    else {
+        return "https://drincs-website-back-end.onrender.com/api"
+    }
+}
+export function geturlwebapiold(): string {
+    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+        return "https://localhost:7289"
+    }
+    else {
+        return "https://drincs-website-back-end-old.onrender.com"
+    }
+}
+export function geturlwebapivercel(): string {
+    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+        return "http://localhost:7289/api"
+    }
+    else {
+        return "https://drincs-website-back-end.vercel.app/api"
+    }
+}
+
 class BaseRestService {
     constructor(enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) {
         if (enqueueSnackbar) {
             this.enqueueSnackbar = enqueueSnackbar
         }
     }
-    urlwebapi = this.geturlwebapi()
-    urlwebapiold = this.geturlwebapiold();
-    urlwebapivercel = this.geturlwebapivercel()
+    urlwebapi = geturlwebapi()
+    urlwebapiold = geturlwebapiold();
+    urlwebapivercel = geturlwebapivercel()
     enqueueSnackbar: null | ((message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) = null
-    private geturlwebapi(): string {
-        if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "http://localhost:7289/api"
-        }
-        else {
-            return "https://drincs-website-back-end.onrender.com/api"
-        }
-    }
-    private geturlwebapiold(): string {
-        if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "https://localhost:7289"
-        }
-        else {
-            return "https://drincs-website-back-end-old.onrender.com"
-        }
-    }
-    private geturlwebapivercel(): string {
-        if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "http://localhost:7289/api"
-        }
-        else {
-            return "https://drincs-website-back-end.vercel.app/api"
-        }
-    }
+
     showError(body: any) {
         this.showMessage("There was an error in the server", 'error')
         console.log(body)

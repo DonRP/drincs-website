@@ -1,5 +1,6 @@
 import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
 import About from 'About';
+import axios from 'axios';
 import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
 import Download from 'Download';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
@@ -8,6 +9,7 @@ import { SnackbarProvider } from 'notistack';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import Report from 'Report';
+import { geturlwebapi } from 'services/BaseRestService';
 import SignInSide from 'SignInSide';
 import Support from 'Support';
 import Translations from 'Translations';
@@ -24,6 +26,8 @@ const darkTheme = createTheme({
         mode: 'dark',
     },
 });
+
+axios.get(geturlwebapi() + "/discord/awakens")
 
 function App() {
     const routes = [
