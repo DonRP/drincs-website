@@ -1,8 +1,9 @@
 export class TranslationResult {
     list: TranslationResultItem[] = [];
-    name: string | null = null;
-    logo: string | null = null;
-    description: string | null = null;
+    name: string | undefined = undefined;
+    logo: string | undefined = undefined;
+    description: string | undefined = undefined;
+    crowdinLink: string | undefined = undefined;
 }
 
 class TranslationResultItem {

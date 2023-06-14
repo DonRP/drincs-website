@@ -19,20 +19,29 @@ class BaseRestService {
             this.enqueueSnackbar = enqueueSnackbar
         }
     }
-    urlwebapi = this.geturlwebapi();
-    urlwebapijs = this.geturlwebapijs();
+    urlwebapi = this.geturlwebapi()
+    urlwebapiold = this.geturlwebapiold();
+    urlwebapivercel = this.geturlwebapivercel()
     enqueueSnackbar: null | ((message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) = null
     private geturlwebapi(): string {
         if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "https://localhost:7289"
+            return "http://localhost:7289/api"
         }
         else {
             return "https://drincs-website-back-end.onrender.com/api"
         }
     }
-    private geturlwebapijs(): string {
+    private geturlwebapiold(): string {
         if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
-            return "http://localhost:7289"
+            return "https://localhost:7289"
+        }
+        else {
+            return "https://drincs-website-back-end-old.onrender.com"
+        }
+    }
+    private geturlwebapivercel(): string {
+        if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+            return "http://localhost:7289/api"
         }
         else {
             return "https://drincs-website-back-end.vercel.app/api"

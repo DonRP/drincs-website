@@ -1,21 +1,22 @@
 import { Grid } from '@mui/material';
 import { OltherTranslationNotCompleteAtom } from 'atom/OltherTranslationNotCompleteAtom';
 import DRTranslationGrid from 'components/DRTranslationGrid';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useRecoilState } from 'recoil';
 
-const OtherTranslationProjectsData = [
-    { crowdin: "492487", github: "DonRP/AFV", crowdinLink: "https://crowdin.com/project/a-family-venture" },
-    { crowdin: "528084", github: "DonRP/AmityPark", crowdinLink: "https://crowdin.com/project/amity-park" },
-    { crowdin: "461654", github: "DonRP/BBAS", crowdinLink: "https://crowdin.com/project/big-brother-as" },
-    { crowdin: "507994", github: "DonRP/BM", crowdinLink: "https://crowdin.com/project/bad-memories" },
-    { crowdin: "557133", github: "DonRP/WitchHunter", crowdinLink: "https://crowdin.com/project/witch-hunter" },
+const OtherTranslationProjects = [
+    ProjectsEnum.AFamilyVenture,
+    ProjectsEnum.AmityPark,
+    ProjectsEnum.BadMemories,
+    ProjectsEnum.BigBrotherAS,
+    ProjectsEnum.WitchHunter,
 ]
 
 function Translations() {
     const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(OltherTranslationNotCompleteAtom);
-    if (oltherTranslationNotComplete.length !== OtherTranslationProjectsData.length) {
-        setOltherTranslationNotComplete(OtherTranslationProjectsData.map((a) => {
-            return a.crowdin
+    if (oltherTranslationNotComplete.length !== OtherTranslationProjects.length) {
+        setOltherTranslationNotComplete(OtherTranslationProjects.map((a) => {
+            return a.toString()
         }))
     }
 
@@ -29,12 +30,10 @@ function Translations() {
             pt={4}
         >
             <h2>Other Games</h2>
-            {OtherTranslationProjectsData.map((item, index) =>
-                <Grid item key={item.crowdin} >
+            {OtherTranslationProjects.map((item) =>
+                <Grid item key={item} >
                     <DRTranslationGrid
-                        crowdinProjectId={item.crowdin}
-                        githubRepoName={item.github}
-                        crowdinLink={item.crowdinLink}
+                        projectId={item}
                         height={500}
                         rowHeight={70}
                         NotCompleteListAtom={OltherTranslationNotCompleteAtom}

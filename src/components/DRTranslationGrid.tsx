@@ -6,6 +6,7 @@ import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/Translation/TranslationResult';
 import { useSnackbar } from 'notistack';
 import * as React from 'react';
@@ -146,9 +147,7 @@ const columns = [
 ];
 
 type IDRTranslationGridProps = {
-    crowdinProjectId: string,
-    crowdinLink: string,
-    githubRepoName: string,
+    projectId: ProjectsEnum,
     height?: number,
     rowHeight?: number,
     NotCompleteListAtom: RecoilState<string[]>
@@ -157,7 +156,7 @@ type IDRTranslationGridProps = {
 function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = useTheme();
     const { enqueueSnackbar } = useSnackbar();
-    const { crowdinProjectId, crowdinLink, githubRepoName: gitRepo, height = 350, rowHeight = 75, NotCompleteListAtom } = props
+    const { projectId, height = 350, rowHeight = 75, NotCompleteListAtom } = props
     const [data, setData] = useState<TranslationResult>()
     const [loading, setLoading] = useState(true)
     const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(NotCompleteListAtom);
@@ -167,7 +166,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         if (loading) {
             setLoading(false)
             setOltherTranslationNotComplete(oltherTranslationNotComplete.filter((id: string) => {
-                return id !== crowdinProjectId
+                return id !== projectId.toString()
             }))
             return true
         }
@@ -179,12 +178,12 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     useEffect(() => {
         setLoading(true)
 
-        translationService.getLanguages(gitRepo, crowdinProjectId).then(res => {
+        translationService.getLanguages(projectId).then(res => {
             setData(res?.content)
         }).catch(err => {
             console.log(err)
         })
-    }, [crowdinProjectId, gitRepo, translationService]);
+    }, [projectId, translationService]);
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -193,7 +192,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
 
     try {
         if (!data) {
-            if (crowdinProjectId === oltherTranslationNotComplete[oltherTranslationNotComplete.length - 1]) {
+            if (projectId.toString() === oltherTranslationNotComplete[oltherTranslationNotComplete.length - 1]) {
                 return <CircularProgress />
             }
             else {
@@ -221,8 +220,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                             marginLeft: 16,
                                             marginBottom: 10
                                         }}
+                                        disabled={!data?.crowdinLink}
                                         onClick={() => {
-                                            window.open(crowdinLink)
+                                            window.open(data?.crowdinLink)
                                         }}
                                         endIcon={<GTranslateIcon />}
                                     >
