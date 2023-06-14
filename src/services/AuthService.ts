@@ -20,7 +20,6 @@ class AuthService extends BaseRestService {
         headers.append('Content-Type', 'application/json;charset=utf-8');
 
         const requestOptions = {
-            method: 'POST',
             headers,
             body: JSON.stringify(account)
         };
@@ -58,7 +57,6 @@ class AuthService extends BaseRestService {
         headers.append('Content-Type', 'application/json;charset=utf-8');
 
         const requestOptions = {
-            method: 'POST',
             headers,
         };
 
@@ -88,7 +86,6 @@ class AuthService extends BaseRestService {
         headers.append('Content-Type', 'application/json;charset=utf-8');
 
         const requestOptions = {
-            method: 'POST',
             headers,
             body: JSON.stringify(account)
         };
