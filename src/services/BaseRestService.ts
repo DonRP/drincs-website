@@ -69,11 +69,11 @@ class BaseRestService {
         );
     }
 
-    private inizialHeaders(options: any = {}, token?: string, tokenType = "Bearer") {
+    private inizialHeaders(token?: string, tokenType = "Bearer") {
         // performs api calls sending the required authentication headers
         const headers: HeadersType = {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json;charset=utf-8'
         }
 
         if (token) {
@@ -83,13 +83,30 @@ class BaseRestService {
         }
 
         return {
-            headers,
-            ...options
+            "headers": headers,
         }
     }
 
-    async getRequest<T>(url: string, options: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
-        return axios.get<T>(url, this.inizialHeaders(options, token, tokenType))
+    private inizialHeadersBody(params: object = {}, token?: string, tokenType?: string) {
+        let body = "{}"
+        try {
+            body = JSON.stringify(params)
+        } catch (ex) {
+            throw Error("BaseRestService post conver JSON issue")
+        }
+
+        let option = this.inizialHeaders(
+            token,
+            tokenType
+        )
+        return {
+            ...option,
+            "params": body,
+        }
+    }
+
+    async getRequest<T>(url: string, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.get<T>(url, this.inizialHeaders(token, tokenType))
             .then(this._checkStatus)
             .then(response => {
                 return response?.data
@@ -99,8 +116,8 @@ class BaseRestService {
             });
     }
 
-    async postRequest<T>(url: string, body: any, options: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
-        return axios.post<T>(url, body, this.inizialHeaders(options, token, tokenType))
+    async postRequest<T>(url: string, body: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.post<T>(url, this.inizialHeadersBody(body, token, tokenType))
             .then(this._checkStatus)
             .then(response => {
                 return response?.data

@@ -23,7 +23,7 @@ class TweetService extends BaseRestService {
     }
 
     async getTweets(nocodeapilink: string) {
-        return this.getRequest(nocodeapilink, null)
+        return this.getRequest(nocodeapilink)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
