@@ -16,16 +16,7 @@ class AuthService extends BaseRestService {
             return false
         }
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json;charset=utf-8');
-
-        const requestOptions = {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(account)
-        };
-
-        return this.customFetch<AuthData>(this.urlwebapi + `/Auth/SignInWithEmailAndPassword`, requestOptions)
+        return this.postRequest<AuthData>(this.urlwebapi + `/Auth/SignInWithEmailAndPassword`, account)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
@@ -54,15 +45,7 @@ class AuthService extends BaseRestService {
             return false
         }
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json;charset=utf-8');
-
-        const requestOptions = {
-            method: 'POST',
-            headers,
-        };
-
-        return this.customFetch<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`, requestOptions)
+        return this.postRequest<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
                     this.showMessage(response?.messagesToShow, 'error')
@@ -84,16 +67,7 @@ class AuthService extends BaseRestService {
             return false
         }
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json;charset=utf-8');
-
-        const requestOptions = {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(account)
-        };
-
-        return this.customFetch<AuthData>(this.urlwebapi + `/Auth/CreateAccount`, requestOptions)
+        return this.postRequest<AuthData>(this.urlwebapi + `/Auth/CreateAccount`, account)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
