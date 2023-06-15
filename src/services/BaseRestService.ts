@@ -87,24 +87,6 @@ class BaseRestService {
         }
     }
 
-    private inizialHeadersBody(params: object = {}, token?: string, tokenType?: string) {
-        let body = "{}"
-        try {
-            body = JSON.stringify(params)
-        } catch (ex) {
-            throw Error("BaseRestService post conver JSON issue")
-        }
-
-        let option = this.inizialHeaders(
-            token,
-            tokenType
-        )
-        return {
-            ...option,
-            "params": body,
-        }
-    }
-
     async getRequest<T>(url: string, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
         return axios.get<HttpResponse<T>>(url, this.inizialHeaders(token, tokenType))
             .then(response => {
@@ -119,7 +101,7 @@ class BaseRestService {
     }
 
     async postRequest<T>(url: string, body: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
-        return axios.post<HttpResponse<T>>(url, this.inizialHeadersBody(body, token, tokenType))
+        return axios.post<HttpResponse<T>>(url, body, this.inizialHeaders(token, tokenType))
             .then(response => {
                 return response?.data
             })
