@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { HttpResponse } from "model/HttpResponse";
 import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from "notistack";
 
@@ -12,7 +12,7 @@ export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?
     enqueueSnackbar(message, { variant });
 };
 
-const use_local_webapi = false
+const use_local_webapi = true
 
 export function geturlwebapi(): string {
     if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
@@ -106,36 +106,29 @@ class BaseRestService {
     }
 
     async getRequest<T>(url: string, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
-        return axios.get<T>(url, this.inizialHeaders(token, tokenType))
-            .then(this._checkStatus)
+        return axios.get<HttpResponse<T>>(url, this.inizialHeaders(token, tokenType))
             .then(response => {
                 return response?.data
             })
-            .catch((res) => {
-                console.error("getRequest Error", res);
+            .catch((ex) => {
+                if (ex instanceof AxiosError) {
+                    return ex.response?.data
+                }
+                console.error("getRequest Error", ex);
             });
     }
 
     async postRequest<T>(url: string, body: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
-        return axios.post<T>(url, this.inizialHeadersBody(body, token, tokenType))
-            .then(this._checkStatus)
+        return axios.post<HttpResponse<T>>(url, this.inizialHeadersBody(body, token, tokenType))
             .then(response => {
                 return response?.data
             })
-            .catch((res) => {
-                console.error("postRequest Error", res);
+            .catch((ex) => {
+                if (ex instanceof AxiosError) {
+                    return ex.response?.data
+                }
+                console.error("postRequest Error", ex);
             });
-    }
-
-    _checkStatus(response: any) {
-        // raises an error in case response status is not a success
-        if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-            return response
-        } else {
-            var error = new Error(response.statusText)
-            // error.response = response
-            throw error
-        }
     }
 
     showMessage = (message: string | undefined | null, variant: VariantType) => {
