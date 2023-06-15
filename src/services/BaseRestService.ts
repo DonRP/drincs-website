@@ -12,7 +12,7 @@ export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?
     enqueueSnackbar(message, { variant });
 };
 
-const use_local_webapi = true
+const use_local_webapi = false
 
 export function geturlwebapi(): string {
     if (process.env.NODE_ENV !== 'production' && use_local_webapi) {

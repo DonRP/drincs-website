@@ -1,5 +1,4 @@
-import { TabContext, TabList, TabPanel } from "@mui/lab";
-import { Box, Card, Grid, Tab } from "@mui/material";
+import { Box, Card, Grid, Tab, Tabs } from "@mui/material";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import DRSupportCard from "components/DRSupportCard";
@@ -120,27 +119,25 @@ function Support() {
                         marginBottom: 2,
                     }}
                 >
-                    <TabContext value={value} >
-                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                            <TabList onChange={handleChange} >
-                                <Tab label={"Official"} value={"0"} />
-                                <Tab label={"Super"} value={"1"} />
-                                <Tab label={"Mega"} value={"2"} />
-                                <Tab label={"Ultra"} value={"3"} />
-                                <Tab label={"VIP"} value={"4"} />
-                            </TabList>
-                        </Box>
-                        {data.map((item, index) => {
-                            return <TabPanel value={index.toString()}>
-                                {item.card}
-                                <DRTable
-                                    titles={["Discord Role", "Private News", "Voting Power"]}
-                                    data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
-                                    toMirrorAcrossDiagonal
-                                />
-                            </TabPanel>
-                        })}
-                    </TabContext>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <Tabs value={value} onChange={handleChange} >
+                            <Tab label={"Official"} value={"0"} />
+                            <Tab label={"Super"} value={"1"} />
+                            <Tab label={"Mega"} value={"2"} />
+                            <Tab label={"Ultra"} value={"3"} />
+                            <Tab label={"VIP"} value={"4"} />
+                        </Tabs>
+                    </Box>
+                    {/* {data.map((item, index) => {
+                        return <TabPanel value={index.toString()}>
+                            {item.card}
+                            <DRTable
+                                titles={["Discord Role", "Private News", "Voting Power"]}
+                                data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
+                                toMirrorAcrossDiagonal
+                            />
+                        </TabPanel>
+                    })} */}
                 </Card>
             </Grid>
         </>

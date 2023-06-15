@@ -6,12 +6,12 @@ export class TranslationResult {
     crowdinLink: string | undefined = undefined;
 }
 
-class TranslationResultItem {
-    id: number = 0;
-    translated: number = 0;
-    approved: number = 0;
-    release: GitHubTranslationRelease | null = null;
-    targetLanguages: TargetLanguages | null = null;
+export interface TranslationResultItem {
+    id: number
+    translated: number
+    approved: number
+    release: GitHubTranslationRelease | null
+    targetLanguages: TargetLanguages | null
 }
 
 export class GitHubTranslationRelease {

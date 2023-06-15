@@ -16,8 +16,6 @@ import Translations from 'Translations';
 import Wiki from 'Wiki';
 import './App.css';
 
-
-
 const darkTheme = createTheme({
     // body: {
     //     background: "black",
@@ -27,7 +25,8 @@ const darkTheme = createTheme({
     },
 });
 
-axios.get(geturlwebapi() + "/discord/awakens")
+axios.get(geturlwebapi() + "/discord/awakens").catch((err) => {
+})
 
 function App() {
     const routes = [
@@ -78,4 +77,5 @@ function App() {
         </ErrorBoundary >
     );
 }
+
 export default App;

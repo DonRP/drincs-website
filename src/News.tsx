@@ -3,7 +3,6 @@ import CircularIndeterminate from "components/CircularIndeterminate";
 import DRTwitterPost from "components/DRTwitterPost";
 import { useSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
-import { TwitterFollowButton } from "react-twitter-embed";
 import TweetService from "services/TwitterService";
 
 const urlNoApiCode = [
@@ -62,11 +61,12 @@ function News() {
                     alignItems="center"
                     spacing={4}
                 >
-                    <Grid item  >
+                    {/* react-twitter-embed */}
+                    {/* <Grid item  >
                         <TwitterFollowButton
                             screenName={'DR_incs'}
                         />
-                    </Grid>
+                    </Grid> */}
                     {tweetList.length > 0 &&
                         tweetList?.map((item) =>
                             <Grid item  >

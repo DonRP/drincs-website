@@ -5,23 +5,23 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Typography, useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
-import { DataGrid, GridRenderCellParams } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
-import { GitHubTranslationRelease, TargetLanguages, TranslationResult } from 'model/Translation/TranslationResult';
+import { GitHubTranslationRelease, TargetLanguages, TranslationResult, TranslationResultItem } from 'model/Translation/TranslationResult';
 import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from "react";
-import Flag from 'react-flagkit';
+import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import { RecoilState, useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
 
-const columns = [
+const columns: GridColDef<TranslationResultItem>[] = [
     {
         field: 'targetLanguages',
         headerName: 'Language',
         flex: 1,
         minWidth: 100,
-        renderCell: (params: GridRenderCellParams<TargetLanguages, any, any>) => (
+        renderCell: (params: GridRenderCellParams<TranslationResultItem, TargetLanguages>) => (
             <strong>
                 <Grid
                     container
@@ -31,10 +31,10 @@ const columns = [
                     spacing={{ xs: 0, sm: 2, md: 2 }}
                 >
                     <Grid item sx={{ display: { xs: 'flex', md: 'none' } }} >
-                        <Flag country={params.value?.twoLettersCode.toUpperCase()} size={50} alt={params.value?.name} />
+                        <FlagIcon code={params.value?.twoLettersCode.toUpperCase() as FlagIconCode} size={50} height={40} alt={params.value?.name} />
                     </Grid>
                     <Grid item sx={{ display: { xs: 'none', md: 'flex' } }} >
-                        <Flag country={params.value?.twoLettersCode.toUpperCase()} size={65} alt={params.value?.name} />
+                        <FlagIcon code={params.value?.twoLettersCode.toUpperCase() as FlagIconCode} size={65} height={50} alt={params.value?.name} />
                     </Grid>
                     <Grid item  >
                         {params.value?.name}
@@ -48,7 +48,7 @@ const columns = [
         headerName: 'Download',
         flex: 1,
         minWidth: 150,
-        renderCell: (params: GridRenderCellParams<GitHubTranslationRelease, any, any>) => (
+        renderCell: (params: GridRenderCellParams<TranslationResultItem, GitHubTranslationRelease>) => (
             <strong>
                 {params.value &&
                     <Button
@@ -71,7 +71,7 @@ const columns = [
         headerName: 'Translated',
         flex: 1,
         minWidth: 50,
-        renderCell: (params: GridRenderCellParams<number, any, any>) => (
+        renderCell: (params: GridRenderCellParams<TranslationResultItem, number>) => (
             <strong>
                 {params.value !== 100 &&
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -103,7 +103,7 @@ const columns = [
         headerName: 'Approved',
         flex: 1,
         minWidth: 50,
-        renderCell: (params: GridRenderCellParams<number, any, any>) => (
+        renderCell: (params: GridRenderCellParams<TranslationResultItem, number>) => (
             <strong>
                 {params.value !== 100 &&
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
