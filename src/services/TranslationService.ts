@@ -6,9 +6,6 @@ import BaseRestService from "./BaseRestService";
 // https://support.crowdin.com/api/v2/
 class TranslationService extends BaseRestService {
     async getLanguages(projectId: ProjectsEnum): Promise<HttpResponse<TranslationResult>> {
-        if (!projectId) {
-            return new HttpResponse()
-        }
         return this.getRequest(this.urlwebapi + `/Translation/GetTranslations?projectId=${projectId}`)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
