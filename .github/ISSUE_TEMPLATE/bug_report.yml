@@ -21,7 +21,7 @@ body:
       options:
         - Google Chrome
         - Microsoft Edge
-        - Microsoft Edge
+        - Firefox
         - Safari
         - Opera
         - Brave
