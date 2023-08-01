@@ -4,9 +4,11 @@ import { ElementContent } from "react-markdown/lib/ast-to-react";
 
 type WikiProps = {
     urlRepo: string
+    sidebar?: string
 }
 
 function Wiki(props: WikiProps) {
+    const { urlRepo, sidebar = "_Sidebar.md" } = props
     const transformLinkUri = (href: string, children: Array<ElementContent>, title: string | null) => {
         if (href.includes("https")) {
             return href
@@ -36,15 +38,15 @@ function Wiki(props: WikiProps) {
             >
                 <MarkdownCard
                     minWidth={150}
-                    markdownLink={`https://raw.githubusercontent.com/wiki/${props.urlRepo}/_Sidebar.md`}
+                    markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${sidebar}`}
                     transformLinkUri={transformLinkUri}
                 />
             </Grid>
             <Grid item xs={7}>
                 <MarkdownCard
                     markdownLink={route ?
-                        `https://raw.githubusercontent.com/wiki/${props.urlRepo}/${route}.md` :
-                        `https://raw.githubusercontent.com/wiki/${props.urlRepo}/Home.md`}
+                        `https://raw.githubusercontent.com/wiki/${urlRepo}/${route}.md` :
+                        `https://raw.githubusercontent.com/wiki/${urlRepo}/Home.md`}
                     transformLinkUri={transformLinkUri}
                 />
             </Grid>
@@ -53,7 +55,7 @@ function Wiki(props: WikiProps) {
             >
                 <MarkdownCard
                     minWidth={150}
-                    markdownLink={`https://raw.githubusercontent.com/wiki/${props.urlRepo}/_Sidebar.md`}
+                    markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${sidebar}`}
                     transformLinkUri={transformLinkUri}
                 />
             </Grid>
