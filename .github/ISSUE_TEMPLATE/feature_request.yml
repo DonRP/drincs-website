@@ -23,7 +23,7 @@ body:
       label: Would you be of sposte to implement it yourself?
       description: Support is very important to us. (Also consider your skills)
       options:
-        - Yes I want to help
+        - Yes
         - No
     validations:
       required: false
