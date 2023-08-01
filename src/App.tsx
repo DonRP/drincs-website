@@ -34,7 +34,7 @@ function App() {
         { title: "⬇️download", path: "/download", element: <Download /> },
         // { title: "🗞️news", path: "/news", element: <News /> },
         { title: "🌍translations", path: "/translations", element: <Translations /> },
-        { title: "📖wiki", path: "/wiki", element: <Wiki /> },
+        { title: "📖wiki", path: "/wiki", element: <Wiki urlRepo='DRincs-Productions/ABFD' /> },
         { title: "🐞bug/request", path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
