@@ -4,17 +4,18 @@ import { ElementContent } from "react-markdown/lib/ast-to-react";
 
 type WikiProps = {
     urlRepo: string
+    routeLink: string
     sidebar?: string
 }
 
 function Wiki(props: WikiProps) {
-    const { urlRepo, sidebar = "_Sidebar.md" } = props
+    const { urlRepo, sidebar = "_Sidebar.md", routeLink } = props
     const transformLinkUri = (href: string, children: Array<ElementContent>, title: string | null) => {
         if (href.includes("https")) {
             return href
         }
         else {
-            return `wiki?route=${href}`
+            return `${routeLink}?route=${href}`
         }
     }
     const queryParameters = new URLSearchParams(window.location.search)
