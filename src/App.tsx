@@ -69,6 +69,7 @@ function App() {
                                 <Route key={loginRoute.title} path={loginRoute.path} element={loginRoute.element} />
                                 <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-translate.md' />} />
                                 <Route key="howtoconnectwithdiscord" path="/howtoconnectwithdiscord" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-connect-with-discord.md' />} />
+                                <Route key="daz-assert" path="/daz-assert" element={<Wiki urlRepo='DRincs-Productions/daz-assert-ABFD-all-in-one' />} />
                             </Routes>
                         </SnackbarProvider>
                     </RecoilRoot>
