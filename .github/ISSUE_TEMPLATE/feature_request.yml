@@ -17,11 +17,13 @@ body:
       description: Do you have a solution or various alternatives in mind? 
     validations:
       required: false
-  - type: checkboxes
+  - type: dropdown
     id: terms
     attributes:
       label: Would you be of sposte to implement it yourself?
       description: Support is very important to us. (Also consider your skills)
       options:
-        - label: Yes I want to help
-          required: false
+        - Yes I want to help
+        - No
+    validations:
+      required: false
