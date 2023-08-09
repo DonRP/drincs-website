@@ -11,6 +11,6 @@ img[src*="#icon"] {
   height: 100px;
 }
 
-img[src*="#icon"] {
+img[src*="#ch_info"] {
   height: 200px;
 }
