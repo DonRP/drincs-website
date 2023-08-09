@@ -10,3 +10,7 @@ img[src*="#icon"] {
   width: 100px;
   height: 100px;
 }
+
+img[src*="#icon"] {
+  height: 200px;
+}
