@@ -1,20 +1,31 @@
-import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
+import { getAnalytics, logEvent } from '@firebase/analytics';
+import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
 import About from 'About';
-import axios from 'axios';
-import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
 import Download from 'Download';
-import ErrorBoundary from 'errer_check/ErrorBoundary';
 import MarkdownPage from 'MarkdownPage';
-import { SnackbarProvider } from 'notistack';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { RecoilRoot } from 'recoil';
 import Report from 'Report';
-import { geturlwebapi } from 'services/BaseRestService';
 import SignInSide from 'SignInSide';
 import Support from 'Support';
 import Translations from 'Translations';
 import Wiki from 'Wiki';
+import axios from 'axios';
+import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
+import ErrorBoundary from 'errer_check/ErrorBoundary';
+import { SnackbarProvider } from 'notistack';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import { geturlwebapi } from 'services/BaseRestService';
 import './App.css';
+
+try {
+    const analytics = getAnalytics();
+    logEvent(analytics, "page_view", {
+        page_title: "home",
+    });
+}
+catch (err) {
+    console.log(err)
+}
 
 const darkTheme = createTheme({
     // body: {
