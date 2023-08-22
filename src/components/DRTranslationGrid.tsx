@@ -12,7 +12,6 @@ import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from "react";
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
-import { RecoilState, useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
 import { logError } from 'utility/Logger';
 
@@ -151,34 +150,16 @@ type IDRTranslationGridProps = {
     projectId: ProjectsEnum,
     height?: number,
     rowHeight?: number,
-    NotCompleteListAtom: RecoilState<string[]>
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = useTheme();
     const { enqueueSnackbar } = useSnackbar();
-    const { projectId, height = 350, rowHeight = 75, NotCompleteListAtom } = props
+    const { projectId, height = 350, rowHeight = 75 } = props
     const [data, setData] = useState<TranslationResult>()
-    const [loading, setLoading] = useState(true)
-    const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(NotCompleteListAtom);
     const translationService = useMemo(() => { return new TranslationService(enqueueSnackbar) }, [enqueueSnackbar]);
 
-    const test = () => {
-        if (loading) {
-            setLoading(false)
-            setOltherTranslationNotComplete(oltherTranslationNotComplete.filter((id: string) => {
-                return id !== projectId.toString()
-            }))
-            return true
-        }
-        else {
-            return false
-        }
-    }
-
     useEffect(() => {
-        setLoading(true)
-
         translationService.getLanguages(projectId).then(res => {
             setData(res?.content)
         }).catch(err => {
@@ -193,17 +174,11 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
 
     try {
         if (!data) {
-            if (projectId.toString() === oltherTranslationNotComplete[oltherTranslationNotComplete.length - 1]) {
-                return <CircularProgress />
-            }
-            else {
-                return null
-            }
+            return <CircularProgress />
         }
         else {
             return (
                 <>
-                    {loading && test()}
                     <Card elevation={24} sx={{ maxWidth: 900 }}>
                         <CardHeader
                             action={
