@@ -1,6 +1,7 @@
 import { AuthData } from "model/Auth/AuthData";
 import { LoginAccount } from "model/Auth/LoginAccount";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { analyticLogin, analyticSignUp } from "utility/Analytics";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
@@ -30,6 +31,7 @@ class AuthService extends BaseRestService {
                     sessionStorage.setItem("username", response.content.username ?? "");
                     sessionStorage.setItem("username_token", response.content.token ?? "");
                 }
+                analyticLogin("/Auth/SignInWithEmailAndPassword")
                 return true
             })
             .catch((res) => {
@@ -40,7 +42,7 @@ class AuthService extends BaseRestService {
             });
     };
 
-    async resetPoassword(email: string) {
+    async resetPassword(email: string) {
         if (!email) {
             return false
         }
@@ -73,6 +75,7 @@ class AuthService extends BaseRestService {
                     this.showMessage(response?.messagesToShow, 'error')
                     return false
                 }
+                analyticSignUp("/Auth/CreateAccount")
                 return true
             })
             .catch((res) => {

@@ -4,6 +4,7 @@ import DRTwitterPost from "components/DRTwitterPost";
 import { useSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
 import TweetService from "services/TwitterService";
+import { analyticPageView } from "utility/Analytics";
 import { logError } from "utility/Logger";
 
 const urlNoApiCode = [
@@ -15,6 +16,8 @@ const urlNoApiCode = [
 ]
 
 function News() {
+    analyticPageView("News")
+
     const [tweetList, setTweetList] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
     const tweetService = useMemo(() => { return new TweetService(enqueueSnackbar) }, [enqueueSnackbar]);

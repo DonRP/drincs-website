@@ -3,12 +3,15 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Button, Card, CardMedia, Grid } from '@mui/material';
 import { Link } from 'react-router-dom';
-import '../src/css/about.css';
+import { analyticPageView } from 'utility/Analytics';
+import './About.css';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
 // https://www.w3schools.com/howto/howto_css_blurred_background.asp
 
 function About() {
+    analyticPageView("About")
+
     const Keyframes = styled("div")({
         animationName: "pulse",
         animationDuration: "2s",

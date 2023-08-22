@@ -8,11 +8,14 @@ import DRDialog from "components/DRDialog";
 import DRTextField from "components/DRTextField";
 import { useState } from "react";
 import GitService from "services/GitHubService";
+import { analyticPageView } from 'utility/Analytics';
 import { logError } from 'utility/Logger';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 
 // https://www.geeksforgeeks.org/file-uploading-in-react-js/
 function Report() {
+    analyticPageView("Report")
+
     const [openBugDialog, setOpenBugDialog] = useState(false)
     const [openRequestDialog, setOpenRequestDialog] = useState(false)
     const [openProgressBarDialog, setOpenProgressBarDialog] = useState(false)

@@ -1,19 +1,19 @@
-import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
-import About from 'About';
+import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
+import SignInSide from 'SignInSide';
 import axios from 'axios';
 import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
-import Download from 'Download';
+import MarkdownPage from 'components/MarkdownPage';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
-import MarkdownPage from 'MarkdownPage';
 import { SnackbarProvider } from 'notistack';
+import About from 'page/About';
+import Download from 'page/Download';
+import Report from 'page/Report';
+import Support from 'page/Support';
+import Translations from 'page/Translations';
+import Wiki from 'page/Wiki';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import Report from 'Report';
 import { geturlwebapi } from 'services/BaseRestService';
-import SignInSide from 'SignInSide';
-import Support from 'Support';
-import Translations from 'Translations';
-import Wiki from 'Wiki';
 import './App.css';
 
 const darkTheme = createTheme({
