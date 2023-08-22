@@ -1,5 +1,6 @@
 import { Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@mui/material';
 import * as React from 'react';
+import { logError } from 'utility/Logger';
 
 type IDRDialogProps = {
     open: boolean,
@@ -30,7 +31,7 @@ function DRDialog(props: IDRDialogProps) {
             </Dialog>
         );
     } catch (error) {
-        console.error(error)
+        logError("DRDialog", error)
         return <div style={{ color: theme.palette.error.main }}>DRDialog error</div>
     }
 }

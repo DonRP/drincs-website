@@ -14,6 +14,7 @@ import { useEffect, useMemo, useState } from "react";
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import { RecoilState, useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
+import { logError } from 'utility/Logger';
 
 const columns: GridColDef<TranslationResultItem>[] = [
     {
@@ -181,7 +182,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         translationService.getLanguages(projectId).then(res => {
             setData(res?.content)
         }).catch(err => {
-            console.log(err)
+            logError("getLanguages", err)
         })
     }, [projectId, translationService]);
 
@@ -269,7 +270,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
             );
         }
     } catch (error) {
-        console.error(error)
+        logError("DRTranslationGrid", error)
         return <div style={{ color: theme.palette.error.main }}>DRTranslationGrid error</div>
     }
 }

@@ -3,12 +3,13 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import { Button, CircularProgress, DialogContentText, Grid } from "@mui/material";
 import { Box } from "@mui/system";
-import { handleInputChangeByFieldName } from 'Utility/UtilityComponenets';
 import DRAutocomplete from "components/DRAutocomplete";
 import DRDialog from "components/DRDialog";
 import DRTextField from "components/DRTextField";
 import { useState } from "react";
 import GitService from "services/GitHubService";
+import { logError } from 'utility/Logger';
+import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 
 // https://www.geeksforgeeks.org/file-uploading-in-react-js/
 function Report() {
@@ -129,7 +130,7 @@ function Report() {
         githubService.createIssue(repo, title, body, labels).then(res => {
             setOpenProgressBarDialog(false);
         }).catch(err => {
-            console.log(err)
+            logError("send Report", err)
             setOpenProgressBarDialog(false);
             setOpenErrorDialog(true);
         })
@@ -166,7 +167,6 @@ function Report() {
     //     );
 
     //     // Details of the uploaded file
-    //     console.log(this.state.selectedFile);
 
     //     // Request made to the backend api
     //     // Send formData object
