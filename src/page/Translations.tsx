@@ -3,6 +3,7 @@ import { OltherTranslationNotCompleteAtom } from 'atom/OltherTranslationNotCompl
 import DRTranslationGrid from 'components/DRTranslationGrid';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useRecoilState } from 'recoil';
+import { analyticPageView } from 'utility/Analytics';
 
 const OtherTranslationProjects = [
     ProjectsEnum.AFamilyVenture,
@@ -13,6 +14,8 @@ const OtherTranslationProjects = [
 ]
 
 function Translations() {
+    analyticPageView("Translations")
+
     const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(OltherTranslationNotCompleteAtom);
     if (oltherTranslationNotComplete.length !== OtherTranslationProjects.length) {
         setOltherTranslationNotComplete(OtherTranslationProjects.map((a) => {

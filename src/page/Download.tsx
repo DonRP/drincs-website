@@ -3,6 +3,7 @@ import AppleIcon from '@mui/icons-material/Apple';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import { Grid } from "@mui/material";
 import DRDownloadGrid from "components/DRDownloadGrid";
+import { analyticPageView } from 'utility/Analytics';
 
 const rowsABFD = [
     {
@@ -107,6 +108,8 @@ const rowsABFD = [
 ];
 
 function Download() {
+    analyticPageView("Download")
+
     return (
         <>
             <Grid

@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import MarkdownCard from "components/MarkdownCard";
 import { ElementContent } from "react-markdown/lib/ast-to-react";
+import { analyticPageView } from "utility/Analytics";
 
 type WikiProps = {
     urlRepo: string
@@ -9,6 +10,8 @@ type WikiProps = {
 }
 
 function Wiki(props: WikiProps) {
+    analyticPageView("Wiki", props.urlRepo + " - " + props.routeLink)
+
     const { urlRepo, sidebar = "_Sidebar.md", routeLink } = props
     const transformLinkUri = (href: string, children: Array<ElementContent>, title: string | null) => {
         if (href.includes("https")) {

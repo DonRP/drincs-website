@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ElementContent, TransformLink } from "react-markdown/lib/ast-to-react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import remarkGfm from 'remark-gfm';
-import '../Markdown.css';
+import './Markdown.css';
 
 type IMarkdownCardProps = {
     markdownLink: string,

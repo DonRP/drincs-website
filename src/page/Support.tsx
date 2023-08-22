@@ -7,6 +7,7 @@ import * as React from 'react';
 import { useState } from "react";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import { Link } from "react-router-dom";
+import { analyticPageView } from "utility/Analytics";
 
 type SupportDataType = {
     card: ReactElement,
@@ -75,6 +76,8 @@ const data: SupportDataType[] = [
 ];
 
 function Support() {
+    analyticPageView("Support")
+
     const [value, setValue] = useState('1');
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
