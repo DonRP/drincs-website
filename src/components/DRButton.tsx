@@ -1,7 +1,7 @@
 import { Button, useTheme } from '@mui/material';
 import { logError } from 'utility/Logger';
 
-type IDRButtonProps = {
+interface IDRButtonProps {
     onClick?: () => void,
     startIcon?: React.ReactNode,
     children: any,
@@ -9,6 +9,8 @@ type IDRButtonProps = {
     ariaLabel?: string,
     marginTop?: number,
     marginBottom?: number,
+    fullWidth?: boolean
+    variant?: 'text' | 'outlined' | 'contained'
 }
 
 function DRButton(props: IDRButtonProps) {
@@ -21,15 +23,17 @@ function DRButton(props: IDRButtonProps) {
         ariaLabel,
         marginTop = 20,
         marginBottom = 10,
+        fullWidth = true,
+        variant = "contained",
     } = props;
 
     try {
         return (
             <Button
-                fullWidth
+                fullWidth={fullWidth}
                 aria-label={ariaLabel}
                 title={ariaLabel}
-                variant="contained"
+                variant={variant}
                 color="primary"
                 disabled={disabled}
                 size="large"
