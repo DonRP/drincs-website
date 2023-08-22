@@ -9,8 +9,12 @@ interface IDRButtonProps {
     ariaLabel?: string,
     marginTop?: number,
     marginBottom?: number,
+    marginLeft?: number,
+    marginRight?: number,
     fullWidth?: boolean
     variant?: 'text' | 'outlined' | 'contained'
+    color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+    endIcon?: React.ReactNode
 }
 
 function DRButton(props: IDRButtonProps) {
@@ -23,8 +27,12 @@ function DRButton(props: IDRButtonProps) {
         ariaLabel,
         marginTop = 20,
         marginBottom = 10,
+        marginLeft = 2,
+        marginRight = 2,
         fullWidth = true,
         variant = "contained",
+        color = "primary",
+        endIcon,
     } = props;
 
     try {
@@ -34,7 +42,7 @@ function DRButton(props: IDRButtonProps) {
                 aria-label={ariaLabel}
                 title={ariaLabel}
                 variant={variant}
-                color="primary"
+                color={color}
                 disabled={disabled}
                 size="large"
                 onClick={onClick}
@@ -42,9 +50,10 @@ function DRButton(props: IDRButtonProps) {
                 style={{
                     marginTop: marginTop,
                     marginBottom: marginBottom,
-                    marginLeft: 2,
-                    marginRight: 2,
+                    marginLeft: marginLeft,
+                    marginRight: marginRight,
                 }}
+                endIcon={endIcon}
             >
                 <strong>
                     {children}
