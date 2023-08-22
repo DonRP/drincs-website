@@ -1,4 +1,5 @@
 import { getAnalytics, logEvent } from '@firebase/analytics';
+import { logError } from './Logger';
 
 export function analyticHome() {
     if (process.env.NODE_ENV !== 'production') {
@@ -11,7 +12,7 @@ export function analyticHome() {
         });
     }
     catch (err) {
-        console.log(err)
+        logError("analyticHome", err)
     }
 }
 
@@ -26,7 +27,7 @@ export function analyticLogin(method: string) {
         });
     }
     catch (err) {
-        console.log(err)
+        logError("analyticLogin", err)
     }
 }
 
@@ -41,6 +42,6 @@ export function analyticSignUp(method: string) {
         });
     }
     catch (err) {
-        console.log(err)
+        logError("analyticSignUp", err)
     }
 }
