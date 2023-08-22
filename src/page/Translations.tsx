@@ -1,8 +1,6 @@
 import { Grid } from '@mui/material';
-import { OltherTranslationNotCompleteAtom } from 'atom/OltherTranslationNotCompleteAtom';
 import DRTranslationGrid from 'components/DRTranslationGrid';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
-import { useRecoilState } from 'recoil';
 import { analyticPageView } from 'utility/Analytics';
 
 const OtherTranslationProjects = [
@@ -15,13 +13,6 @@ const OtherTranslationProjects = [
 
 function Translations() {
     analyticPageView("Translations")
-
-    const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(OltherTranslationNotCompleteAtom);
-    if (oltherTranslationNotComplete.length !== OtherTranslationProjects.length) {
-        setOltherTranslationNotComplete(OtherTranslationProjects.map((a) => {
-            return a.toString()
-        }))
-    }
 
     return (
         <Grid
@@ -39,7 +30,6 @@ function Translations() {
                         projectId={item}
                         height={500}
                         rowHeight={70}
-                        NotCompleteListAtom={OltherTranslationNotCompleteAtom}
                     />
                 </Grid>
             )}

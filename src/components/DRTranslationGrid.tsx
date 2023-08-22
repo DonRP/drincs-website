@@ -2,7 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Typography, useTheme } from '@mui/material';
+import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Skeleton, Typography, useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
@@ -12,9 +12,9 @@ import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from "react";
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
-import { RecoilState, useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
 import { logError } from 'utility/Logger';
+import DRButton from './DRButton';
 
 const columns: GridColDef<TranslationResultItem>[] = [
     {
@@ -151,34 +151,16 @@ type IDRTranslationGridProps = {
     projectId: ProjectsEnum,
     height?: number,
     rowHeight?: number,
-    NotCompleteListAtom: RecoilState<string[]>
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = useTheme();
     const { enqueueSnackbar } = useSnackbar();
-    const { projectId, height = 350, rowHeight = 75, NotCompleteListAtom } = props
+    const { projectId, height = 350, rowHeight = 75 } = props
     const [data, setData] = useState<TranslationResult>()
-    const [loading, setLoading] = useState(true)
-    const [oltherTranslationNotComplete, setOltherTranslationNotComplete] = useRecoilState(NotCompleteListAtom);
     const translationService = useMemo(() => { return new TranslationService(enqueueSnackbar) }, [enqueueSnackbar]);
 
-    const test = () => {
-        if (loading) {
-            setLoading(false)
-            setOltherTranslationNotComplete(oltherTranslationNotComplete.filter((id: string) => {
-                return id !== projectId.toString()
-            }))
-            return true
-        }
-        else {
-            return false
-        }
-    }
-
     useEffect(() => {
-        setLoading(true)
-
         translationService.getLanguages(projectId).then(res => {
             setData(res?.content)
         }).catch(err => {
@@ -192,83 +174,74 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     };
 
     try {
-        if (!data) {
-            if (projectId.toString() === oltherTranslationNotComplete[oltherTranslationNotComplete.length - 1]) {
-                return <CircularProgress />
-            }
-            else {
-                return null
-            }
-        }
-        else {
-            return (
-                <>
-                    {loading && test()}
-                    <Card elevation={24} sx={{ maxWidth: 900 }}>
-                        <CardHeader
-                            action={
-                                <>
-                                    <IconButton
-                                        onClick={handleExpandClick}
-                                        style={{ marginBottom: 10 }}
-                                    >
-                                        <HelpOutlineIcon />
-                                    </IconButton>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        style={{
-                                            marginLeft: 16,
-                                            marginBottom: 10
-                                        }}
-                                        disabled={!data?.crowdinLink}
-                                        onClick={() => {
-                                            window.open(data?.crowdinLink)
-                                        }}
-                                        endIcon={<GTranslateIcon />}
-                                    >
-                                        <Typography>
-                                            Translate
-                                        </Typography>
-                                    </Button>
-                                </>
-                            }
-                            title={data?.name}
-                        />
-                        <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
-                            <CardMedia
-                                component="img"
-                                image={data?.logo || ""}
-                            />
-                        </CardActionArea>
-                        {/* <CardActions disableSpacing>
-                <ExpandMore
-                     expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMore />
-                </ExpandMore>
-            </CardActions> */}
-                        {data?.description &&
-                            <Collapse in={expanded} timeout="auto" unmountOnExit>
-                                <Typography paragraph>
-                                    <div dangerouslySetInnerHTML={{ __html: data.description }} />
-                                </Typography>
-                            </Collapse>
+        // if (!data) {
+        //     return <CircularProgress />
+        // }
+        // else {
+        return (
+            <>
+                <Card elevation={24} sx={{ maxWidth: 900 }}>
+                    <CardHeader
+                        action={
+                            <>
+                                <IconButton
+                                    onClick={handleExpandClick}
+                                    style={{ marginBottom: 10 }}
+                                >
+                                    <HelpOutlineIcon />
+                                </IconButton>
+                                <DRButton
+                                    variant="contained"
+                                    color="primary"
+                                    fullWidth={false}
+                                    marginLeft={16}
+                                    marginBottom={10}
+                                    marginRight={0}
+                                    marginTop={0}
+                                    disabled={!data?.crowdinLink}
+                                    onClick={() => {
+                                        window.open(data?.crowdinLink)
+                                    }}
+                                    endIcon={<GTranslateIcon />}
+                                >
+                                    <Typography>
+                                        Translate
+                                    </Typography>
+                                </DRButton>
+                            </>
                         }
-                        <div style={{ height: height, width: '100%' }}>
-                            <DataGrid
-                                rows={data.list}
-                                columns={columns}
-                                rowHeight={rowHeight}
-                            />
-                        </div>
-                    </Card>
-                </>
-            );
-        }
+                        title={data?.name ?
+                            data?.name :
+                            <Skeleton variant="text" sx={{ fontSize: '2rem' }} />
+                        }
+                    />
+                    <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
+                        <CardMedia
+                            component="img"
+                            image={data?.logo || ""}
+                        />
+                    </CardActionArea>
+                    {data?.description &&
+                        <Collapse in={expanded} timeout="auto" unmountOnExit>
+                            <Typography paragraph>
+                                <div dangerouslySetInnerHTML={{ __html: data.description }} />
+                            </Typography>
+                        </Collapse>
+                    }
+                    {data?.list && <div style={{ height: height, width: '100%' }}>
+                        <DataGrid
+                            rows={data.list}
+                            columns={columns}
+                            rowHeight={rowHeight}
+                        />
+                    </div>}
+                    {!data &&
+                        <Skeleton variant="rectangular" width={9999} height={450} />
+                    }
+                </Card>
+            </>
+        );
+        // }
     } catch (error) {
         logError("DRTranslationGrid", error)
         return <div style={{ color: theme.palette.error.main }}>DRTranslationGrid error</div>
