@@ -53,7 +53,7 @@ class BaseRestService {
 
     showError(body: any) {
         this.showMessage("There was an error in the server", 'error')
-        console.log(body)
+        logError("fech", body)
         if (body.error) {
             window.alert(body.error)
         }

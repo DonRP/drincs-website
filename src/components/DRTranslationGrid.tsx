@@ -182,7 +182,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         translationService.getLanguages(projectId).then(res => {
             setData(res?.content)
         }).catch(err => {
-            console.log(err)
+            logError("getLanguages", err)
         })
     }, [projectId, translationService]);
 
