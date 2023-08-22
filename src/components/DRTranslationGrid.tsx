@@ -216,16 +216,6 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                 image={data?.logo || ""}
                             />
                         </CardActionArea>
-                        {/* <CardActions disableSpacing>
-                <ExpandMore
-                     expand={expanded}
-                    onClick={handleExpandClick}
-                    aria-expanded={expanded}
-                    aria-label="show more"
-                >
-                    <ExpandMore />
-                </ExpandMore>
-            </CardActions> */}
                         {data?.description &&
                             <Collapse in={expanded} timeout="auto" unmountOnExit>
                                 <Typography paragraph>
