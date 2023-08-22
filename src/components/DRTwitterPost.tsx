@@ -7,6 +7,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import * as React from 'react';
+import { logError } from 'utility/Logger';
 
 type IDRTwitterPostProps = {
     twitterPost: any,
@@ -124,7 +125,7 @@ function DRTwitterPost(props: IDRTwitterPostProps) {
             </Card>
         );
     } catch (error) {
-        console.error(error)
+        logError("DRTwitterPost", error)
         return <div style={{ color: theme.palette.error.main }}>DRTwitterPost error</div>
     }
 }

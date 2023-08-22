@@ -1,6 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { HttpResponse } from "model/HttpResponse";
 import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from "notistack";
+import { logError } from "utility/Logger";
 
 type HeadersType = {
     'Accept': string
@@ -96,7 +97,7 @@ class BaseRestService {
                 if (ex instanceof AxiosError) {
                     return ex.response?.data
                 }
-                console.error("getRequest Error", ex);
+                logError("getRequest Error", ex);
             });
     }
 
@@ -109,7 +110,7 @@ class BaseRestService {
                 if (ex instanceof AxiosError) {
                     return ex.response?.data
                 }
-                console.error("postRequest Error", ex);
+                logError("postRequest Error", ex);
             });
     }
 

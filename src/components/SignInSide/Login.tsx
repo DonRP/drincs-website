@@ -6,9 +6,10 @@ import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { showMessage } from 'services/BaseRestService';
+import { logError } from 'utility/Logger';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
-import DRCheckBox from '../DeltaCheckbox';
+import DRCheckBox from '../DRCheckbox';
 
 function Login(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -159,7 +160,7 @@ function Login(props: ISignInSidePageProps) {
             </>
         );
     } catch (error) {
-        console.error(error)
+        logError("Login error", error)
         return <div style={{ color: theme.palette.error.main }}>Login error</div>
     }
 }

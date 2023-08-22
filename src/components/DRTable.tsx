@@ -2,6 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Avatar, Grid, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableRow, Theme, useTheme } from '@mui/material';
 import { green, red } from '@mui/material/colors';
+import { logError } from 'utility/Logger';
 import { isBoolean, isObject } from 'utility/UtilityFunctionts';
 
 type IDRTable = {
@@ -83,7 +84,7 @@ function DRTableCell(props: IDRTableCell) {
             {element}
         </TableCell>
     } catch (error) {
-        console.error(error)
+        logError("DRTableCell", error)
         return <div style={{ color: theme.palette.error.main }}>DRTableCell error</div>
     }
 }
@@ -167,7 +168,7 @@ function DRTable(props: IDRTable) {
             </TableContainer>
         );
     } catch (error) {
-        console.error(error)
+        logError("DRTable", error)
         return <div style={{ color: theme.palette.error.main }}>DRTable error</div>
     }
 }
