@@ -1,13 +1,13 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Typography } from "@mui/material";
 import { ISignInSidePageProps } from 'SignInSide';
-import { handleInputChangeByFieldName } from "Utility/UtilityComponenets";
-import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
 import DRLoadingButton from 'components/DRLoadingButton';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { useState } from 'react';
 import { showMessage } from 'services/BaseRestService';
+import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
+import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 
 function SignUp(props: ISignInSidePageProps) {
     var validator = require('validator');
