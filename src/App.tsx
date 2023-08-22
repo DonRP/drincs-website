@@ -1,4 +1,3 @@
-import { getAnalytics, logEvent } from '@firebase/analytics';
 import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
 import About from 'About';
 import Download from 'Download';
@@ -15,17 +14,10 @@ import { SnackbarProvider } from 'notistack';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { geturlwebapi } from 'services/BaseRestService';
+import { AnalyticHome } from 'utility/Analytics';
 import './App.css';
 
-try {
-    const analytics = getAnalytics();
-    logEvent(analytics, "page_view", {
-        page_title: "home",
-    });
-}
-catch (err) {
-    console.log(err)
-}
+AnalyticHome()
 
 const darkTheme = createTheme({
     // body: {
