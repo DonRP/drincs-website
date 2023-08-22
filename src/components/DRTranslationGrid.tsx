@@ -210,7 +210,10 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                 </DRButton>
                             </>
                         }
-                        title={data?.name}
+                        title={data?.name ?
+                            data?.name :
+                            <Skeleton variant="text" sx={{ fontSize: '2rem' }} />
+                        }
                     />
                     <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
                         <CardMedia
