@@ -1,6 +1,7 @@
 import { Button, Card, CardHeader, CardMedia, Grid, useTheme } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
+import { logError } from 'utility/Logger';
 
 const columns = [
     {
@@ -153,7 +154,7 @@ function DRDownloadGrid(props: IDRDownloadGridProps) {
             </Card>
         );
     } catch (error) {
-        console.error(error)
+        logError("DRDownloadGrid", error)
         return <div style={{ color: theme.palette.error.main }}>DRDownloadGrid error</div>
     }
 }

@@ -1,4 +1,5 @@
 import { Button, useTheme } from '@mui/material';
+import { logError } from 'utility/Logger';
 
 type IDRButtonProps = {
     onClick?: () => void,
@@ -47,7 +48,7 @@ function DRButton(props: IDRButtonProps) {
             </Button>
         );
     } catch (error) {
-        console.error(error)
+        logError("DRButton", error)
         return <div style={{ color: theme.palette.error.main }}>DRButton error</div>
     }
 }

@@ -8,6 +8,7 @@ import { useSnackbar } from 'notistack';
 import React from 'react';
 import { Link, To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
+import { logError } from 'utility/Logger';
 
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
@@ -313,7 +314,7 @@ function DRNavbar(props: IDRNavbarProps) {
             </>
         );
     } catch (error) {
-        console.error(error)
+        logError("DRNavbar", error)
         return <div style={{ color: theme.palette.error.main }}>DRNavbar error</div>
     }
 };

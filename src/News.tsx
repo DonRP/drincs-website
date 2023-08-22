@@ -4,6 +4,7 @@ import DRTwitterPost from "components/DRTwitterPost";
 import { useSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
 import TweetService from "services/TwitterService";
+import { logError } from "utility/Logger";
 
 const urlNoApiCode = [
     "https://v1.nocodeapi.com/drincs/twitter/xzgqNgMpxDHWebzY",
@@ -26,7 +27,7 @@ function News() {
                     return
                 }
             }).catch(err => {
-                console.log(err)
+                logError("Get news", err)
             })
         });
     }, [tweetService]);
