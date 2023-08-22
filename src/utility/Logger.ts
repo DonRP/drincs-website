@@ -8,7 +8,7 @@ export function logInfo(message: string, body: any = "") {
         }
         catch (ex) { }
     }
-    console.info(message, body)
+    console.info(message)
 }
 
 
@@ -20,7 +20,7 @@ export function logWarn(message: string, body: any = "") {
         }
         catch (ex) { }
     }
-    console.info(message, body)
+    console.warn(message)
 }
 
 export function logError(message: string, body: any = "") {
@@ -31,17 +31,5 @@ export function logError(message: string, body: any = "") {
         }
         catch (ex) { }
     }
-    console.info(message, body)
-}
-
-export function logTest(): string {
-    try {
-        let logtail = new Logtail(process.env.LOGTAIL_WEBAPI_KEY || "");
-        logtail.info("test", {});
-        return true.toString()
-    }
-    catch (ex) {
-        console.error(ex)
-        return false.toString()
-    }
+    console.error(message)
 }
