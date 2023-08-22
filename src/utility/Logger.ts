@@ -1,4 +1,4 @@
-import { Logtail } from "@logtail/node";
+import { Logtail } from "@logtail/browser";
 
 export function logInfo(message: string, body: any = "") {
     if (process.env.NODE_ENV === 'production') {
