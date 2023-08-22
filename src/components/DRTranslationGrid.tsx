@@ -158,6 +158,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     const { enqueueSnackbar } = useSnackbar();
     const { projectId, height = 350, rowHeight = 75 } = props
     const [data, setData] = useState<TranslationResult>()
+    const [error, setError] = useState(false)
     const translationService = useMemo(() => { return new TranslationService(enqueueSnackbar) }, [enqueueSnackbar]);
 
     useEffect(() => {
@@ -165,6 +166,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
             setData(res?.content)
         }).catch(err => {
             logError("getLanguages", err)
+            setError(true)
         })
     }, [projectId, translationService]);
 
@@ -174,13 +176,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     };
 
     try {
-        // if (!data) {
-        //     return <CircularProgress />
-        // }
-        // else {
         return (
             <>
-                <Card elevation={24} sx={{ maxWidth: 900 }}>
+                <Card elevation={24} sx={{ maxWidth: 900, backgroundColor: error ? theme.palette.error.dark : null }}>
                     <CardHeader
                         action={
                             <>
@@ -236,7 +234,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                         />
                     </div>}
                     {!data &&
-                        <Skeleton variant="rectangular" width={9999} height={450} />
+                        <Skeleton variant="rectangular" width={9999} height={450}
+                            sx={{ maxWidth: { xs: 480, sm: 580, md: 700, lg: 900 } }}
+                        />
                     }
                 </Card>
             </>

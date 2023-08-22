@@ -25,7 +25,9 @@ function Translations() {
         >
             <h2>Other Games</h2>
             {OtherTranslationProjects.map((item) =>
-                <Grid item key={item} >
+                <Grid item key={item}
+                    sx={{ marginBottom: 2 }}
+                >
                     <DRTranslationGrid
                         projectId={item}
                         height={500}
