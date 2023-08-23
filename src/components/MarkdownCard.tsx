@@ -28,7 +28,8 @@ function MarkdownCard(props: IMarkdownCardProps) {
             sx={{
                 maxWidth: 1000,
                 minWidth: minWidth,
-                padding: 5,
+                paddingX: 4,
+                paddingY: 2,
             }}>
             <ReactMarkdown
                 children={text}
