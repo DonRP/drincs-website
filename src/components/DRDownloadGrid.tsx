@@ -141,7 +141,7 @@ function DRDownloadGrid(props: IDRDownloadGridProps) {
         return (
             <Card
                 // elevation={24} 
-                sx={{ minWidth: { xs: 470, sm: 600, md: 900 } }}
+                sx={{ minWidth: { xs: 470, sm: 600, md: 900 }, marginTop: 2 }}
             >
                 <Typography level="title-lg">{title}</Typography>
                 {logoImage &&

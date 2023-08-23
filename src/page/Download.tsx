@@ -124,6 +124,8 @@ function Download() {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
+                paddingTop={3}
+                paddingBottom={3}
             >
                 <h2>Download</h2>
                 <DRDownloadGrid

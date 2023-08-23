@@ -4,6 +4,7 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import { materialUseTheme } from 'Theme';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { Link, To, useLocation, useNavigate } from 'react-router-dom';
@@ -26,6 +27,7 @@ type IDRNavbarProps = {
 }
 
 function DRNavbar(props: IDRNavbarProps) {
+    const materialTheme = materialUseTheme();
     const location = useLocation();
     let navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
@@ -34,8 +36,8 @@ function DRNavbar(props: IDRNavbarProps) {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const transitionDuration = {
-        enter: 1, // theme.transitions.duration.enteringScreen,
-        exit: 1, // theme.transitions.duration.leavingScreen,
+        enter: materialTheme.transitions.duration.enteringScreen,
+        exit: materialTheme.transitions.duration.leavingScreen,
     };
 
     const handleOpenNavMenu = (event: any) => {
