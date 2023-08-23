@@ -1,6 +1,6 @@
 import { Checkbox, CheckboxProps, FormControlLabel, Typography } from "@mui/material";
 import { SwitchBaseProps } from "@mui/material/internal/SwitchBase";
-import { myUseTheme } from "theme";
+import { myUseTheme } from "Theme";
 import DRErrorComponent from "./DRErrorComponent";
 
 type IDRCheckBoxProps = {

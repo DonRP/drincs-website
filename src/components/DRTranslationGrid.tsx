@@ -6,6 +6,7 @@ import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { myUseTheme } from 'Theme';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResult, TranslationResultItem } from 'model/Translation/TranslationResult';
 import { useSnackbar } from 'notistack';
@@ -13,7 +14,6 @@ import * as React from 'react';
 import { useEffect, useMemo, useState } from "react";
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import TranslationService from 'services/TranslationService';
-import { myUseTheme } from 'theme';
 import { logError } from 'utility/Logger';
 import DRButton from './DRButton';
 import DRErrorComponent from './DRErrorComponent';

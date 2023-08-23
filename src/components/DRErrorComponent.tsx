@@ -1,4 +1,4 @@
-import { myUseTheme } from 'theme';
+import { myUseTheme } from 'Theme';
 import { logError } from 'utility/Logger';
 
 type IDRErrorComponentProps = {

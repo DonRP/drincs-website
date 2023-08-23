@@ -1,6 +1,6 @@
-import { CssVarsProvider } from '@mui/joy/styles';
 import { GlobalStyles } from '@mui/material';
 import SignInSide from 'SignInSide';
+import { MyTheme } from 'Theme';
 import axios from 'axios';
 import { IPageDRNavbar } from 'components/DRNavbar';
 import MarkdownPage from 'components/MarkdownPage';
@@ -15,7 +15,6 @@ import Wiki from 'page/Wiki';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { geturlwebapi } from 'services/BaseRestService';
-import { theme } from 'theme';
 import './App.css';
 
 axios.get(geturlwebapi() + "/discord/awakens").catch((err) => {
@@ -41,7 +40,7 @@ function App() {
 
     return (
         <ErrorBoundary>
-            <CssVarsProvider theme={theme}>
+            <MyTheme>
                 <GlobalStyles styles={{ h1: { color: 'white' }, h2: { color: 'white' }, body: { backgroundColor: '#6c4b73', } }} />
 
                 <BrowserRouter>
@@ -66,7 +65,7 @@ function App() {
                         </SnackbarProvider>
                     </RecoilRoot>
                 </BrowserRouter>
-            </CssVarsProvider>
+            </MyTheme>
         </ErrorBoundary >
     );
 }
