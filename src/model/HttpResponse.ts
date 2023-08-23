@@ -1,17 +1,9 @@
-class HttpResponseMessage {
-    version: any;
-    content: any;
-    statusCode: any;
-    reasonPhrase: string | null = null;
-    headers: any;
-    trailingHeaders: any;
-    requestMessage: any | null;
-    isSuccessStatusCode: boolean = false;
-}
+import { StatusCodes } from "http-status-codes";
 
-export class HttpResponse<T> extends HttpResponseMessage {
-    content: T | undefined;
-    messages: string = "";
-    messagesAlert: string | null = null;
-    messagesToShow: string | null = null;
+export class HttpResponse<T> {
+    content?: T;
+    messages: string | string[] = "";
+    messagesToShow?: string;
+    statusCodes: StatusCodes = StatusCodes.OK;
+    isSuccessStatusCode: boolean = true;
 }

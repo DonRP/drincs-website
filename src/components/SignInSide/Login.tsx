@@ -1,14 +1,15 @@
 import { Grid, Link, Typography, useTheme } from '@mui/material';
 import { ISignInSidePageProps } from 'SignInSide';
-import { handleInputChangeByFieldName } from 'Utility/UtilityComponenets';
-import { isNullOrEmpty } from 'Utility/UtilityFunctionts';
 import DRLoadingButton from 'components/DRLoadingButton';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { showMessage } from 'services/BaseRestService';
-import DRCheckBox from '../DeltaCheckbox';
+import { logError } from 'utility/Logger';
+import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
+import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import DRCheckBox from '../DRCheckbox';
 
 function Login(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -69,7 +70,7 @@ function Login(props: ISignInSidePageProps) {
         let errorFields = validateResetPassword(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            authService.resetPoassword(account.email).then(res => {
+            authService.resetPassword(account.email).then(res => {
                 if (res) {
                     setOpenChangePassword(false)
                 }
@@ -159,7 +160,7 @@ function Login(props: ISignInSidePageProps) {
             </>
         );
     } catch (error) {
-        console.error(error)
+        logError("Login error", error)
         return <div style={{ color: theme.palette.error.main }}>Login error</div>
     }
 }

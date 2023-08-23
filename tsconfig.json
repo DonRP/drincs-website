@@ -1,3 +1,4 @@
+// https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
 {
     "compilerOptions": {
         "target": "es5",
@@ -23,7 +24,6 @@
     },
     "include": [
         "src",
-        "public/js/UserStatusChart.js"
     ],
     "exclude": [
         "node_modules"

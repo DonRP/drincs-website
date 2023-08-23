@@ -1,14 +1,18 @@
 import styled from '@emotion/styled';
 import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Button, Card, CardMedia, Grid } from '@mui/material';
+import { Card, CardMedia, Grid } from '@mui/material';
+import DRButton from 'components/DRButton';
 import { Link } from 'react-router-dom';
-import '../src/css/about.css';
+import { analyticPageView } from 'utility/Analytics';
+import './About.css';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
 // https://www.w3schools.com/howto/howto_css_blurred_background.asp
 
 function About() {
+    analyticPageView("About")
+
     const Keyframes = styled("div")({
         animationName: "pulse",
         animationDuration: "2s",
@@ -108,8 +112,8 @@ function About() {
                                 to={"/support"}
                                 key={"logo_link"}
                             >
-                                <Button
-                                    key={"Support"}
+                                <DRButton
+                                    key="support"
                                     variant="contained"
                                     sx={{
                                         my: 2,
@@ -142,7 +146,7 @@ function About() {
                                             </Grid>
                                         </Grid>
                                     </strong>
-                                </Button>
+                                </DRButton>
                             </Link>
                         </Grid>
                         <Grid item >
@@ -150,8 +154,8 @@ function About() {
                                 to={"/download"}
                                 key={"logo_link"}
                             >
-                                <Button
-                                    key={"Download"}
+                                <DRButton
+                                    key="download"
                                     variant="contained"
                                     sx={{
                                         my: 2,
@@ -184,7 +188,7 @@ function About() {
                                             </Grid>
                                         </Grid>
                                     </strong>
-                                </Button>
+                                </DRButton>
                             </Link>
                         </Grid>
                     </Grid>

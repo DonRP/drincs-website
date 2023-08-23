@@ -1,6 +1,7 @@
 import { AuthData } from "model/Auth/AuthData";
 import { LoginAccount } from "model/Auth/LoginAccount";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { analyticLogin, analyticSignUp } from "utility/Analytics";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
@@ -16,16 +17,7 @@ class AuthService extends BaseRestService {
             return false
         }
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json;charset=utf-8');
-
-        const requestOptions = {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(account)
-        };
-
-        return this.customFetch<AuthData>(this.urlwebapi + `/Auth/SignInWithEmailAndPassword`, requestOptions)
+        return this.postRequest<AuthData>(this.urlwebapi + `/Auth/SignInWithEmailAndPassword`, account)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
@@ -39,6 +31,7 @@ class AuthService extends BaseRestService {
                     sessionStorage.setItem("username", response.content.username ?? "");
                     sessionStorage.setItem("username_token", response.content.token ?? "");
                 }
+                analyticLogin("/Auth/SignInWithEmailAndPassword")
                 return true
             })
             .catch((res) => {
@@ -49,20 +42,12 @@ class AuthService extends BaseRestService {
             });
     };
 
-    async resetPoassword(email: string) {
+    async resetPassword(email: string) {
         if (!email) {
             return false
         }
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json;charset=utf-8');
-
-        const requestOptions = {
-            method: 'POST',
-            headers,
-        };
-
-        return this.customFetch<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`, requestOptions)
+        return this.postRequest<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
                     this.showMessage(response?.messagesToShow, 'error')
@@ -84,21 +69,13 @@ class AuthService extends BaseRestService {
             return false
         }
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json;charset=utf-8');
-
-        const requestOptions = {
-            method: 'POST',
-            headers,
-            body: JSON.stringify(account)
-        };
-
-        return this.customFetch<AuthData>(this.urlwebapi + `/Auth/CreateAccount`, requestOptions)
+        return this.postRequest<AuthData>(this.urlwebapi + `/Auth/CreateAccount`, account)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
                     return false
                 }
+                analyticSignUp("/Auth/CreateAccount")
                 return true
             })
             .catch((res) => {

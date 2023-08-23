@@ -1,5 +1,6 @@
 import { InputBaseProps, TextField, TextFieldProps, useTheme } from '@mui/material';
 import { FocusEvent } from 'react';
+import { logError } from 'utility/Logger';
 
 type IDRTextFieldProps = {
     onChangeValue: (fieldName: string, value: any) => void;
@@ -33,7 +34,7 @@ function DRTextField(props: IDRTextFieldProps) {
                 error={error || errorFields.includes(fieldName)}
             />);
     } catch (error) {
-        console.error(error)
+        logError("DRTextField", error)
         return <div style={{ color: theme.palette.error.main }}>DRTextField error</div>
     }
 }

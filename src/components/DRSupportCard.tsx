@@ -2,6 +2,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { Alert, Card, CardActions, CardContent, CardHeader, IconButton, Rating, Typography, useTheme } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Grid2 from '@mui/material/Unstable_Grid2';
+import { logError } from 'utility/Logger';
 import DRButton from './DRButton';
 
 type IDRSupportCardProps = {
@@ -168,7 +169,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
             </Card>
         );
     } catch (error) {
-        console.error(error)
+        logError("DRSupportCard", error)
         return <div style={{ color: theme.palette.error.main }}>DRSupportCard error</div>
     }
 }

@@ -1,5 +1,6 @@
 import { Checkbox, CheckboxProps, FormControlLabel, Typography, useTheme } from "@mui/material";
 import { SwitchBaseProps } from "@mui/material/internal/SwitchBase";
+import { logError } from "utility/Logger";
 
 type IDRCheckBoxProps = {
     onChangeValue: (fieldName: string, value: boolean) => void;
@@ -38,8 +39,8 @@ function DRCheckBox(props: IDRCheckBoxProps) {
             />
         );
     } catch (error) {
-        console.error(error)
-        return <div style={{ color: theme.palette.error.main }}>DeltaCheckBox error</div>
+        logError("DRCheckBox", error)
+        return <div style={{ color: theme.palette.error.main }}>DRCheckBox error</div>
     }
 }
 

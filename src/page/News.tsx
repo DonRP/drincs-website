@@ -3,8 +3,9 @@ import CircularIndeterminate from "components/CircularIndeterminate";
 import DRTwitterPost from "components/DRTwitterPost";
 import { useSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
-import { TwitterFollowButton } from "react-twitter-embed";
 import TweetService from "services/TwitterService";
+import { analyticPageView } from "utility/Analytics";
+import { logError } from "utility/Logger";
 
 const urlNoApiCode = [
     "https://v1.nocodeapi.com/drincs/twitter/xzgqNgMpxDHWebzY",
@@ -15,6 +16,8 @@ const urlNoApiCode = [
 ]
 
 function News() {
+    analyticPageView("News")
+
     const [tweetList, setTweetList] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
     const tweetService = useMemo(() => { return new TweetService(enqueueSnackbar) }, [enqueueSnackbar]);
@@ -27,7 +30,7 @@ function News() {
                     return
                 }
             }).catch(err => {
-                console.log(err)
+                logError("Get news", err)
             })
         });
     }, [tweetService]);
@@ -62,11 +65,12 @@ function News() {
                     alignItems="center"
                     spacing={4}
                 >
-                    <Grid item  >
+                    {/* react-twitter-embed */}
+                    {/* <Grid item  >
                         <TwitterFollowButton
                             screenName={'DR_incs'}
                         />
-                    </Grid>
+                    </Grid> */}
                     {tweetList.length > 0 &&
                         tweetList?.map((item) =>
                             <Grid item  >

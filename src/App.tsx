@@ -1,20 +1,20 @@
-import { createTheme, GlobalStyles, ThemeProvider } from '@mui/material';
-import About from 'About';
+import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
+import SignInSide from 'SignInSide';
+import axios from 'axios';
 import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
-import Download from 'Download';
+import MarkdownPage from 'components/MarkdownPage';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
-import MarkdownPage from 'MarkdownPage';
 import { SnackbarProvider } from 'notistack';
+import About from 'page/About';
+import Download from 'page/Download';
+import Report from 'page/Report';
+import Support from 'page/Support';
+import Translations from 'page/Translations';
+import Wiki from 'page/Wiki';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import Report from 'Report';
-import SignInSide from 'SignInSide';
-import Support from 'Support';
-import Translations from 'Translations';
-import Wiki from 'Wiki';
+import { geturlwebapi } from 'services/BaseRestService';
 import './App.css';
-
-
 
 const darkTheme = createTheme({
     // body: {
@@ -25,13 +25,16 @@ const darkTheme = createTheme({
     },
 });
 
+axios.get(geturlwebapi() + "/discord/awakens").catch((err) => {
+})
+
 function App() {
     const routes = [
         { title: "about", path: "/", element: <About /> },
         { title: "⬇️download", path: "/download", element: <Download /> },
         // { title: "🗞️news", path: "/news", element: <News /> },
         { title: "🌍translations", path: "/translations", element: <Translations /> },
-        { title: "📖wiki", path: "/wiki", element: <Wiki /> },
+        { title: "📖wiki", path: "/wiki", element: <Wiki routeLink="wiki" urlRepo='DRincs-Productions/ABFD' /> },
         { title: "🐞bug/request", path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
@@ -66,6 +69,7 @@ function App() {
                                 <Route key={loginRoute.title} path={loginRoute.path} element={loginRoute.element} />
                                 <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-translate.md' />} />
                                 <Route key="howtoconnectwithdiscord" path="/howtoconnectwithdiscord" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-connect-with-discord.md' />} />
+                                <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo='DRincs-Productions/daz-assert-ABFD-all-in-one' />} />
                             </Routes>
                         </SnackbarProvider>
                     </RecoilRoot>
@@ -74,4 +78,5 @@ function App() {
         </ErrorBoundary >
     );
 }
+
 export default App;

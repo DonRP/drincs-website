@@ -1,5 +1,7 @@
+import axios, { AxiosError } from "axios";
 import { HttpResponse } from "model/HttpResponse";
 import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from "notistack";
+import { logError } from "utility/Logger";
 
 type HeadersType = {
     'Accept': string
@@ -11,25 +13,47 @@ export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?
     enqueueSnackbar(message, { variant });
 };
 
+const use_local_webapi = false
+
+export function geturlwebapi(): string {
+    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+        return "http://localhost:7289/api"
+    }
+    else {
+        return "https://drincs-website-back-end.onrender.com/api"
+    }
+}
+export function geturlwebapiold(): string {
+    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+        return "https://localhost:7289"
+    }
+    else {
+        return "https://drincs-website-back-end-old.onrender.com"
+    }
+}
+export function geturlwebapivercel(): string {
+    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+        return "http://localhost:7289/api"
+    }
+    else {
+        return "https://drincs-website-back-end.vercel.app/api"
+    }
+}
+
 class BaseRestService {
     constructor(enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) {
         if (enqueueSnackbar) {
             this.enqueueSnackbar = enqueueSnackbar
         }
     }
-    urlwebapi = this.geturlwebapi();
+    urlwebapi = geturlwebapi()
+    urlwebapiold = geturlwebapiold();
+    urlwebapivercel = geturlwebapivercel()
     enqueueSnackbar: null | ((message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) = null
-    private geturlwebapi(): string {
-        if (process.env.NODE_ENV !== 'production') {
-            return "https://localhost:7289"
-        }
-        else {
-            return "https://drincs-website-back-end.onrender.com"
-        }
-    }
+
     showError(body: any) {
         this.showMessage("There was an error in the server", 'error')
-        console.log(body)
+        logError("fech", body)
         if (body.error) {
             window.alert(body.error)
         }
@@ -46,11 +70,11 @@ class BaseRestService {
         );
     }
 
-    async customFetch<T>(url: URL | string, options: any = {}, token?: string, tokenType = "Bearer"): Promise<HttpResponse<T>> {
+    private inizialHeaders(token?: string, tokenType = "Bearer") {
         // performs api calls sending the required authentication headers
         const headers: HeadersType = {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json;charset=utf-8'
         }
 
         if (token) {
@@ -59,28 +83,35 @@ class BaseRestService {
             headers['Authorization'] = tokenType + ' ' + token
         }
 
-        return fetch(url, {
-            headers,
-            ...options
-        })
-            .then(this._checkStatus)
+        return {
+            "headers": headers,
+        }
+    }
+
+    async getRequest<T>(url: string, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.get<HttpResponse<T>>(url, this.inizialHeaders(token, tokenType))
             .then(response => {
-                return response.json()
+                return response?.data
             })
-            .catch((res) => {
-                console.error("fetch Error", res);
+            .catch((ex) => {
+                if (ex instanceof AxiosError) {
+                    return ex.response?.data
+                }
+                logError("getRequest Error", ex);
             });
     }
 
-    _checkStatus(response: any) {
-        // raises an error in case response status is not a success
-        if (response.status >= 200 && response.status < 300) { // Success status lies between 200 to 300
-            return response
-        } else {
-            var error = new Error(response.statusText)
-            // error.response = response
-            throw error
-        }
+    async postRequest<T>(url: string, body: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.post<HttpResponse<T>>(url, body, this.inizialHeaders(token, tokenType))
+            .then(response => {
+                return response?.data
+            })
+            .catch((ex) => {
+                if (ex instanceof AxiosError) {
+                    return ex.response?.data
+                }
+                logError("postRequest Error", ex);
+            });
     }
 
     showMessage = (message: string | undefined | null, variant: VariantType) => {

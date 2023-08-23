@@ -7,20 +7,11 @@ class GitService extends BaseRestService {
             return new HttpResponse()
         }
 
-        const headers = new Headers();
-        headers.append('Content-Type', 'application/json;charset=utf-8');
-
-        const requestOptions = {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-                title,
-                body,
-                labels
-            })
-        };
-
-        return this.customFetch(this.urlwebapi + `/GitHub/CreateIssue?repositoryName=${repo}`, requestOptions)
+        return this.postRequest(this.urlwebapi + `/GitHub/CreateIssue?repositoryName=${repo}`, {
+            title,
+            body,
+            labels
+        })
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')

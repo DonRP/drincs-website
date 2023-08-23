@@ -8,7 +8,7 @@ class TweetService extends BaseRestService {
         if (!userId) {
             return null
         }
-        return this.customFetch(this.url + `users/${userId}`, process.env.REACT_APP_API_KEY_TWITTER)
+        return this.getRequest(this.url + `users/${userId}`, process.env.REACT_APP_API_KEY_TWITTER)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
@@ -23,7 +23,7 @@ class TweetService extends BaseRestService {
     }
 
     async getTweets(nocodeapilink: string) {
-        return this.customFetch(nocodeapilink, null)
+        return this.getRequest(nocodeapilink)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')

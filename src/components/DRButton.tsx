@@ -1,6 +1,7 @@
-import { Button, useTheme } from '@mui/material';
+import { Button, SxProps, useTheme } from '@mui/material';
+import { logError } from 'utility/Logger';
 
-type IDRButtonProps = {
+interface IDRButtonProps {
     onClick?: () => void,
     startIcon?: React.ReactNode,
     children: any,
@@ -8,6 +9,14 @@ type IDRButtonProps = {
     ariaLabel?: string,
     marginTop?: number,
     marginBottom?: number,
+    marginLeft?: number,
+    marginRight?: number,
+    fullWidth?: boolean
+    variant?: 'text' | 'outlined' | 'contained'
+    color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+    endIcon?: React.ReactNode
+    sx?: SxProps
+    size?: 'small' | 'medium' | 'large'
 }
 
 function DRButton(props: IDRButtonProps) {
@@ -20,26 +29,36 @@ function DRButton(props: IDRButtonProps) {
         ariaLabel,
         marginTop = 20,
         marginBottom = 10,
+        marginLeft = 2,
+        marginRight = 2,
+        fullWidth = true,
+        variant = "contained",
+        color = "primary",
+        endIcon,
+        sx,
+        size = "large",
     } = props;
 
     try {
         return (
             <Button
-                fullWidth
+                fullWidth={fullWidth}
                 aria-label={ariaLabel}
                 title={ariaLabel}
-                variant="contained"
-                color="primary"
+                variant={variant}
+                color={color}
                 disabled={disabled}
-                size="large"
+                size={size}
                 onClick={onClick}
                 startIcon={startIcon}
-                style={{
+                sx={{
                     marginTop: marginTop,
                     marginBottom: marginBottom,
-                    marginLeft: 2,
-                    marginRight: 2,
+                    marginLeft: marginLeft,
+                    marginRight: marginRight,
+                    ...sx,
                 }}
+                endIcon={endIcon}
             >
                 <strong>
                     {children}
@@ -47,7 +66,7 @@ function DRButton(props: IDRButtonProps) {
             </Button>
         );
     } catch (error) {
-        console.error(error)
+        logError("DRButton", error)
         return <div style={{ color: theme.palette.error.main }}>DRButton error</div>
     }
 }
