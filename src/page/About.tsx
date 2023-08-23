@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
 import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Card, CardMedia, Grid } from '@mui/material';
+import Grid from '@mui/joy/Grid';
+import { Card, CardMedia } from '@mui/material';
 import DRButton from 'components/DRButton';
 import { Link } from 'react-router-dom';
 import { analyticPageView } from 'utility/Analytics';
@@ -77,7 +78,7 @@ function About() {
                     pt={7 + 10}
                     mb={10}
                 >
-                    <Grid item
+                    <Grid
                         sx={{
                             position: "absolute",
                             bottom: "36vh",
@@ -97,7 +98,8 @@ function About() {
                             />
                         </Keyframes>
                     </Grid>
-                    <Grid item container
+                    <Grid
+                        container
                         direction={{ xs: "column", md: "row" }}
                         justifyContent="center"
                         alignItems="center"
@@ -107,7 +109,7 @@ function About() {
                             bottom: "50px",
                         }}
                     >
-                        <Grid item >
+                        <Grid  >
                             <Link
                                 to={"/support"}
                                 key={"logo_link"}
@@ -128,20 +130,21 @@ function About() {
                                     size="large"
                                 >
                                     <strong>
-                                        <Grid item container
+                                        <Grid
+                                            container
                                             direction="row"
                                             justifyContent="center"
                                             alignItems="center"
                                             spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
                                         >
-                                            <Grid item >
+                                            <Grid  >
                                                 <FavoriteIcon sx={{
                                                     fontSize: "4vh",
                                                     minFontSize: "150px",
                                                     marginTop: '8px',
                                                 }} />
                                             </Grid>
-                                            <Grid item >
+                                            <Grid  >
                                                 Support
                                             </Grid>
                                         </Grid>
@@ -149,7 +152,7 @@ function About() {
                                 </DRButton>
                             </Link>
                         </Grid>
-                        <Grid item >
+                        <Grid  >
                             <Link
                                 to={"/download"}
                                 key={"logo_link"}
@@ -170,20 +173,21 @@ function About() {
                                     size="large"
                                 >
                                     <strong>
-                                        <Grid item container
+                                        <Grid
+                                            container
                                             direction="row"
                                             justifyContent="center"
                                             alignItems="center"
                                             spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
                                         >
-                                            <Grid item >
+                                            <Grid  >
                                                 <DownloadIcon sx={{
                                                     fontSize: "4vh",
                                                     minFontSize: "150px",
                                                     marginTop: '8px',
                                                 }} />
                                             </Grid>
-                                            <Grid item >
+                                            <Grid  >
                                                 Download
                                             </Grid>
                                         </Grid>
