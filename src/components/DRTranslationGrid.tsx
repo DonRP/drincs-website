@@ -2,8 +2,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Card, CircularProgress, Grid, IconButton, Skeleton, Typography } from '@mui/joy';
-import { CardActionArea, CardMedia, Collapse } from '@mui/material';
+import { AspectRatio, Card, CircularProgress, Grid, IconButton, Skeleton, Typography } from '@mui/joy';
+import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { myUseTheme } from 'Theme';
@@ -190,8 +190,11 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         return (
             <>
                 <Card
-                    //  elevation={24} 
-                    sx={{ maxWidth: 900, backgroundColor: error ? theme.palette.danger[500] : null }}
+                    sx={{
+                        minWidth: { xs: 450, sm: 550, md: 700, lg: 900 },
+                        maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
+                        backgroundColor: error ? theme.palette.danger[500] : null,
+                    }}
                 >
                     {data &&
                         <div>
@@ -230,10 +233,15 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     }
                     {data?.logo &&
                         <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
-                            <CardMedia
+                            {/* <CardMedia
                                 component="img"
                                 image={data?.logo || ""}
-                            />
+                            /> */}
+                            <AspectRatio minHeight={200} maxHeight={250}>
+                                <img
+                                    src={data.logo}
+                                />
+                            </AspectRatio>
                         </CardActionArea>
                     }
                     {!data?.logo &&
