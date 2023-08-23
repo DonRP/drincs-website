@@ -1,6 +1,8 @@
-import { Button, Card, CardHeader, CardMedia, Grid } from '@mui/material';
+import { Grid } from '@mui/joy';
+import { Card, CardHeader, CardMedia } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
+import DRButton from './DRButton';
 import DRErrorComponent from './DRErrorComponent';
 
 const columns = [
@@ -57,24 +59,26 @@ const columns = [
                             alignItems="center"
                             spacing={1}
                         >
-                            <Grid item>
+                            <Grid>
                                 {params.value?.mediafire &&
-                                    <Button
-                                        variant="outlined"
+                                    <DRButton
+                                        marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
                                         startIcon={
                                             <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
                                         }
                                         onClick={() => {
                                             window.open(params.value?.mediafire)
                                         }}
+                                        color='success'
                                     >
                                         Mediafire
-                                    </Button>
+                                    </DRButton>
                                 }
                             </Grid>
-                            <Grid item>
+                            <Grid>
                                 {params.value?.mega &&
-                                    <Button
+                                    <DRButton
+                                        marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
                                         variant="outlined"
                                         startIcon={
                                             <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
@@ -84,12 +88,13 @@ const columns = [
                                         }}
                                     >
                                         Mega
-                                    </Button>
+                                    </DRButton>
                                 }
                             </Grid>
-                            <Grid item>
+                            <Grid>
                                 {params.value?.discord &&
-                                    <Button
+                                    <DRButton
+                                        marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
                                         variant="outlined"
                                         startIcon={
                                             <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
@@ -99,7 +104,7 @@ const columns = [
                                         }}
                                     >
                                         Discord - Supporter
-                                    </Button>
+                                    </DRButton>
                                 }
                             </Grid>
                         </Grid>
