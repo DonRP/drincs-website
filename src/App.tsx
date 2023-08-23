@@ -41,7 +41,7 @@ function App() {
 
     return (
         <ErrorBoundary>
-            <CssVarsProvider theme={theme}>
+            <CssVarsProvider theme={theme} defaultMode="dark">
                 <GlobalStyles styles={{ h1: { color: 'white' }, h2: { color: 'white' }, body: { backgroundColor: '#6c4b73', } }} />
 
                 <BrowserRouter>
