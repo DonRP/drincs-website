@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Card } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
-import { Card, CardMedia } from '@mui/material';
 import DRButton from 'components/DRButton';
 import { Link } from 'react-router-dom';
 import { analyticPageView } from 'utility/Analytics';
@@ -32,49 +32,27 @@ function About() {
         },
     });
 
-    // const style = {
-    //     heroImage: {
-    //           /* Add the blur effect */
-    //         filter: "blur(8px)",
-    //         -webkit-filter: blur(8px),
-
-    //         backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
-    //         backgroundColor: "##000",
-    //         backgroundPosition: "center",
-    //         backgroundRepeat: "no-repeat",
-    //         backgroundSize: "cover",
-    //         height: "100vh",
-    //         position: "relative",
-    //         marginTop: '-70px',
-    //         fontSize: '50px',
-
-    //         // height: '100vh',
-    //         // marginTop: '-70px',
-    //         // fontSize: '50px',
-    //         // backgroundSize: 'cover',
-    //         // backgroundRepeat: 'no-repeat',    
-    //     },
-    // };
     return (
         <>
-            <Card elevation={24} sx={{
-                backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
-                backgroundColor: "##000",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                height: "100vh",
-                position: "relative",
-                marginTop: '-72px',
-                fontSize: '50px',
-            }}>
-
+            <Card
+                // elevation={24} 
+                sx={{
+                    backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
+                    backgroundColor: "##000",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    height: "100vh",
+                    position: "relative",
+                    marginTop: '-72px',
+                    fontSize: '50px',
+                }}
+            >
                 <Grid
                     container
                     direction="column"
                     justifyContent="center"
                     alignItems="center"
-                    // sx={{ display: 'flex' }}
                     pt={7 + 10}
                     mb={10}
                 >
@@ -90,11 +68,13 @@ function About() {
                         }}
                     >
                         <Keyframes>
-                            <CardMedia sx={{
-                                maxWidth: 600,
-                            }}
-                                component="img"
-                                image={"/images/logo.webp"}
+                            <img
+                                src="/images/logo.webp"
+                                loading="lazy"
+                                alt=""
+                                style={{
+                                    maxWidth: 600,
+                                }}
                             />
                         </Keyframes>
                     </Grid>

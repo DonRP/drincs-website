@@ -1,4 +1,5 @@
-import { Button, SxProps } from '@mui/material';
+import { Button } from '@mui/joy';
+import { SxProps } from '@mui/joy/styles/types';
 import DRErrorComponent from './DRErrorComponent';
 
 interface IDRButtonProps {
@@ -44,12 +45,12 @@ function DRButton(props: IDRButtonProps) {
                 fullWidth={fullWidth}
                 aria-label={ariaLabel}
                 title={ariaLabel}
-                variant={variant}
-                color={color}
+                // variant={variant}
+                // color={color}
                 disabled={disabled}
-                size={size}
+                // size={size}
                 onClick={onClick}
-                startIcon={startIcon}
+                // startIcon={startIcon}
                 sx={{
                     marginTop: marginTop,
                     marginBottom: marginBottom,
@@ -57,7 +58,7 @@ function DRButton(props: IDRButtonProps) {
                     marginRight: marginRight,
                     ...sx,
                 }}
-                endIcon={endIcon}
+            // endIcon={endIcon}
             >
                 <strong>
                     {children}
