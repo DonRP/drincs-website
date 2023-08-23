@@ -1,19 +1,18 @@
-import { Grid, Link, Typography, useTheme } from '@mui/material';
+import { Grid, Link, Typography } from '@mui/material';
 import { ISignInSidePageProps } from 'SignInSide';
+import DRErrorComponent from 'components/DRErrorComponent';
 import DRLoadingButton from 'components/DRLoadingButton';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { showMessage } from 'services/BaseRestService';
-import { logError } from 'utility/Logger';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
 
 function Login(props: ISignInSidePageProps) {
     var validator = require('validator');
-    const theme = useTheme();
     let navigate = useNavigate();
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
     const [errorFields, setErrorFields] = useState<string[]>([])
@@ -160,8 +159,7 @@ function Login(props: ISignInSidePageProps) {
             </>
         );
     } catch (error) {
-        logError("Login error", error)
-        return <div style={{ color: theme.palette.error.main }}>Login error</div>
+        return <DRErrorComponent error={error} text={"Login"} />
     }
 }
 

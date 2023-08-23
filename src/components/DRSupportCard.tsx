@@ -1,9 +1,9 @@
 import InfoIcon from '@mui/icons-material/Info';
-import { Alert, Card, CardActions, CardContent, CardHeader, IconButton, Rating, Typography, useTheme } from '@mui/material';
+import { Alert, Card, CardActions, CardContent, CardHeader, IconButton, Rating, Typography } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Grid2 from '@mui/material/Unstable_Grid2';
-import { logError } from 'utility/Logger';
 import DRButton from './DRButton';
+import DRErrorComponent from './DRErrorComponent';
 
 type IDRSupportCardProps = {
     stars: number;
@@ -13,7 +13,6 @@ type IDRSupportCardProps = {
 }
 
 function DRSupportCard(props: IDRSupportCardProps) {
-    const theme = useTheme();
     const { stars, title, month_price, year_price } = props;
 
     try {
@@ -169,8 +168,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
             </Card>
         );
     } catch (error) {
-        logError("DRSupportCard", error)
-        return <div style={{ color: theme.palette.error.main }}>DRSupportCard error</div>
+        return <DRErrorComponent error={error} text={"DRSupportCard"} />
     }
 }
 

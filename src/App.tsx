@@ -1,7 +1,8 @@
-import { GlobalStyles, ThemeProvider, createTheme } from '@mui/material';
+import { CssVarsProvider } from '@mui/joy/styles';
+import { GlobalStyles } from '@mui/material';
 import SignInSide from 'SignInSide';
 import axios from 'axios';
-import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
+import { IPageDRNavbar } from 'components/DRNavbar';
 import MarkdownPage from 'components/MarkdownPage';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
 import { SnackbarProvider } from 'notistack';
@@ -14,16 +15,8 @@ import Wiki from 'page/Wiki';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { geturlwebapi } from 'services/BaseRestService';
+import { theme } from 'theme';
 import './App.css';
-
-const darkTheme = createTheme({
-    // body: {
-    //     background: "black",
-    // },
-    palette: {
-        mode: 'dark',
-    },
-});
 
 axios.get(geturlwebapi() + "/discord/awakens").catch((err) => {
 })
@@ -48,19 +41,18 @@ function App() {
 
     return (
         <ErrorBoundary>
-            <ThemeProvider theme={darkTheme}>
+            <CssVarsProvider theme={theme}>
                 <GlobalStyles styles={{ h1: { color: 'white' }, h2: { color: 'white' }, body: { backgroundColor: '#6c4b73', } }} />
 
                 <BrowserRouter>
                     <RecoilRoot>
                         <SnackbarProvider maxSnack={3}>
-                            <DRNavbar
+                            {/* <DRNavbar
                                 pages={routes}
                                 supportPage={supportRoute}
                                 loginPage={loginRoute}
                                 extern_link={extern_link}
-                            // injectFirst 
-                            />
+                            /> */}
                             <Routes>
                                 {(routes).map((route) => (
                                     <Route key={route.title} path={route.path} element={route.element} />
@@ -74,7 +66,7 @@ function App() {
                         </SnackbarProvider>
                     </RecoilRoot>
                 </BrowserRouter>
-            </ThemeProvider>
+            </CssVarsProvider>
         </ErrorBoundary >
     );
 }

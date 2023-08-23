@@ -1,14 +1,14 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, useTheme } from '@mui/material';
+import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { Link, To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
-import { logError } from 'utility/Logger';
+import DRErrorComponent from './DRErrorComponent';
 
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
@@ -27,7 +27,6 @@ type IDRNavbarProps = {
 
 function DRNavbar(props: IDRNavbarProps) {
     const location = useLocation();
-    const theme = useTheme();
     let navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const { pages = [], supportPage, extern_link = [], loginPage } = props;
@@ -35,8 +34,8 @@ function DRNavbar(props: IDRNavbarProps) {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const transitionDuration = {
-        enter: theme.transitions.duration.enteringScreen,
-        exit: theme.transitions.duration.leavingScreen,
+        enter: 1,
+        exit: 1,
     };
 
     const handleOpenNavMenu = (event: any) => {
@@ -314,8 +313,7 @@ function DRNavbar(props: IDRNavbarProps) {
             </>
         );
     } catch (error) {
-        logError("DRNavbar", error)
-        return <div style={{ color: theme.palette.error.main }}>DRNavbar error</div>
+        return <DRErrorComponent error={error} text={"DRNavbar"} />
     }
 };
 

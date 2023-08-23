@@ -1,5 +1,5 @@
-import { Button, SxProps, useTheme } from '@mui/material';
-import { logError } from 'utility/Logger';
+import { Button, SxProps } from '@mui/material';
+import DRErrorComponent from './DRErrorComponent';
 
 interface IDRButtonProps {
     onClick?: () => void,
@@ -20,7 +20,6 @@ interface IDRButtonProps {
 }
 
 function DRButton(props: IDRButtonProps) {
-    const theme = useTheme();
     const {
         onClick,
         startIcon,
@@ -66,8 +65,7 @@ function DRButton(props: IDRButtonProps) {
             </Button>
         );
     } catch (error) {
-        logError("DRButton", error)
-        return <div style={{ color: theme.palette.error.main }}>DRButton error</div>
+        return <DRErrorComponent error={error} text={"DRButton"} />
     }
 }
 

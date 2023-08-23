@@ -2,7 +2,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Skeleton, Typography, useTheme } from '@mui/material';
+import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Skeleton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
@@ -13,8 +13,10 @@ import * as React from 'react';
 import { useEffect, useMemo, useState } from "react";
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import TranslationService from 'services/TranslationService';
+import { myUseTheme } from 'theme';
 import { logError } from 'utility/Logger';
 import DRButton from './DRButton';
+import DRErrorComponent from './DRErrorComponent';
 
 const columns: GridColDef<TranslationResultItem>[] = [
     {
@@ -154,7 +156,7 @@ type IDRTranslationGridProps = {
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const theme = useTheme();
+    const theme = myUseTheme()
     const { enqueueSnackbar } = useSnackbar();
     const { projectId, height = 350, rowHeight = 75 } = props
     const [data, setData] = useState<TranslationResult>()
@@ -178,7 +180,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     try {
         return (
             <>
-                <Card elevation={24} sx={{ maxWidth: 900, backgroundColor: error ? theme.palette.error.dark : null }}>
+                <Card elevation={24} sx={{ maxWidth: 900, backgroundColor: error ? theme.palette.danger[500] : null }}>
                     <CardHeader
                         action={
                             <>
@@ -243,8 +245,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         );
         // }
     } catch (error) {
-        logError("DRTranslationGrid", error)
-        return <div style={{ color: theme.palette.error.main }}>DRTranslationGrid error</div>
+        return <DRErrorComponent error={error} text={"DRTranslationGrid"} />
     }
 }
 

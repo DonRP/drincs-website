@@ -1,5 +1,5 @@
-import { Autocomplete, TextField, useTheme } from '@mui/material';
-import { logError } from 'utility/Logger';
+import { Autocomplete, TextField } from '@mui/material';
+import DRErrorComponent from './DRErrorComponent';
 
 type IDRAutocompleteProps = {
     id: string,
@@ -10,7 +10,6 @@ type IDRAutocompleteProps = {
 }
 
 function DRAutocomplete(props: IDRAutocompleteProps) {
-    const theme = useTheme();
     const { id, label, defaultValue, onChange, options } = props
 
     try {
@@ -29,8 +28,7 @@ function DRAutocomplete(props: IDRAutocompleteProps) {
             />
         )
     } catch (error) {
-        logError("DRAutocomplete", error)
-        return <div style={{ color: theme.palette.error.main }}>DRAutocomplete error</div>
+        return <DRErrorComponent error={error} text={"DRAutocomplete"} />
     }
 }
 

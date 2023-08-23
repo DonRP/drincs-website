@@ -1,6 +1,6 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import * as React from 'react';
-import { logError } from 'utility/Logger';
+import DRErrorComponent from './DRErrorComponent';
 
 type IDRDialogProps = {
     open: boolean,
@@ -11,7 +11,6 @@ type IDRDialogProps = {
 }
 
 function DRDialog(props: IDRDialogProps) {
-    const theme = useTheme();
     const { open = false, maxWidth = false, title, children, actions } = props;
 
     try {
@@ -31,8 +30,7 @@ function DRDialog(props: IDRDialogProps) {
             </Dialog>
         );
     } catch (error) {
-        logError("DRDialog", error)
-        return <div style={{ color: theme.palette.error.main }}>DRDialog error</div>
+        return <DRErrorComponent error={error} text={"DRDialog"} />
     }
 }
 

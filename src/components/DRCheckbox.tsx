@@ -1,6 +1,7 @@
-import { Checkbox, CheckboxProps, FormControlLabel, Typography, useTheme } from "@mui/material";
+import { Checkbox, CheckboxProps, FormControlLabel, Typography } from "@mui/material";
 import { SwitchBaseProps } from "@mui/material/internal/SwitchBase";
-import { logError } from "utility/Logger";
+import { myUseTheme } from "theme";
+import DRErrorComponent from "./DRErrorComponent";
 
 type IDRCheckBoxProps = {
     onChangeValue: (fieldName: string, value: boolean) => void;
@@ -13,8 +14,8 @@ type IDRCheckBoxProps = {
 } & CheckboxProps
 
 function DRCheckBox(props: IDRCheckBoxProps) {
+    const theme = myUseTheme()
     const { onChangeValue, errorFields, fieldName, label, error, labelPlacement, position = "left", ...rest } = props;
-    const theme = useTheme();
     const drCheckBoxOnChange: SwitchBaseProps['onChange'] = (event: React.ChangeEvent<HTMLInputElement>) => {
         onChangeValue(fieldName, event.target.checked)
     }
@@ -33,14 +34,13 @@ function DRCheckBox(props: IDRCheckBoxProps) {
                     name={fieldName}
                     onChange={drCheckBoxOnChange}
                 />}
-                label={<Typography color={(error || errorFields?.includes(fieldName)) ? theme.palette.error.main : ""}>
+                label={<Typography color={(error || errorFields?.includes(fieldName)) ? theme.palette.danger[500] : ""}>
                     {label}
                 </Typography>}
             />
         );
     } catch (error) {
-        logError("DRCheckBox", error)
-        return <div style={{ color: theme.palette.error.main }}>DRCheckBox error</div>
+        return <DRErrorComponent error={error} text={"DRCheckBox"} />
     }
 }
 
