@@ -63,6 +63,7 @@ const columns = [
                                 {params.value?.mediafire &&
                                     <DRButton
                                         marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
+                                        variant="outlined"
                                         startIcon={
                                             <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
                                         }
@@ -79,7 +80,7 @@ const columns = [
                                 {params.value?.mega &&
                                     <DRButton
                                         marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
-                                        variant="outlined"
+                                        variant='soft'
                                         startIcon={
                                             <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
                                         }
@@ -95,7 +96,7 @@ const columns = [
                                 {params.value?.discord &&
                                     <DRButton
                                         marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
-                                        variant="outlined"
+                                        variant='soft'
                                         startIcon={
                                             <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
                                         }
