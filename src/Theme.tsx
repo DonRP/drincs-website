@@ -18,8 +18,11 @@ export function MyTheme(props: MyThemeProps) {
     const materialTheme = materialExtendTheme();
 
     return (
-        <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
-            <JoyCssVarsProvider defaultMode="system" >
+        <MaterialCssVarsProvider
+            defaultMode="dark"
+            theme={{ [MATERIAL_THEME_ID]: materialTheme }}
+        >
+            <JoyCssVarsProvider defaultMode="dark" >
                 <GlobalStyles styles={{ h1: { color: 'white' }, h2: { color: 'white' }, body: { backgroundColor: '#6c4b73', } }} />
                 {props.children}
             </JoyCssVarsProvider>

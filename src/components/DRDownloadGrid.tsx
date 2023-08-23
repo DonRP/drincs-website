@@ -1,6 +1,4 @@
-import { Grid } from '@mui/joy';
-import { Card, CardHeader, CardMedia } from '@mui/material';
-import { Box } from '@mui/system';
+import { AspectRatio, Box, Card, Grid, Typography } from '@mui/joy';
 import { DataGrid } from '@mui/x-data-grid';
 import DRButton from './DRButton';
 import DRErrorComponent from './DRErrorComponent';
@@ -141,14 +139,19 @@ function DRDownloadGrid(props: IDRDownloadGridProps) {
 
     try {
         return (
-            <Card elevation={24} sx={{ minWidth: { xs: 470, sm: 600, md: 900 } }}>
-                <CardHeader
-                    title={title}
-                />
-                {logoImage && <CardMedia
-                    component="img"
-                    image={logoImage}
-                />}
+            <Card
+                // elevation={24} 
+                sx={{ minWidth: { xs: 470, sm: 600, md: 900 } }}
+            >
+                <Typography level="title-lg">{title}</Typography>
+                {logoImage &&
+                    <AspectRatio minHeight="120px" maxHeight="200px">
+                        <img
+                            src={logoImage}
+                            alt=""
+                        />
+                    </AspectRatio>
+                }
                 <div style={{ height: height, width: '100%' }}>
                     <DataGrid
                         rows={data}
