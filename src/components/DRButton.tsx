@@ -1,4 +1,4 @@
-import { Button, useTheme } from '@mui/material';
+import { Button, SxProps, useTheme } from '@mui/material';
 import { logError } from 'utility/Logger';
 
 interface IDRButtonProps {
@@ -15,6 +15,8 @@ interface IDRButtonProps {
     variant?: 'text' | 'outlined' | 'contained'
     color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
     endIcon?: React.ReactNode
+    sx?: SxProps
+    size?: 'small' | 'medium' | 'large'
 }
 
 function DRButton(props: IDRButtonProps) {
@@ -33,6 +35,8 @@ function DRButton(props: IDRButtonProps) {
         variant = "contained",
         color = "primary",
         endIcon,
+        sx,
+        size = "large",
     } = props;
 
     try {
@@ -44,14 +48,15 @@ function DRButton(props: IDRButtonProps) {
                 variant={variant}
                 color={color}
                 disabled={disabled}
-                size="large"
+                size={size}
                 onClick={onClick}
                 startIcon={startIcon}
-                style={{
+                sx={{
                     marginTop: marginTop,
                     marginBottom: marginBottom,
                     marginLeft: marginLeft,
                     marginRight: marginRight,
+                    ...sx,
                 }}
                 endIcon={endIcon}
             >
