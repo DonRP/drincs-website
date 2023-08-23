@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Card } from '@mui/joy';
 import Grid from '@mui/joy/Grid';
+import { Card, CardMedia } from '@mui/material';
 import DRButton from 'components/DRButton';
 import { Link } from 'react-router-dom';
 import { analyticPageView } from 'utility/Analytics';
@@ -35,7 +35,7 @@ function About() {
     return (
         <>
             <Card
-                // elevation={24} 
+                elevation={24}
                 sx={{
                     backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
                     backgroundColor: "##000",
@@ -68,11 +68,10 @@ function About() {
                         }}
                     >
                         <Keyframes>
-                            <img
-                                src="/images/logo.webp"
-                                loading="lazy"
-                                alt=""
-                                style={{
+                            <CardMedia
+                                image={"/images/logo.webp"}
+                                component="img"
+                                sx={{
                                     maxWidth: 600,
                                 }}
                             />
