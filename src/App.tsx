@@ -1,7 +1,7 @@
 import SignInSide from 'SignInSide';
 import { MyTheme } from 'Theme';
 import axios from 'axios';
-import { IPageDRNavbar } from 'components/DRNavbar';
+import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
 import MarkdownPage from 'components/MarkdownPage';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
 import { SnackbarProvider } from 'notistack';
@@ -43,12 +43,12 @@ function App() {
                 <BrowserRouter>
                     <RecoilRoot>
                         <SnackbarProvider maxSnack={3}>
-                            {/* <DRNavbar
+                            <DRNavbar
                                 pages={routes}
                                 supportPage={supportRoute}
                                 loginPage={loginRoute}
                                 extern_link={extern_link}
-                            /> */}
+                            />
                             <Routes>
                                 {(routes).map((route) => (
                                     <Route key={route.title} path={route.path} element={route.element} />
