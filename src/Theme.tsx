@@ -1,4 +1,4 @@
-import { extendTheme, useTheme } from "@mui/joy";
+import { GlobalStyles, extendTheme, useTheme } from "@mui/joy";
 import { CssVarsProvider } from '@mui/joy/styles';
 
 export const myUseTheme = useTheme
@@ -25,6 +25,7 @@ export function MyTheme(props: MyThemeProps) {
 
     return (
         <CssVarsProvider theme={theme}>
+            <GlobalStyles styles={{ h1: { color: 'white' }, h2: { color: 'white' }, body: { backgroundColor: '#6c4b73', } }} />
             {props.children}
         </CssVarsProvider>
     );

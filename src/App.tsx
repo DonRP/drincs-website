@@ -1,4 +1,3 @@
-import { GlobalStyles } from '@mui/material';
 import SignInSide from 'SignInSide';
 import { MyTheme } from 'Theme';
 import axios from 'axios';
@@ -41,8 +40,6 @@ function App() {
     return (
         <ErrorBoundary>
             <MyTheme>
-                <GlobalStyles styles={{ h1: { color: 'white' }, h2: { color: 'white' }, body: { backgroundColor: '#6c4b73', } }} />
-
                 <BrowserRouter>
                     <RecoilRoot>
                         <SnackbarProvider maxSnack={3}>
