@@ -95,38 +95,19 @@ function About() {
                             >
                                 <DRButton
                                     key="support"
-                                    variant="contained"
                                     sx={{
                                         my: 2,
-                                        display: 'inline-table',
                                         backgroundColor: "gold",
                                         width: "40vh",
                                         height: "8vh",
                                         minHeight: "50px",
                                         minWidth: "170px",
-                                        fontSize: "3vh",
                                     }}
-                                    size="large"
+                                    startIcon={<FavoriteIcon />
+                                    }
                                 >
                                     <strong>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
-                                        >
-                                            <Grid  >
-                                                <FavoriteIcon sx={{
-                                                    fontSize: "4vh",
-                                                    minFontSize: "150px",
-                                                    marginTop: '8px',
-                                                }} />
-                                            </Grid>
-                                            <Grid  >
-                                                Support
-                                            </Grid>
-                                        </Grid>
+                                        Support
                                     </strong>
                                 </DRButton>
                             </Link>
@@ -138,38 +119,17 @@ function About() {
                             >
                                 <DRButton
                                     key="download"
-                                    variant="contained"
                                     sx={{
                                         my: 2,
-                                        display: 'inline-table',
                                         width: "40vh",
                                         height: "8vh",
                                         minHeight: "50px",
                                         minWidth: "170px",
-                                        fontSize: "3vh",
-                                        minFontSize: "150px",
                                     }}
-                                    size="large"
+                                    endIcon={<DownloadIcon />}
                                 >
                                     <strong>
-                                        <Grid
-                                            container
-                                            direction="row"
-                                            justifyContent="center"
-                                            alignItems="center"
-                                            spacing={{ xs: 0, sm: 1, md: 2, lg: 4 }}
-                                        >
-                                            <Grid  >
-                                                <DownloadIcon sx={{
-                                                    fontSize: "4vh",
-                                                    minFontSize: "150px",
-                                                    marginTop: '8px',
-                                                }} />
-                                            </Grid>
-                                            <Grid  >
-                                                Download
-                                            </Grid>
-                                        </Grid>
+                                        Download
                                     </strong>
                                 </DRButton>
                             </Link>

@@ -1,5 +1,5 @@
 import { Button } from '@mui/joy';
-import { SxProps } from '@mui/joy/styles/types';
+import { ColorPaletteProp, SxProps, VariantProp } from '@mui/joy/styles/types';
 import DRErrorComponent from './DRErrorComponent';
 
 interface IDRButtonProps {
@@ -13,11 +13,11 @@ interface IDRButtonProps {
     marginLeft?: number,
     marginRight?: number,
     fullWidth?: boolean
-    variant?: 'text' | 'outlined' | 'contained'
-    color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+    variant?: VariantProp
+    color?: ColorPaletteProp
     endIcon?: React.ReactNode
     sx?: SxProps
-    size?: 'small' | 'medium' | 'large'
+    size?: 'sm' | 'md' | 'lg'
 }
 
 function DRButton(props: IDRButtonProps) {
@@ -32,11 +32,11 @@ function DRButton(props: IDRButtonProps) {
         marginLeft = 2,
         marginRight = 2,
         fullWidth = true,
-        variant = "contained",
+        variant = "solid",
         color = "primary",
         endIcon,
         sx,
-        size = "large",
+        size = "lg",
     } = props;
 
     try {
@@ -45,12 +45,11 @@ function DRButton(props: IDRButtonProps) {
                 fullWidth={fullWidth}
                 aria-label={ariaLabel}
                 title={ariaLabel}
-                // variant={variant}
-                // color={color}
+                variant={variant}
+                color={color}
                 disabled={disabled}
-                // size={size}
+                size={size}
                 onClick={onClick}
-                // startIcon={startIcon}
                 sx={{
                     marginTop: marginTop,
                     marginBottom: marginBottom,
@@ -58,7 +57,8 @@ function DRButton(props: IDRButtonProps) {
                     marginRight: marginRight,
                     ...sx,
                 }}
-            // endIcon={endIcon}
+                startDecorator={startIcon}
+                endDecorator={endIcon}
             >
                 <strong>
                     {children}

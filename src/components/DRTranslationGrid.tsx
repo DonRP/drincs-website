@@ -191,7 +191,6 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                     <HelpOutlineIcon />
                                 </IconButton>
                                 <DRButton
-                                    variant="contained"
                                     color="primary"
                                     fullWidth={false}
                                     marginLeft={16}

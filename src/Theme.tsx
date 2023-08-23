@@ -19,7 +19,7 @@ export function MyTheme(props: MyThemeProps) {
 
     return (
         <MaterialCssVarsProvider theme={{ [MATERIAL_THEME_ID]: materialTheme }}>
-            <JoyCssVarsProvider>
+            <JoyCssVarsProvider defaultMode="system" >
                 <GlobalStyles styles={{ h1: { color: 'white' }, h2: { color: 'white' }, body: { backgroundColor: '#6c4b73', } }} />
                 {props.children}
             </JoyCssVarsProvider>
