@@ -34,8 +34,8 @@ function DRNavbar(props: IDRNavbarProps) {
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const transitionDuration = {
-        enter: 1,
-        exit: 1,
+        enter: 1, // theme.transitions.duration.enteringScreen,
+        exit: 1, // theme.transitions.duration.leavingScreen,
     };
 
     const handleOpenNavMenu = (event: any) => {
