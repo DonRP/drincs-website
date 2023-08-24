@@ -157,18 +157,13 @@ function Login(props: ISignInSidePageProps) {
                     />
                 </>}
 
-                <Grid container>
-                    <Grid>
-                        <Link
-                            // variant="body2"
-                            onClick={() => {
-                                setOpenChangePassword(!openChangePassword)
-                            }}
-                        >
-                            {openChangePassword ? "Back to login" : "Forgot your password? Reset password"}
-                        </Link>
-                    </Grid>
-                </Grid>
+                <Link
+                    onClick={() => {
+                        setOpenChangePassword(!openChangePassword)
+                    }}
+                >
+                    {openChangePassword ? "Back to login" : "Forgot your password? Reset password"}
+                </Link>
             </>
         );
     } catch (error) {
