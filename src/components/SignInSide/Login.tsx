@@ -62,6 +62,9 @@ function Login(props: ISignInSidePageProps) {
                 setLoading(false)
             })
         }
+        else {
+            setLoading(false)
+        }
     };
 
     const handelResetPassword = () => {
@@ -77,6 +80,9 @@ function Login(props: ISignInSidePageProps) {
             }).catch(() => {
                 setLoading(false)
             })
+        }
+        else {
+            setLoading(false)
         }
     };
 

@@ -49,6 +49,9 @@ function SignUp(props: ISignInSidePageProps) {
                 setLoading(false)
             })
         }
+        else {
+            setLoading(false)
+        }
     };
 
     if (!emailVerification) {
