@@ -5,8 +5,8 @@ import DRErrorComponent from './DRErrorComponent';
 
 const columns = [
     {
-        field: 'device',
-        headerName: 'Device',
+        field: 'description',
+        headerName: 'Description',
         flex: 1,
         minWidth: 25,
         renderCell: (params: any) => (
@@ -21,19 +21,6 @@ const columns = [
                         {params.value?.name}
                     </>
                 }
-            </strong >
-        ),
-    },
-    {
-        field: 'version',
-        headerName: 'Version',
-        flex: 1,
-        minWidth: 25,
-        renderCell: (params: any) => (
-            <strong>
-                <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                    {params.value}
-                </Box>
             </strong >
         ),
     },
@@ -114,10 +101,10 @@ type IReportLink = {
     discord?: boolean,
     sha?: string,
 }
-type IReportGridRow = {
+export type IReportGridRow = {
     id: number,
-    device: { name: string, element?: JSX.Element }
-    version: string,
+    title: string
+    description: string
     download: IReportLink,
 }
 type IDRReportGridProps = {
@@ -151,6 +138,9 @@ function DRReportGrid(props: IDRReportGridProps) {
                         rows={data}
                         columns={columns}
                         rowHeight={rowHeight}
+                        hideFooter
+                        hideFooterPagination
+                        hideFooterSelectedRowCount
                     />
                 </div>
             </Card>
