@@ -113,7 +113,7 @@ function SignUp(props: ISignInSidePageProps) {
                 label="I want to receive inspiration, marketing promotions and updates via email."
             /> */}
                 <DRButtonSignInSide
-                    title='Sign Up'
+                    label='Sign Up'
                     onClick={handelSignUp}
                     loading={loading}
                 />

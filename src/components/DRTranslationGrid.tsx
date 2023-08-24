@@ -55,7 +55,7 @@ const columns: GridColDef<TranslationResultItem>[] = [
             <strong>
                 {params.value &&
                     <DRButton
-                        title={params.value?.version}
+                        label={params.value?.version}
                         color="primary"
                         size="sm"
                         marginLeft={0}
@@ -207,7 +207,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                 <HelpOutlineIcon />
                             </IconButton>
                             <DRButton
-                                title='Translate'
+                                label='Translate'
                                 color="primary"
                                 fullWidth={false}
                                 marginLeft={16}

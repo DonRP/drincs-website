@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 
 export interface IDRButtonProps {
-    title: string,
+    label: string,
     onClick?: () => void,
     startIcon?: React.ReactNode,
     children?: ReactNode,
@@ -26,7 +26,7 @@ export interface IDRButtonProps {
 
 function DRButton(props: IDRButtonProps) {
     const {
-        title,
+        label,
         onClick,
         startIcon,
         children,
@@ -70,7 +70,7 @@ function DRButton(props: IDRButtonProps) {
                 autoFocus={autoFocus}
             >
                 <strong>
-                    {title}
+                    {label}
                     {children}
                 </strong>
             </Button>

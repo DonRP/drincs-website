@@ -95,7 +95,7 @@ function About() {
                             >
                                 <DRButton
                                     key="support"
-                                    title='Support'
+                                    label='Support'
                                     sx={{
                                         my: 2,
                                         backgroundColor: "gold",
@@ -115,7 +115,7 @@ function About() {
                             >
                                 <DRButton
                                     key="download"
-                                    title='Download'
+                                    label='Download'
                                     sx={{
                                         my: 2,
                                         width: "40vh",

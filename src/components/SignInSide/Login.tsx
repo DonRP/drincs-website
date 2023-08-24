@@ -133,7 +133,7 @@ function Login(props: ISignInSidePageProps) {
                         onChangeValue={(fieldName, value) => setRememberMe(value)}
                     />
                     <DRButtonSignInSide
-                        title='Sign In'
+                        label='Sign In'
                         onClick={handelLogin}
                         loading={loading}
                     />
@@ -165,7 +165,7 @@ function Login(props: ISignInSidePageProps) {
                         errorFields={errorFields}
                     />
                     <DRButtonSignInSide
-                        title='Send email'
+                        label='Send email'
                         onClick={handelResetPassword}
                         loading={loading}
                     />

@@ -1,4 +1,4 @@
-import { Alert, Box, Card, Grid, Stack, Tab, TabList, Tabs } from "@mui/joy";
+import { Alert, Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
 import DRSupportCard from "components/DRSupportCard";
 import DRTable from "components/DRTable";
 import { ReactElement } from "react-markdown/lib/react-markdown";
@@ -121,18 +121,18 @@ function Support() {
                                 <Tab value={3}>Ultra</Tab>
                                 <Tab value={4}>VIP</Tab>
                             </TabList>
+                            {data.map((item, index) => {
+                                return <TabPanel value={index}>
+                                    {item.card}
+                                    <DRTable
+                                        titles={["Discord Role", "Private News", "Voting Power"]}
+                                        data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
+                                        toMirrorAcrossDiagonal
+                                    />
+                                </TabPanel>
+                            })}
                         </Tabs>
                     </Box>
-                    {/* {data.map((item, index) => {
-                        return <TabPanel value={index}>
-                            {item.card}
-                            <DRTable
-                                titles={["Discord Role", "Private News", "Voting Power"]}
-                                data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
-                                toMirrorAcrossDiagonal
-                            />
-                        </TabPanel>
-                    })} */}
                 </Card>
             </Grid>
         </>

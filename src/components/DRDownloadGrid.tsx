@@ -60,7 +60,7 @@ const columns = [
                             <Grid>
                                 {params.value?.mediafire &&
                                     <DRButtonNoMargin
-                                        title='Mediafire'
+                                        label='Mediafire'
                                         variant="outlined"
                                         startIcon={
                                             <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
@@ -75,7 +75,7 @@ const columns = [
                             <Grid>
                                 {params.value?.mega &&
                                     <DRButtonNoMargin
-                                        title='Mega'
+                                        label='Mega'
                                         variant='soft'
                                         startIcon={
                                             <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
@@ -89,7 +89,7 @@ const columns = [
                             <Grid>
                                 {params.value?.discord &&
                                     <DRButtonNoMargin
-                                        title='Discord - Supporter'
+                                        label='Discord - Supporter'
                                         variant='soft'
                                         startIcon={
                                             <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
