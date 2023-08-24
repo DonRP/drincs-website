@@ -1,8 +1,8 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Grid, Typography } from '@mui/joy';
-import { ISignInSidePageProps } from 'SignInSide';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
 import { showMessage } from 'services/BaseRestService';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";

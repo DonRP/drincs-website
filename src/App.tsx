@@ -1,4 +1,3 @@
-import SignInSide from 'SignInSide';
 import { MyTheme } from 'Theme';
 import axios from 'axios';
 import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
@@ -8,6 +7,7 @@ import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
 import Download from 'page/Download';
 import Report from 'page/Report';
+import SignInSide from 'page/SignInSide';
 import Support from 'page/Support';
 import Translations from 'page/Translations';
 import Wiki from 'page/Wiki';

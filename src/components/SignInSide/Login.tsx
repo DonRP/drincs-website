@@ -1,8 +1,8 @@
 import { Grid, Link, Typography } from '@mui/joy';
-import { ISignInSidePageProps } from 'SignInSide';
 import DRErrorComponent from 'components/DRErrorComponent';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
+import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { showMessage } from 'services/BaseRestService';

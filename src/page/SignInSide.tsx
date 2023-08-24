@@ -4,7 +4,8 @@ import SignUp from "components/SignInSide/SignUp";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
 import { useState } from "react";
 import AuthService, { isLoggedIn } from "services/AuthService";
-import Copyright from "./components/Copyright";
+import { analyticPageView } from "utility/Analytics";
+import Copyright from "../components/Copyright";
 
 export type ISignInSidePageProps = {
     authService: AuthService,
@@ -12,6 +13,8 @@ export type ISignInSidePageProps = {
 }
 
 function SignInSide() {
+    analyticPageView("SignInSide")
+
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const { enqueueSnackbar } = useSnackbar();
     const authService = new AuthService(enqueueSnackbar);
