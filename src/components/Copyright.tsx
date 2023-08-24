@@ -1,14 +1,18 @@
-import { Link, Typography } from "@mui/material";
+import { Link, Typography } from "@mui/joy";
 
 function Copyright() {
     return (
-        <Typography variant="body2" color="textSecondary" align="center">
+        <Typography
+            textColor={"text.secondary"}
+        >
             {"Copyright © "}
-            <Link color="inherit" href="https://github.com/DRincs-Productions/drincs-website">
+            <Link
+                textColor={"text.secondary"}
+                href="https://github.com/DRincs-Productions/drincs-website"
+            >
                 DRincs WebSite
             </Link>{" "}
             {new Date().getFullYear()}
-            {"."}
         </Typography>
     );
 }
