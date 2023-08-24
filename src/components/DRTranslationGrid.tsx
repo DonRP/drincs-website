@@ -240,6 +240,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             <AspectRatio minHeight={200} maxHeight={250}>
                                 <img
                                     src={data.logo}
+                                    alt=''
                                 />
                             </AspectRatio>
                         </CardActionArea>

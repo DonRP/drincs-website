@@ -1,4 +1,4 @@
-import { Card } from "@mui/material";
+import { Card } from "@mui/joy";
 import { useEffect, useState } from "react";
 import { ElementContent, TransformLink } from "react-markdown/lib/ast-to-react";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
@@ -24,13 +24,15 @@ function MarkdownCard(props: IMarkdownCardProps) {
     }, [url]);
 
     return (
-        <Card elevation={24}
+        <Card
+            // elevation={24}
             sx={{
                 maxWidth: 1000,
                 minWidth: minWidth,
                 paddingX: 4,
                 paddingY: 2,
-            }}>
+            }}
+        >
             <ReactMarkdown
                 children={text}
                 remarkPlugins={[remarkGfm]}
