@@ -1,6 +1,6 @@
 import { AspectRatio, Box, Card, Grid, Typography } from '@mui/joy';
 import { DataGrid } from '@mui/x-data-grid';
-import DRButton from './DRButton';
+import { DRButtonNoMargin } from './DRButton';
 import DRErrorComponent from './DRErrorComponent';
 
 const columns = [
@@ -59,8 +59,8 @@ const columns = [
                         >
                             <Grid>
                                 {params.value?.mediafire &&
-                                    <DRButton
-                                        marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
+                                    <DRButtonNoMargin
+                                        title='Mediafire'
                                         variant="outlined"
                                         startIcon={
                                             <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
@@ -69,15 +69,13 @@ const columns = [
                                             window.open(params.value?.mediafire)
                                         }}
                                         color='success'
-                                    >
-                                        Mediafire
-                                    </DRButton>
+                                    />
                                 }
                             </Grid>
                             <Grid>
                                 {params.value?.mega &&
-                                    <DRButton
-                                        marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
+                                    <DRButtonNoMargin
+                                        title='Mega'
                                         variant='soft'
                                         startIcon={
                                             <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
@@ -85,15 +83,13 @@ const columns = [
                                         onClick={() => {
                                             window.open(params.value?.mega)
                                         }}
-                                    >
-                                        Mega
-                                    </DRButton>
+                                    />
                                 }
                             </Grid>
                             <Grid>
                                 {params.value?.discord &&
-                                    <DRButton
-                                        marginBottom={0} marginTop={0} marginLeft={0} marginRight={0}
+                                    <DRButtonNoMargin
+                                        title='Discord - Supporter'
                                         variant='soft'
                                         startIcon={
                                             <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
@@ -101,9 +97,7 @@ const columns = [
                                         onClick={() => {
                                             window.open("https://discord.gg/HFfeJKR")
                                         }}
-                                    >
-                                        Discord - Supporter
-                                    </DRButton>
+                                    />
                                 }
                             </Grid>
                         </Grid>

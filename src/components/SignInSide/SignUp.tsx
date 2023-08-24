@@ -1,13 +1,13 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Grid, Typography } from '@mui/joy';
 import { ISignInSidePageProps } from 'SignInSide';
-import DRLoadingButton from 'components/DRLoadingButton';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { useState } from 'react';
 import { showMessage } from 'services/BaseRestService';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import DRButtonSignInSide from './DRButtonSignInSide';
 
 function SignUp(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -109,8 +109,8 @@ function SignUp(props: ISignInSidePageProps) {
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
             /> */}
-                <DRLoadingButton
-                    titleButton='Sign Up'
+                <DRButtonSignInSide
+                    title='Sign Up'
                     onClick={handelSignUp}
                     loading={loading}
                 />

@@ -135,6 +135,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         </Grid2>
                         <Grid2 xs={12}>
                             <DRButton
+                                title='Patreon'
                                 ariaLabel='8% retained by Patreon'
                                 marginTop={0}
                                 marginBottom={0}
@@ -150,6 +151,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         </Grid2>
                         <Grid2 xs={12}>
                             <DRButton
+                                title='Buy Me A Coffe'
                                 ariaLabel='0% retained by BuyMeACoffe'
                                 marginTop={0}
                                 marginBottom={0}

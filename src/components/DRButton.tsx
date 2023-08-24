@@ -1,11 +1,13 @@
 import { Button } from '@mui/joy';
 import { ColorPaletteProp, SxProps, VariantProp } from '@mui/joy/styles/types';
+import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 
-interface IDRButtonProps {
+export interface IDRButtonProps {
+    title: string,
     onClick?: () => void,
     startIcon?: React.ReactNode,
-    children: any,
+    children?: ReactNode,
     disabled?: boolean,
     ariaLabel?: string,
     marginTop?: number,
@@ -18,10 +20,13 @@ interface IDRButtonProps {
     endIcon?: React.ReactNode
     sx?: SxProps
     size?: 'sm' | 'md' | 'lg'
+    loading?: boolean
+    autoFocus?: boolean
 }
 
 function DRButton(props: IDRButtonProps) {
     const {
+        title,
         onClick,
         startIcon,
         children,
@@ -37,6 +42,8 @@ function DRButton(props: IDRButtonProps) {
         endIcon,
         sx,
         size = "lg",
+        loading,
+        autoFocus,
     } = props;
 
     try {
@@ -59,8 +66,11 @@ function DRButton(props: IDRButtonProps) {
                 }}
                 startDecorator={startIcon}
                 endDecorator={endIcon}
+                loading={loading}
+                autoFocus={autoFocus}
             >
                 <strong>
+                    {title}
                     {children}
                 </strong>
             </Button>
@@ -69,5 +79,18 @@ function DRButton(props: IDRButtonProps) {
         return <DRErrorComponent error={error} text={"DRButton"} />
     }
 }
+
+export function DRButtonNoMargin(props: IDRButtonProps) {
+    return (
+        <DRButton
+            marginBottom={0}
+            marginLeft={0}
+            marginRight={0}
+            marginTop={0}
+            {...props}
+        />
+    );
+}
+
 
 export default DRButton;

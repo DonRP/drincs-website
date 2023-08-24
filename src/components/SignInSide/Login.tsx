@@ -1,7 +1,6 @@
 import { Grid, Link, Typography } from '@mui/joy';
 import { ISignInSidePageProps } from 'SignInSide';
 import DRErrorComponent from 'components/DRErrorComponent';
-import DRLoadingButton from 'components/DRLoadingButton';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { useState } from 'react';
@@ -10,6 +9,7 @@ import { showMessage } from 'services/BaseRestService';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
+import DRButtonSignInSide from './DRButtonSignInSide';
 
 function Login(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -126,18 +126,26 @@ function Login(props: ISignInSidePageProps) {
                         checked={rememberMe}
                         onChangeValue={(fieldName, value) => setRememberMe(value)}
                     />
-                    <DRLoadingButton
-                        titleButton='Sign In'
+                    <DRButtonSignInSide
+                        title='Sign In'
                         onClick={handelLogin}
                         loading={loading}
                     />
                 </>}
                 {openChangePassword && <>
-                    <Typography
-                        component="h1"
+                    <Grid container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
                     >
-                        {"Reset Password"}
-                    </Typography>
+                        <Grid>
+                            <Typography
+                                component="h1"
+                            >
+                                {"Reset Password"}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                     <DRTextField
                         fieldName="email"
                         label="Email"
@@ -150,8 +158,8 @@ function Login(props: ISignInSidePageProps) {
                         autoFocus
                         errorFields={errorFields}
                     />
-                    <DRLoadingButton
-                        titleButton='Send email'
+                    <DRButtonSignInSide
+                        title='Send email'
                         onClick={handelResetPassword}
                         loading={loading}
                     />
