@@ -1,5 +1,6 @@
 import EditIcon from '@mui/icons-material/Edit';
-import { Fab, Grid } from "@mui/material";
+import { Grid } from '@mui/joy';
+import { Fab } from '@mui/material';
 import MarkdownCard from "components/MarkdownCard";
 import { ElementContent } from "react-markdown/lib/ast-to-react";
 import { analyticPageView } from "utility/Analytics";
@@ -53,10 +54,10 @@ function Wiki(props: WikiProps) {
                 marginBottom={5}
             >
 
-                <Grid item xs={1}
+                <Grid xs={1}
                     sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
                 />
-                <Grid item xs={2}
+                <Grid xs={2}
                     sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
                 >
                     <MarkdownCard
@@ -65,13 +66,13 @@ function Wiki(props: WikiProps) {
                         transformLinkUri={transformLinkUri}
                     />
                 </Grid>
-                <Grid item xs={7}>
+                <Grid xs={7}>
                     <MarkdownCard
                         markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${route}.md`}
                         transformLinkUri={transformLinkUri}
                     />
                 </Grid>
-                <Grid item xs={12}
+                <Grid xs={12}
                     sx={{ flexGrow: 1, display: { xs: 'grid', md: 'none' } }}
                 >
                     <MarkdownCard
@@ -80,7 +81,7 @@ function Wiki(props: WikiProps) {
                         transformLinkUri={transformLinkUri}
                     />
                 </Grid>
-                <Grid item xs={2}
+                <Grid xs={2}
                     sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
                 />
             </Grid>
