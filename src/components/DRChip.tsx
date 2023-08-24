@@ -1,12 +1,13 @@
-import { Chip } from '@mui/joy';
+import { Chip, Tooltip } from '@mui/joy';
 import { SxProps } from '@mui/joy/styles/types';
 import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 
 export interface IDRChipProps {
     label: string,
-    children?: ReactNode,
+    children?: ReactNode
     sx?: SxProps
+    ariaLabel?: string
 }
 
 function DRChip(props: IDRChipProps) {
@@ -14,16 +15,22 @@ function DRChip(props: IDRChipProps) {
         label,
         children,
         sx,
+        ariaLabel
     } = props;
 
     try {
         return (
-            <Chip
-                sx={sx}
+            <Tooltip
+                title={ariaLabel}
             >
-                {label}
-                {children}
-            </Chip>
+
+                <Chip
+                    sx={sx}
+                >
+                    {label}
+                    {children}
+                </Chip>
+            </Tooltip>
         );
     } catch (error) {
         return <DRErrorComponent error={error} text={"DRChip"} />

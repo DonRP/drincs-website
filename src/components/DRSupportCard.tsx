@@ -1,9 +1,10 @@
 import InfoIcon from '@mui/icons-material/Info';
-import { Alert, Card, CardActions, CardContent, Grid, IconButton, Typography } from '@mui/joy';
+import { Alert, Card, CardActions, CardContent, Grid, Typography } from '@mui/joy';
 import { Rating } from '@mui/material';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
+import DRIconButton from './DRIconButton';
 
 type IDRSupportCardProps = {
     stars: number;
@@ -62,6 +63,9 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         direction="column"
                         justifyContent="flex-start"
                         alignItems="start"
+                        sx={{
+                            marginLeft: 2,
+                        }}
                     >
                         <Grid
                             container
@@ -115,14 +119,10 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 </Typography>
                             </Grid>
                             <Grid>
-                                <IconButton
-                                    color="primary"
-                                    aria-label="Annual price is only for sites where it is available"
-                                    title="Annual price is only for sites where it is available"
-                                    size="sm"
-                                >
-                                    <InfoIcon />
-                                </IconButton>
+                                <DRIconButton
+                                    ariaLabel="Annual price is only for sites where it is available"
+                                    icon={<InfoIcon />}
+                                />
                             </Grid>
                             {/* <Grid>
                                 <Typography variant="body2" align="left">
@@ -147,7 +147,6 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         <Grid xs={12}>
                             <DRButtonNoMargin
                                 label='BuyMeACoffe'
-                                ariaLabel='0% retained by BuyMeACoffe'
                                 marginTop={0}
                                 marginBottom={0}
                                 onClick={() => {
@@ -156,6 +155,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 endIcon={
                                     <DRChip
                                         label="0%"
+                                        ariaLabel='0% retained by BuyMeACoffe'
                                         sx={{ color: "green" }}
                                     />
                                 }
@@ -181,13 +181,13 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         <Grid xs={12}>
                             <DRButtonNoMargin
                                 label='Patreon'
-                                ariaLabel='8% retained by Patreon'
                                 onClick={() => {
                                     window.open("https://www.patreon.com/DRincs")
                                 }}
                                 endIcon={
                                     <DRChip
                                         label="8%"
+                                        ariaLabel='8% retained by Patreon'
                                         sx={{ color: "red" }}
                                     />
                                 }
