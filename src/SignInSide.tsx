@@ -1,4 +1,5 @@
-import { Avatar, Box, CssBaseline, Grid, Link, Paper } from "@mui/material";
+import { Avatar, Box, CssBaseline, Grid, Link } from "@mui/joy";
+import { Paper } from "@mui/material";
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
@@ -17,7 +18,9 @@ function SignInSide() {
     const authService = new AuthService(enqueueSnackbar);
 
     return (
-        <Grid container component="main"
+        <Grid
+            container
+            component="main"
             style={{
                 height: "100vh",
                 backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
@@ -42,7 +45,6 @@ function SignInSide() {
                 //     display: "flex",
                 //     flexDirection: "column",
                 // }}
-                item
                 xs={12}
                 sm={8}
                 md={5}
@@ -63,34 +65,35 @@ function SignInSide() {
                 >
                     <Avatar
                         src="logo512.png"
-                        sizes="large"
+                        size="lg"
                         sx={{ width: 56, height: 56, marginBottom: 2 }}
                     />
 
 
-                    {isLoggedIn() ? "You are already logged in" :
-                        <>
-                            {isLogin ? <Login authService={authService} enqueueSnackbar={enqueueSnackbar} /> : <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} />}
-                            <Grid container>
-                                <Grid item>
-                                    <Link variant="body2"
-                                        onClick={() => {
-                                            setIsLogin(!isLogin)
-                                        }}
-                                    >
-                                        {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign in"}
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                        </>
+                    {isLoggedIn() &&
+                        "You are already logged in"
                     }
-
-                    <Box
-                        mt={3}
-                    >
-                        <Copyright />
-                    </Box>
                 </div>
+                {!isLoggedIn() &&
+                    <>
+                        {isLogin ?
+                            <Login authService={authService} enqueueSnackbar={enqueueSnackbar} /> :
+                            <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} />
+                        }
+                        <Link
+                            onClick={() => {
+                                setIsLogin(!isLogin)
+                            }}
+                        >
+                            {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign in"}
+                        </Link>
+                    </>
+                }
+                <Box
+                    mt={3}
+                >
+                    <Copyright />
+                </Box>
             </Grid>
         </Grid>
     );

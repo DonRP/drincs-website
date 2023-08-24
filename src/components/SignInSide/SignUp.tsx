@@ -1,5 +1,5 @@
 import EmailIcon from '@mui/icons-material/Email';
-import { Typography } from "@mui/material";
+import { Grid, Typography } from '@mui/joy';
 import { ISignInSidePageProps } from 'SignInSide';
 import DRLoadingButton from 'components/DRLoadingButton';
 import DRTextField from "components/DRTextField";
@@ -54,9 +54,19 @@ function SignUp(props: ISignInSidePageProps) {
     if (!emailVerification) {
         return (
             <>
-                <Typography component="h1" variant="h5">
-                    {"Sign up"}
-                </Typography>
+                <Grid container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Grid>
+                        <Typography
+                            component="h1"
+                        >
+                            {"Sign up"}
+                        </Typography>
+                    </Grid>
+                </Grid>
                 <DRTextField
                     fieldName="displayName"
                     label="Username"

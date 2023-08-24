@@ -1,4 +1,4 @@
-import { Grid, Link, Typography } from '@mui/material';
+import { Grid, Link, Typography } from '@mui/joy';
 import { ISignInSidePageProps } from 'SignInSide';
 import DRErrorComponent from 'components/DRErrorComponent';
 import DRLoadingButton from 'components/DRLoadingButton';
@@ -84,9 +84,19 @@ function Login(props: ISignInSidePageProps) {
         return (
             <>
                 {!openChangePassword && <>
-                    <Typography component="h1" variant="h5">
-                        {"Sign in"}
-                    </Typography>
+                    <Grid container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Grid>
+                            <Typography
+                                component="h1"
+                            >
+                                {"Sign in"}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                     <DRTextField
                         fieldName="email"
                         label="Email"
@@ -123,7 +133,9 @@ function Login(props: ISignInSidePageProps) {
                     />
                 </>}
                 {openChangePassword && <>
-                    <Typography component="h1" variant="h5">
+                    <Typography
+                        component="h1"
+                    >
                         {"Reset Password"}
                     </Typography>
                     <DRTextField
@@ -146,8 +158,9 @@ function Login(props: ISignInSidePageProps) {
                 </>}
 
                 <Grid container>
-                    <Grid item>
-                        <Link variant="body2"
+                    <Grid>
+                        <Link
+                            // variant="body2"
                             onClick={() => {
                                 setOpenChangePassword(!openChangePassword)
                             }}
