@@ -151,6 +151,9 @@ function DRDownloadGrid(props: IDRDownloadGridProps) {
                         rows={data}
                         columns={columns}
                         rowHeight={rowHeight}
+                        hideFooter
+                        hideFooterPagination
+                        hideFooterSelectedRowCount
                     />
                 </div>
             </Card>
