@@ -82,6 +82,7 @@ function SignInSide() {
                     {!isLoggedIn() &&
                         <Grid
                             container
+                            direction="column"
                         >
                             <Grid>
                                 {isLogin ?

@@ -170,7 +170,7 @@ function Login(props: ISignInSidePageProps) {
                         setOpenChangePassword(!openChangePassword)
                     }}
                 >
-                    {openChangePassword ? "Back to login" : "Forgot your password? Reset password"}
+                    {openChangePassword ? "Already have an account? Back to login" : "Forgot your password? Reset password"}
                 </Link>
             </>
         );
