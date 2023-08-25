@@ -1,15 +1,15 @@
 import { Close } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/joy';
 import { Breakpoint, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import * as React from 'react';
+import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 
 type IDRDialogProps = {
     open: boolean,
     maxWidth?: Breakpoint | false,
     title: string,
-    children?: React.ReactNode,
-    actions?: React.ReactNode,
+    children?: ReactNode,
+    actions?: ReactNode,
     onClose?: () => void,
 }
 

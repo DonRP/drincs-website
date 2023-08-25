@@ -1,5 +1,9 @@
 import { Grid } from '@mui/joy';
+import { myUseTheme } from 'Theme';
+import DRAlert from 'components/DRAlert';
 import ReportGrid, { IReportGridRow } from 'components/Grid/ReportGrid';
+import DiscordIcon from 'components/Icon/DiscordIcon';
+import { discordLink } from 'constant';
 import { analyticPageView } from 'utility/Analytics';
 
 const rowsABFD: IReportGridRow[] = [
@@ -76,7 +80,8 @@ const rowsDiscord: IReportGridRow[] = [
 ];
 
 function Report() {
-    analyticPageView("Download")
+    const theme = myUseTheme()
+    analyticPageView("Report")
 
     return (
         <>
@@ -89,6 +94,11 @@ function Report() {
                 paddingBottom={3}
             >
                 <h2>Report</h2>
+                <DRAlert
+                    startDecorator={< DiscordIcon fill={theme.palette.logo.dicord} />}
+                >
+                    Before opening an <i>issue</i> it is recommended to talk about the <i>issue</i> first on <a href={discordLink + "/drincs-website/issues/38"}>Discord</a>
+                </DRAlert>
                 <ReportGrid
                     title="A Big Family in Debit"
                     data={rowsABFD}
@@ -108,6 +118,7 @@ function Report() {
                     githubLink='https://github.com/DRincs-Productions/drincs-discord-bot/issues/new/choose'
                 />
             </Grid>
+            {/* <ABFDBugForm /> */}
         </>
     );
 }

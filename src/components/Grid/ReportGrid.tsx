@@ -3,7 +3,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { DRButtonNoMargin } from 'components/DRButton';
-import DRGrid, { IDRGridBaseProps } from 'components/DRGrid';
+import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
 import DRIconButton from 'components/DRIconButton';
 
 type IReportLink = {
@@ -60,7 +60,7 @@ const columns: GridColDef<IReportGridRow>[] = [
                     {params.value?.website &&
                         <Grid>
                             <DRIconButton
-                                ariaLabel='Form'
+                                ariaLabel='Web Form'
                                 variant="soft"
                                 icon={<OpenInNewIcon />}
                                 onClick={params.value.website}
@@ -73,6 +73,7 @@ const columns: GridColDef<IReportGridRow>[] = [
                             <DRButtonNoMargin
                                 label='GitHub'
                                 variant='soft'
+                                ariaLabel='Requires a GitHub account'
                                 startIcon={<GitHubIcon />}
                                 onClick={() => {
                                     window.open(params.value?.github)
@@ -86,7 +87,7 @@ const columns: GridColDef<IReportGridRow>[] = [
     },
 ];
 
-interface IReportGridProps extends IDRGridBaseProps<IReportGridRow> {
+interface IReportGridProps extends IDRDataGridProps<IReportGridRow> {
     githubLink: string,
 }
 
@@ -101,7 +102,7 @@ function ReportGrid(props: IReportGridProps) {
     })
 
     return (
-        <DRGrid
+        <DRDataGrid
             title={title}
             data={internalData}
             columns={columns}

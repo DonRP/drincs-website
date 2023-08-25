@@ -1,6 +1,7 @@
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRGrid, { IDRGridBaseProps } from 'components/DRGrid';
+import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
+import { discordLink } from 'constant';
 import { DRButtonNoMargin } from '../DRButton';
 
 type IDownloadLink = {
@@ -112,7 +113,7 @@ const columns: GridColDef<IDownloadGridRow>[] = [
                                             <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
                                         }
                                         onClick={() => {
-                                            window.open("https://discord.gg/HFfeJKR")
+                                            window.open(discordLink)
                                         }}
                                     />
                                 }
@@ -126,14 +127,14 @@ const columns: GridColDef<IDownloadGridRow>[] = [
     },
 ];
 
-interface IDownloadGridProps extends IDRGridBaseProps<IDownloadGridRow> {
+interface IDownloadGridProps extends IDRDataGridProps<IDownloadGridRow> {
 }
 
 function DownloadGrid(props: IDownloadGridProps) {
     const { title, data, logoImage, height, rowHeight } = props;
 
     return (
-        <DRGrid
+        <DRDataGrid
             title={title}
             data={data}
             columns={columns}

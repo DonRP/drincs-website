@@ -1,4 +1,5 @@
 import { Link, Typography } from "@mui/joy";
+import { gitHubLink } from "constant";
 
 function Copyright() {
     return (
@@ -8,7 +9,7 @@ function Copyright() {
             {"Copyright © "}
             <Link
                 textColor={"text.secondary"}
-                href="https://github.com/DRincs-Productions/drincs-website"
+                href={gitHubLink + "/drincs-website"}
             >
                 DRincs WebSite
             </Link>{" "}

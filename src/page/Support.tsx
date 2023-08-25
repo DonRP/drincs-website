@@ -1,6 +1,8 @@
-import { Alert, Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
+import { Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
+import DRAlert from "components/DRAlert";
 import DRSupportCard from "components/DRSupportCard";
 import DRTable from "components/DRTable";
+import { gitHubLink } from "constant";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import { Link } from "react-router-dom";
 import { analyticPageView } from "utility/Analytics";
@@ -89,9 +91,15 @@ function Support() {
                         marginBottom: 2,
                     }}
                 >
-                    <Alert color="warning">The awards are still under development. For more information read: <a href="https://github.com/DRincs-Productions/drincs-website/issues/37">GitHub issue</a></Alert>
-                    <Alert color="primary">To get the rewards you will have to connect to Discord (information <Link to={"howtoconnectwithdiscord"}>here</Link>), or connect with the dedicated support page, es Patreon (<a href="https://github.com/DRincs-Productions/drincs-website/issues/38">under development</a>)</Alert>
-                    <Alert color="primary">The percentage next to the buttons is the percentage that will be retained by the support site. So the higher the percentage the more I'm going to lose out on it</Alert>
+                    <DRAlert color="warning">
+                        The awards are still under development. For more information read: <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
+                    </DRAlert>
+                    <DRAlert color="primary">
+                        To get the rewards you will have to connect to Discord (information <Link to={"howtoconnectwithdiscord"}>here</Link>), or connect with the dedicated support page, es Patreon (<a href={gitHubLink + "/drincs-website/issues/38"}>under development</a>)
+                    </DRAlert>
+                    <DRAlert color="primary">
+                        The percentage next to the buttons is the percentage that will be retained by the support site. So the higher the percentage the more I'm going to lose out on it
+                    </DRAlert>
                 </Stack>
                 {/* pc */}
                 <DRTable

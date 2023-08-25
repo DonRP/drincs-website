@@ -2,7 +2,7 @@ import { AspectRatio, Card, Typography } from '@mui/joy';
 import { DataGrid, GridColDef, GridValidRowModel } from '@mui/x-data-grid';
 import DRErrorComponent from './DRErrorComponent';
 
-export interface IDRGridBaseProps<T extends IDRGridData> {
+export interface IDRDataGridProps<T extends IData> {
     title: string,
     data: T[],
     logoImage?: string,
@@ -11,15 +11,15 @@ export interface IDRGridBaseProps<T extends IDRGridData> {
     hideFooter?: boolean,
 }
 
-interface IDRGridProps<T extends IDRGridData> extends IDRGridBaseProps<T> {
+interface IProps<T extends IData> extends IDRDataGridProps<T> {
     columns: GridColDef<T>[]
 }
 
-interface IDRGridData extends GridValidRowModel {
+interface IData extends GridValidRowModel {
     id?: number,
 }
 
-function DRGrid<T extends IDRGridData>(props: IDRGridProps<T>) {
+function DRDataGrid<T extends IData>(props: IProps<T>) {
     const { title, data, logoImage, height = 350, rowHeight = 75, columns, hideFooter } = props;
     let internalData = data.map(((d, index) => {
         d.id = index
@@ -62,4 +62,4 @@ function DRGrid<T extends IDRGridData>(props: IDRGridProps<T>) {
     }
 }
 
-export default DRGrid;
+export default DRDataGrid;

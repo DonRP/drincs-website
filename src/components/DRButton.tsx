@@ -1,4 +1,4 @@
-import { Button } from '@mui/joy';
+import { Button, Tooltip } from '@mui/joy';
 import { ColorPaletteProp, SxProps, VariantProp } from '@mui/joy/styles/types';
 import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
@@ -48,32 +48,35 @@ function DRButton(props: IDRButtonProps) {
 
     try {
         return (
-            <Button
-                fullWidth={fullWidth}
-                aria-label={ariaLabel}
+            <Tooltip
                 title={ariaLabel}
-                variant={variant}
-                color={color}
-                disabled={disabled}
-                size={size}
-                onClick={onClick}
-                sx={{
-                    marginTop: marginTop,
-                    marginBottom: marginBottom,
-                    marginLeft: marginLeft,
-                    marginRight: marginRight,
-                    ...sx,
-                }}
-                startDecorator={startIcon}
-                endDecorator={endIcon}
-                loading={loading}
-                autoFocus={autoFocus}
             >
-                <strong>
-                    {label}
-                    {children}
-                </strong>
-            </Button>
+                <Button
+                    fullWidth={fullWidth}
+                    title={ariaLabel}
+                    variant={variant}
+                    color={color}
+                    disabled={disabled}
+                    size={size}
+                    onClick={onClick}
+                    sx={{
+                        marginTop: marginTop,
+                        marginBottom: marginBottom,
+                        marginLeft: marginLeft,
+                        marginRight: marginRight,
+                        ...sx,
+                    }}
+                    startDecorator={startIcon}
+                    endDecorator={endIcon}
+                    loading={loading}
+                    autoFocus={autoFocus}
+                >
+                    <strong>
+                        {label}
+                        {children}
+                    </strong>
+                </Button>
+            </Tooltip>
         );
     } catch (error) {
         return <DRErrorComponent error={error} text={"DRButton"} />

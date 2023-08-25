@@ -2,6 +2,7 @@ import { MyTheme } from 'Theme';
 import axios from 'axios';
 import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
 import MarkdownPage from 'components/MarkdownPage';
+import { discordLink, gitHubLink } from 'constant';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
 import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
@@ -29,9 +30,9 @@ function App() {
         { title: "🐞bug/request", path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
-        { title: "💬discord", path: "https://discord.gg/HFfeJKR" },
+        { title: "💬discord", path: discordLink },
         {
-            title: "GitHub", path: "https://github.com/DRincs-Productions"
+            title: "GitHub", path: gitHubLink
         },
     ];
     const supportRoute = { title: "support me", path: "/support", element: <Support /> }
