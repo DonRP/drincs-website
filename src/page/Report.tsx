@@ -97,7 +97,7 @@ function Report() {
                 <DRAlert
                     startDecorator={< DiscordIcon fill={theme.palette.logo.dicord} />}
                 >
-                    Before opening an <i>issue</i> it is recommended to talk about the <i>issue</i> first on <a href={discordLink + "/drincs-website/issues/38"}>Discord</a>
+                    Before opening an <i>issue</i> it is recommended to talk about the <i>issue</i> first on <a href={discordLink}>Discord</a>
                 </DRAlert>
                 <ReportGrid
                     title="A Big Family in Debit"

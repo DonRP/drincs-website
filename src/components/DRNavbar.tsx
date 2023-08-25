@@ -10,6 +10,7 @@ import React from 'react';
 import { Link, To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
 import DRErrorComponent from './DRErrorComponent';
+import DRLogo from './String/DRLogo';
 
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
@@ -100,7 +101,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         color: "white",
                                     }}
                                 >
-                                    <strong>DR</strong>incs
+                                    <DRLogo />
                                 </Link>
                             </Typography>
                             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -230,7 +231,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         color: "white",
                                     }}
                                 >
-                                    <strong>DR</strong>incs
+                                    <DRLogo />
                                 </Link>
                             </Typography>
                             {!isLoggedIn() &&

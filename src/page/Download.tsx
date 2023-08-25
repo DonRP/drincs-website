@@ -47,8 +47,11 @@ const rowsABFD: IDownloadGridRow[] = [
                         <FolderZipIcon sx={{ fontSize: 40, display: { xs: 'flex', md: 'none' } }} />
                         <FolderZipIcon sx={{ fontSize: 30, display: { xs: 'none', md: 'flex' } }} />
                     </Grid>
-                    <Grid sx={{ fontSize: 15, display: { xs: 'none', md: 'flex' } }} >
+                    <Grid sx={{ fontSize: 15, display: { xs: 'none', lg: 'flex' } }} >
                         Windows/Linux Compress
+                    </Grid>
+                    <Grid sx={{ fontSize: 15, display: { xs: 'none', md: 'flex', lg: 'none' } }} >
+                        Compress
                     </Grid>
                     <Grid sx={{ fontSize: 10, display: { xs: 'flex', md: 'none' } }} >
                         Compress
