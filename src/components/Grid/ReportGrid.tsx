@@ -7,7 +7,7 @@ import DRGrid, { IDRGridBaseProps } from 'components/DRGrid';
 import DRIconButton from 'components/DRIconButton';
 
 type IReportLink = {
-    website?: string,
+    website?: () => void,
     github?: string,
 }
 
@@ -63,9 +63,7 @@ const columns: GridColDef<IReportGridRow>[] = [
                                 ariaLabel='Form'
                                 variant="soft"
                                 icon={<OpenInNewIcon />}
-                                onClick={() => {
-                                    window.open(params.value?.website)
-                                }}
+                                onClick={params.value.website}
                                 color='success'
                             />
                         </Grid>
