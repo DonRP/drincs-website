@@ -1,15 +1,28 @@
 import { AspectRatio, Box, Card, Grid, Typography } from '@mui/joy';
 import { DataGrid } from '@mui/x-data-grid';
-import { DRButtonNoMargin } from './DRButton';
-import DRErrorComponent from './DRErrorComponent';
+import { DRButtonNoMargin } from '../DRButton';
+import DRErrorComponent from '../DRErrorComponent';
 
-const columns = [
+type IDownloadLink = {
+    mega?: string,
+    mediafire?: string,
+    discord?: boolean,
+    sha?: string,
+}
+type IDownloadGridRow = {
+    id: number,
+    device: { name: string, element?: JSX.Element }
+    version: string,
+    download: IDownloadLink,
+}
+
+const columns: GridColDef<IReportGridRow>[] = [
     {
         field: 'device',
         headerName: 'Device',
         flex: 1,
         minWidth: 25,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
             <strong>
                 {params.value?.element &&
                     <>
@@ -29,7 +42,7 @@ const columns = [
         headerName: 'Version',
         flex: 1,
         minWidth: 25,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     {params.value}
@@ -41,7 +54,7 @@ const columns = [
         field: 'download',
         headerName: 'Download',
         minWidth: 350,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     <Grid
@@ -108,18 +121,7 @@ const columns = [
         ),
     },
 ];
-type IDownloadLink = {
-    mega?: string,
-    mediafire?: string,
-    discord?: boolean,
-    sha?: string,
-}
-type IDownloadGridRow = {
-    id: number,
-    device: { name: string, element?: JSX.Element }
-    version: string,
-    download: IDownloadLink,
-}
+
 type IDRDownloadGridProps = {
     title: string,
     data: IDownloadGridRow[],

@@ -7,8 +7,8 @@ const rowsABFD: IReportGridRow[] = [
         id: 0,
         title: "Bug report",
         description: "Create a report to help us improve",
-        download: {
-            mega: "https://mega.nz/file/b1tQnKjT#Q0WG8su9jv994F2Hn7u31_I9HkBpDP5afUCsa6lBCfk"
+        link: {
+            anonimus: "https://mega.nz/file/b1tQnKjT#Q0WG8su9jv994F2Hn7u31_I9HkBpDP5afUCsa6lBCfk"
         }
     },
 ];

@@ -1,34 +1,51 @@
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { AspectRatio, Box, Card, Grid, Typography } from '@mui/joy';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { DRButtonNoMargin } from './DRButton';
 import DRErrorComponent from './DRErrorComponent';
 
-const columns = [
+type IReportLink = {
+    website?: string,
+    github?: string,
+}
+
+type IReportInto = {
+    title: string
+    description: string
+}
+
+export type IReportGridRow = {
+    id: number,
+    info: IReportInto,
+    link: IReportLink,
+}
+
+const columns: GridColDef<IReportGridRow>[] = [
     {
-        field: 'description',
+        field: 'info',
         headerName: 'Description',
         flex: 1,
         minWidth: 25,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
             <strong>
-                {params.value?.element &&
+                {params.value?.title &&
                     <>
-                        {params.value?.element}
+                        {params.value?.title}
                     </>
                 }
-                {!params.value?.element &&
+                {!params.value?.description &&
                     <>
-                        {params.value?.name}
+                        {params.value?.description}
                     </>
                 }
             </strong >
         ),
     },
     {
-        field: 'download',
-        headerName: 'Download',
+        field: 'link',
+        headerName: 'Link',
         minWidth: 350,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<IReportGridRow, IReportLink>) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     <Grid
@@ -62,11 +79,9 @@ const columns = [
                             <Grid>
                                 {params.value?.mega &&
                                     <DRButtonNoMargin
-                                        label='Mega'
+                                        label='GitHub'
                                         variant='soft'
-                                        startIcon={
-                                            <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
-                                        }
+                                        startIcon={<GitHubIcon />}
                                         onClick={() => {
                                             window.open(params.value?.mega)
                                         }}
@@ -95,18 +110,7 @@ const columns = [
         ),
     },
 ];
-type IReportLink = {
-    mega?: string,
-    mediafire?: string,
-    discord?: boolean,
-    sha?: string,
-}
-export type IReportGridRow = {
-    id: number,
-    title: string
-    description: string
-    download: IReportLink,
-}
+
 type IDRReportGridProps = {
     title: string,
     data: IReportGridRow[],
