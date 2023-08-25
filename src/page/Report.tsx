@@ -103,7 +103,7 @@ function Report() {
                 />
                 <ReportGrid
                     title="Discord"
-                    data={rowsWebService}
+                    data={rowsDiscord}
                     height={208}
                     githubLink='https://github.com/DRincs-Productions/drincs-discord-bot/issues/new/choose'
                 />
