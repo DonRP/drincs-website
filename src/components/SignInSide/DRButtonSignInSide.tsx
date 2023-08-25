@@ -5,7 +5,6 @@ function DRButtonSignInSide(props: IDRButtonProps) {
         <DRButton
             fullWidth
             color="primary"
-            autoFocus
             marginTop={2}
             marginBottom={1}
             marginLeft={0}
