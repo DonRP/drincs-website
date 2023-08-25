@@ -97,15 +97,23 @@ const columns: GridColDef<IReportGridRow>[] = [
 ];
 
 interface IReportGridProps extends IDRGridBaseProps<IReportGridRow> {
+    githubLink: string,
 }
 
 function ReportGrid(props: IReportGridProps) {
-    const { title, data, logoImage, height, rowHeight } = props;
+    const { title, data, logoImage, height, rowHeight, githubLink } = props;
+
+    let internalData = data.map((d) => {
+        if (!d.link.github) {
+            d.link.github = githubLink;
+        }
+        return d;
+    })
 
     return (
         <DRGrid
             title={title}
-            data={data}
+            data={internalData}
             columns={columns}
             logoImage={logoImage}
             height={height}
