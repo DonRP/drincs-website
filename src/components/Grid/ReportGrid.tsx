@@ -60,7 +60,7 @@ const columns: GridColDef<IReportGridRow>[] = [
                     {params.value?.website &&
                         <Grid>
                             <DRIconButton
-                                ariaLabel='Web Form'
+                                ariaLabel='Open Web-Form'
                                 variant="soft"
                                 icon={<OpenInNewIcon />}
                                 onClick={params.value.website}

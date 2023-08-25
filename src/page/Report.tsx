@@ -3,83 +3,87 @@ import { myUseTheme } from 'Theme';
 import DRAlert from 'components/DRAlert';
 import ReportGrid, { IReportGridRow } from 'components/Grid/ReportGrid';
 import DiscordIcon from 'components/Icon/DiscordIcon';
+import ABFDBugForm from 'components/ReportForm/ABFDBugForm';
 import { discordLink } from 'constant';
+import { useState } from 'react';
 import { analyticPageView } from 'utility/Analytics';
-
-const rowsABFD: IReportGridRow[] = [
-    {
-        info: {
-            title: "Bug report",
-            description: "Create a report to help us improve",
-        },
-        link: {
-        }
-    },
-    {
-        info: {
-            title: "Feature request",
-            description: "Suggest an idea for this project",
-        },
-        link: {
-        }
-    },
-    {
-        info: {
-            title: "Writing or Translation",
-            description: "For issues relating to the Writing or Translation",
-        },
-        link: {
-        }
-    },
-    {
-        info: {
-            title: "New Quest-Mission",
-            description: "New Quest-Mission",
-        },
-        link: {
-        }
-    },
-];
-
-const rowsWebService: IReportGridRow[] = [
-    {
-        info: {
-            title: "Bug report",
-            description: "Create a report to help us improve",
-        },
-        link: {
-        }
-    },
-    {
-        info: {
-            title: "Feature request",
-            description: "Suggest an idea for this project",
-        },
-        link: {
-        }
-    },
-];
-
-const rowsDiscord: IReportGridRow[] = [
-    {
-        info: {
-            title: "Bug report",
-            description: "Create a report to help us improve",
-        },
-        link: {
-        }
-    },
-    {
-        info: {
-            title: "Feature request",
-            description: "Suggest an idea for this project",
-        },
-        link: {
-        }
-    },
-];
-
 function Report() {
+    const [openABFDBug, setOpenABFDBug] = useState(false)
+
+    const rowsABFD: IReportGridRow[] = [
+        {
+            info: {
+                title: "Bug report",
+                description: "Create a report to help us improve",
+            },
+            link: {
+                website: () => { setOpenABFDBug(true) },
+            }
+        },
+        {
+            info: {
+                title: "Feature request",
+                description: "Suggest an idea for this project",
+            },
+            link: {
+            }
+        },
+        {
+            info: {
+                title: "Writing or Translation",
+                description: "For issues relating to the Writing or Translation",
+            },
+            link: {
+            }
+        },
+        {
+            info: {
+                title: "New Quest-Mission",
+                description: "New Quest-Mission",
+            },
+            link: {
+            }
+        },
+    ];
+
+    const rowsWebService: IReportGridRow[] = [
+        {
+            info: {
+                title: "Bug report",
+                description: "Create a report to help us improve",
+            },
+            link: {
+            }
+        },
+        {
+            info: {
+                title: "Feature request",
+                description: "Suggest an idea for this project",
+            },
+            link: {
+            }
+        },
+    ];
+
+    const rowsDiscord: IReportGridRow[] = [
+        {
+            info: {
+                title: "Bug report",
+                description: "Create a report to help us improve",
+            },
+            link: {
+            }
+        },
+        {
+            info: {
+                title: "Feature request",
+                description: "Suggest an idea for this project",
+            },
+            link: {
+            }
+        },
+    ];
+
     const theme = myUseTheme()
     analyticPageView("Report")
 
@@ -118,7 +122,10 @@ function Report() {
                     githubLink='https://github.com/DRincs-Productions/drincs-discord-bot/issues/new/choose'
                 />
             </Grid>
-            {/* <ABFDBugForm /> */}
+            <ABFDBugForm
+                open={openABFDBug}
+                onClose={() => setOpenABFDBug(false)}
+            />
         </>
     );
 }
