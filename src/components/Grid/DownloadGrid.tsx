@@ -57,7 +57,7 @@ const columns: GridColDef<IDownloadGridRow>[] = [
     {
         field: 'download',
         headerName: 'Download',
-        minWidth: 350,
+        minWidth: 200,
         renderCell: (params: GridRenderCellParams<IDownloadGridRow, IDownloadLink>) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
@@ -140,6 +140,7 @@ function DownloadGrid(props: IDownloadGridProps) {
             logoImage={logoImage}
             height={height}
             rowHeight={rowHeight}
+            hideFooter
         />
     );
 }

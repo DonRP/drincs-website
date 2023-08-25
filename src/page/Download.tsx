@@ -131,7 +131,7 @@ function Download() {
                 <DownloadGrid
                     title="A Big Family in Debit"
                     data={rowsABFD}
-                    height={411}
+                    height={358}
                 />
             </Grid>
         </>

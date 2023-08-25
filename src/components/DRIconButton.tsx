@@ -1,12 +1,14 @@
-import { Box, CircularProgress, IconButton, Tooltip } from "@mui/joy";
+import { Box, CircularProgress, ColorPaletteProp, IconButton, Tooltip, VariantProp } from "@mui/joy";
 import DRErrorComponent from "./DRErrorComponent";
 
 type IDRIconButtonProps = {
     onClick?: () => void,
     icon: any,
     disabled?: boolean,
-    ariaLabel: string,
+    ariaLabel?: string,
     loading?: boolean,
+    variant?: VariantProp
+    color?: ColorPaletteProp
 }
 
 function DRIconButton(props: IDRIconButtonProps) {
@@ -16,6 +18,8 @@ function DRIconButton(props: IDRIconButtonProps) {
         disabled,
         ariaLabel,
         loading = false,
+        variant,
+        color,
     } = props;
 
 
@@ -30,6 +34,8 @@ function DRIconButton(props: IDRIconButtonProps) {
                             aria-label={ariaLabel}
                             disabled={disabled}
                             onClick={onClick}
+                            color={color}
+                            variant={variant}
                         >
                             {icon}
                         </IconButton>

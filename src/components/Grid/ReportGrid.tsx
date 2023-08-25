@@ -1,8 +1,10 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRGrid, { IDRGridBaseProps } from 'components/DRGrid';
+import DRIconButton from 'components/DRIconButton';
 
 type IReportLink = {
     website?: string,
@@ -15,7 +17,6 @@ type IReportInto = {
 }
 
 export type IReportGridRow = {
-    id: number,
     info: IReportInto,
     link: IReportLink,
 }
@@ -25,7 +26,7 @@ const columns: GridColDef<IReportGridRow>[] = [
         field: 'info',
         headerName: 'Description',
         flex: 1,
-        minWidth: 25,
+        minWidth: 80,
         renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
             <strong>
                 {params.value?.title &&
@@ -43,55 +44,46 @@ const columns: GridColDef<IReportGridRow>[] = [
     },
     {
         field: 'link',
-        headerName: 'Link',
-        minWidth: 350,
+        headerName: '',
+        minWidth: 300,
         renderCell: (params: GridRenderCellParams<IReportGridRow, IReportLink>) => (
-            <strong>
-                <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                    <Grid
-                        container
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                    >
-                        <Grid
-                            container
-                            direction="row"
-                            justifyContent="flex-start"
-                            alignItems="center"
-                            spacing={1}
-                        >
-                            <Grid>
-                                {params.value?.website &&
-                                    <DRButtonNoMargin
-                                        label='Mediafire'
-                                        variant="outlined"
-                                        startIcon={
-                                            <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
-                                        }
-                                        onClick={() => {
-                                            window.open(params.value?.website)
-                                        }}
-                                        color='success'
-                                    />
-                                }
-                            </Grid>
-                            <Grid>
-                                {params.value?.github &&
-                                    <DRButtonNoMargin
-                                        label='GitHub'
-                                        variant='soft'
-                                        startIcon={<GitHubIcon />}
-                                        onClick={() => {
-                                            window.open(params.value?.github)
-                                        }}
-                                    />
-                                }
-                            </Grid>
+            <Box
+                width="100%"
+            >
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="flex-end"
+                    alignItems="center"
+                    spacing={1}
+                >
+                    {params.value?.website &&
+                        <Grid>
+                            <DRIconButton
+                                ariaLabel='Form'
+                                variant="soft"
+                                icon={<OpenInNewIcon />}
+                                onClick={() => {
+                                    window.open(params.value?.website)
+                                }}
+                                color='success'
+                            />
                         </Grid>
-                    </Grid>
-                </Box>
-            </strong >
+                    }
+                    {params.value?.github &&
+                        <Grid>
+                            <DRButtonNoMargin
+                                label='GitHub'
+                                variant='soft'
+                                startIcon={<GitHubIcon />}
+                                onClick={() => {
+                                    window.open(params.value?.github)
+                                }}
+                            />
+                        </Grid>
+                    }
+                </Grid>
+            </Box>
         ),
     },
 ];
@@ -118,6 +110,7 @@ function ReportGrid(props: IReportGridProps) {
             logoImage={logoImage}
             height={height}
             rowHeight={rowHeight}
+            hideFooter
         />
     );
 }

@@ -4,13 +4,73 @@ import { analyticPageView } from 'utility/Analytics';
 
 const rowsABFD: IReportGridRow[] = [
     {
-        id: 0,
         info: {
             title: "Bug report",
             description: "Create a report to help us improve",
         },
         link: {
-            website: "https://mega.nz/file/b1tQnKjT#Q0WG8su9jv994F2Hn7u31_I9HkBpDP5afUCsa6lBCfk"
+        }
+    },
+    {
+        info: {
+            title: "Feature request",
+            description: "Suggest an idea for this project",
+        },
+        link: {
+        }
+    },
+    {
+        info: {
+            title: "Writing or Translation",
+            description: "For issues relating to the Writing or Translation",
+        },
+        link: {
+        }
+    },
+    {
+        info: {
+            title: "New Quest-Mission",
+            description: "New Quest-Mission",
+        },
+        link: {
+        }
+    },
+];
+
+const rowsWebService: IReportGridRow[] = [
+    {
+        info: {
+            title: "Bug report",
+            description: "Create a report to help us improve",
+        },
+        link: {
+        }
+    },
+    {
+        info: {
+            title: "Feature request",
+            description: "Suggest an idea for this project",
+        },
+        link: {
+        }
+    },
+];
+
+const rowsDiscord: IReportGridRow[] = [
+    {
+        info: {
+            title: "Bug report",
+            description: "Create a report to help us improve",
+        },
+        link: {
+        }
+    },
+    {
+        info: {
+            title: "Feature request",
+            description: "Suggest an idea for this project",
+        },
+        link: {
         }
     },
 ];
@@ -32,12 +92,20 @@ function Report() {
                 <ReportGrid
                     title="A Big Family in Debit"
                     data={rowsABFD}
-                    height={411}
+                    height={358}
+                    githubLink='https://github.com/DRincs-Productions/ABFD/issues/new/choose'
                 />
                 <ReportGrid
                     title="Web Service"
-                    data={rowsABFD}
-                    height={411}
+                    data={rowsWebService}
+                    height={208}
+                    githubLink='https://github.com/DRincs-Productions/drincs-website/issues/new/choose'
+                />
+                <ReportGrid
+                    title="Discord"
+                    data={rowsWebService}
+                    height={208}
+                    githubLink='https://github.com/DRincs-Productions/drincs-discord-bot/issues/new/choose'
                 />
             </Grid>
         </>
