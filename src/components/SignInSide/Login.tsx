@@ -109,7 +109,6 @@ function Login(props: ISignInSidePageProps) {
                         defaultValue={account.email}
                         onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
-                        margin="normal"
                         type='email'
                         required
                         autoFocus
@@ -121,7 +120,6 @@ function Login(props: ISignInSidePageProps) {
                         defaultValue={account.password}
                         onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
-                        margin="normal"
                         type='password'
                         required
                         errorFields={errorFields}
@@ -158,7 +156,6 @@ function Login(props: ISignInSidePageProps) {
                         defaultValue={account.email}
                         onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
-                        margin="normal"
                         type='email'
                         required
                         autoFocus

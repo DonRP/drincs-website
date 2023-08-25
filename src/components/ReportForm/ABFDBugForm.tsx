@@ -1,4 +1,6 @@
-import { Typography } from '@mui/joy';
+import ImageIcon from '@mui/icons-material/Image';
+import DRAlert from 'components/DRAlert';
+import { DRButtonNoMargin } from 'components/DRButton';
 import DRDialog from 'components/DRDialog';
 import DRTextField from 'components/DRTextField';
 import { useState } from 'react';
@@ -22,41 +24,55 @@ function ABFDBugForm(props: ABFDBugFormProps) {
     return (
         <DRDialog
             open={open}
-            onClose={onClose}
+            // onClose={handleClose}
             title={"Bug report"}
             maxWidth={"md"}
             actions={
                 <>
-                    {/* <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleSend}>Send</Button> */}
+                    <DRButtonNoMargin
+                        label='Cancel'
+                    // onClick={handleClose}
+                    />
+                    <DRButtonNoMargin
+                        label='Send'
+                    // onClick={handleClose}
+                    />
                 </>
             }
         >
-            {/* <DialogContentText>
-                For now you can't upload files (images or saves etc...), if you want to do it you can share them through WeTransfer (or similar) and put the link in Additional context, or you can use <a href="https://github.com/DonRP/ABFD/issues/new/choose">GitHub</a>.
-            </DialogContentText> */}
-            <Typography>
-                What happened?
-            </Typography>
-            <Typography>
-                Also tell us, what did you expect to happen?
-            </Typography>
             <DRTextField
                 fieldName="description"
-                label="Description"
+                label="What happened?"
+                helperText="Also tell us, what did you expect to happen?"
+                placeholder="Tell us what you see!"
                 required
                 onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
                 defaultValue={bugItemToEdit?.description || ""}
-                rows={3}
                 errorFields={errorFields}
             />
-            {/* 
+            <DRTextField
+                fieldName="additionalDescription"
+                label="Additional Description"
+                helperText="Add a description to help us understand"
+                required
+                onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
+                defaultValue={bugItemToEdit?.description || ""}
+                errorFields={errorFields}
+            />
             <DRTextField
                 fieldName="nickname"
-                label="Your nickname"
+                label="Your Nickname"
+                helperText="Add your contact so we can contact you for more information"
+                placeholder="Discrod: _balck_ram_"
                 onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, bugItemToEdit, setBugItemToEdit)}
-                defaultValue={bugItemToEdit?.nickname || ""}
-            /> */}
+                defaultValue={bugItemToEdit?.description || ""}
+                errorFields={errorFields}
+            />
+            <DRAlert
+                startDecorator={< ImageIcon />}
+            >
+                To add images or files you can use WeTransfer (or other methods to share files) and add the link to the description. Or use GitHub
+            </DRAlert>
 
         </DRDialog>
     )

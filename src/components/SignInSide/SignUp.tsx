@@ -78,7 +78,6 @@ function SignUp(props: ISignInSidePageProps) {
                     variant="outlined"
                     required
                     autoFocus
-                    margin="normal"
                     errorFields={errorFields}
                 />
                 <DRTextField
@@ -91,7 +90,6 @@ function SignUp(props: ISignInSidePageProps) {
                     fullWidth
                     autoComplete="email"
                     type='email'
-                    margin="normal"
                     errorFields={errorFields}
                 />
                 <DRTextField
@@ -104,7 +102,6 @@ function SignUp(props: ISignInSidePageProps) {
                     required
                     fullWidth
                     autoComplete="current-password"
-                    margin="normal"
                     errorFields={errorFields}
                 />
                 {/* // TODO: To Implement  */}
