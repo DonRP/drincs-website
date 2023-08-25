@@ -4,7 +4,7 @@ import { Breakpoint, Dialog, DialogActions, DialogContent, DialogTitle } from '@
 import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 
-type IDRDialogProps = {
+export type IDRDialogProps = {
     open: boolean,
     maxWidth?: Breakpoint | false,
     title: string,
