@@ -2,14 +2,16 @@ import { AspectRatio, Card, Typography } from '@mui/joy';
 import { DataGrid, GridColDef, GridValidRowModel } from '@mui/x-data-grid';
 import DRErrorComponent from './DRErrorComponent';
 
-
-type IDRGridProps<T extends GridValidRowModel> = {
+export interface IDRGridBaseProps<T extends GridValidRowModel> {
     title: string,
     data: T[],
-    colums: GridColDef<T>[]
     logoImage?: string,
     height?: number,
     rowHeight?: number,
+}
+
+interface IDRGridProps<T extends GridValidRowModel> extends IDRGridBaseProps<T> {
+    columns: GridColDef<T>[]
 }
 
 function DRGrid<T extends GridValidRowModel>(props: IDRGridProps<T>) {

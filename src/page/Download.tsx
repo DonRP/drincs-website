@@ -3,10 +3,10 @@ import AppleIcon from '@mui/icons-material/Apple';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import FolderZipIcon from '@mui/icons-material/FolderZip';
 import { Grid } from '@mui/joy';
-import DRDownloadGrid from "components/DRDownloadGrid";
+import DownloadGrid, { IDownloadGridRow } from 'components/Grid/DownloadGrid';
 import { analyticPageView } from 'utility/Analytics';
 
-const rowsABFD = [
+const rowsABFD: IDownloadGridRow[] = [
     {
         id: 0, device: {
             name: 'Windows/Linux', element: <>
@@ -128,7 +128,7 @@ function Download() {
                 paddingBottom={3}
             >
                 <h2>Download</h2>
-                <DRDownloadGrid
+                <DownloadGrid
                     title="A Big Family in Debit"
                     data={rowsABFD}
                     height={411}

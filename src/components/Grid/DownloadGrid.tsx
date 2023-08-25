@@ -1,7 +1,7 @@
-import { AspectRatio, Box, Card, Grid, Typography } from '@mui/joy';
-import { DataGrid } from '@mui/x-data-grid';
+import { Box, Grid } from '@mui/joy';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import DRGrid, { IDRGridBaseProps } from 'components/DRGrid';
 import { DRButtonNoMargin } from '../DRButton';
-import DRErrorComponent from '../DRErrorComponent';
 
 type IDownloadLink = {
     mega?: string,
@@ -9,20 +9,24 @@ type IDownloadLink = {
     discord?: boolean,
     sha?: string,
 }
-type IDownloadGridRow = {
+type IDownloadDevice = {
+    name: string
+    element?: JSX.Element
+}
+export type IDownloadGridRow = {
     id: number,
-    device: { name: string, element?: JSX.Element }
+    device: IDownloadDevice
     version: string,
     download: IDownloadLink,
 }
 
-const columns: GridColDef<IReportGridRow>[] = [
+const columns: GridColDef<IDownloadGridRow>[] = [
     {
         field: 'device',
         headerName: 'Device',
         flex: 1,
         minWidth: 25,
-        renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
+        renderCell: (params: GridRenderCellParams<IDownloadGridRow, IDownloadDevice>) => (
             <strong>
                 {params.value?.element &&
                     <>
@@ -42,7 +46,7 @@ const columns: GridColDef<IReportGridRow>[] = [
         headerName: 'Version',
         flex: 1,
         minWidth: 25,
-        renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
+        renderCell: (params: GridRenderCellParams<IDownloadGridRow, string>) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     {params.value}
@@ -54,7 +58,7 @@ const columns: GridColDef<IReportGridRow>[] = [
         field: 'download',
         headerName: 'Download',
         minWidth: 350,
-        renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
+        renderCell: (params: GridRenderCellParams<IDownloadGridRow, IDownloadLink>) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     <Grid
@@ -122,47 +126,22 @@ const columns: GridColDef<IReportGridRow>[] = [
     },
 ];
 
-type IDRDownloadGridProps = {
-    title: string,
-    data: IDownloadGridRow[],
-    logoImage?: string,
-    height?: number,
-    rowHeight?: number,
+interface IDownloadGridProps extends IDRGridBaseProps<IDownloadGridRow> {
 }
 
-function DRDownloadGrid(props: IDRDownloadGridProps) {
-    const { title, data, logoImage, height = 350, rowHeight = 75 } = props;
+function DownloadGrid(props: IDownloadGridProps) {
+    const { title, data, logoImage, height, rowHeight } = props;
 
-    try {
-        return (
-            <Card
-                // elevation={24} 
-                sx={{ minWidth: { xs: 470, sm: 600, md: 900 }, marginTop: 2 }}
-            >
-                <Typography level="title-lg">{title}</Typography>
-                {logoImage &&
-                    <AspectRatio minHeight="120px" maxHeight="200px">
-                        <img
-                            src={logoImage}
-                            alt=""
-                        />
-                    </AspectRatio>
-                }
-                <div style={{ height: height, width: '100%' }}>
-                    <DataGrid
-                        rows={data}
-                        columns={columns}
-                        rowHeight={rowHeight}
-                        hideFooter
-                        hideFooterPagination
-                        hideFooterSelectedRowCount
-                    />
-                </div>
-            </Card>
-        );
-    } catch (error) {
-        return <DRErrorComponent error={error} text={"DRDownloadGrid"} />
-    }
+    return (
+        <DRGrid
+            title={title}
+            data={data}
+            columns={columns}
+            logoImage={logoImage}
+            height={height}
+            rowHeight={rowHeight}
+        />
+    );
 }
 
-export default DRDownloadGrid;
+export default DownloadGrid;

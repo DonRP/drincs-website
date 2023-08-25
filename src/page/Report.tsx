@@ -1,14 +1,16 @@
 import { Grid } from '@mui/joy';
-import DRReportGrid, { IReportGridRow } from 'components/DRReportGrid';
+import ReportGrid, { IReportGridRow } from 'components/Grid/ReportGrid';
 import { analyticPageView } from 'utility/Analytics';
 
 const rowsABFD: IReportGridRow[] = [
     {
         id: 0,
-        title: "Bug report",
-        description: "Create a report to help us improve",
+        info: {
+            title: "Bug report",
+            description: "Create a report to help us improve",
+        },
         link: {
-            anonimus: "https://mega.nz/file/b1tQnKjT#Q0WG8su9jv994F2Hn7u31_I9HkBpDP5afUCsa6lBCfk"
+            website: "https://mega.nz/file/b1tQnKjT#Q0WG8su9jv994F2Hn7u31_I9HkBpDP5afUCsa6lBCfk"
         }
     },
 ];
@@ -27,12 +29,12 @@ function Report() {
                 paddingBottom={3}
             >
                 <h2>Report</h2>
-                <DRReportGrid
+                <ReportGrid
                     title="A Big Family in Debit"
                     data={rowsABFD}
                     height={411}
                 />
-                <DRReportGrid
+                <ReportGrid
                     title="Web Service"
                     data={rowsABFD}
                     height={411}

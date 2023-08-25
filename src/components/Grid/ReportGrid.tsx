@@ -1,8 +1,8 @@
 import GitHubIcon from '@mui/icons-material/GitHub';
-import { AspectRatio, Box, Card, Grid, Typography } from '@mui/joy';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { DRButtonNoMargin } from './DRButton';
-import DRErrorComponent from './DRErrorComponent';
+import { Box, Grid } from '@mui/joy';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { DRButtonNoMargin } from 'components/DRButton';
+import DRGrid, { IDRGridBaseProps } from 'components/DRGrid';
 
 type IReportLink = {
     website?: string,
@@ -62,7 +62,7 @@ const columns: GridColDef<IReportGridRow>[] = [
                             spacing={1}
                         >
                             <Grid>
-                                {params.value?.mediafire &&
+                                {params.value?.website &&
                                     <DRButtonNoMargin
                                         label='Mediafire'
                                         variant="outlined"
@@ -70,40 +70,25 @@ const columns: GridColDef<IReportGridRow>[] = [
                                             <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
                                         }
                                         onClick={() => {
-                                            window.open(params.value?.mediafire)
+                                            window.open(params.value?.website)
                                         }}
                                         color='success'
                                     />
                                 }
                             </Grid>
                             <Grid>
-                                {params.value?.mega &&
+                                {params.value?.github &&
                                     <DRButtonNoMargin
                                         label='GitHub'
                                         variant='soft'
                                         startIcon={<GitHubIcon />}
                                         onClick={() => {
-                                            window.open(params.value?.mega)
-                                        }}
-                                    />
-                                }
-                            </Grid>
-                            <Grid>
-                                {params.value?.discord &&
-                                    <DRButtonNoMargin
-                                        label='Discord - Supporter'
-                                        variant='soft'
-                                        startIcon={
-                                            <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
-                                        }
-                                        onClick={() => {
-                                            window.open("https://discord.gg/HFfeJKR")
+                                            window.open(params.value?.github)
                                         }}
                                     />
                                 }
                             </Grid>
                         </Grid>
-                        {params.value?.sha && "SHA1: " + params.value?.sha}
                     </Grid>
                 </Box>
             </strong >
@@ -111,47 +96,22 @@ const columns: GridColDef<IReportGridRow>[] = [
     },
 ];
 
-type IDRReportGridProps = {
-    title: string,
-    data: IReportGridRow[],
-    logoImage?: string,
-    height?: number,
-    rowHeight?: number,
+interface IReportGridProps extends IDRGridBaseProps<IReportGridRow> {
 }
 
-function DRReportGrid(props: IDRReportGridProps) {
-    const { title, data, logoImage, height = 350, rowHeight = 75 } = props;
+function ReportGrid(props: IReportGridProps) {
+    const { title, data, logoImage, height, rowHeight } = props;
 
-    try {
-        return (
-            <Card
-                // elevation={24} 
-                sx={{ minWidth: { xs: 470, sm: 600, md: 900 }, marginTop: 2 }}
-            >
-                <Typography level="title-lg">{title}</Typography>
-                {logoImage &&
-                    <AspectRatio minHeight="120px" maxHeight="200px">
-                        <img
-                            src={logoImage}
-                            alt=""
-                        />
-                    </AspectRatio>
-                }
-                <div style={{ height: height, width: '100%' }}>
-                    <DataGrid
-                        rows={data}
-                        columns={columns}
-                        rowHeight={rowHeight}
-                        hideFooter
-                        hideFooterPagination
-                        hideFooterSelectedRowCount
-                    />
-                </div>
-            </Card>
-        );
-    } catch (error) {
-        return <DRErrorComponent error={error} text={"DRDownloadGrid"} />
-    }
+    return (
+        <DRGrid
+            title={title}
+            data={data}
+            columns={columns}
+            logoImage={logoImage}
+            height={height}
+            rowHeight={rowHeight}
+        />
+    );
 }
 
-export default DRReportGrid;
+export default ReportGrid;
