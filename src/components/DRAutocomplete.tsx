@@ -3,21 +3,27 @@ import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
 interface IDRAutocompleteProps extends IDRTextFormControlBaseProps {
-    id: string,
+    fieldName: string,
     defaultValue: string,
     onChange: (event: any, newVal: string | null) => void,
     options: string[],
+    placeholder?: string;
+    errorFields?: string[];
+    error?: boolean;
 }
 
 function DRAutocomplete(props: IDRAutocompleteProps) {
     const {
-        id,
+        fieldName,
         label,
         defaultValue,
         onChange,
         options,
         helperText,
         required,
+        placeholder,
+        errorFields = [],
+        error,
     } = props
 
     try {
@@ -28,10 +34,12 @@ function DRAutocomplete(props: IDRAutocompleteProps) {
                 required={required}
             >
                 <Autocomplete
-                    id={id}
+                    id={fieldName}
                     value={defaultValue}
                     onChange={onChange}
                     options={options}
+                    placeholder={placeholder}
+                    error={error || errorFields.includes(fieldName)}
                     sx={{ width: 300 }}
                 />
             </DRTextFormControlBase>

@@ -1,8 +1,8 @@
-import { FormControl, FormHelperText, FormLabel, InputSlotsAndSlotProps } from '@mui/joy';
+import { FormControl, FormHelperText, FormLabel } from '@mui/joy';
 import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 
-export interface IDRTextFormControlBaseProps extends InputSlotsAndSlotProps {
+export interface IDRTextFormControlBaseProps {
     label?: string;
     helperText?: string;
     required?: boolean;

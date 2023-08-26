@@ -1,11 +1,11 @@
-import { Input, InputSlotsAndSlotProps, VariantProp } from '@mui/joy';
+import { Textarea, TextareaSlotsAndSlotProps, VariantProp } from '@mui/joy';
 import { FocusEventHandler } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
 type DefaultValueType = string | number | ReadonlyArray<string> | undefined
 
-interface IProps<T extends DefaultValueType> extends InputSlotsAndSlotProps, IDRTextFormControlBaseProps {
+interface IProps<T extends DefaultValueType> extends TextareaSlotsAndSlotProps, IDRTextFormControlBaseProps {
     fieldName: string;
     placeholder?: string;
     defaultValue?: T
@@ -38,9 +38,11 @@ interface IProps<T extends DefaultValueType> extends InputSlotsAndSlotProps, IDR
     autoFocus?: boolean;
     errorFields?: string[];
     error?: boolean;
+    minRows?: number;
+    maxRows?: number;
 }
 
-function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
+function DRTextarea<T extends DefaultValueType>(props: IProps<T>) {
     const {
         fieldName,
         label,
@@ -56,6 +58,8 @@ function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
         autoComplete,
         autoFocus,
         error,
+        minRows = 2,
+        maxRows,
         ...rest
     } = props;
     const textFieldOnChange: FocusEventHandler<HTMLInputElement> = (event) => {
@@ -70,25 +74,27 @@ function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
                 helperText={helperText}
                 required={required}
             >
-                <Input
+                <Textarea
                     {...rest}
                     id={fieldName}
                     name={fieldName}
                     placeholder={placeholder}
-                    onBlur={textFieldOnChange}
+                    // onBlur={textFieldOnChange}
                     defaultValue={defaultValue}
-                    variant={variant}
-                    type={type}
-                    fullWidth={fullWidth}
+                    // variant={variant}
+                    // type={type}
+                    // fullWidth={fullWidth}
                     autoComplete={autoComplete}
                     autoFocus={autoFocus}
                     error={error || errorFields.includes(fieldName)}
+                    minRows={minRows}
+                    maxRows={maxRows}
                 />
             </DRTextFormControlBase>
         )
     } catch (error) {
-        return <DRErrorComponent error={error} text={"DRTextField"} />
+        return <DRErrorComponent error={error} text={"DRTextarea"} />
     }
 }
 
-export default DRTextField;
+export default DRTextarea;

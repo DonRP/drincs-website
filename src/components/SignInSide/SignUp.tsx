@@ -74,7 +74,7 @@ function SignUp(props: ISignInSidePageProps) {
                     fieldName="displayName"
                     label="Username"
                     defaultValue={account.displayName}
-                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     required
                     autoFocus
@@ -84,7 +84,7 @@ function SignUp(props: ISignInSidePageProps) {
                     fieldName="email"
                     label="Email Address"
                     defaultValue={account.email}
-                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     required
                     fullWidth
@@ -96,7 +96,7 @@ function SignUp(props: ISignInSidePageProps) {
                     fieldName="password"
                     label="Password"
                     defaultValue={account.password}
-                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     type='password'
                     required
