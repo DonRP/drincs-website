@@ -1,31 +1,40 @@
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete } from '@mui/joy';
 import DRErrorComponent from './DRErrorComponent';
+import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
-type IDRAutocompleteProps = {
+interface IDRAutocompleteProps extends IDRTextFormControlBaseProps {
     id: string,
-    label: string,
     defaultValue: string,
     onChange: (event: any, newVal: string | null) => void,
     options: string[],
 }
 
 function DRAutocomplete(props: IDRAutocompleteProps) {
-    const { id, label, defaultValue, onChange, options } = props
+    const {
+        id,
+        label,
+        defaultValue,
+        onChange,
+        options,
+        helperText,
+        required,
+    } = props
 
     try {
         return (
-            <Autocomplete
-                id={id}
-                value={defaultValue}
-                onChange={onChange}
-                options={options}
-                sx={{ width: 300 }}
-                renderInput={(params) => <TextField
-                    label={label}
-                    {...params}
+            <DRTextFormControlBase
+                label={label}
+                helperText={helperText}
+                required={required}
+            >
+                <Autocomplete
+                    id={id}
+                    value={defaultValue}
+                    onChange={onChange}
+                    options={options}
+                    sx={{ width: 300 }}
                 />
-                }
-            />
+            </DRTextFormControlBase>
         )
     } catch (error) {
         return <DRErrorComponent error={error} text={"DRAutocomplete"} />

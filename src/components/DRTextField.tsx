@@ -1,13 +1,12 @@
-import { FormControl, FormHelperText, FormLabel, Input, InputSlotsAndSlotProps, VariantProp } from '@mui/joy';
+import { Input, InputSlotsAndSlotProps, VariantProp } from '@mui/joy';
 import { FocusEventHandler } from 'react';
 import DRErrorComponent from './DRErrorComponent';
+import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
 type DefaultValueType = string | number | ReadonlyArray<string> | undefined
 
-interface IDRTextFieldProps<T extends DefaultValueType> extends InputSlotsAndSlotProps {
+interface IProps<T extends DefaultValueType> extends InputSlotsAndSlotProps, IDRTextFormControlBaseProps {
     fieldName: string;
-    label?: string;
-    helperText?: string;
     placeholder?: string;
     defaultValue?: T
     onChangeValue: (fieldName: string, value: T | any) => void;
@@ -35,14 +34,13 @@ interface IDRTextFieldProps<T extends DefaultValueType> extends InputSlotsAndSlo
     | 'url'
     | 'week'
     fullWidth?: boolean;
-    required?: boolean;
     autoComplete?: string;
     autoFocus?: boolean;
     errorFields?: string[];
     error?: boolean;
 }
 
-function DRTextField<T extends DefaultValueType>(props: IDRTextFieldProps<T>) {
+function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
     const {
         fieldName,
         label,
@@ -67,14 +65,11 @@ function DRTextField<T extends DefaultValueType>(props: IDRTextFieldProps<T>) {
 
     try {
         return (
-            <FormControl
-                sx={{
-                    marginTop: 0.5,
-                    marginBottom: 0.5,
-                }}
+            <DRTextFormControlBase
+                label={label}
+                helperText={helperText}
+                required={required}
             >
-                <FormLabel>{label}{required ? " *" : ""}</FormLabel>
-                <FormHelperText>{helperText}</FormHelperText>
                 <Input
                     {...rest}
                     id={fieldName}
@@ -89,7 +84,7 @@ function DRTextField<T extends DefaultValueType>(props: IDRTextFieldProps<T>) {
                     autoFocus={autoFocus}
                     error={error || errorFields.includes(fieldName)}
                 />
-            </FormControl>
+            </DRTextFormControlBase>
         )
     } catch (error) {
         return <DRErrorComponent error={error} text={"DRTextField"} />
