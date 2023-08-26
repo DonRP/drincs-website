@@ -1,9 +1,10 @@
-import { Checkbox, CheckboxProps, FormControlLabel, Typography } from "@mui/material";
+import { Checkbox, CheckboxSlotsAndSlotProps } from "@mui/joy";
+import { FormControlLabel, Typography } from "@mui/material";
 import { SwitchBaseProps } from "@mui/material/internal/SwitchBase";
 import { myUseTheme } from "Theme";
 import DRErrorComponent from "./DRErrorComponent";
 
-type IDRCheckBoxProps = {
+interface IProps extends CheckboxSlotsAndSlotProps {
     onChangeValue: (fieldName: string, value: boolean) => void;
     errorFields?: string[];
     fieldName: string;
@@ -11,9 +12,10 @@ type IDRCheckBoxProps = {
     error?: boolean
     labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
     position?: 'left' | 'center';
-} & CheckboxProps
+    checked?: boolean;
+}
 
-function DRCheckBox(props: IDRCheckBoxProps) {
+function DRCheckBox(props: IProps) {
     const theme = myUseTheme()
     const { onChangeValue, errorFields, fieldName, label, error, labelPlacement, position = "left", ...rest } = props;
     const drCheckBoxOnChange: SwitchBaseProps['onChange'] = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,12 +30,14 @@ function DRCheckBox(props: IDRCheckBoxProps) {
                 sx={{
                     width: position === "left" ? "-webkit-fill-available" : ""
                 }}
-                control={<Checkbox
-                    {...rest}
-                    id={fieldName}
-                    name={fieldName}
-                    onChange={drCheckBoxOnChange}
-                />}
+                control={
+                    <Checkbox
+                        {...rest}
+                        id={fieldName}
+                        name={fieldName}
+                    // onChange={drCheckBoxOnChange}
+                    />
+                }
                 label={<Typography color={(error || errorFields?.includes(fieldName)) ? theme.palette.danger[500] : ""}>
                     {label}
                 </Typography>}
