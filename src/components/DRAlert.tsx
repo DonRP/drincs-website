@@ -2,13 +2,13 @@ import { Alert, AlertSlotsAndSlotProps, ColorPaletteProp, Typography } from '@mu
 import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 
-export interface IDRAlertProps extends AlertSlotsAndSlotProps {
+interface IProps extends AlertSlotsAndSlotProps {
     children?: ReactNode,
     startDecorator?: ReactNode,
     color?: ColorPaletteProp
 }
 
-function DRAlert(props: IDRAlertProps) {
+function DRAlert(props: IProps) {
     const {
         children,
     } = props;

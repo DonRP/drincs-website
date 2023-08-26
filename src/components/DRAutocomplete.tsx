@@ -2,7 +2,7 @@ import { Autocomplete } from '@mui/joy';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
-interface IDRAutocompleteProps extends IDRTextFormControlBaseProps {
+interface IProps extends IDRTextFormControlBaseProps {
     fieldName: string,
     defaultValue: string,
     onChange: (event: any, newVal: string | null) => void,
@@ -12,7 +12,7 @@ interface IDRAutocompleteProps extends IDRTextFormControlBaseProps {
     error?: boolean;
 }
 
-function DRAutocomplete(props: IDRAutocompleteProps) {
+function DRAutocomplete(props: IProps) {
     const {
         fieldName,
         label,

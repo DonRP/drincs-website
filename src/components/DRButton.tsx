@@ -1,9 +1,9 @@
-import { Button, Tooltip } from '@mui/joy';
+import { Button, ButtonSlotsAndSlotProps, Tooltip } from '@mui/joy';
 import { ColorPaletteProp, SxProps, VariantProp } from '@mui/joy/styles/types';
 import { ReactNode } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 
-export interface IDRButtonProps {
+export interface IDRButtonProps extends ButtonSlotsAndSlotProps {
     label: string,
     onClick?: () => void,
     startIcon?: React.ReactNode,
