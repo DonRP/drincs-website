@@ -4,11 +4,13 @@ import DRAlert from 'components/DRAlert';
 import ReportGrid, { IReportGridRow } from 'components/Grid/ReportGrid';
 import DiscordIcon from 'components/Icon/DiscordIcon';
 import ABFDBugForm from 'components/ReportForm/ABFDBugForm';
+import WebSiteBugForm from 'components/ReportForm/WebSiteBugForm';
 import { ABFDrepo, WebSiteRepo, discordLink } from 'constant';
 import { useState } from 'react';
 import { analyticPageView } from 'utility/Analytics';
 function Report() {
     const [openABFDBug, setOpenABFDBug] = useState(false)
+    const [openWebSiteBug, setOpenWebSiteDBug] = useState(false)
 
     const rowsABFD: IReportGridRow[] = [
         {
@@ -53,6 +55,7 @@ function Report() {
                 description: "Create a report to help us improve",
             },
             link: {
+                website: () => { setOpenWebSiteDBug(true) },
             }
         },
         {
@@ -125,6 +128,10 @@ function Report() {
             <ABFDBugForm
                 open={openABFDBug}
                 onClose={() => setOpenABFDBug(false)}
+            />
+            <WebSiteBugForm
+                open={openWebSiteBug}
+                onClose={() => setOpenWebSiteDBug(false)}
             />
         </>
     );
