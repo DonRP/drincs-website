@@ -1,6 +1,7 @@
 export const discordLink = "https://discord.gg/HFfeJKR"
 export const gitHubLink = "https://github.com/DRincs-Productions"
 export const ABFDrepo = "DRincs-Productions/ABFD"
+export const WebSiteRepo = "DRincs-Productions/drincs-website"
 export enum DeviceABFD {
     Windows,
     Linux,

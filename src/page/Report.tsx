@@ -4,7 +4,7 @@ import DRAlert from 'components/DRAlert';
 import ReportGrid, { IReportGridRow } from 'components/Grid/ReportGrid';
 import DiscordIcon from 'components/Icon/DiscordIcon';
 import ABFDBugForm from 'components/ReportForm/ABFDBugForm';
-import { ABFDrepo, discordLink } from 'constant';
+import { ABFDrepo, WebSiteRepo, discordLink } from 'constant';
 import { useState } from 'react';
 import { analyticPageView } from 'utility/Analytics';
 function Report() {
@@ -113,7 +113,7 @@ function Report() {
                     title="Web Service"
                     data={rowsWebService}
                     height={208}
-                    githubLink='https://github.com/DRincs-Productions/drincs-website/issues/new/choose'
+                    githubLink={`https://github.com/${WebSiteRepo}/issues/new/choose`}
                 />
                 <ReportGrid
                     title="Discord"

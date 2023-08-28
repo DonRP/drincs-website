@@ -1,7 +1,7 @@
 import DRAutocomplete from 'components/DRAutocomplete';
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { ABFDrepo, DeviceABFD, VersionABFD } from 'constant';
+import { DeviceABFD, VersionABFD, WebSiteRepo } from 'constant';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { getEnumDescriptions } from 'utility/UtilityEnum';
@@ -16,17 +16,17 @@ type IProps = {
 class BugType {
     constructor(defDevice: string, defVersion: string) {
         this.device = defDevice
-        this.version = defVersion
+        this.browser = defVersion
     }
     title: string = ""
     description: string = ""
     additionalDescription: string = ""
     nickname: string = ""
     device: string
-    version: string
+    browser: string
 }
 
-function ABFDBugForm(props: IProps) {
+function WebSiteBugForm(props: IProps) {
     const { open, onClose } = props;
     const [errorFields, setErrorFields] = useState<string[]>([])
     const versions = getEnumDescriptions(VersionABFD)
@@ -47,24 +47,24 @@ function ABFDBugForm(props: IProps) {
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: ABFDrepo,
+            repo: WebSiteRepo,
             title: "[Report WebSite]" + data.title,
             body: `### What happened?
 
             ${data.description}
             
+            ### Browser
+            
+            ${data.browser}
+            
             ### Device
             
             ${data.device}
-            
-            ### Version
-            
-            ${data.version}
-            
+
             ### User Nickname
-            
+
             ${data.nickname || "_No response_"}
-                        
+
             ### Additional Description
             
             ${data.additionalDescription || "_No response_"}
@@ -103,6 +103,17 @@ function ABFDBugForm(props: IProps) {
                 errorFields={errorFields}
             />
             <DRAutocomplete
+                fieldName="browser"
+                label="Browser"
+                helperText="Which Browser were you using?"
+                options={versions}
+                required
+                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                defaultValue={data?.browser}
+                errorFields={errorFields}
+                disableClearable
+            />
+            <DRAutocomplete
                 fieldName="device"
                 label="Device"
                 helperText="Which device were you using?"
@@ -110,17 +121,6 @@ function ABFDBugForm(props: IProps) {
                 required
                 onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.device}
-                errorFields={errorFields}
-                disableClearable
-            />
-            <DRAutocomplete
-                fieldName="version"
-                label="Version"
-                helperText="What version of our software are you running?"
-                options={versions}
-                required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
-                defaultValue={data?.version}
                 errorFields={errorFields}
                 disableClearable
             />
@@ -145,4 +145,4 @@ function ABFDBugForm(props: IProps) {
     )
 }
 
-export default ABFDBugForm   
+export default WebSiteBugForm   
