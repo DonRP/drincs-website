@@ -1,10 +1,8 @@
-import DRAutocomplete from 'components/DRAutocomplete';
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { Browser, DeviceABFD, WebSiteRepo } from 'constant';
+import { DiscordRepo } from 'constant';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { getEnumDescriptions } from 'utility/UtilityEnum';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 import ReportForm, { ReportBody } from './ReportForm';
 
@@ -14,24 +12,16 @@ type IProps = {
 }
 
 class BugType {
-    constructor(defDevice: string, defVersion: string) {
-        this.device = defDevice
-        this.browser = defVersion
-    }
     title: string = ""
     description: string = ""
     additionalDescription: string = ""
     nickname: string = ""
-    device: string
-    browser: string
 }
 
-function WebSiteBugForm(props: IProps) {
+function DiscordBugForm(props: IProps) {
     const { open, onClose } = props;
     const [errorFields, setErrorFields] = useState<string[]>([])
-    const browsers = getEnumDescriptions(Browser)
-    const devices = getEnumDescriptions(DeviceABFD)
-    const [data, setData] = useState<BugType>(new BugType(devices[0], browsers[0]))
+    const [data, setData] = useState<BugType>(new BugType())
 
     function getData() {
         let error: string[] = []
@@ -47,24 +37,16 @@ function WebSiteBugForm(props: IProps) {
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: WebSiteRepo,
+            repo: DiscordRepo,
             title: "[Report WebSite]" + data.title,
             body: `### What happened?
 
             ${data.description}
             
-            ### Browser
-            
-            ${data.browser}
-            
-            ### Device
-            
-            ${data.device}
-
             ### User Nickname
-
+            
             ${data.nickname || "_No response_"}
-
+                        
             ### Additional Description
             
             ${data.additionalDescription || "_No response_"}
@@ -82,7 +64,7 @@ function WebSiteBugForm(props: IProps) {
             data={data}
             maxWidth={"md"}
             getData={getData}
-            clearData={() => setData(new BugType(devices[0], browsers[0]))}
+            clearData={() => setData(new BugType())}
         >
             <DRTextField
                 fieldName="title"
@@ -101,28 +83,6 @@ function WebSiteBugForm(props: IProps) {
                 onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.description || ""}
                 errorFields={errorFields}
-            />
-            <DRAutocomplete
-                fieldName="browser"
-                label="Browser"
-                helperText="Which Browser were you using?"
-                options={browsers}
-                required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
-                defaultValue={data?.browser}
-                errorFields={errorFields}
-                disableClearable
-            />
-            <DRAutocomplete
-                fieldName="device"
-                label="Device"
-                helperText="Which device were you using?"
-                options={devices}
-                required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
-                defaultValue={data?.device}
-                errorFields={errorFields}
-                disableClearable
             />
             <DRTextarea
                 fieldName="nickname"
@@ -145,4 +105,4 @@ function WebSiteBugForm(props: IProps) {
     )
 }
 
-export default WebSiteBugForm   
+export default DiscordBugForm   

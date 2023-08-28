@@ -4,7 +4,8 @@ import { gitHubLink } from "constant";
 function Copyright() {
     return (
         <Typography
-            textColor={"text.secondary"}
+            level="body-sm"
+            sx={{ alignSelf: 'center' }}
         >
             {"Copyright © "}
             <Link

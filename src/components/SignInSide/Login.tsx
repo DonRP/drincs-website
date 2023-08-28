@@ -131,7 +131,7 @@ function Login(props: ISignInSidePageProps) {
                         onChangeValue={(fieldName, value) => setRememberMe(value)}
                     />
                     <DRButtonSignInSide
-                        label='Sign In'
+                        label='Log in'
                         onClick={handelLogin}
                         loading={loading}
                     />
@@ -167,14 +167,17 @@ function Login(props: ISignInSidePageProps) {
                         loading={loading}
                     />
                 </>}
-
-                <Link
-                    onClick={() => {
-                        setOpenChangePassword(!openChangePassword)
-                    }}
+                <Typography
+                    mt={1}
+                    endDecorator={<Link
+                        onClick={() => { setOpenChangePassword((value) => !value) }}
+                    >
+                        {openChangePassword ? "Back to login" : "Reset password"}
+                    </Link>}
+                    fontSize="sm"
                 >
-                    {openChangePassword ? "Already have an account? Back to login" : "Forgot your password? Reset password"}
-                </Link>
+                    {openChangePassword ? "Already have an account?" : "Forgot your password?"}
+                </Typography>
             </>
         );
     } catch (error) {

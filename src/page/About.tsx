@@ -95,7 +95,7 @@ function About() {
                             >
                                 <DRButton
                                     key="support"
-                                    label='Support'
+                                    label='SUPPORT'
                                     sx={{
                                         my: 2,
                                         backgroundColor: "gold",
@@ -103,6 +103,7 @@ function About() {
                                         height: "8vh",
                                         minHeight: "50px",
                                         minWidth: "170px",
+                                        color: "black",
                                     }}
                                     startIcon={<FavoriteIcon />}
                                 />
@@ -115,7 +116,7 @@ function About() {
                             >
                                 <DRButton
                                     key="download"
-                                    label='Download'
+                                    label='DOWNLOAD'
                                     sx={{
                                         my: 2,
                                         width: "40vh",

@@ -1,11 +1,11 @@
-import { Avatar, Box, Card, Grid, Link } from "@mui/joy";
+import { Avatar, CssVarsProvider, Grid, Link, Sheet, Typography } from "@mui/joy";
+import Copyright from "components/Copyright";
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
 import { useState } from "react";
 import AuthService, { isLoggedIn } from "services/AuthService";
 import { analyticPageView } from "utility/Analytics";
-import Copyright from "../components/Copyright";
 
 export type ISignInSidePageProps = {
     authService: AuthService,
@@ -20,43 +20,21 @@ function SignInSide() {
     const authService = new AuthService(enqueueSnackbar);
 
     return (
-        <Grid
-            container
-            component="main"
-            style={{
-                height: "100vh",
-                backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
-                backgroundColor: "##000",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-                backgroundSize: "cover",
-                // backgroundColor:
-                //   theme.palette.type === "light"
-                //     ? theme.palette.grey[50]
-                //     : theme.palette.grey[900],
-
-                marginTop: '-72px',
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-            }}
-        >
-            <Card
-                sx={{
-                    maxWidth: 600,
-                    width: "100%",
-                }}
-            >
-                <Grid container
-                    direction="column"
-                    // xs={12}
-                    // sm={8}
-                    // md={5}
-                    // elevation={1}
-                    // square
-                    justifyContent="center"
-                    alignItems="center"
-                // padding={5}
+        <CssVarsProvider>
+            <main>
+                <Sheet
+                    sx={{
+                        maxWidth: 500,
+                        mx: 'auto', // margin left & right
+                        my: 4, // margin top & bottom
+                        py: 3, // padding top & bottom
+                        px: 2, // padding left & right
+                        display: 'flex',
+                        flexDirection: 'column',
+                        borderRadius: 'sm',
+                        boxShadow: 'md',
+                    }}
+                    variant="outlined"
                 >
                     <Grid>
                         <div
@@ -73,42 +51,32 @@ function SignInSide() {
                                 sx={{ width: 56, height: 56, marginBottom: 2 }}
                             />
 
-
                             {isLoggedIn() &&
                                 "You are already logged in"
                             }
                         </div>
                     </Grid>
-                    {!isLoggedIn() &&
-                        <Grid
-                            container
-                            direction="column"
-                        >
-                            <Grid>
-                                {isLogin ?
-                                    <Login authService={authService} enqueueSnackbar={enqueueSnackbar} /> :
-                                    <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} />
-                                }
-                            </Grid>
-                            <Grid>
-                                <Link
-                                    onClick={() => {
-                                        setIsLogin(!isLogin)
-                                    }}
-                                >
-                                    {isLogin ? "Don't have an account? Sign Up" : "Already have an account? Sign in"}
-                                </Link>
-                            </Grid>
-                        </Grid>
+                    {isLogin ?
+                        <Login authService={authService} enqueueSnackbar={enqueueSnackbar} /> :
+                        <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} />
                     }
-                    <Box
-                        mt={3}
+                    <Typography
+                        mt={1}
+                        mb={2}
+                        endDecorator={<Link
+                            onClick={() => { setIsLogin((value) => !value) }}
+                        >
+                            {isLogin ? "Sign Up" : "Sign in"}
+                        </Link>}
+                        fontSize="sm"
                     >
-                        <Copyright />
-                    </Box>
-                </Grid>
-            </Card>
-        </Grid>
+                        {isLogin ? "Don't have an account?" : "Already have an account?"}
+                    </Typography>
+
+                    <Copyright />
+                </Sheet>
+            </main>
+        </CssVarsProvider>
     );
 }
 

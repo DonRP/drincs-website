@@ -4,13 +4,15 @@ import DRAlert from 'components/DRAlert';
 import ReportGrid, { IReportGridRow } from 'components/Grid/ReportGrid';
 import DiscordIcon from 'components/Icon/DiscordIcon';
 import ABFDBugForm from 'components/ReportForm/ABFDBugForm';
+import DiscordBugForm from 'components/ReportForm/DiscordBugForm';
 import WebSiteBugForm from 'components/ReportForm/WebSiteBugForm';
 import { ABFDrepo, WebSiteRepo, discordLink } from 'constant';
 import { useState } from 'react';
 import { analyticPageView } from 'utility/Analytics';
 function Report() {
     const [openABFDBug, setOpenABFDBug] = useState(false)
-    const [openWebSiteBug, setOpenWebSiteDBug] = useState(false)
+    const [openWebSiteBug, setOpenWebSiteBug] = useState(false)
+    const [openDiscordBug, setDiscordBug] = useState(false)
 
     const rowsABFD: IReportGridRow[] = [
         {
@@ -55,7 +57,7 @@ function Report() {
                 description: "Create a report to help us improve",
             },
             link: {
-                website: () => { setOpenWebSiteDBug(true) },
+                website: () => { setOpenWebSiteBug(true) },
             }
         },
         {
@@ -75,6 +77,7 @@ function Report() {
                 description: "Create a report to help us improve",
             },
             link: {
+                website: () => { setDiscordBug(true) },
             }
         },
         {
@@ -131,7 +134,11 @@ function Report() {
             />
             <WebSiteBugForm
                 open={openWebSiteBug}
-                onClose={() => setOpenWebSiteDBug(false)}
+                onClose={() => setOpenWebSiteBug(false)}
+            />
+            <DiscordBugForm
+                open={openDiscordBug}
+                onClose={() => setDiscordBug(false)}
             />
         </>
     );
