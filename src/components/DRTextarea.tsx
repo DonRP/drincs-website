@@ -11,28 +11,6 @@ interface IProps<T extends DefaultValueType> extends TextareaSlotsAndSlotProps, 
     defaultValue?: T
     onChange: (fieldName: string, value: T | any) => void;
     variant?: VariantProp
-    type?: | 'button'
-    | 'checkbox'
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'file'
-    | 'hidden'
-    | 'image'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'radio'
-    | 'range'
-    | 'reset'
-    | 'search'
-    | 'submit'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week'
     fullWidth?: boolean;
     autoComplete?: string;
     autoFocus?: boolean;
@@ -47,22 +25,16 @@ function DRTextarea<T extends DefaultValueType>(props: IProps<T>) {
         fieldName,
         label,
         helperText,
-        placeholder,
-        defaultValue,
         onChange,
-        variant,
-        type = "text",
         fullWidth = true,
         errorFields = [],
         required,
-        autoComplete,
-        autoFocus,
         error,
         minRows = 2,
         maxRows,
         ...rest
     } = props;
-    const textFieldOnChange: FocusEventHandler<HTMLInputElement> = (event) => {
+    const textFieldOnChange: FocusEventHandler<HTMLTextAreaElement> = (event) => {
         event.target.value as T
         onChange(fieldName, event.target.value)
     }
@@ -78,14 +50,8 @@ function DRTextarea<T extends DefaultValueType>(props: IProps<T>) {
                     {...rest}
                     id={fieldName}
                     name={fieldName}
-                    placeholder={placeholder}
-                    // onBlur={textFieldOnChange}
-                    defaultValue={defaultValue}
-                    // variant={variant}
-                    // type={type}
+                    onBlur={textFieldOnChange}
                     // fullWidth={fullWidth}
-                    autoComplete={autoComplete}
-                    autoFocus={autoFocus}
                     error={error || errorFields.includes(fieldName)}
                     minRows={minRows}
                     maxRows={maxRows}

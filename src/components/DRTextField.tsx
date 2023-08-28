@@ -45,16 +45,12 @@ function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
         fieldName,
         label,
         helperText,
-        placeholder,
         defaultValue,
         onChange,
-        variant,
         type = "text",
         fullWidth = true,
         errorFields = [],
         required,
-        autoComplete,
-        autoFocus,
         error,
         ...rest
     } = props;
@@ -74,14 +70,10 @@ function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
                     {...rest}
                     id={fieldName}
                     name={fieldName}
-                    placeholder={placeholder}
                     onBlur={textFieldOnChange}
                     defaultValue={defaultValue}
-                    variant={variant}
                     type={type}
                     fullWidth={fullWidth}
-                    autoComplete={autoComplete}
-                    autoFocus={autoFocus}
                     error={error || errorFields.includes(fieldName)}
                 />
             </DRTextFormControlBase>

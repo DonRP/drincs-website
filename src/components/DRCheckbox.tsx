@@ -1,4 +1,5 @@
 import { Checkbox, CheckboxSlotsAndSlotProps } from "@mui/joy";
+import { FocusEventHandler } from "react";
 import DRErrorComponent from "./DRErrorComponent";
 
 interface IProps extends CheckboxSlotsAndSlotProps {
@@ -13,7 +14,7 @@ interface IProps extends CheckboxSlotsAndSlotProps {
 function DRCheckBox(props: IProps) {
     const { onChangeValue, errorFields, fieldName, error, ...rest } = props;
     let internalError = error || errorFields?.includes(fieldName)
-    const drCheckBoxOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const drCheckBoxOnChange: FocusEventHandler<HTMLInputElement> = (event) => {
         onChangeValue(fieldName, event.target.checked)
     }
 
