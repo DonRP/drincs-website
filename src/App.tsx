@@ -2,7 +2,7 @@ import { MyTheme } from 'Theme';
 import axios from 'axios';
 import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
 import MarkdownPage from 'components/MarkdownPage';
-import { discordLink, gitHubLink } from 'constant';
+import { ABFDrepo, discordLink, gitHubLink } from 'constant';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
 import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
@@ -26,7 +26,7 @@ function App() {
         { title: "⬇️download", path: "/download", element: <Download /> },
         // { title: "🗞️news", path: "/news", element: <News /> },
         { title: "🌍translations", path: "/translations", element: <Translations /> },
-        { title: "📖wiki", path: "/wiki", element: <Wiki routeLink="wiki" urlRepo='DRincs-Productions/ABFD' /> },
+        { title: "📖wiki", path: "/wiki", element: <Wiki routeLink="wiki" urlRepo={ABFDrepo} /> },
         { title: "🐞bug/request", path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
@@ -56,9 +56,9 @@ function App() {
                                 ))}
                                 <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
                                 <Route key={loginRoute.title} path={loginRoute.path} element={loginRoute.element} />
-                                <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-translate.md' />} />
-                                <Route key="howtoconnectwithdiscord" path="/howtoconnectwithdiscord" element={<MarkdownPage markdownLink='https://raw.githubusercontent.com/wiki/DRincs-Productions/ABFD/how-to-connect-with-discord.md' />} />
-                                <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo='DRincs-Productions/daz-assert-ABFD-all-in-one' />} />
+                                <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink={`https://raw.githubusercontent.com/wiki/${ABFDrepo}/how-to-translate.md`} />} />
+                                <Route key="howtoconnectwithdiscord" path="/howtoconnectwithdiscord" element={<MarkdownPage markdownLink={`https://raw.githubusercontent.com/wiki/${ABFDrepo}/how-to-connect-with-discord.md`} />} />
+                                <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo={`DRincs-Productions/daz-assert-ABFD-all-in-one`} />} />
                             </Routes>
                         </SnackbarProvider>
                     </RecoilRoot>

@@ -1,4 +1,6 @@
+import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
+import { ABFDrepo } from 'constant';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
@@ -10,6 +12,7 @@ type ABFDBugFormProps = {
 }
 
 class BugType {
+    title: string = ""
     description: string = ""
     additionalDescription: string = ""
     nickname: string = ""
@@ -21,13 +24,20 @@ function ABFDBugForm(props: ABFDBugFormProps) {
     const [errorFields, setErrorFields] = useState<string[]>([])
 
     function getData() {
+        let error: string[] = []
         if (isNullOrEmpty(data.description)) {
-            setErrorFields(["description"])
-            return undefined
+            error.push("description")
+        }
+        if (isNullOrEmpty(data.title)) {
+            error.push("title")
+        }
+        setErrorFields(error)
+        if (error.length > 0) {
+            return
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: "",
+            repo: ABFDrepo,
             title: "",
             body: "",
             labels: []
@@ -44,6 +54,14 @@ function ABFDBugForm(props: ABFDBugFormProps) {
             maxWidth={"md"}
             getData={getData}
         >
+            <DRTextField
+                fieldName="title"
+                label="Title"
+                required
+                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                defaultValue={data?.title || ""}
+                errorFields={errorFields}
+            />
             <DRTextarea
                 fieldName="description"
                 label="What happened?"

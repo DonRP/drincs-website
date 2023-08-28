@@ -4,7 +4,7 @@ import DRAlert from 'components/DRAlert';
 import ReportGrid, { IReportGridRow } from 'components/Grid/ReportGrid';
 import DiscordIcon from 'components/Icon/DiscordIcon';
 import ABFDBugForm from 'components/ReportForm/ABFDBugForm';
-import { discordLink } from 'constant';
+import { ABFDrepo, discordLink } from 'constant';
 import { useState } from 'react';
 import { analyticPageView } from 'utility/Analytics';
 function Report() {
@@ -107,7 +107,7 @@ function Report() {
                     title="A Big Family in Debit"
                     data={rowsABFD}
                     height={358}
-                    githubLink='https://github.com/DRincs-Productions/ABFD/issues/new/choose'
+                    githubLink={`https://github.com/${ABFDrepo}/issues/new/choose`}
                 />
                 <ReportGrid
                     title="Web Service"
