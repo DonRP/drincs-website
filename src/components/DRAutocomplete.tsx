@@ -1,16 +1,16 @@
-import { AutocompleteChangeDetails, AutocompleteChangeReason } from '@mui/joy';
-import { AutocompleteValue } from '@mui/material';
+import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, AutocompleteValue, TextField } from '@mui/material';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
 interface IProps extends IDRTextFormControlBaseProps {
     fieldName: string,
+    label: string,
     defaultValue: string,
-    onChange: (fieldName: string, value: any) => void;
+    onChange: (event: any, newVal: number | null) => void,
     options: string[],
-    placeholder?: string;
     errorFields?: string[];
     error?: boolean;
+    disableClearable?: boolean;
 }
 
 function DRAutocomplete(props: IProps) {
@@ -22,19 +22,22 @@ function DRAutocomplete(props: IProps) {
         options,
         helperText,
         required,
-        placeholder,
         errorFields = [],
         error,
+        disableClearable,
     } = props
 
-    const autoCompleteOnChange: (
-        event: React.SyntheticEvent,
-        value: AutocompleteValue<any, any, any, any>,
-        reason: AutocompleteChangeReason,
-        details?: AutocompleteChangeDetails,
-    ) => void = (event) => {
-        onChange(fieldName, "event.target.value")
-    }
+    const autocompleteOnChange:
+        (
+            event: React.SyntheticEvent,
+            value: AutocompleteValue<any, any, any, any>,
+            reason: AutocompleteChangeReason,
+            details?: AutocompleteChangeDetails<any>,
+        ) => void
+        = (event, value: any) => {
+            event.target as any
+            onChange(fieldName, value)
+        }
 
     try {
         return (
@@ -46,11 +49,13 @@ function DRAutocomplete(props: IProps) {
                 <Autocomplete
                     id={fieldName}
                     value={defaultValue}
-                    onChange={autoCompleteOnChange}
+                    onChange={autocompleteOnChange}
                     options={options}
-                    placeholder={placeholder}
-                    error={error || errorFields.includes(fieldName)}
-                    sx={{ width: 300 }}
+                    disableClearable={disableClearable}
+                    renderInput={(params) => <TextField
+                        error={error || errorFields.includes(fieldName)}
+                        {...params}
+                    />}
                 />
             </DRTextFormControlBase>
         )

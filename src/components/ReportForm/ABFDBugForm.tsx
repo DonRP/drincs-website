@@ -1,9 +1,10 @@
 import DRAutocomplete from 'components/DRAutocomplete';
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { ABFDrepo } from 'constant';
+import { ABFDrepo, DeviceABFD, VersionABFD } from 'constant';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
+import { getEnumDescriptions } from 'utility/UtilityEnum';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 import ReportForm, { ReportBody } from './ReportForm';
 
@@ -13,17 +14,24 @@ type ABFDBugFormProps = {
 }
 
 class BugType {
+    constructor(defDevice: string, defVersion: string) {
+        this.device = defDevice
+        this.version = defVersion
+    }
     title: string = ""
     description: string = ""
     additionalDescription: string = ""
     nickname: string = ""
-    device: string = ""
+    device: string
+    version: string
 }
 
 function ABFDBugForm(props: ABFDBugFormProps) {
-    const [data, setData] = useState<BugType>(new BugType())
     const { open, onClose } = props;
     const [errorFields, setErrorFields] = useState<string[]>([])
+    const versions = getEnumDescriptions(VersionABFD)
+    const devices = getEnumDescriptions(DeviceABFD)
+    const [data, setData] = useState<BugType>(new BugType(devices[0], versions[0]))
 
     function getData() {
         let error: string[] = []
@@ -78,11 +86,23 @@ function ABFDBugForm(props: ABFDBugFormProps) {
                 fieldName="device"
                 label="Device"
                 helperText="Which device were you using?"
-                options={["Windows", "Mac", "Linux", "Android", "iOS", "Web", "Other"]}
+                options={devices}
                 required
                 onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
-                defaultValue={data?.device || ""}
+                defaultValue={data?.device}
                 errorFields={errorFields}
+                disableClearable
+            />
+            <DRAutocomplete
+                fieldName="version"
+                label="Version"
+                helperText="What version of our software are you running?"
+                options={versions}
+                required
+                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                defaultValue={data?.version}
+                errorFields={errorFields}
+                disableClearable
             />
             <DRTextarea
                 fieldName="additionalDescription"
