@@ -1,3 +1,4 @@
+import DRAutocomplete from 'components/DRAutocomplete';
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
 import { ABFDrepo } from 'constant';
@@ -16,6 +17,7 @@ class BugType {
     description: string = ""
     additionalDescription: string = ""
     nickname: string = ""
+    device: string = ""
 }
 
 function ABFDBugForm(props: ABFDBugFormProps) {
@@ -70,6 +72,16 @@ function ABFDBugForm(props: ABFDBugFormProps) {
                 required
                 onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.description || ""}
+                errorFields={errorFields}
+            />
+            <DRAutocomplete
+                fieldName="device"
+                label="Device"
+                helperText="Which device were you using?"
+                options={["Windows", "Mac", "Linux", "Android", "iOS", "Web", "Other"]}
+                required
+                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                defaultValue={data?.device || ""}
                 errorFields={errorFields}
             />
             <DRTextarea
