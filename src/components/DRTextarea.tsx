@@ -11,7 +11,6 @@ interface IProps<T extends DefaultValueType> extends TextareaSlotsAndSlotProps, 
     defaultValue?: T
     onChange: (fieldName: string, value: T | any) => void;
     variant?: VariantProp
-    fullWidth?: boolean;
     autoComplete?: string;
     autoFocus?: boolean;
     errorFields?: string[];
@@ -26,7 +25,6 @@ function DRTextarea<T extends DefaultValueType>(props: IProps<T>) {
         label,
         helperText,
         onChange,
-        fullWidth = true,
         errorFields = [],
         required,
         error,
@@ -51,7 +49,6 @@ function DRTextarea<T extends DefaultValueType>(props: IProps<T>) {
                     id={fieldName}
                     name={fieldName}
                     onBlur={textFieldOnChange}
-                    // fullWidth={fullWidth}
                     error={error || errorFields.includes(fieldName)}
                     minRows={minRows}
                     maxRows={maxRows}
