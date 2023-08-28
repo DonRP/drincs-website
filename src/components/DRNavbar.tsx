@@ -23,7 +23,7 @@ export type IPageDRNavbar = {
 type IDRNavbarProps = {
     pages: IPageDRNavbar[],
     supportPage: IPageDRNavbar | null,
-    loginPage: IPageDRNavbar | null,
+    openLogin: () => void,
     extern_link: IPageDRNavbar[],
 }
 
@@ -32,9 +32,10 @@ function DRNavbar(props: IDRNavbarProps) {
     const location = useLocation();
     let navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const { pages = [], supportPage, extern_link = [], loginPage } = props;
+    const { pages = [], supportPage, extern_link = [], openLogin } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const loginTitle = "login";
 
     const transitionDuration = {
         enter: materialTheme.transitions.duration.enteringScreen,
@@ -62,16 +63,8 @@ function DRNavbar(props: IDRNavbarProps) {
             navigate(supportPage?.path);
     };
 
-    const goToLogin = () => {
-        if (loginPage)
-            navigate(loginPage?.path);
-    };
-
     const suppertIsVisible = () => {
         if (location.pathname === supportPage?.path) {
-            return false
-        }
-        if (location.pathname === loginPage?.path) {
             return false
         }
         if (location.pathname === "/") {
@@ -142,13 +135,13 @@ function DRNavbar(props: IDRNavbarProps) {
                                     ))}
                                     {!isLoggedIn() &&
                                         <Button
-                                            key={loginPage?.title}
+                                            key={loginTitle}
                                             variant="contained"
-                                            onClick={goToLogin}
+                                            onClick={openLogin}
                                             sx={{ my: 2, display: 'inline-table' }}
                                         >
                                             <strong>
-                                                {loginPage?.title}
+                                                {loginTitle}
                                             </strong>
                                         </Button>
                                     }
@@ -237,9 +230,9 @@ function DRNavbar(props: IDRNavbarProps) {
                             {!isLoggedIn() &&
                                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                                     <Button
-                                        key={loginPage?.title}
+                                        key={loginTitle}
                                         variant="contained"
-                                        onClick={goToLogin}
+                                        onClick={openLogin}
                                     >
                                         <VpnKeyIcon />
                                     </Button>

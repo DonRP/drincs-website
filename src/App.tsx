@@ -12,6 +12,7 @@ import SignInSide from 'page/SignInSide';
 import Support from 'page/Support';
 import Translations from 'page/Translations';
 import Wiki from 'page/Wiki';
+import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { geturlwebapi } from 'services/BaseRestService';
@@ -36,7 +37,7 @@ function App() {
         },
     ];
     const supportRoute = { title: "support me", path: "/support", element: <Support /> }
-    const loginRoute = { title: "login", path: "/login", element: <SignInSide /> }
+    const [openLogin, setOpenLogin] = useState(false);
 
     return (
         <ErrorBoundary>
@@ -47,15 +48,19 @@ function App() {
                             <DRNavbar
                                 pages={routes}
                                 supportPage={supportRoute}
-                                loginPage={loginRoute}
+                                openLogin={() => { setOpenLogin(true) }}
                                 extern_link={extern_link}
+                            />
+
+                            <SignInSide
+                                open={openLogin}
+                                onClose={() => { setOpenLogin(false) }}
                             />
                             <Routes>
                                 {(routes).map((route) => (
                                     <Route key={route.title} path={route.path} element={route.element} />
                                 ))}
                                 <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
-                                <Route key={loginRoute.title} path={loginRoute.path} element={loginRoute.element} />
                                 <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink={`https://raw.githubusercontent.com/wiki/${ABFDrepo}/how-to-translate.md`} />} />
                                 <Route key="howtoconnectwithdiscord" path="/howtoconnectwithdiscord" element={<MarkdownPage markdownLink={`https://raw.githubusercontent.com/wiki/${ABFDrepo}/how-to-connect-with-discord.md`} />} />
                                 <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo={`DRincs-Productions/daz-assert-ABFD-all-in-one`} />} />

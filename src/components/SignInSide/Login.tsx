@@ -168,7 +168,7 @@ function Login(props: ISignInSidePageProps) {
                     />
                 </>}
                 <Typography
-                    mt={1}
+                    mt={0.5}
                     endDecorator={<Link
                         onClick={() => { setOpenChangePassword((value) => !value) }}
                     >
