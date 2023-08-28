@@ -106,53 +106,39 @@ const columns: GridColDef<TranslationResultItem>[] = [
             </strong>
         ),
     },
-    {
-        field: 'approved',
-        headerName: 'Approved',
-        flex: 1,
-        minWidth: 50,
-        renderCell: (params: GridRenderCellParams<TranslationResultItem, number>) => (
-            <strong>
-                {params.value !== 100 &&
-                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                        <CircularProgress
-                            determinate
-                            value={params.value}
-                        />
-                        <Box
-                            sx={{
-                                top: 0,
-                                left: 0,
-                                bottom: 0,
-                                right: 0,
-                                position: 'absolute',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            {params.value ? `${Math.round(params.value)}%` : ""}
-                        </Box>
-                    </Box>
-                }
-                {params.value === 100 &&
-                    <CheckIcon sx={{ color: "springgreen" }} />
-                }
-            </strong>
-        ),
-    },
     // {
-    //     field: 'users',
-    //     headerName: 'Utenti',
-    //     width: 150,
-    //     renderCell: (params) => (
-    //         <AvatarGroup max={2}>
-    //             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-    //             <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-    //             <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-    //             <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
-    //             <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
-    //         </AvatarGroup>
+    //     field: 'approved',
+    //     headerName: 'Approved',
+    //     flex: 1,
+    //     minWidth: 50,
+    //     renderCell: (params: GridRenderCellParams<TranslationResultItem, number>) => (
+    //         <strong>
+    //             {params.value !== 100 &&
+    //                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+    //                     <CircularProgress
+    //                         determinate
+    //                         value={params.value}
+    //                     />
+    //                     <Box
+    //                         sx={{
+    //                             top: 0,
+    //                             left: 0,
+    //                             bottom: 0,
+    //                             right: 0,
+    //                             position: 'absolute',
+    //                             display: 'flex',
+    //                             alignItems: 'center',
+    //                             justifyContent: 'center',
+    //                         }}
+    //                     >
+    //                         {params.value ? `${Math.round(params.value)}%` : ""}
+    //                     </Box>
+    //                 </Box>
+    //             }
+    //             {params.value === 100 &&
+    //                 <CheckIcon sx={{ color: "springgreen" }} />
+    //             }
+    //         </strong>
     //     ),
     // },
 ];
@@ -190,7 +176,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
             <>
                 <Card
                     sx={{
-                        minWidth: { xs: 400, sm: 550, md: 700, lg: 900 },
+                        minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
                         maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
                         backgroundColor: error ? theme.palette.danger[500] : null,
                     }}
@@ -242,7 +228,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                         </CardActionArea>
                     }
                     {!data?.logo &&
-                        <Skeleton variant="rectangular" width={{ xs: 400, sm: 550, md: 700, lg: 900 }} height={200}
+                        <Skeleton variant="rectangular" width={{ xs: 350, sm: 550, md: 700, lg: 900 }} height={200}
                             sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
                         />
                     }
@@ -263,7 +249,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                         />
                     </div>}
                     {!data?.list &&
-                        <Skeleton variant="rectangular" width={{ xs: 400, sm: 550, md: 700, lg: 900 }} height={height}
+                        <Skeleton variant="rectangular" width={{ xs: 350, sm: 550, md: 700, lg: 900 }} height={height}
                             sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
                         />
                     }
