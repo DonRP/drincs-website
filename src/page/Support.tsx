@@ -1,3 +1,4 @@
+import WarningIcon from '@mui/icons-material/Warning';
 import { Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
 import DRAlert from "components/DRAlert";
 import DRSupportCard from "components/DRSupportCard";
@@ -91,13 +92,20 @@ function Support() {
                         marginBottom: 2,
                     }}
                 >
-                    <DRAlert color="warning">
+                    <DRAlert
+                        color="warning"
+                        startDecorator={<WarningIcon />}
+                    >
                         The awards are still under development. For more information read: <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
                     </DRAlert>
-                    <DRAlert color="primary">
+                    <DRAlert
+                        color="primary"
+                    >
                         To get the rewards you will have to connect to Discord (information <Link to={"howtoconnectwithdiscord"}>here</Link>), or connect with the dedicated support page, es Patreon (<a href={gitHubLink + "/drincs-website/issues/38"}>under development</a>)
                     </DRAlert>
-                    <DRAlert color="primary">
+                    <DRAlert
+                        color="primary"
+                    >
                         The percentage next to the buttons is the percentage that will be retained by the support site. So the higher the percentage the more I'm going to lose out on it
                     </DRAlert>
                 </Stack>
