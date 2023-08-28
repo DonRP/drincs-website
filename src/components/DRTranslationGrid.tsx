@@ -190,7 +190,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
             <>
                 <Card
                     sx={{
-                        minWidth: { xs: 450, sm: 550, md: 700, lg: 900 },
+                        minWidth: { xs: 400, sm: 550, md: 700, lg: 900 },
                         maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
                         backgroundColor: error ? theme.palette.danger[500] : null,
                     }}
@@ -242,7 +242,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                         </CardActionArea>
                     }
                     {!data?.logo &&
-                        <Skeleton variant="rectangular" width={{ xs: 450, sm: 550, md: 700, lg: 900 }} height={200}
+                        <Skeleton variant="rectangular" width={{ xs: 400, sm: 550, md: 700, lg: 900 }} height={200}
                             sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
                         />
                     }
@@ -263,7 +263,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                         />
                     </div>}
                     {!data?.list &&
-                        <Skeleton variant="rectangular" width={{ xs: 450, sm: 550, md: 700, lg: 900 }} height={height}
+                        <Skeleton variant="rectangular" width={{ xs: 400, sm: 550, md: 700, lg: 900 }} height={height}
                             sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
                         />
                     }
