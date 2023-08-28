@@ -31,7 +31,7 @@ function DRDataGrid<T extends IData>(props: IProps<T>) {
             <Card
                 // elevation={24} 
                 sx={{
-                    minWidth: { xs: 450, sm: 550, md: 700, lg: 900 },
+                    minWidth: { xs: 400, sm: 550, md: 700, lg: 900 },
                     maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
                     marginTop: 2,
                 }}
