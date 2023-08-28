@@ -1,8 +1,8 @@
-import { DRButtonNoMargin } from 'components/DRButton';
 import DRTextarea from 'components/DRTextarea';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import ReportForm from './ReportForm';
+import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import ReportForm, { ReportBody } from './ReportForm';
 
 type ABFDBugFormProps = {
     open: boolean;
@@ -11,13 +11,29 @@ type ABFDBugFormProps = {
 
 class BugType {
     description: string = ""
+    additionalDescription: string = ""
+    nickname: string = ""
 }
 
 function ABFDBugForm(props: ABFDBugFormProps) {
     const [data, setData] = useState<BugType>(new BugType())
     const { open, onClose } = props;
-    const [errorFields, setErrorFields] = useState([])
+    const [errorFields, setErrorFields] = useState<string[]>([])
 
+    function getData() {
+        if (isNullOrEmpty(data.description)) {
+            setErrorFields(["description"])
+            return undefined
+        }
+        setErrorFields([])
+        let res: ReportBody = {
+            repo: "",
+            title: "",
+            body: "",
+            labels: []
+        }
+        return res
+    }
 
     return (
         <ReportForm<BugType>
@@ -26,18 +42,7 @@ function ABFDBugForm(props: ABFDBugFormProps) {
             title={"Bug report"}
             data={data}
             maxWidth={"md"}
-            actions={
-                <>
-                    <DRButtonNoMargin
-                        label='Cancel'
-                    // onClick={handleClose}
-                    />
-                    <DRButtonNoMargin
-                        label='Send'
-                    // onClick={handleClose}
-                    />
-                </>
-            }
+            getData={getData}
         >
             <DRTextarea
                 fieldName="description"
@@ -54,7 +59,7 @@ function ABFDBugForm(props: ABFDBugFormProps) {
                 label="Additional Description"
                 helperText="Add a description to help us understand"
                 onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
-                defaultValue={data?.description || ""}
+                defaultValue={data?.additionalDescription || ""}
                 errorFields={errorFields}
             />
             <DRTextarea
@@ -63,7 +68,7 @@ function ABFDBugForm(props: ABFDBugFormProps) {
                 helperText="Add your contact so we can contact you for more information"
                 placeholder="Discrod: _balck_ram_"
                 onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
-                defaultValue={data?.description || ""}
+                defaultValue={data?.nickname || ""}
                 errorFields={errorFields}
             />
         </ReportForm>
