@@ -10,6 +10,8 @@ import { logError } from 'utility/Logger';
 interface ReportFormProps<T> extends IDRDialogProps {
     data: T,
     getData: () => ReportBody | undefined,
+    clearData: () => void,
+    onClose: () => void,
 }
 
 export interface ReportBody {
@@ -34,6 +36,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
         }
         githubService.createIssue(data.repo, data.title, data.body, data.labels).then(res => {
             setLoading(false);
+            onClose()
         }).catch(err => {
             logError("send Report", err)
             setLoading(false);

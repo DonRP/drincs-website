@@ -16,6 +16,7 @@ class GitService extends BaseRestService {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')
                 }
+                this.showMessage("The issue has been created. Thank you very much.", 'success');
                 return response;
             })
             .catch((res) => {

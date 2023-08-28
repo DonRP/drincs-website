@@ -48,9 +48,28 @@ function ABFDBugForm(props: ABFDBugFormProps) {
         setErrorFields([])
         let res: ReportBody = {
             repo: ABFDrepo,
-            title: data.title,
-            body: "",
-            labels: ["bug"]
+            title: "[Report WebSite]" + data.title,
+            body: `### What happened?
+
+            ${data.description}
+            
+            ### Device
+            
+            ${data.device}
+            
+            ### Version
+            
+            ${data.version}
+            
+            ### User Nickname
+            
+            ${data.nickname || "_No response_"}
+                        
+            ### Additional Description
+            
+            ${data.additionalDescription || "_No response_"}
+            `,
+            labels: ["bug"],
         }
         return res
     }
@@ -63,6 +82,7 @@ function ABFDBugForm(props: ABFDBugFormProps) {
             data={data}
             maxWidth={"md"}
             getData={getData}
+            clearData={() => setData(new BugType(devices[0], versions[0]))}
         >
             <DRTextField
                 fieldName="title"
