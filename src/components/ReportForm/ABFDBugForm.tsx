@@ -48,9 +48,9 @@ function ABFDBugForm(props: ABFDBugFormProps) {
         setErrorFields([])
         let res: ReportBody = {
             repo: ABFDrepo,
-            title: "",
+            title: data.title,
             body: "",
-            labels: []
+            labels: ["bug"]
         }
         return res
     }
@@ -105,20 +105,20 @@ function ABFDBugForm(props: ABFDBugFormProps) {
                 disableClearable
             />
             <DRTextarea
-                fieldName="additionalDescription"
-                label="Additional Description"
-                helperText="Add a description to help us understand"
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
-                defaultValue={data?.additionalDescription || ""}
-                errorFields={errorFields}
-            />
-            <DRTextarea
                 fieldName="nickname"
                 label="Your Nickname"
                 helperText="Add your contact so we can contact you for more information"
                 placeholder="Discrod: _balck_ram_"
                 onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.nickname || ""}
+                errorFields={errorFields}
+            />
+            <DRTextarea
+                fieldName="additionalDescription"
+                label="Additional Description"
+                helperText="Add a description to help us understand"
+                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                defaultValue={data?.additionalDescription || ""}
                 errorFields={errorFields}
             />
         </ReportForm>
