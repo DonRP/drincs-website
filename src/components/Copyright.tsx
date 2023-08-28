@@ -1,14 +1,20 @@
-import { Link, Typography } from "@mui/material";
+import { Link, Typography } from "@mui/joy";
+import { gitHubLink } from "constant";
 
 function Copyright() {
     return (
-        <Typography variant="body2" color="textSecondary" align="center">
+        <Typography
+            level="body-sm"
+            sx={{ alignSelf: 'center' }}
+        >
             {"Copyright © "}
-            <Link color="inherit" href="https://github.com/DRincs-Productions/drincs-website">
+            <Link
+                textColor={"text.secondary"}
+                href={gitHubLink + "/drincs-website"}
+            >
                 DRincs WebSite
             </Link>{" "}
             {new Date().getFullYear()}
-            {"."}
         </Typography>
     );
 }

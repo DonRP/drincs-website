@@ -1,60 +1,38 @@
-import { Input, InputSlotsAndSlotProps, VariantProp } from '@mui/joy';
+import { Textarea, TextareaSlotsAndSlotProps, VariantProp } from '@mui/joy';
 import { FocusEventHandler } from 'react';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
 type DefaultValueType = string | number | ReadonlyArray<string> | undefined
 
-interface IProps<T extends DefaultValueType> extends InputSlotsAndSlotProps, IDRTextFormControlBaseProps {
+interface IProps<T extends DefaultValueType> extends TextareaSlotsAndSlotProps, IDRTextFormControlBaseProps {
     fieldName: string;
     placeholder?: string;
     defaultValue?: T
     onChange: (fieldName: string, value: T | any) => void;
     variant?: VariantProp
-    type?: | 'button'
-    | 'checkbox'
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'file'
-    | 'hidden'
-    | 'image'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'radio'
-    | 'range'
-    | 'reset'
-    | 'search'
-    | 'submit'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week'
-    fullWidth?: boolean;
     autoComplete?: string;
     autoFocus?: boolean;
     errorFields?: string[];
     error?: boolean;
+    minRows?: number;
+    maxRows?: number;
 }
 
-function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
+function DRTextarea<T extends DefaultValueType>(props: IProps<T>) {
     const {
         fieldName,
         label,
         helperText,
-        defaultValue,
         onChange,
-        type = "text",
-        fullWidth = true,
         errorFields = [],
         required,
         error,
+        minRows = 2,
+        maxRows,
         ...rest
     } = props;
-    const textFieldOnChange: FocusEventHandler<HTMLInputElement> = (event) => {
+    const textFieldOnChange: FocusEventHandler<HTMLTextAreaElement> = (event) => {
         event.target.value as T
         onChange(fieldName, event.target.value)
     }
@@ -66,21 +44,20 @@ function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
                 helperText={helperText}
                 required={required}
             >
-                <Input
+                <Textarea
                     {...rest}
                     id={fieldName}
                     name={fieldName}
                     onBlur={textFieldOnChange}
-                    defaultValue={defaultValue}
-                    type={type}
-                    fullWidth={fullWidth}
                     error={error || errorFields.includes(fieldName)}
+                    minRows={minRows}
+                    maxRows={maxRows}
                 />
             </DRTextFormControlBase>
         )
     } catch (error) {
-        return <DRErrorComponent error={error} text={"DRTextField"} />
+        return <DRErrorComponent error={error} text={"DRTextarea"} />
     }
 }
 
-export default DRTextField;
+export default DRTextarea;

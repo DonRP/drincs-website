@@ -1,14 +1,16 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, useTheme } from '@mui/material';
+import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import { materialUseTheme } from 'Theme';
 import { useSnackbar } from 'notistack';
 import React from 'react';
 import { Link, To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
-import { logError } from 'utility/Logger';
+import DRErrorComponent from './DRErrorComponent';
+import DRLogo from './String/DRLogo';
 
 // https://mui.com/components/app-bar/
 // https://react-bootstrap.github.io/components/navbar/#home
@@ -21,22 +23,23 @@ export type IPageDRNavbar = {
 type IDRNavbarProps = {
     pages: IPageDRNavbar[],
     supportPage: IPageDRNavbar | null,
-    loginPage: IPageDRNavbar | null,
+    openLogin: () => void,
     extern_link: IPageDRNavbar[],
 }
 
 function DRNavbar(props: IDRNavbarProps) {
+    const materialTheme = materialUseTheme();
     const location = useLocation();
-    const theme = useTheme();
     let navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const { pages = [], supportPage, extern_link = [], loginPage } = props;
+    const { pages = [], supportPage, extern_link = [], openLogin } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+    const loginTitle = "login";
 
     const transitionDuration = {
-        enter: theme.transitions.duration.enteringScreen,
-        exit: theme.transitions.duration.leavingScreen,
+        enter: materialTheme.transitions.duration.enteringScreen,
+        exit: materialTheme.transitions.duration.leavingScreen,
     };
 
     const handleOpenNavMenu = (event: any) => {
@@ -60,16 +63,8 @@ function DRNavbar(props: IDRNavbarProps) {
             navigate(supportPage?.path);
     };
 
-    const goToLogin = () => {
-        if (loginPage)
-            navigate(loginPage?.path);
-    };
-
     const suppertIsVisible = () => {
         if (location.pathname === supportPage?.path) {
-            return false
-        }
-        if (location.pathname === loginPage?.path) {
             return false
         }
         if (location.pathname === "/") {
@@ -99,7 +94,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         color: "white",
                                     }}
                                 >
-                                    <strong>DR</strong>incs
+                                    <DRLogo />
                                 </Link>
                             </Typography>
                             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -140,13 +135,13 @@ function DRNavbar(props: IDRNavbarProps) {
                                     ))}
                                     {!isLoggedIn() &&
                                         <Button
-                                            key={loginPage?.title}
+                                            key={loginTitle}
                                             variant="contained"
-                                            onClick={goToLogin}
+                                            onClick={openLogin}
                                             sx={{ my: 2, display: 'inline-table' }}
                                         >
                                             <strong>
-                                                {loginPage?.title}
+                                                {loginTitle}
                                             </strong>
                                         </Button>
                                     }
@@ -229,15 +224,15 @@ function DRNavbar(props: IDRNavbarProps) {
                                         color: "white",
                                     }}
                                 >
-                                    <strong>DR</strong>incs
+                                    <DRLogo />
                                 </Link>
                             </Typography>
                             {!isLoggedIn() &&
                                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                                     <Button
-                                        key={loginPage?.title}
+                                        key={loginTitle}
                                         variant="contained"
-                                        onClick={goToLogin}
+                                        onClick={openLogin}
                                     >
                                         <VpnKeyIcon />
                                     </Button>
@@ -314,8 +309,7 @@ function DRNavbar(props: IDRNavbarProps) {
             </>
         );
     } catch (error) {
-        logError("DRNavbar", error)
-        return <div style={{ color: theme.palette.error.main }}>DRNavbar error</div>
+        return <DRErrorComponent error={error} text={"DRNavbar"} />
     }
 };
 

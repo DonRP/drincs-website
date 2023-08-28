@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid } from '@mui/joy';
 import DRTranslationGrid from 'components/DRTranslationGrid';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { analyticPageView } from 'utility/Analytics';
@@ -20,13 +20,14 @@ function Translations() {
             direction="column"
             justifyContent="flex-start"
             alignItems="center"
-            spacing={4}
-            pt={4}
+            paddingTop={3}
+            paddingBottom={3}
         >
             <h2>Other Games</h2>
             {OtherTranslationProjects.map((item) =>
-                <Grid item key={item}
-                    sx={{ marginBottom: 2 }}
+                <Grid
+                    key={item}
+                    marginTop={2}
                 >
                     <DRTranslationGrid
                         projectId={item}

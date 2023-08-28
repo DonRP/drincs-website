@@ -1,9 +1,10 @@
 import InfoIcon from '@mui/icons-material/Info';
-import { Alert, Card, CardActions, CardContent, CardHeader, IconButton, Rating, Typography, useTheme } from '@mui/material';
-import Chip from '@mui/material/Chip';
-import Grid2 from '@mui/material/Unstable_Grid2';
-import { logError } from 'utility/Logger';
-import DRButton from './DRButton';
+import { Alert, Card, CardActions, CardContent, Grid, Typography } from '@mui/joy';
+import { Rating } from '@mui/material';
+import { DRButtonNoMargin } from './DRButton';
+import DRChip from './DRChip';
+import DRErrorComponent from './DRErrorComponent';
+import DRIconButton from './DRIconButton';
 
 type IDRSupportCardProps = {
     stars: number;
@@ -13,117 +14,126 @@ type IDRSupportCardProps = {
 }
 
 function DRSupportCard(props: IDRSupportCardProps) {
-    const theme = useTheme();
     const { stars, title, month_price, year_price } = props;
 
     try {
         return (
-            <Card sx={{
-                backgroundColor: "#19759554",
-                border: 1,
-                "border-color": "#197595",
-            }}>
-                <CardHeader
-                    title={
-                        <Typography variant="h6" align="left">
-                            {title}
-                        </Typography>
-                    }
-                    subheader={
-                        <Rating
-                            name="read-only"
-                            value={stars}
-                            readOnly
-                            sx={{
-                                marginTop: 1,
-                                display: { xs: 'none', lg: 'flex' },
-                            }}
-                        />
-                    }
-                    action={
-                        <Rating
-                            name="read-only"
-                            value={stars}
-                            readOnly
-                            sx={{
-                                marginTop: 1,
-                                display: { xs: 'flex', lg: 'none' },
-                            }}
-                        />
-                    }
+            <Card
+                sx={{
+                    backgroundColor: "#19759554",
+                    border: 1,
+                    "border-color": "#197595",
+                }}
+            >
+                <Grid
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems={{ xs: "flex-start", lg: 'center' }}
+                >
+                    <Typography
+                        component='h6'
+                        fontSize={20}
+                    >
+                        {title}
+                    </Typography>
+                    <Rating
+                        name="read-only"
+                        value={stars}
+                        readOnly
+                        sx={{
+                            display: { xs: 'none', lg: 'flex' },
+                        }}
+                    />
+                </Grid>
+
+                <Rating
+                    name="read-only"
+                    value={stars}
+                    readOnly
+                    sx={{
+                        marginTop: 1,
+                        display: { xs: 'flex', lg: 'none' },
+                        position: 'absolute', top: '0.875rem', right: '1.1rem'
+                    }}
                 />
                 <CardContent>
-
-                    <Grid2
+                    <Grid
                         container
                         direction="column"
                         justifyContent="flex-start"
                         alignItems="start"
-                        spacing={1}
+                        sx={{
+                            marginLeft: 2,
+                        }}
                     >
-                        <Grid2
+                        <Grid
                             container
                             direction="row"
                             justifyContent="flex-start"
                             alignItems="center"
                             spacing={1}
                         >
-                            <Grid2
+                            <Grid
                                 direction="row"
                                 justifyContent="flex-start"
                                 alignItems="center"
                             >
-                                <Typography variant="h4" >
+                                <Typography
+                                    fontSize={35}
+                                >
                                     €{month_price}
                                 </Typography>
-                            </Grid2>
-                            <Grid2>
-                                <Typography color="text.secondary">
+                            </Grid>
+                            <Grid>
+                                <Typography
+                                // color="text.secondary"
+                                >
                                     / month
                                 </Typography>
-                            </Grid2>
-                        </Grid2>
-                        <Grid2
+                            </Grid>
+                        </Grid>
+                        <Grid
                             container
                             direction="row"
                             justifyContent="flex-start"
                             alignItems="center"
                             spacing={1}
                         >
-                            <Grid2
+                            <Grid
                                 direction="row"
                                 justifyContent="flex-start"
                                 alignItems="center"
                             >
-                                <Typography variant="h4" >
+                                <Typography
+                                    fontSize={35}
+                                >
                                     €{year_price}
                                 </Typography>
-                            </Grid2>
-                            <Grid2>
-                                <Typography color="text.secondary">
+                            </Grid>
+                            <Grid>
+                                <Typography
+                                // color="text.secondary"
+                                >
                                     / year
                                 </Typography>
-                            </Grid2>
-                            <Grid2>
-                                <IconButton
-                                    color="primary"
-                                    aria-label="Annual price is only for sites where it is available"
-                                    title="Annual price is only for sites where it is available"
-                                    size="small"
-                                >
-                                    <InfoIcon />
-                                </IconButton>
-                            </Grid2>
-                            {/* <Grid2>
+                            </Grid>
+                            <Grid>
+                                <DRIconButton
+                                    ariaLabel="Annual price is only for sites where it is available"
+                                    icon={<InfoIcon />}
+                                />
+                            </Grid>
+                            {/* <Grid>
                                 <Typography variant="body2" align="left">
                                     ....
                                 </Typography>
-                            </Grid2> */}
-                        </Grid2>
-                    </Grid2>
+                            </Grid> */}
+                        </Grid>
+                    </Grid>
                 </CardContent>
                 <CardActions>
-                    <Grid2
+                    <Grid
                         xs={12}
                         container
                         direction="column"
@@ -131,46 +141,64 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         alignItems="center"
                         spacing={1}
                     >
-                        <Grid2 xs={12}>
-                            <Alert severity="info" icon={false}>Don't support me for gifts, but to give me the time to spend on the project</Alert>
-                        </Grid2>
-                        <Grid2 xs={12}>
-                            <DRButton
-                                ariaLabel='8% retained by Patreon'
-                                marginTop={0}
-                                marginBottom={0}
-                                onClick={() => {
-                                    window.open("https://www.patreon.com/DRincs")
-                                }}
-                            >
-                                Patreon
-                                <Chip label="8%"
-                                    sx={{ color: "red" }}
-                                />
-                            </DRButton>
-                        </Grid2>
-                        <Grid2 xs={12}>
-                            <DRButton
-                                ariaLabel='0% retained by BuyMeACoffe'
+                        <Grid xs={12}>
+                            <Alert>Don't support me for gifts, but to give me the time to spend on the project</Alert>
+                        </Grid>
+                        <Grid xs={12}>
+                            <DRButtonNoMargin
+                                label='BuyMeACoffe'
                                 marginTop={0}
                                 marginBottom={0}
                                 onClick={() => {
                                     window.open("https://www.buymeacoffee.com/DRincs")
                                 }}
-                            >
-                                Buy Me A Coffe
-                                <Chip label="0%"
-                                    sx={{ color: "green" }}
-                                />
-                            </DRButton>
-                        </Grid2>
-                    </Grid2>
+                                endIcon={
+                                    <DRChip
+                                        label="0%"
+                                        ariaLabel='0% retained by BuyMeACoffe'
+                                        sx={{ color: "green" }}
+                                    />
+                                }
+                            />
+                        </Grid>
+                        {/* <Grid xs={12}>
+                            <DRButtonNoMargin
+                                title='PayPal'
+                                ariaLabel='0% retained by PayPal'
+                                marginTop={0}
+                                marginBottom={0}
+                                onClick={() => {
+                                    window.open("https://www.paypal.com/paypalme/DRincsProductions")
+                                }}
+                                endIcon={
+                                    <DRChip
+                                        label="0%"
+                                        sx={{ color: "green" }}
+                                    />
+                                }
+                            />
+                        </Grid> */}
+                        <Grid xs={12}>
+                            <DRButtonNoMargin
+                                label='Patreon'
+                                onClick={() => {
+                                    window.open("https://www.patreon.com/DRincs")
+                                }}
+                                endIcon={
+                                    <DRChip
+                                        label="8%"
+                                        ariaLabel='8% retained by Patreon'
+                                        sx={{ color: "red" }}
+                                    />
+                                }
+                            />
+                        </Grid>
+                    </Grid>
                 </CardActions>
             </Card>
         );
     } catch (error) {
-        logError("DRSupportCard", error)
-        return <div style={{ color: theme.palette.error.main }}>DRSupportCard error</div>
+        return <DRErrorComponent error={error} text={"DRSupportCard"} />
     }
 }
 

@@ -1,15 +1,33 @@
-import { Button, Card, CardHeader, CardMedia, Grid, useTheme } from '@mui/material';
-import { Box } from '@mui/system';
-import { DataGrid } from '@mui/x-data-grid';
-import { logError } from 'utility/Logger';
+import { Box, Grid } from '@mui/joy';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
+import { discordLink } from 'constant';
+import { DRButtonNoMargin } from '../DRButton';
 
-const columns = [
+type IDownloadLink = {
+    mega?: string,
+    mediafire?: string,
+    discord?: boolean,
+    sha?: string,
+}
+type IDownloadDevice = {
+    name: string
+    element?: JSX.Element
+}
+export type IDownloadGridRow = {
+    id: number,
+    device: IDownloadDevice
+    version: string,
+    download: IDownloadLink,
+}
+
+const columns: GridColDef<IDownloadGridRow>[] = [
     {
         field: 'device',
         headerName: 'Device',
         flex: 1,
         minWidth: 25,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<IDownloadGridRow, IDownloadDevice>) => (
             <strong>
                 {params.value?.element &&
                     <>
@@ -29,7 +47,7 @@ const columns = [
         headerName: 'Version',
         flex: 1,
         minWidth: 25,
-        renderCell: (params: any) => (
+        renderCell: (params: GridRenderCellParams<IDownloadGridRow, string>) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     {params.value}
@@ -40,8 +58,8 @@ const columns = [
     {
         field: 'download',
         headerName: 'Download',
-        minWidth: 350,
-        renderCell: (params: any) => (
+        minWidth: 200,
+        renderCell: (params: GridRenderCellParams<IDownloadGridRow, IDownloadLink>) => (
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     <Grid
@@ -57,9 +75,10 @@ const columns = [
                             alignItems="center"
                             spacing={1}
                         >
-                            <Grid item>
+                            <Grid>
                                 {params.value?.mediafire &&
-                                    <Button
+                                    <DRButtonNoMargin
+                                        label='Mediafire'
                                         variant="outlined"
                                         startIcon={
                                             <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
@@ -67,39 +86,36 @@ const columns = [
                                         onClick={() => {
                                             window.open(params.value?.mediafire)
                                         }}
-                                    >
-                                        Mediafire
-                                    </Button>
+                                        color='success'
+                                    />
                                 }
                             </Grid>
-                            <Grid item>
+                            <Grid>
                                 {params.value?.mega &&
-                                    <Button
-                                        variant="outlined"
+                                    <DRButtonNoMargin
+                                        label='Mega'
+                                        variant='soft'
                                         startIcon={
                                             <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
                                         }
                                         onClick={() => {
                                             window.open(params.value?.mega)
                                         }}
-                                    >
-                                        Mega
-                                    </Button>
+                                    />
                                 }
                             </Grid>
-                            <Grid item>
+                            <Grid>
                                 {params.value?.discord &&
-                                    <Button
-                                        variant="outlined"
+                                    <DRButtonNoMargin
+                                        label='Discord - Supporter'
+                                        variant='soft'
                                         startIcon={
                                             <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
                                         }
                                         onClick={() => {
-                                            window.open("https://discord.gg/HFfeJKR")
+                                            window.open(discordLink)
                                         }}
-                                    >
-                                        Discord - Supporter
-                                    </Button>
+                                    />
                                 }
                             </Grid>
                         </Grid>
@@ -110,53 +126,24 @@ const columns = [
         ),
     },
 ];
-type IDownloadLink = {
-    mega?: string,
-    mediafire?: string,
-    discord?: boolean,
-    sha?: string,
-}
-type IDownloadGridRow = {
-    id: number,
-    device: { name: string, element?: JSX.Element }
-    version: string,
-    download: IDownloadLink,
-}
-type IDRDownloadGridProps = {
-    title: string,
-    data: IDownloadGridRow[],
-    logoImage?: string,
-    height?: number,
-    rowHeight?: number,
+
+interface IDownloadGridProps extends IDRDataGridProps<IDownloadGridRow> {
 }
 
-function DRDownloadGrid(props: IDRDownloadGridProps) {
-    const theme = useTheme();
-    const { title, data, logoImage, height = 350, rowHeight = 75 } = props;
+function DownloadGrid(props: IDownloadGridProps) {
+    const { title, data, logoImage, height, rowHeight } = props;
 
-    try {
-        return (
-            <Card elevation={24} sx={{ minWidth: { xs: 470, sm: 600, md: 900 } }}>
-                <CardHeader
-                    title={title}
-                />
-                {logoImage && <CardMedia
-                    component="img"
-                    image={logoImage}
-                />}
-                <div style={{ height: height, width: '100%' }}>
-                    <DataGrid
-                        rows={data}
-                        columns={columns}
-                        rowHeight={rowHeight}
-                    />
-                </div>
-            </Card>
-        );
-    } catch (error) {
-        logError("DRDownloadGrid", error)
-        return <div style={{ color: theme.palette.error.main }}>DRDownloadGrid error</div>
-    }
+    return (
+        <DRDataGrid
+            title={title}
+            data={data}
+            columns={columns}
+            logoImage={logoImage}
+            height={height}
+            rowHeight={rowHeight}
+            hideFooter
+        />
+    );
 }
 
-export default DRDownloadGrid;
+export default DownloadGrid;

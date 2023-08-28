@@ -1,9 +1,9 @@
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Avatar, Grid, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableRow, Theme, useTheme } from '@mui/material';
+import { Avatar, Grid, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableRow, Theme } from '@mui/material';
 import { green, red } from '@mui/material/colors';
-import { logError } from 'utility/Logger';
 import { isBoolean, isObject } from 'utility/UtilityFunctionts';
+import DRErrorComponent from './DRErrorComponent';
 
 type IDRTable = {
     titles?: string[],
@@ -20,7 +20,6 @@ type IDRTableCell = {
 }
 
 function DRTableCell(props: IDRTableCell) {
-    const theme = useTheme();
     const { element } = props;
 
     try {
@@ -84,8 +83,7 @@ function DRTableCell(props: IDRTableCell) {
             {element}
         </TableCell>
     } catch (error) {
-        logError("DRTableCell", error)
-        return <div style={{ color: theme.palette.error.main }}>DRTableCell error</div>
+        return <DRErrorComponent error={error} text={"DRTableCell"} />
     }
 }
 
@@ -125,7 +123,6 @@ function convertData(oldData: any[][] | object[] = [], revert = false): any[][] 
 }
 
 function DRTable(props: IDRTable) {
-    const theme = useTheme();
     const { verticalTitle, toMirrorAcrossDiagonal, titles, data, sx } = props;
     const dataUsed = convertData(data, toMirrorAcrossDiagonal)
     try {
@@ -168,8 +165,7 @@ function DRTable(props: IDRTable) {
             </TableContainer>
         );
     } catch (error) {
-        logError("DRTable", error)
-        return <div style={{ color: theme.palette.error.main }}>DRTable error</div>
+        return <DRErrorComponent error={error} text={"DRTable"} />
     }
 }
 

@@ -1,46 +1,35 @@
-import { Checkbox, CheckboxProps, FormControlLabel, Typography, useTheme } from "@mui/material";
-import { SwitchBaseProps } from "@mui/material/internal/SwitchBase";
-import { logError } from "utility/Logger";
+import { Checkbox, CheckboxSlotsAndSlotProps } from "@mui/joy";
+import { FocusEventHandler } from "react";
+import DRErrorComponent from "./DRErrorComponent";
 
-type IDRCheckBoxProps = {
+interface IProps extends CheckboxSlotsAndSlotProps {
     onChangeValue: (fieldName: string, value: boolean) => void;
     errorFields?: string[];
     fieldName: string;
     label: string;
     error?: boolean
-    labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
-    position?: 'left' | 'center';
-} & CheckboxProps
+    checked?: boolean;
+}
 
-function DRCheckBox(props: IDRCheckBoxProps) {
-    const { onChangeValue, errorFields, fieldName, label, error, labelPlacement, position = "left", ...rest } = props;
-    const theme = useTheme();
-    const drCheckBoxOnChange: SwitchBaseProps['onChange'] = (event: React.ChangeEvent<HTMLInputElement>) => {
+function DRCheckBox(props: IProps) {
+    const { onChangeValue, errorFields, fieldName, error, ...rest } = props;
+    let internalError = error || errorFields?.includes(fieldName)
+    const drCheckBoxOnChange: FocusEventHandler<HTMLInputElement> = (event) => {
         onChangeValue(fieldName, event.target.checked)
     }
 
     try {
         return (
-            <FormControlLabel
+            <Checkbox
+                {...rest}
                 id={fieldName}
-                labelPlacement={labelPlacement || "end"}
-                sx={{
-                    width: position === "left" ? "-webkit-fill-available" : ""
-                }}
-                control={<Checkbox
-                    {...rest}
-                    id={fieldName}
-                    name={fieldName}
-                    onChange={drCheckBoxOnChange}
-                />}
-                label={<Typography color={(error || errorFields?.includes(fieldName)) ? theme.palette.error.main : ""}>
-                    {label}
-                </Typography>}
+                name={fieldName}
+                onChange={drCheckBoxOnChange}
+                color={internalError ? "danger" : "primary"}
             />
         );
     } catch (error) {
-        logError("DRCheckBox", error)
-        return <div style={{ color: theme.palette.error.main }}>DRCheckBox error</div>
+        return <DRErrorComponent error={error} text={"DRCheckBox"} />
     }
 }
 

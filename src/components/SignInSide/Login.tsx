@@ -1,19 +1,18 @@
-import { Grid, Link, Typography, useTheme } from '@mui/material';
-import { ISignInSidePageProps } from 'SignInSide';
-import DRLoadingButton from 'components/DRLoadingButton';
+import { Grid, Link, Typography } from '@mui/joy';
+import DRErrorComponent from 'components/DRErrorComponent';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
+import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { showMessage } from 'services/BaseRestService';
-import { logError } from 'utility/Logger';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
+import DRButtonSignInSide from './DRButtonSignInSide';
 
 function Login(props: ISignInSidePageProps) {
     var validator = require('validator');
-    const theme = useTheme();
     let navigate = useNavigate();
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
     const [errorFields, setErrorFields] = useState<string[]>([])
@@ -63,6 +62,9 @@ function Login(props: ISignInSidePageProps) {
                 setLoading(false)
             })
         }
+        else {
+            setLoading(false)
+        }
     };
 
     const handelResetPassword = () => {
@@ -79,22 +81,34 @@ function Login(props: ISignInSidePageProps) {
                 setLoading(false)
             })
         }
+        else {
+            setLoading(false)
+        }
     };
 
     try {
         return (
             <>
                 {!openChangePassword && <>
-                    <Typography component="h1" variant="h5">
-                        {"Sign in"}
-                    </Typography>
+                    <Grid container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Grid>
+                            <Typography
+                                component="h1"
+                            >
+                                {"Sign in"}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                     <DRTextField
                         fieldName="email"
                         label="Email"
                         defaultValue={account.email}
-                        onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
-                        margin="normal"
                         type='email'
                         required
                         autoFocus
@@ -104,9 +118,8 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="password"
                         label="Password"
                         defaultValue={account.password}
-                        onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
-                        margin="normal"
                         type='password'
                         required
                         errorFields={errorFields}
@@ -117,51 +130,58 @@ function Login(props: ISignInSidePageProps) {
                         checked={rememberMe}
                         onChangeValue={(fieldName, value) => setRememberMe(value)}
                     />
-                    <DRLoadingButton
-                        titleButton='Sign In'
+                    <DRButtonSignInSide
+                        label='Log in'
                         onClick={handelLogin}
                         loading={loading}
                     />
                 </>}
                 {openChangePassword && <>
-                    <Typography component="h1" variant="h5">
-                        {"Reset Password"}
-                    </Typography>
+                    <Grid container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Grid>
+                            <Typography
+                                component="h1"
+                            >
+                                {"Reset Password"}
+                            </Typography>
+                        </Grid>
+                    </Grid>
                     <DRTextField
                         fieldName="email"
                         label="Email"
                         defaultValue={account.email}
-                        onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
-                        margin="normal"
                         type='email'
                         required
                         autoFocus
                         errorFields={errorFields}
                     />
-                    <DRLoadingButton
-                        titleButton='Send email'
+                    <DRButtonSignInSide
+                        label='Send email'
                         onClick={handelResetPassword}
                         loading={loading}
                     />
                 </>}
-
-                <Grid container>
-                    <Grid item>
-                        <Link variant="body2"
-                            onClick={() => {
-                                setOpenChangePassword(!openChangePassword)
-                            }}
-                        >
-                            {openChangePassword ? "Back to login" : "Forgot your password? Reset password"}
-                        </Link>
-                    </Grid>
-                </Grid>
+                <Typography
+                    mt={0.5}
+                    endDecorator={<Link
+                        onClick={() => { setOpenChangePassword((value) => !value) }}
+                    >
+                        {openChangePassword ? "Back to login" : "Reset password"}
+                    </Link>}
+                    fontSize="sm"
+                >
+                    {openChangePassword ? "Already have an account?" : "Forgot your password?"}
+                </Typography>
             </>
         );
     } catch (error) {
-        logError("Login error", error)
-        return <div style={{ color: theme.palette.error.main }}>Login error</div>
+        return <DRErrorComponent error={error} text={"Login"} />
     }
 }
 

@@ -1,10 +1,13 @@
-import { Button, SxProps, useTheme } from '@mui/material';
-import { logError } from 'utility/Logger';
+import { Button, ButtonSlotsAndSlotProps, Tooltip } from '@mui/joy';
+import { ColorPaletteProp, SxProps, VariantProp } from '@mui/joy/styles/types';
+import { ReactNode } from 'react';
+import DRErrorComponent from './DRErrorComponent';
 
-interface IDRButtonProps {
+export interface IDRButtonProps extends ButtonSlotsAndSlotProps {
+    label: string,
     onClick?: () => void,
     startIcon?: React.ReactNode,
-    children: any,
+    children?: ReactNode,
     disabled?: boolean,
     ariaLabel?: string,
     marginTop?: number,
@@ -12,16 +15,18 @@ interface IDRButtonProps {
     marginLeft?: number,
     marginRight?: number,
     fullWidth?: boolean
-    variant?: 'text' | 'outlined' | 'contained'
-    color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning'
+    variant?: VariantProp
+    color?: ColorPaletteProp
     endIcon?: React.ReactNode
     sx?: SxProps
-    size?: 'small' | 'medium' | 'large'
+    size?: 'sm' | 'md' | 'lg'
+    loading?: boolean
+    autoFocus?: boolean
 }
 
 function DRButton(props: IDRButtonProps) {
-    const theme = useTheme();
     const {
+        label,
         onClick,
         startIcon,
         children,
@@ -32,43 +37,63 @@ function DRButton(props: IDRButtonProps) {
         marginLeft = 2,
         marginRight = 2,
         fullWidth = true,
-        variant = "contained",
+        variant = "solid",
         color = "primary",
         endIcon,
         sx,
-        size = "large",
+        size = "lg",
+        loading,
+        autoFocus,
     } = props;
 
     try {
         return (
-            <Button
-                fullWidth={fullWidth}
-                aria-label={ariaLabel}
+            <Tooltip
                 title={ariaLabel}
-                variant={variant}
-                color={color}
-                disabled={disabled}
-                size={size}
-                onClick={onClick}
-                startIcon={startIcon}
-                sx={{
-                    marginTop: marginTop,
-                    marginBottom: marginBottom,
-                    marginLeft: marginLeft,
-                    marginRight: marginRight,
-                    ...sx,
-                }}
-                endIcon={endIcon}
             >
-                <strong>
-                    {children}
-                </strong>
-            </Button>
+                <Button
+                    fullWidth={fullWidth}
+                    title={ariaLabel}
+                    variant={variant}
+                    color={color}
+                    disabled={disabled}
+                    size={size}
+                    onClick={onClick}
+                    sx={{
+                        marginTop: marginTop,
+                        marginBottom: marginBottom,
+                        marginLeft: marginLeft,
+                        marginRight: marginRight,
+                        ...sx,
+                    }}
+                    startDecorator={startIcon}
+                    endDecorator={endIcon}
+                    loading={loading}
+                    autoFocus={autoFocus}
+                >
+                    <strong>
+                        {label}
+                        {children}
+                    </strong>
+                </Button>
+            </Tooltip>
         );
     } catch (error) {
-        logError("DRButton", error)
-        return <div style={{ color: theme.palette.error.main }}>DRButton error</div>
+        return <DRErrorComponent error={error} text={"DRButton"} />
     }
 }
+
+export function DRButtonNoMargin(props: IDRButtonProps) {
+    return (
+        <DRButton
+            marginBottom={0}
+            marginLeft={0}
+            marginRight={0}
+            marginTop={0}
+            {...props}
+        />
+    );
+}
+
 
 export default DRButton;

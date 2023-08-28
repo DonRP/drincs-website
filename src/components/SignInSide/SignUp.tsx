@@ -1,13 +1,13 @@
 import EmailIcon from '@mui/icons-material/Email';
-import { Typography } from "@mui/material";
-import { ISignInSidePageProps } from 'SignInSide';
-import DRLoadingButton from 'components/DRLoadingButton';
+import { Grid, Typography } from '@mui/joy';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
 import { showMessage } from 'services/BaseRestService';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import DRButtonSignInSide from './DRButtonSignInSide';
 
 function SignUp(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -49,49 +49,59 @@ function SignUp(props: ISignInSidePageProps) {
                 setLoading(false)
             })
         }
+        else {
+            setLoading(false)
+        }
     };
 
     if (!emailVerification) {
         return (
             <>
-                <Typography component="h1" variant="h5">
-                    {"Sign up"}
-                </Typography>
+                <Grid container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Grid>
+                        <Typography
+                            component="h1"
+                        >
+                            {"Sign up"}
+                        </Typography>
+                    </Grid>
+                </Grid>
                 <DRTextField
                     fieldName="displayName"
                     label="Username"
                     defaultValue={account.displayName}
-                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     required
                     autoFocus
-                    margin="normal"
                     errorFields={errorFields}
                 />
                 <DRTextField
                     fieldName="email"
                     label="Email Address"
                     defaultValue={account.email}
-                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     required
                     fullWidth
                     autoComplete="email"
                     type='email'
-                    margin="normal"
                     errorFields={errorFields}
                 />
                 <DRTextField
                     fieldName="password"
                     label="Password"
                     defaultValue={account.password}
-                    onChangeValue={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     type='password'
                     required
                     fullWidth
                     autoComplete="current-password"
-                    margin="normal"
                     errorFields={errorFields}
                 />
                 {/* // TODO: To Implement  */}
@@ -99,8 +109,8 @@ function SignUp(props: ISignInSidePageProps) {
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive inspiration, marketing promotions and updates via email."
             /> */}
-                <DRLoadingButton
-                    titleButton='Sign Up'
+                <DRButtonSignInSide
+                    label='Sign Up'
                     onClick={handelSignUp}
                     loading={loading}
                 />

@@ -13,7 +13,7 @@ export function analyticPageView(page_title: string, page_path?: string) {
         });
     }
     catch (err) {
-        logError("analyticHome", err)
+        logError("analyticPageView", err)
     }
 }
 

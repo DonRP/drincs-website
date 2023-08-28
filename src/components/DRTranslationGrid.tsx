@@ -2,10 +2,11 @@ import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { Card, CardActionArea, CardHeader, CardMedia, CircularProgress, Collapse, Grid, IconButton, Skeleton, Typography, useTheme } from '@mui/material';
-import Button from '@mui/material/Button';
+import { AspectRatio, Card, CircularProgress, Grid, IconButton, Skeleton, Typography } from '@mui/joy';
+import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { myUseTheme } from 'Theme';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResult, TranslationResultItem } from 'model/Translation/TranslationResult';
 import { useSnackbar } from 'notistack';
@@ -15,6 +16,7 @@ import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import TranslationService from 'services/TranslationService';
 import { logError } from 'utility/Logger';
 import DRButton from './DRButton';
+import DRErrorComponent from './DRErrorComponent';
 
 const columns: GridColDef<TranslationResultItem>[] = [
     {
@@ -31,13 +33,13 @@ const columns: GridColDef<TranslationResultItem>[] = [
                     alignItems="center"
                     spacing={{ xs: 0, sm: 2, md: 2 }}
                 >
-                    <Grid item sx={{ display: { xs: 'flex', md: 'none' } }} >
+                    <Grid sx={{ display: { xs: 'flex', md: 'none' } }} >
                         <FlagIcon code={params.value?.twoLettersCode.toUpperCase() as FlagIconCode} size={50} height={40} alt={params.value?.name} />
                     </Grid>
-                    <Grid item sx={{ display: { xs: 'none', md: 'flex' } }} >
+                    <Grid sx={{ display: { xs: 'none', md: 'flex' } }} >
                         <FlagIcon code={params.value?.twoLettersCode.toUpperCase() as FlagIconCode} size={65} height={50} alt={params.value?.name} />
                     </Grid>
-                    <Grid item  >
+                    <Grid>
                         {params.value?.name}
                     </Grid>
                 </Grid>
@@ -52,17 +54,19 @@ const columns: GridColDef<TranslationResultItem>[] = [
         renderCell: (params: GridRenderCellParams<TranslationResultItem, GitHubTranslationRelease>) => (
             <strong>
                 {params.value &&
-                    <Button
-                        variant="contained"
+                    <DRButton
+                        label={params.value?.version}
                         color="primary"
-                        size="small"
-                        style={{ marginLeft: 16 }}
-                        target="_blank"
-                        href={params.value?.downloadUrl}
+                        size="sm"
+                        marginLeft={0}
+                        marginBottom={0}
+                        marginRight={0}
+                        marginTop={0}
+                        onClick={() => {
+                            window.open(params.value?.downloadUrl)
+                        }}
                         startIcon={<DownloadIcon />}
-                    >
-                        {params.value?.version}
-                    </Button>
+                    />
                 }
             </strong>
         ),
@@ -76,7 +80,10 @@ const columns: GridColDef<TranslationResultItem>[] = [
             <strong>
                 {params.value !== 100 &&
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                        <CircularProgress variant="determinate" value={params.value} />
+                        <CircularProgress
+                            determinate
+                            value={params.value}
+                        />
                         <Box
                             sx={{
                                 top: 0,
@@ -108,7 +115,10 @@ const columns: GridColDef<TranslationResultItem>[] = [
             <strong>
                 {params.value !== 100 &&
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                        <CircularProgress variant="determinate" value={params.value} />
+                        <CircularProgress
+                            determinate
+                            value={params.value}
+                        />
                         <Box
                             sx={{
                                 top: 0,
@@ -154,7 +164,7 @@ type IDRTranslationGridProps = {
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const theme = useTheme();
+    const theme = myUseTheme()
     const { enqueueSnackbar } = useSnackbar();
     const { projectId, height = 350, rowHeight = 75 } = props
     const [data, setData] = useState<TranslationResult>()
@@ -178,50 +188,69 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     try {
         return (
             <>
-                <Card elevation={24} sx={{ maxWidth: 900, backgroundColor: error ? theme.palette.error.dark : null }}>
-                    <CardHeader
-                        action={
-                            <>
-                                <IconButton
-                                    onClick={handleExpandClick}
-                                    style={{ marginBottom: 10 }}
-                                >
-                                    <HelpOutlineIcon />
-                                </IconButton>
-                                <DRButton
-                                    variant="contained"
-                                    color="primary"
-                                    fullWidth={false}
-                                    marginLeft={16}
-                                    marginBottom={10}
-                                    marginRight={0}
-                                    marginTop={0}
-                                    disabled={!data?.crowdinLink}
-                                    onClick={() => {
-                                        window.open(data?.crowdinLink)
-                                    }}
-                                    endIcon={<GTranslateIcon />}
-                                >
-                                    <Typography>
-                                        Translate
-                                    </Typography>
-                                </DRButton>
-                            </>
-                        }
-                        title={data?.name ?
-                            data?.name :
-                            <Skeleton variant="text" sx={{ fontSize: '2rem' }} />
-                        }
-                    />
-                    <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
-                        <CardMedia
-                            component="img"
-                            image={data?.logo || ""}
+                <Card
+                    sx={{
+                        minWidth: { xs: 450, sm: 550, md: 700, lg: 900 },
+                        maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
+                        backgroundColor: error ? theme.palette.danger[500] : null,
+                    }}
+                >
+                    {data &&
+                        <div>
+                            <Typography level="title-lg">{data.name}</Typography>
+                            <IconButton
+                                color="neutral"
+                                size="sm"
+                                sx={{ position: 'absolute', top: '0.875rem', right: '9.5rem' }}
+                                onClick={handleExpandClick}
+                            >
+                                <HelpOutlineIcon />
+                            </IconButton>
+                            <DRButton
+                                label='Translate'
+                                color="primary"
+                                fullWidth={false}
+                                marginLeft={16}
+                                marginBottom={10}
+                                marginRight={0}
+                                marginTop={0}
+                                disabled={!data?.crowdinLink}
+                                onClick={() => {
+                                    window.open(data?.crowdinLink)
+                                }}
+                                endIcon={<GTranslateIcon />}
+                                size="sm"
+                                sx={{ position: 'absolute', top: '0.875rem', right: '1.1rem' }}
+                            />
+                        </div>
+                    }
+                    {!data &&
+                        <Skeleton variant="text" sx={{ fontSize: '2rem' }} />
+                    }
+                    {data?.logo &&
+                        <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
+                            {/* <CardMedia
+                                component="img"
+                                image={data?.logo || ""}
+                            /> */}
+                            <AspectRatio minHeight={200} maxHeight={250}>
+                                <img
+                                    src={data.logo}
+                                    alt=''
+                                />
+                            </AspectRatio>
+                        </CardActionArea>
+                    }
+                    {!data?.logo &&
+                        <Skeleton variant="rectangular" width={{ xs: 450, sm: 550, md: 700, lg: 900 }} height={200}
+                            sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
                         />
-                    </CardActionArea>
+                    }
                     {data?.description &&
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
-                            <Typography paragraph>
+                            <Typography
+                            // paragraph
+                            >
                                 <div dangerouslySetInnerHTML={{ __html: data.description }} />
                             </Typography>
                         </Collapse>
@@ -233,18 +262,16 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             rowHeight={rowHeight}
                         />
                     </div>}
-                    {!data &&
-                        <Skeleton variant="rectangular" width={9999} height={450}
-                            sx={{ maxWidth: { xs: 480, sm: 580, md: 700, lg: 900 } }}
+                    {!data?.list &&
+                        <Skeleton variant="rectangular" width={{ xs: 450, sm: 550, md: 700, lg: 900 }} height={height}
+                            sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
                         />
                     }
                 </Card>
             </>
         );
-        // }
     } catch (error) {
-        logError("DRTranslationGrid", error)
-        return <div style={{ color: theme.palette.error.main }}>DRTranslationGrid error</div>
+        return <DRErrorComponent error={error} text={"DRTranslationGrid"} />
     }
 }
 

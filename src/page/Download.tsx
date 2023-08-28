@@ -1,11 +1,12 @@
 import AndroidIcon from '@mui/icons-material/Android';
 import AppleIcon from '@mui/icons-material/Apple';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
-import { Grid } from "@mui/material";
-import DRDownloadGrid from "components/DRDownloadGrid";
+import FolderZipIcon from '@mui/icons-material/FolderZip';
+import { Grid } from '@mui/joy';
+import DownloadGrid, { IDownloadGridRow } from 'components/Grid/DownloadGrid';
 import { analyticPageView } from 'utility/Analytics';
 
-const rowsABFD = [
+const rowsABFD: IDownloadGridRow[] = [
     {
         id: 0, device: {
             name: 'Windows/Linux', element: <>
@@ -16,22 +17,25 @@ const rowsABFD = [
                     alignItems="center"
                     spacing={{ xs: 0, md: 4 }}
                 >
-                    <Grid item  >
+                    <Grid  >
                         <DesktopWindowsIcon sx={{ fontSize: 40, display: { xs: 'flex', md: 'none' } }} />
                         <DesktopWindowsIcon sx={{ fontSize: 30, display: { xs: 'none', md: 'flex' } }} />
                     </Grid>
-                    <Grid item sx={{ fontSize: 15, display: { xs: 'none', md: 'flex' } }} >
+                    <Grid sx={{ fontSize: 15, display: { xs: 'none', md: 'flex' } }} >
+                        Windows/Linux
+                    </Grid>
+                    <Grid sx={{ fontSize: 10, display: { xs: 'flex', md: 'none' } }} >
                         Windows/Linux
                     </Grid>
                 </Grid>
             </>
         }, version: 'v0.1.1', download: {
-            mega: "https://mega.nz/file/zwtkUY4L#TTS6XJ7y4trltyaU1qRVeYZT7g3cfhKu0_avGKkczCQ"
+            mega: "https://mega.nz/file/b1tQnKjT#Q0WG8su9jv994F2Hn7u31_I9HkBpDP5afUCsa6lBCfk"
         }
     },
     {
         id: 1, device: {
-            name: 'Windows/Linux QHD', element: <>
+            name: 'Windows/Linux Compress', element: <>
                 <Grid
                     container
                     direction={{ xs: "column", md: "row" }}
@@ -39,20 +43,23 @@ const rowsABFD = [
                     alignItems="center"
                     spacing={{ xs: 0, md: 4 }}
                 >
-                    <Grid item  >
-                        <DesktopWindowsIcon sx={{ fontSize: 40, display: { xs: 'flex', md: 'none' } }} />
-                        <DesktopWindowsIcon sx={{ fontSize: 30, display: { xs: 'none', md: 'flex' } }} />
+                    <Grid  >
+                        <FolderZipIcon sx={{ fontSize: 40, display: { xs: 'flex', md: 'none' } }} />
+                        <FolderZipIcon sx={{ fontSize: 30, display: { xs: 'none', md: 'flex' } }} />
                     </Grid>
-                    <Grid item sx={{ fontSize: 15, display: { xs: 'none', md: 'flex' } }} >
-                        Windows/Linux QHD
+                    <Grid sx={{ fontSize: 15, display: { xs: 'none', lg: 'flex' } }} >
+                        Windows/Linux Compress
                     </Grid>
-                    <Grid item sx={{ fontSize: 10, display: { xs: 'flex', md: 'none' } }} >
-                        QHD
+                    <Grid sx={{ fontSize: 15, display: { xs: 'none', md: 'flex', lg: 'none' } }} >
+                        Compress
+                    </Grid>
+                    <Grid sx={{ fontSize: 10, display: { xs: 'flex', md: 'none' } }} >
+                        Compress
                     </Grid>
                 </Grid>
             </>
         }, version: 'v0.1.1', download: {
-            discord: true,
+            mega: "https://mega.nz/file/zwtkUY4L#TTS6XJ7y4trltyaU1qRVeYZT7g3cfhKu0_avGKkczCQ"
         }
     },
     {
@@ -65,14 +72,14 @@ const rowsABFD = [
                     alignItems="center"
                     spacing={{ xs: 0, md: 4 }}
                 >
-                    <Grid item  >
+                    <Grid  >
                         <AppleIcon sx={{ fontSize: 40, display: { xs: 'flex', md: 'none' } }} />
                         <AppleIcon sx={{ fontSize: 30, display: { xs: 'none', md: 'flex' } }} />
                     </Grid>
-                    <Grid item sx={{ fontSize: 15, display: { xs: 'none', md: 'flex' } }} >
+                    <Grid sx={{ fontSize: 15, display: { xs: 'none', md: 'flex' } }} >
                         MacOS
                     </Grid>
-                    <Grid item sx={{ fontSize: 10, display: { xs: 'flex', md: 'none' } }} >
+                    <Grid sx={{ fontSize: 10, display: { xs: 'flex', md: 'none' } }} >
                         MacOS
                     </Grid>
                 </Grid>
@@ -91,11 +98,14 @@ const rowsABFD = [
                     alignItems="center"
                     spacing={{ xs: 0, md: 4 }}
                 >
-                    <Grid item  >
+                    <Grid  >
                         <AndroidIcon sx={{ fontSize: 40, display: { xs: 'flex', md: 'none' } }} />
                         <AndroidIcon sx={{ fontSize: 30, display: { xs: 'none', md: 'flex' } }} />
                     </Grid>
-                    <Grid item sx={{ fontSize: 15, display: { xs: 'none', md: 'flex' } }} >
+                    <Grid sx={{ fontSize: 15, display: { xs: 'none', md: 'flex' } }} >
+                        Android
+                    </Grid>
+                    <Grid sx={{ fontSize: 10, display: { xs: 'flex', md: 'none' } }} >
                         Android
                     </Grid>
                 </Grid>
@@ -117,12 +127,14 @@ function Download() {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
+                paddingTop={3}
+                paddingBottom={3}
             >
                 <h2>Download</h2>
-                <DRDownloadGrid
+                <DownloadGrid
                     title="A Big Family in Debit"
                     data={rowsABFD}
-                    height={411}
+                    height={358}
                 />
             </Grid>
         </>

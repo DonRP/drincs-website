@@ -1,27 +1,46 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, useTheme } from '@mui/material';
-import * as React from 'react';
-import { logError } from 'utility/Logger';
+import { Close } from '@mui/icons-material';
+import { Box, IconButton, Typography } from '@mui/joy';
+import { Breakpoint, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { ReactNode } from 'react';
+import DRErrorComponent from './DRErrorComponent';
 
-type IDRDialogProps = {
+export type IDRDialogProps = {
     open: boolean,
-    maxWidth: false | undefined,
+    maxWidth?: Breakpoint | false,
     title: string,
-    children: React.ReactNode,
-    actions: React.ReactNode,
+    children?: ReactNode,
+    actions?: ReactNode,
+    onClose?: () => void,
 }
 
 function DRDialog(props: IDRDialogProps) {
-    const theme = useTheme();
-    const { open = false, maxWidth = false, title, children, actions } = props;
+    const { open = false, maxWidth = false, title, children, actions, onClose } = props;
 
     try {
         return (
             <Dialog
                 open={open}
                 maxWidth={maxWidth}
-                fullWidth
             >
-                <DialogTitle>{title}</DialogTitle>
+                <DialogTitle>
+                    <Typography
+                        component="h1"
+                        fontSize={20}
+                        sx={{
+                            paddingLeft: 3,
+                            paddingTop: 1,
+                        }}
+                    >
+                        {title}
+                    </Typography>
+                </DialogTitle>
+                <Box position="absolute" top={0} right={0} >
+                    <IconButton
+                        onClick={onClose}
+                    >
+                        <Close />
+                    </IconButton>
+                </Box>
                 <DialogContent>
                     {children}
                 </DialogContent>
@@ -31,8 +50,7 @@ function DRDialog(props: IDRDialogProps) {
             </Dialog>
         );
     } catch (error) {
-        logError("DRDialog", error)
-        return <div style={{ color: theme.palette.error.main }}>DRDialog error</div>
+        return <DRErrorComponent error={error} text={"DRDialog"} />
     }
 }
 

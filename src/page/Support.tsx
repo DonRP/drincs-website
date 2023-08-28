@@ -1,10 +1,9 @@
-import { Box, Card, Grid, Tab, Tabs } from "@mui/material";
-import Alert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
+import WarningIcon from '@mui/icons-material/Warning';
+import { Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
+import DRAlert from "components/DRAlert";
 import DRSupportCard from "components/DRSupportCard";
 import DRTable from "components/DRTable";
-import * as React from 'react';
-import { useState } from "react";
+import { gitHubLink } from "constant";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import { Link } from "react-router-dom";
 import { analyticPageView } from "utility/Analytics";
@@ -78,12 +77,6 @@ const data: SupportDataType[] = [
 function Support() {
     analyticPageView("Support")
 
-    const [value, setValue] = useState('1');
-
-    const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-        setValue(newValue);
-    };
-
     return (
         <>
             <Grid
@@ -99,9 +92,22 @@ function Support() {
                         marginBottom: 2,
                     }}
                 >
-                    <Alert severity="warning">The awards are still under development. For more information read: <a href="https://github.com/DRincs-Productions/drincs-website/issues/37">GitHub issue</a></Alert>
-                    <Alert severity="info">To get the rewards you will have to connect to Discord (information <Link to={"howtoconnectwithdiscord"}>here</Link>), or connect with the dedicated support page, es Patreon (<a href="https://github.com/DRincs-Productions/drincs-website/issues/38">under development</a>)</Alert>
-                    <Alert severity="info">The percentage next to the buttons is the percentage that will be retained by the support site. So the higher the percentage the more I'm going to lose out on it</Alert>
+                    <DRAlert
+                        color="warning"
+                        startDecorator={<WarningIcon />}
+                    >
+                        The awards are still under development. For more information read: <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
+                    </DRAlert>
+                    <DRAlert
+                        color="primary"
+                    >
+                        To get the rewards you will have to connect to Discord (information <Link to={"howtoconnectwithdiscord"}>here</Link>), or connect with the dedicated support page, es Patreon (<a href={gitHubLink + "/drincs-website/issues/38"}>under development</a>)
+                    </DRAlert>
+                    <DRAlert
+                        color="primary"
+                    >
+                        The percentage next to the buttons is the percentage that will be retained by the support site. So the higher the percentage the more I'm going to lose out on it
+                    </DRAlert>
                 </Stack>
                 {/* pc */}
                 <DRTable
@@ -118,29 +124,31 @@ function Support() {
                 <Card
                     sx={{
                         display: { lg: 'none' },
-                        width: "98%",
+                        width: "90%",
                         marginBottom: 2,
                     }}
                 >
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs value={value} onChange={handleChange} >
-                            <Tab label={"Official"} value={"0"} />
-                            <Tab label={"Super"} value={"1"} />
-                            <Tab label={"Mega"} value={"2"} />
-                            <Tab label={"Ultra"} value={"3"} />
-                            <Tab label={"VIP"} value={"4"} />
+                        <Tabs defaultValue={1} >
+                            <TabList>
+                                <Tab value={0}>Official</Tab>
+                                <Tab value={1}>Super</Tab>
+                                <Tab value={2}>Mega</Tab>
+                                <Tab value={3}>Ultra</Tab>
+                                <Tab value={4}>VIP</Tab>
+                            </TabList>
+                            {data.map((item, index) => {
+                                return <TabPanel value={index}>
+                                    {item.card}
+                                    <DRTable
+                                        titles={["Discord Role", "Private News", "Voting Power"]}
+                                        data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
+                                        toMirrorAcrossDiagonal
+                                    />
+                                </TabPanel>
+                            })}
                         </Tabs>
                     </Box>
-                    {/* {data.map((item, index) => {
-                        return <TabPanel value={index.toString()}>
-                            {item.card}
-                            <DRTable
-                                titles={["Discord Role", "Private News", "Voting Power"]}
-                                data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
-                                toMirrorAcrossDiagonal
-                            />
-                        </TabPanel>
-                    })} */}
                 </Card>
             </Grid>
         </>

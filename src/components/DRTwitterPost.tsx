@@ -1,20 +1,19 @@
-import { Button, CardActionArea, Grid, Stack, useTheme } from '@mui/material';
+import { Button, CardActionArea, Grid, Stack } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
-import { red } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
+import { red } from '@mui/material/colors';
 import * as React from 'react';
-import { logError } from 'utility/Logger';
+import DRErrorComponent from './DRErrorComponent';
 
 type IDRTwitterPostProps = {
     twitterPost: any,
 }
 
 function DRTwitterPost(props: IDRTwitterPostProps) {
-    const theme = useTheme();
     const twitterPost = props.twitterPost
     const [media, setMedia] = React.useState<any[]>([]);
     const [urls, setUrls] = React.useState<any[]>([]);
@@ -125,8 +124,7 @@ function DRTwitterPost(props: IDRTwitterPostProps) {
             </Card>
         );
     } catch (error) {
-        logError("DRTwitterPost", error)
-        return <div style={{ color: theme.palette.error.main }}>DRTwitterPost error</div>
+        return <DRErrorComponent error={error} text={"DRTwitterPost"} />
     }
 }
 
