@@ -2,7 +2,6 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import { DRButtonNoMargin } from 'components/DRButton';
 import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
 import DRIconButton from 'components/DRIconButton';
 
@@ -26,26 +25,29 @@ const columns: GridColDef<IReportGridRow>[] = [
         field: 'info',
         headerName: 'Description',
         flex: 1,
-        minWidth: 80,
         renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
-            <strong>
-                {params.value?.title &&
-                    <>
-                        {params.value?.title}
-                    </>
-                }
-                {!params.value?.description &&
-                    <>
-                        {params.value?.description}
-                    </>
-                }
-            </strong >
+            <Box
+                width="100%"
+            >
+                <strong>
+                    {params.value?.title &&
+                        <>
+                            {params.value?.title}
+                        </>
+                    }
+                    {!params.value?.description &&
+                        <>
+                            {params.value?.description}
+                        </>
+                    }
+                </strong >
+            </Box>
         ),
     },
     {
         field: 'link',
         headerName: '',
-        minWidth: 300,
+        minWidth: 150,
         renderCell: (params: GridRenderCellParams<IReportGridRow, IReportLink>) => (
             <Box
                 width="100%"
@@ -55,7 +57,7 @@ const columns: GridColDef<IReportGridRow>[] = [
                     direction="row"
                     justifyContent="flex-end"
                     alignItems="center"
-                    spacing={1}
+                    spacing={0.5}
                 >
                     {params.value?.website &&
                         <Grid>
@@ -70,11 +72,10 @@ const columns: GridColDef<IReportGridRow>[] = [
                     }
                     {params.value?.github &&
                         <Grid>
-                            <DRButtonNoMargin
-                                label='GitHub'
+                            <DRIconButton
                                 variant='soft'
                                 ariaLabel='Requires a GitHub account'
-                                startIcon={<GitHubIcon />}
+                                icon={<GitHubIcon />}
                                 onClick={() => {
                                     window.open(params.value?.github)
                                 }}
