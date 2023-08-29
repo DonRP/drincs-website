@@ -157,7 +157,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = myUseTheme()
     const { enqueueSnackbar } = useSnackbar();
     const { projectId, height = 350, rowHeight = 75 } = props
-    const [error, setError] = useState(true)
+    const [error, setError] = useState(false)
     const translationService = useMemo(() => { return new TranslationService(enqueueSnackbar) }, [enqueueSnackbar]);
     const [data, setData] = useRecoilState(translationState(projectId));
 
