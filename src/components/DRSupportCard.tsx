@@ -23,6 +23,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                     backgroundColor: "#19759554",
                     border: 1,
                     "border-color": "#197595",
+                    minWidth: 200,
                 }}
             >
                 <Grid
@@ -146,15 +147,15 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         </Grid>
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='BuyMeACoffe'
-                                marginTop={0}
-                                marginBottom={0}
+                                label='Buy Me A Coffe'
+                                size='sm'
                                 onClick={() => {
                                     window.open("https://www.buymeacoffee.com/DRincs")
                                 }}
                                 endIcon={
                                     <DRChip
                                         label="0%"
+                                        size='sm'
                                         ariaLabel='0% retained by BuyMeACoffe'
                                         sx={{ color: "green" }}
                                     />
@@ -181,12 +182,14 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         <Grid xs={12}>
                             <DRButtonNoMargin
                                 label='Patreon'
+                                size='sm'
                                 onClick={() => {
                                     window.open("https://www.patreon.com/DRincs")
                                 }}
                                 endIcon={
                                     <DRChip
                                         label="8%"
+                                        size='sm'
                                         ariaLabel='8% retained by Patreon'
                                         sx={{ color: "red" }}
                                     />
