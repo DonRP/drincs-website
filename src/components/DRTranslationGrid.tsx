@@ -2,21 +2,25 @@ import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import { AspectRatio, Card, CircularProgress, Grid, IconButton, Skeleton, Typography } from '@mui/joy';
+import ReplayIcon from '@mui/icons-material/Replay';
+import { AspectRatio, Card, CircularProgress, Grid, Skeleton, Typography } from '@mui/joy';
 import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { myUseTheme } from 'Theme';
+import { translationState } from 'atoms/translationState';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
-import { GitHubTranslationRelease, TargetLanguages, TranslationResult, TranslationResultItem } from 'model/Translation/TranslationResult';
+import { GitHubTranslationRelease, TargetLanguages, TranslationResultItem } from 'model/Translation/TranslationResult';
 import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from "react";
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
+import { useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
 import { logError } from 'utility/Logger';
 import DRButton from './DRButton';
 import DRErrorComponent from './DRErrorComponent';
+import DRIconButton from './DRIconButton';
 
 const columns: GridColDef<TranslationResultItem>[] = [
     {
@@ -153,18 +157,20 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = myUseTheme()
     const { enqueueSnackbar } = useSnackbar();
     const { projectId, height = 350, rowHeight = 75 } = props
-    const [data, setData] = useState<TranslationResult>()
-    const [error, setError] = useState(false)
+    const [error, setError] = useState(true)
     const translationService = useMemo(() => { return new TranslationService(enqueueSnackbar) }, [enqueueSnackbar]);
+    const [data, setData] = useRecoilState(translationState(projectId));
 
     useEffect(() => {
+        if (error) return
+        if (data) return
         translationService.getLanguages(projectId).then(res => {
             setData(res?.content)
         }).catch(err => {
             logError("getLanguages", err)
             setError(true)
         })
-    }, [projectId, translationService]);
+    }, [projectId, translationService, data, setData, error]);
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -181,17 +187,28 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                         backgroundColor: error ? theme.palette.danger[500] : null,
                     }}
                 >
+                    {error &&
+                        <DRIconButton
+                            icon={<ReplayIcon />}
+                            ariaLabel="Reload"
+                            color="neutral"
+                            size="sm"
+                            onClick={() => {
+                                setError(false)
+                            }}
+                        />
+                    }
                     {data &&
                         <div>
                             <Typography level="title-lg">{data.name}</Typography>
-                            <IconButton
+                            <DRIconButton
+                                icon={<HelpOutlineIcon />}
+                                ariaLabel="Info"
                                 color="neutral"
                                 size="sm"
                                 sx={{ position: 'absolute', top: '0.875rem', right: '9.5rem' }}
                                 onClick={handleExpandClick}
-                            >
-                                <HelpOutlineIcon />
-                            </IconButton>
+                            />
                             <DRButton
                                 label='Translate'
                                 color="primary"
