@@ -1,25 +1,65 @@
 import { Box, CircularProgress, ColorPaletteProp, IconButton, Tooltip, VariantProp } from "@mui/joy";
+import { SxProps } from "@mui/joy/styles/types";
 import DRErrorComponent from "./DRErrorComponent";
 
-type IDRIconButtonProps = {
+interface IProps {
     onClick?: () => void,
     icon: any,
     disabled?: boolean,
     ariaLabel?: string,
-    loading?: boolean,
     variant?: VariantProp
     color?: ColorPaletteProp
+    size?: 'sm' | 'md' | 'lg'
+    sx?: SxProps
+    position?: 'relative' | 'absolute'
 }
 
-function DRIconButton(props: IDRIconButtonProps) {
+function DRIconButton(props: IProps) {
     const {
         onClick,
         icon,
         disabled,
         ariaLabel,
-        loading = false,
         variant,
         color,
+        size,
+        sx,
+    } = props;
+
+
+    try {
+        return (
+            <Tooltip
+                title={ariaLabel}
+            >
+                <IconButton
+                    aria-label={ariaLabel}
+                    disabled={disabled}
+                    onClick={onClick}
+                    color={color}
+                    variant={variant}
+                    size={size}
+                    sx={sx}
+                >
+                    {icon}
+                </IconButton>
+            </Tooltip>
+        );
+    } catch (error) {
+        return <DRErrorComponent error={error} text={"DRIconButton"} />
+    }
+}
+
+export default DRIconButton;
+
+interface ILoadingProps extends IProps {
+    loading?: boolean,
+}
+
+export function DRIconButtonLoading(props: ILoadingProps) {
+    const {
+        loading = false,
+        ...rest
     } = props;
 
 
@@ -27,19 +67,9 @@ function DRIconButton(props: IDRIconButtonProps) {
         return (
             <>
                 <Box sx={{ m: 1, position: 'relative' }}>
-                    <Tooltip
-                        title={ariaLabel}
-                    >
-                        <IconButton
-                            aria-label={ariaLabel}
-                            disabled={disabled}
-                            onClick={onClick}
-                            color={color}
-                            variant={variant}
-                        >
-                            {icon}
-                        </IconButton>
-                    </Tooltip>
+                    <DRIconButton
+                        {...rest}
+                    />
                     {loading && (
                         <CircularProgress
                             size="sm"
@@ -57,8 +87,6 @@ function DRIconButton(props: IDRIconButtonProps) {
             </>
         );
     } catch (error) {
-        return <DRErrorComponent error={error} text={"DRIconButton"} />
+        return <DRErrorComponent error={error} text={"DRIconButtonLoading"} />
     }
 }
-
-export default DRIconButton;
