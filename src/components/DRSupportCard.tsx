@@ -1,10 +1,13 @@
+import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import InfoIcon from '@mui/icons-material/Info';
 import { Alert, Card, CardActions, CardContent, Grid, Typography } from '@mui/joy';
 import { Rating } from '@mui/material';
+import { myUseTheme } from 'Theme';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
 import DRIconButton from './DRIconButton';
+import PatreonIcon from './Icon/PatreonIcon';
 
 type IDRSupportCardProps = {
     stars: number;
@@ -15,6 +18,7 @@ type IDRSupportCardProps = {
 
 function DRSupportCard(props: IDRSupportCardProps) {
     const { stars, title, month_price, year_price } = props;
+    const theme = myUseTheme()
 
     try {
         return (
@@ -152,6 +156,9 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 onClick={() => {
                                     window.open("https://www.buymeacoffee.com/DRincs")
                                 }}
+                                startIcon={
+                                    <FreeBreakfastIcon fontSize="small" />
+                                }
                                 endIcon={
                                     <DRChip
                                         label="0%"
@@ -186,6 +193,11 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 onClick={() => {
                                     window.open("https://www.patreon.com/DRincs")
                                 }}
+                                startIcon={
+                                    <PatreonIcon
+                                        fill={theme.palette.text.primary}
+                                    />
+                                }
                                 endIcon={
                                     <DRChip
                                         label="8%"
