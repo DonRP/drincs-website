@@ -174,13 +174,6 @@ function Support() {
                     </Grid>
                 </Grid>
                 {/* mobile */}
-                {/* <Card
-                    sx={{
-                        display: { lg: 'none' },
-                        width: "90%",
-                        marginBottom: 2,
-                    }}
-                > */}
                 <Tabs
                     aria-label="Pricing plan"
                     defaultValue={1}
@@ -213,7 +206,6 @@ function Support() {
                         </TabPanel>
                     })}
                 </Tabs>
-                {/* </Card> */}
             </Grid >
         </>
     );
