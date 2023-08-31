@@ -9,7 +9,6 @@ import DRErrorComponent from './DRErrorComponent';
 import PatreonIcon from './Icon/PatreonIcon';
 
 type IDRSupportCardProps = {
-    stars: number
     title: string
     month_price: number
     year_price: number

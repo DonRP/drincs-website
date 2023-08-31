@@ -19,7 +19,6 @@ type SupportDataType = {
 const data: SupportDataType[] = [
     {
         card: <DRSupportCard
-            stars={1}
             title="Official Supporter"
             month_price={2}
             year_price={20}
@@ -30,7 +29,6 @@ const data: SupportDataType[] = [
     },
     {
         card: <DRSupportCard
-            stars={2}
             title="Super Supporter"
             month_price={5}
             year_price={50}
@@ -41,7 +39,6 @@ const data: SupportDataType[] = [
     },
     {
         card: <DRSupportCard
-            stars={3}
             title="Mega Supporter"
             month_price={10}
             year_price={100}
@@ -52,7 +49,6 @@ const data: SupportDataType[] = [
     },
     {
         card: <DRSupportCard
-            stars={4}
             title="Ultra Supporter"
             month_price={15}
             year_price={150}
@@ -63,7 +59,6 @@ const data: SupportDataType[] = [
     },
     {
         card: <DRSupportCard
-            stars={5}
             title="VIP Supporter"
             month_price={20}
             year_price={200}
