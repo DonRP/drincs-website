@@ -1,7 +1,7 @@
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import WarningIcon from '@mui/icons-material/Warning';
-import { Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
+import { Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
 import DRAlert from "components/DRAlert";
 import DRIconButton from 'components/DRIconButton';
 import DRStepperDots from 'components/DRStepperDots';
@@ -174,36 +174,47 @@ function Support() {
                     </Grid>
                 </Grid>
                 {/* mobile */}
-                <Card
+                {/* <Card
                     sx={{
                         display: { lg: 'none' },
                         width: "90%",
                         marginBottom: 2,
                     }}
+                > */}
+                <Tabs
+                    aria-label="Pricing plan"
+                    defaultValue={1}
+                    variant="outlined"
+                    sx={{
+                        borderRadius: 'lg',
+                        boxShadow: 'sm',
+                        overflow: 'auto',
+                        display: { lg: 'none' },
+                        width: "98%",
+                        maxWidth: 700,
+                        marginBottom: 2,
+                    }}
                 >
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs defaultValue={1} >
-                            <TabList>
-                                <Tab value={0}>Official</Tab>
-                                <Tab value={1}>Super</Tab>
-                                <Tab value={2}>Mega</Tab>
-                                <Tab value={3}>Ultra</Tab>
-                                <Tab value={4}>VIP</Tab>
-                            </TabList>
-                            {data.map((item, index) => {
-                                return <TabPanel value={index}>
-                                    {item.card}
-                                    <DRTable
-                                        titles={["Discord Role", "Private News", "Voting Power"]}
-                                        data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
-                                        toMirrorAcrossDiagonal
-                                    />
-                                </TabPanel>
-                            })}
-                        </Tabs>
-                    </Box>
-                </Card>
-            </Grid>
+                    <TabList>
+                        <Tab value={0}>Official</Tab>
+                        <Tab value={1}>Super</Tab>
+                        <Tab value={2}>Mega</Tab>
+                        <Tab value={3}>Ultra</Tab>
+                        <Tab value={4}>VIP</Tab>
+                    </TabList>
+                    {data.map((item, index) => {
+                        return <TabPanel value={index}>
+                            {item.card}
+                            <DRTable
+                                titles={["Discord Role", "Private News", "Voting Power"]}
+                                data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
+                                toMirrorAcrossDiagonal
+                            />
+                        </TabPanel>
+                    })}
+                </Tabs>
+                {/* </Card> */}
+            </Grid >
         </>
     );
 }
