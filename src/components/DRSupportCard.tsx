@@ -80,11 +80,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                             alignItems="center"
                             spacing={1}
                         >
-                            <Grid
-                                direction="row"
-                                justifyContent="flex-start"
-                                alignItems="center"
-                            >
+                            <Grid>
                                 <Typography
                                     fontSize={35}
                                 >
@@ -106,11 +102,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                             alignItems="center"
                             spacing={1}
                         >
-                            <Grid
-                                direction="row"
-                                justifyContent="flex-start"
-                                alignItems="center"
-                            >
+                            <Grid>
                                 <Typography
                                     fontSize={35}
                                 >

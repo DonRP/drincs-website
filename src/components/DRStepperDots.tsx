@@ -10,6 +10,9 @@ export default function DRStepperDots(props: IProps) {
 
     return (
         <MobileStepper
+            sx={{
+                backgroundColor: "transparent",
+            }}
             variant="dots"
             steps={steps}
             position="static"
