@@ -12,6 +12,8 @@ declare module '@mui/joy/styles' {
     interface Palette {
         logo: {
             dicord: string;
+            patreon: string;
+            patreonDark: string;
         };
     }
 }
@@ -22,6 +24,8 @@ const theme = extendTheme({
             palette: {
                 logo: {
                     dicord: "#7289da",
+                    patreon: "#f96854",
+                    patreonDark: "#052d49",
                 },
             },
         },
@@ -29,6 +33,8 @@ const theme = extendTheme({
             palette: {
                 logo: {
                     dicord: "#7289da",
+                    patreon: "#f96854",
+                    patreonDark: "#052d49",
                 },
             },
         },

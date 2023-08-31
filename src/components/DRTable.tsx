@@ -1,6 +1,7 @@
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import { Avatar, Grid, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableRow, Theme } from '@mui/material';
+import { Avatar, Grid } from '@mui/joy';
+import { Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
 import { green, red } from '@mui/material/colors';
 import { isBoolean, isObject } from 'utility/UtilityFunctionts';
 import DRErrorComponent from './DRErrorComponent';
@@ -12,7 +13,7 @@ type IDRTable = {
     width?: number,
     height?: number,
     toMirrorAcrossDiagonal?: boolean,
-    sx?: SxProps<Theme>;
+    sx?: SxProps;
 }
 
 type IDRTableCell = {
@@ -27,12 +28,11 @@ function DRTableCell(props: IDRTableCell) {
             if (element) {
                 return <TableCell align="center">
                     <Grid
-                        container
                         direction="column"
                         justifyContent="flex-start"
                         alignItems="center"
                     >
-                        <Grid item>
+                        <Grid>
                             <Avatar
                                 sx={{
                                     bgcolor: green[500],
@@ -59,7 +59,7 @@ function DRTableCell(props: IDRTableCell) {
                         justifyContent="flex-start"
                         alignItems="center"
                     >
-                        <Grid item>
+                        <Grid>
                             <Avatar
                                 sx={{
                                     bgcolor: red[500],
@@ -131,10 +131,10 @@ function DRTable(props: IDRTable) {
                 component={Paper}
                 sx={sx}
             >
-                <Table >
+                <Table>
                     <TableBody>
                         {verticalTitle && titles &&
-                            <TableRow >
+                            <TableRow>
                                 {titles.map((title) => {
                                     return <TableCell >
                                         {title}
