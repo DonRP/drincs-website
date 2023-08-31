@@ -1,9 +1,13 @@
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import WarningIcon from '@mui/icons-material/Warning';
 import { Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
 import DRAlert from "components/DRAlert";
+import DRIconButton from 'components/DRIconButton';
+import DRStepperDots from 'components/DRStepperDots';
 import DRSupportCard from "components/DRSupportCard";
 import DRTable from "components/DRTable";
 import { gitHubLink } from "constant";
+import { useState } from 'react';
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import { Link } from "react-router-dom";
 import { analyticPageView } from "utility/Analytics";
@@ -76,6 +80,21 @@ const data: SupportDataType[] = [
 
 function Support() {
     analyticPageView("Support")
+    const [activeStep, setActiveStep] = useState(0);
+
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep === data.length - 3) return 0
+            return prevActiveStep + 1
+        });
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep === 0) return data.length - 3
+            return prevActiveStep - 1
+        });
+    };
 
     return (
         <>
@@ -110,16 +129,52 @@ function Support() {
                     </DRAlert>
                 </Stack>
                 {/* pc */}
-                <DRTable
+                <Grid
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={1}
                     sx={{
                         display: { xs: 'none', lg: 'flex' },
-                        width: "98%",
-                        marginBottom: 2,
                     }}
-                    titles={["Plans", "Discord Role", "Private News", "Voting Power"]}
-                    data={data}
-                    toMirrorAcrossDiagonal
-                />
+                >
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={4}
+                    >
+                        <DRIconButton
+                            icon={<HelpOutlineIcon />}
+                            ariaLabel="Info"
+                            color="neutral"
+                            size="sm"
+                            sx={{ position: 'absolute', top: '28rem', left: '1.5rem' }}
+                            onClick={handleBack}
+                        />
+                        {data.map((item, index) => {
+                            if (index === activeStep || index === activeStep + 1 || index === activeStep + 2)
+                                return <Grid>{item.card}</Grid>
+                        })}
+
+                        <DRIconButton
+                            icon={<HelpOutlineIcon />}
+                            ariaLabel="Info"
+                            color="neutral"
+                            size="sm"
+                            sx={{ position: 'absolute', top: '28rem', right: '1.5rem' }}
+                            onClick={handleNext}
+                        />
+                    </Grid>
+                    <Grid>
+                        <DRStepperDots
+                            steps={data.length - 2}
+                            activeStep={activeStep}
+                        />
+                    </Grid>
+                </Grid>
                 {/* mobile */}
                 <Card
                     sx={{

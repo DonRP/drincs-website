@@ -28,6 +28,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                     border: 1,
                     "border-color": "#197595",
                     minWidth: 200,
+                    maxWidth: { lg: 300 },
                 }}
             >
                 <Grid
