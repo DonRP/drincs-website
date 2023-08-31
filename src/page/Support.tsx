@@ -1,4 +1,5 @@
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import WarningIcon from '@mui/icons-material/Warning';
 import { Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
 import DRAlert from "components/DRAlert";
@@ -147,24 +148,21 @@ function Support() {
                         spacing={4}
                     >
                         <DRIconButton
-                            icon={<HelpOutlineIcon />}
-                            ariaLabel="Info"
-                            color="neutral"
+                            icon={<NavigateBeforeIcon />}
+                            ariaLabel="Before"
                             size="sm"
-                            sx={{ position: 'absolute', top: '28rem', left: '1.5rem' }}
                             onClick={handleBack}
                         />
                         {data.map((item, index) => {
                             if (index === activeStep || index === activeStep + 1 || index === activeStep + 2)
                                 return <Grid>{item.card}</Grid>
+                            return <></>
                         })}
 
                         <DRIconButton
-                            icon={<HelpOutlineIcon />}
-                            ariaLabel="Info"
-                            color="neutral"
+                            icon={<NavigateNextIcon />}
+                            ariaLabel="Next"
                             size="sm"
-                            sx={{ position: 'absolute', top: '28rem', right: '1.5rem' }}
                             onClick={handleNext}
                         />
                     </Grid>
