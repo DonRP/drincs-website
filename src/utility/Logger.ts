@@ -2,7 +2,7 @@ import { Logtail } from "@logtail/browser";
 import { analyticException } from "./Analytics";
 
 export function logInfo(message: string, body: any = "") {
-    if (process.env.NODE_ENV === 'production') {
+    if (!process.env.REACT_APP_LOGTAIL_WEBSITE_KEY) {
         try {
             let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
             logtail.info(message, body);
@@ -14,7 +14,7 @@ export function logInfo(message: string, body: any = "") {
 
 
 export function logWarn(message: string, body: any = "") {
-    if (process.env.NODE_ENV === 'production') {
+    if (!process.env.REACT_APP_LOGTAIL_WEBSITE_KEY) {
         try {
             let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
             logtail.warn(message, body);
@@ -26,7 +26,7 @@ export function logWarn(message: string, body: any = "") {
 
 export function logError(message: string, body: any = "") {
     analyticException(message)
-    if (process.env.NODE_ENV === 'production') {
+    if (!process.env.REACT_APP_LOGTAIL_WEBSITE_KEY) {
         try {
             let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
             logtail.error(message, body);

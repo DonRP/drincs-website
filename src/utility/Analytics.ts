@@ -3,7 +3,7 @@ import { getFirebaseAnalytics } from './Firebase';
 import { logError } from './Logger';
 
 export function analyticPageView(page_title: string, page_path?: string) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
         return
     }
     try {
@@ -19,7 +19,7 @@ export function analyticPageView(page_title: string, page_path?: string) {
 }
 
 export function analyticLogin(method: string) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
         return
     }
     try {
@@ -34,7 +34,7 @@ export function analyticLogin(method: string) {
 }
 
 export function analyticSignUp(method: string) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
         return
     }
     try {
@@ -49,7 +49,7 @@ export function analyticSignUp(method: string) {
 }
 
 export function analyticException(description: string, fatal: boolean = false) {
-    if (process.env.NODE_ENV !== 'production') {
+    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
         return
     }
     try {
