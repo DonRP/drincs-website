@@ -62,7 +62,6 @@ function App() {
                                 ))}
                                 <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
                                 <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink={`https://raw.githubusercontent.com/wiki/${ABFDrepo}/how-to-translate.md`} />} />
-                                <Route key="howtoconnectwithdiscord" path="/howtoconnectwithdiscord" element={<MarkdownPage markdownLink={`https://raw.githubusercontent.com/wiki/${ABFDrepo}/how-to-connect-with-discord.md`} />} />
                                 <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo={`DRincs-Productions/daz-assert-ABFD-all-in-one`} />} />
                             </Routes>
                         </SnackbarProvider>
