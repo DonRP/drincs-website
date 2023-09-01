@@ -1,8 +1,8 @@
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
-import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ReplayIcon from '@mui/icons-material/Replay';
+import TranslateIcon from '@mui/icons-material/Translate';
 import { AspectRatio, Card, CircularProgress, Grid, Skeleton, Typography } from '@mui/joy';
 import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
@@ -221,7 +221,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                 onClick={() => {
                                     window.open(data?.crowdinLink)
                                 }}
-                                endIcon={<GTranslateIcon />}
+                                endIcon={<TranslateIcon />}
                                 size="sm"
                                 sx={{ position: 'absolute', top: '0.875rem', right: '1.1rem' }}
                             />

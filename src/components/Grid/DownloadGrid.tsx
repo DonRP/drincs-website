@@ -1,5 +1,5 @@
-import GTranslateIcon from '@mui/icons-material/GTranslate';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
+import TranslateIcon from '@mui/icons-material/Translate';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
@@ -174,7 +174,7 @@ function DownloadGrid(props: IProps) {
                     }
                     {translate &&
                         <DRIconButton
-                            icon={<GTranslateIcon />}
+                            icon={<TranslateIcon />}
                             ariaLabel="Translate"
                             color="neutral"
                             size="sm"
