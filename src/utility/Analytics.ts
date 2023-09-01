@@ -1,4 +1,5 @@
-import { getAnalytics, logEvent } from '@firebase/analytics';
+import { logEvent } from '@firebase/analytics';
+import { getFirebaseAnalytics } from './Firebase';
 import { logError } from './Logger';
 
 export function analyticPageView(page_title: string, page_path?: string) {
@@ -6,7 +7,7 @@ export function analyticPageView(page_title: string, page_path?: string) {
         return
     }
     try {
-        const analytics = getAnalytics();
+        const analytics = getFirebaseAnalytics();
         logEvent(analytics, "page_view", {
             page_title: page_title,
             page_path: page_path,
@@ -22,7 +23,7 @@ export function analyticLogin(method: string) {
         return
     }
     try {
-        const analytics = getAnalytics();
+        const analytics = getFirebaseAnalytics();
         logEvent(analytics, "login", {
             method: method
         });
@@ -37,7 +38,7 @@ export function analyticSignUp(method: string) {
         return
     }
     try {
-        const analytics = getAnalytics();
+        const analytics = getFirebaseAnalytics();
         logEvent(analytics, "sign_up", {
             method: method
         });
