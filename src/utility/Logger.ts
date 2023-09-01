@@ -3,7 +3,7 @@ import { analyticException } from "./Analytics";
 
 function logtailIsAvailable() {
     if (process.env.REACT_APP_LOGTAIL_WEBSITE_KEY === undefined) {
-        analyticException("Logtail key not found.")
+        analyticException("Logtail key not found")
         console.info("Logtail key not found.")
         return false;
     }
@@ -16,6 +16,7 @@ export function logInfo(message: string, body: any = "") {
             logtail.info(message, body);
         }
         catch (ex) {
+            analyticException("Logtail error")
             console.error("Logtail error.", ex)
         }
     }
@@ -30,6 +31,7 @@ export function logWarn(message: string, body: any = "") {
             logtail.warn(message, body);
         }
         catch (ex) {
+            analyticException("Logtail error")
             console.error("Logtail error.", ex)
         }
     }
@@ -44,6 +46,7 @@ export function logError(message: string, body: any = "") {
             logtail.error(message, body);
         }
         catch (ex) {
+            analyticException("Logtail error")
             console.error("Logtail error.", ex)
         }
     }
