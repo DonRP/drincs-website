@@ -127,10 +127,10 @@ const columns: GridColDef<IDownloadGridRow>[] = [
     },
 ];
 
-interface IDownloadGridProps extends IDRDataGridProps<IDownloadGridRow> {
+interface IProps extends IDRDataGridProps<IDownloadGridRow> {
 }
 
-function DownloadGrid(props: IDownloadGridProps) {
+function DownloadGrid(props: IProps) {
     const { title, data, logoImage, height, rowHeight } = props;
 
     return (
