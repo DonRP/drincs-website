@@ -3,6 +3,7 @@ import { Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
 import DRAlert from "components/DRAlert";
 import DRSupportCard from "components/DRSupportCard";
 import DRTable from "components/DRTable";
+import GifsGrid, { IGifGridRow } from 'components/Grid/GifsGrid';
 import { gitHubLink } from "constant";
 import { ReactElement } from "react-markdown/lib/react-markdown";
 import { Link } from "react-router-dom";
@@ -71,6 +72,14 @@ const data: SupportDataType[] = [
         discord_role: true,
         news: true,
         voting_power: true,
+    },
+];
+
+const gifs: IGifGridRow[] = [
+    {
+        logo: <>
+        </>,
+        link: "https://www.buymeacoffee.com/DRincs",
     },
 ];
 
@@ -150,6 +159,10 @@ function Support() {
                         </Tabs>
                     </Box>
                 </Card>
+                <GifsGrid
+                    title={"Gifs"}
+                    data={gifs}
+                />
             </Grid>
         </>
     );
