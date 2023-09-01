@@ -1,9 +1,8 @@
 import { logEvent } from '@firebase/analytics';
-import { getFirebaseAnalytics } from './Firebase';
-import { logError } from './Logger';
+import { firebaseIsAvailable, getFirebaseAnalytics } from './Firebase';
 
 export function analyticPageView(page_title: string, page_path?: string) {
-    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
+    if (!firebaseIsAvailable()) {
         return
     }
     try {
@@ -14,12 +13,13 @@ export function analyticPageView(page_title: string, page_path?: string) {
         });
     }
     catch (err) {
-        logError("analyticPageView", err)
+        // * not use logError here to avoid infinite loop
+        console.error("analyticPageView", err)
     }
 }
 
 export function analyticLogin(method: string) {
-    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
+    if (!firebaseIsAvailable()) {
         return
     }
     try {
@@ -29,12 +29,13 @@ export function analyticLogin(method: string) {
         });
     }
     catch (err) {
-        logError("analyticLogin", err)
+        // * not use logError here to avoid infinite loop
+        console.error("analyticLogin", err)
     }
 }
 
 export function analyticSignUp(method: string) {
-    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
+    if (!firebaseIsAvailable()) {
         return
     }
     try {
@@ -44,12 +45,13 @@ export function analyticSignUp(method: string) {
         });
     }
     catch (err) {
-        logError("analyticSignUp", err)
+        // * not use logError here to avoid infinite loop
+        console.error("analyticSignUp", err)
     }
 }
 
 export function analyticException(description: string, fatal: boolean = false) {
-    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
+    if (!firebaseIsAvailable()) {
         return
     }
     try {
@@ -60,6 +62,7 @@ export function analyticException(description: string, fatal: boolean = false) {
         });
     }
     catch (err) {
-        logError("analyticException", err)
+        // * not use logError here to avoid infinite loop
+        console.error("analyticException", err)
     }
 }
