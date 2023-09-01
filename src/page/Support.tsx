@@ -1,13 +1,15 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import WarningIcon from '@mui/icons-material/Warning';
-import { Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
+import { Grid, Stack, Tab, TabList, TabPanel, Tabs, Typography } from "@mui/joy";
 import DRAlert from "components/DRAlert";
 import DRIconButton from 'components/DRIconButton';
 import DRStepperDots from 'components/DRStepperDots';
 import DRSupportCard from "components/DRSupportCard";
 import GifsGrid, { IGifGridRow } from 'components/Grid/GifsGrid';
+import PayPalIcon from 'components/Icon/PayPalIcon';
 import { gitHubLink } from "constant";
 import { ReactElement, useState } from 'react';
 import { Link } from "react-router-dom";
@@ -72,9 +74,34 @@ const data: SupportDataType[] = [
 
 const gifs: IGifGridRow[] = [
     {
-        logo: <>
-        </>,
+        logo: <Typography
+            level="title-lg"
+            sx={{ mr: 'auto' }}
+            fontSize={20}
+        >
+            <FreeBreakfastIcon />
+            <Typography
+                ml={2}
+            >
+                Buy Me A Coffe
+            </Typography>
+        </Typography>,
         link: "https://www.buymeacoffee.com/DRincs",
+    },
+    {
+        logo: <Typography
+            level="title-lg"
+            sx={{ mr: 'auto' }}
+            fontSize={20}
+        >
+            <PayPalIcon />
+            <Typography
+                ml={2}
+            >
+                Pay Pal
+            </Typography>
+        </Typography>,
+        link: "https://www.paypal.com/paypalme/DRincsProductions",
     },
 ];
 
@@ -103,6 +130,7 @@ function Support() {
                 direction="column"
                 justifyContent="flex-start"
                 alignItems="center"
+                paddingBottom={3}
             >
                 <Stack
                     spacing={0.2}
@@ -185,7 +213,6 @@ function Support() {
                         display: { lg: 'none' },
                         width: "98%",
                         maxWidth: 700,
-                        marginBottom: 2,
                     }}
                 >
                     <TabList>
@@ -205,6 +232,7 @@ function Support() {
                 <GifsGrid
                     title={"Gifs"}
                     data={gifs}
+                    height={208}
                 />
             </Grid >
         </>
