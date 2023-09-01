@@ -3,6 +3,7 @@ import { analyticException } from "./Analytics";
 
 function logtailIsAvailable() {
     if (process.env.REACT_APP_LOGTAIL_WEBSITE_KEY === undefined) {
+        analyticException("Logtail key not found.")
         console.info("Logtail key not found.")
         return false;
     }
