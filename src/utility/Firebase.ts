@@ -1,5 +1,6 @@
 import { getAnalytics } from '@firebase/analytics';
 import { getApps, initializeApp } from 'firebase/app';
+import { logError } from './Logger';
 
 export function initializeFirebaseApp() {
     if (getApps().length > 0) {
@@ -19,8 +20,7 @@ export function initializeFirebaseApp() {
 
 export function firebaseIsAvailable() {
     if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
-        // * not use logError here to avoid infinite loop
-        console.error("Firebase key not found")
+        logError("Firebase key not found", {}, false)
         return false
     }
     return true
@@ -32,8 +32,7 @@ export function getFirebaseAnalytics() {
         return getAnalytics()
     }
     catch (ex) {
-        // * not use logError here to avoid infinite loop
-        console.error("Firebase getFirebaseAnalytics", ex)
+        logError("Firebase getFirebaseAnalytics", ex, false)
         throw Error("Firebase getFirebaseAnalytics")
     }
 }

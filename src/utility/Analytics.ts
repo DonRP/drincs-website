@@ -1,5 +1,6 @@
 import { logEvent } from '@firebase/analytics';
 import { firebaseIsAvailable, getFirebaseAnalytics } from './Firebase';
+import { logError } from './Logger';
 
 export function analyticPageView(page_title: string, page_path?: string) {
     if (!firebaseIsAvailable()) {
@@ -13,8 +14,7 @@ export function analyticPageView(page_title: string, page_path?: string) {
         });
     }
     catch (err) {
-        // * not use logError here to avoid infinite loop
-        console.error("analyticPageView", err)
+        logError("analyticPageView", err, false)
     }
 }
 
@@ -29,8 +29,7 @@ export function analyticLogin(method: string) {
         });
     }
     catch (err) {
-        // * not use logError here to avoid infinite loop
-        console.error("analyticLogin", err)
+        logError("analyticLogin", err, false)
     }
 }
 
@@ -45,8 +44,7 @@ export function analyticSignUp(method: string) {
         });
     }
     catch (err) {
-        // * not use logError here to avoid infinite loop
-        console.error("analyticSignUp", err)
+        logError("analyticSignUp", err, false)
     }
 }
 
@@ -62,7 +60,6 @@ export function analyticException(description: string, fatal: boolean = false) {
         });
     }
     catch (err) {
-        // * not use logError here to avoid infinite loop
-        console.error("analyticException", err)
+        logError("analyticException", err, false)
     }
 }

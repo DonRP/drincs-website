@@ -9,14 +9,16 @@ function logtailIsAvailable() {
     }
 }
 
-export function logInfo(message: string, body: any = "") {
+export function logInfo(message: string, body: any = "", useAnalytic: boolean = true) {
     if (logtailIsAvailable()) {
         try {
             let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
             logtail.info(message, body);
         }
         catch (ex) {
-            analyticException("Logtail error")
+            if (useAnalytic) {
+                analyticException("Logtail error")
+            }
             console.error("Logtail error.", ex)
         }
     }
@@ -24,29 +26,35 @@ export function logInfo(message: string, body: any = "") {
 }
 
 
-export function logWarn(message: string, body: any = "") {
+export function logWarn(message: string, body: any = "", useAnalytic: boolean = true) {
     if (logtailIsAvailable()) {
         try {
             let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
             logtail.warn(message, body);
         }
         catch (ex) {
-            analyticException("Logtail error")
+            if (useAnalytic) {
+                analyticException("Logtail error")
+            }
             console.error("Logtail error.", ex)
         }
     }
     console.warn(message)
 }
 
-export function logError(message: string, body: any = "") {
-    analyticException(message)
+export function logError(message: string, body: any = "", useAnalytic: boolean = true) {
+    if (useAnalytic) {
+        analyticException(message)
+    }
     if (logtailIsAvailable()) {
         try {
             let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
             logtail.error(message, body);
         }
         catch (ex) {
-            analyticException("Logtail error")
+            if (useAnalytic) {
+                analyticException("Logtail error")
+            }
             console.error("Logtail error.", ex)
         }
     }
