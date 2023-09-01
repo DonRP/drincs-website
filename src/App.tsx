@@ -22,6 +22,9 @@ axios.get(geturlwebapi() + "/discord/awakens").catch((err) => {
 })
 
 function App() {
+    if (process.env.NODE_ENV !== 'production') {
+        console.log('🛠️Looks like we are in development mode!');
+    }
     const routes = [
         { title: "about", path: "/", element: <About /> },
         { title: "⬇️download", path: "/download", element: <Download /> },
