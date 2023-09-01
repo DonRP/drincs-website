@@ -8,13 +8,13 @@ export function initializeFirebaseApp() {
     }
 
     initializeApp({
-        apiKey: process.env.FIREBASE_WEBSITE_WEBAPI_APIKEY,
-        authDomain: process.env.FIREBASE_WEBSITE_WEBAPI_AUTHDOMAIN,
-        projectId: process.env.FIREBASE_WEBSITE_WEBAPI_PROJECTID,
-        storageBucket: process.env.FIREBASE_WEBSITE_WEBAPI_STORAGEBUCKET,
-        messagingSenderId: process.env.FIREBASE_WEBSITE_WEBAPI_MESSAGINGSENDERID,
-        appId: process.env.FIREBASE_WEBSITE_WEBAPI_APPID,
-        measurementId: process.env.FIREBASE_WEBSITE_WEBAPI_MEASUREMENTID,
+        apiKey: process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY,
+        authDomain: process.env.REACT_APP_FIREBASE_WEBSITE_AUTHDOMAIN,
+        projectId: process.env.REACT_APP_FIREBASE_WEBSITE_PROJECTID,
+        storageBucket: process.env.REACT_APP_FIREBASE_WEBSITE_STORAGEBUCKET,
+        messagingSenderId: process.env.REACT_APP_FIREBASE_WEBSITE_MESSAGINGSENDERID,
+        appId: process.env.REACT_APP_FIREBASE_WEBSITE_APPID,
+        measurementId: process.env.REACT_APP_FIREBASE_WEBSITE_MEASUREMENTID,
     })
 }
 
