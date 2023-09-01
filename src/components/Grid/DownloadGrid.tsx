@@ -1,7 +1,12 @@
+import GTranslateIcon from '@mui/icons-material/GTranslate';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
+import DRIconButton from 'components/DRIconButton';
 import { discordLink } from 'constant';
+import { useNavigate } from 'react-router-dom';
 import { DRButtonNoMargin } from '../DRButton';
 
 type IDownloadLink = {
@@ -128,10 +133,23 @@ const columns: GridColDef<IDownloadGridRow>[] = [
 ];
 
 interface IProps extends IDRDataGridProps<IDownloadGridRow> {
+    openWiki?: () => void
+    openDazAssert?: () => void
+    translate?: boolean
 }
 
 function DownloadGrid(props: IProps) {
-    const { title, data, logoImage, height, rowHeight } = props;
+    const {
+        title,
+        data,
+        logoImage,
+        height,
+        rowHeight,
+        openWiki,
+        openDazAssert,
+        translate
+    } = props;
+    let navigate = useNavigate();
 
     return (
         <DRDataGrid
@@ -142,6 +160,40 @@ function DownloadGrid(props: IProps) {
             height={height}
             rowHeight={rowHeight}
             hideFooter
+            actions={
+                <>
+                    {openWiki &&
+                        <DRIconButton
+                            icon={<MenuBookIcon />}
+                            ariaLabel="Wiki"
+                            color="neutral"
+                            size="sm"
+                            sx={{ position: 'absolute', top: '0.875rem', right: '1.5rem' }}
+                            onClick={openWiki}
+                        />
+                    }
+                    {translate &&
+                        <DRIconButton
+                            icon={<GTranslateIcon />}
+                            ariaLabel="Translate"
+                            color="neutral"
+                            size="sm"
+                            sx={{ position: 'absolute', top: '0.875rem', right: openWiki ? '4.5rem' : '1.5rem' }}
+                            onClick={() => navigate("/translations")}
+                        />
+                    }
+                    {openDazAssert &&
+                        <DRIconButton
+                            icon={<ViewInArIcon />}
+                            ariaLabel="Daz Assert"
+                            color="neutral"
+                            size="sm"
+                            sx={{ position: 'absolute', top: '0.875rem', right: openWiki ? translate ? '7.5rem' : '4.5rem' : '1.5rem' }}
+                            onClick={openDazAssert}
+                        />
+                    }
+                </>
+            }
         />
     );
 }

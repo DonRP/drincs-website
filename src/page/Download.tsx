@@ -4,6 +4,7 @@ import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import FolderZipIcon from '@mui/icons-material/FolderZip';
 import { Grid } from '@mui/joy';
 import DownloadGrid, { IDownloadGridRow } from 'components/Grid/DownloadGrid';
+import { useNavigate } from 'react-router-dom';
 import { analyticPageView } from 'utility/Analytics';
 
 const rowsABFD: IDownloadGridRow[] = [
@@ -119,6 +120,7 @@ const rowsABFD: IDownloadGridRow[] = [
 
 function Download() {
     analyticPageView("Download")
+    let navigate = useNavigate();
 
     return (
         <>
@@ -133,8 +135,11 @@ function Download() {
                 <h2>Download</h2>
                 <DownloadGrid
                     title="A Big Family in Debit"
+                    logoImage='https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp'
                     data={rowsABFD}
                     height={358}
+                    openWiki={() => navigate("/wiki")}
+                    openDazAssert={() => navigate("/daz-assert")}
                 />
             </Grid>
         </>
