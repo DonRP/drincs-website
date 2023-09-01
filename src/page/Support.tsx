@@ -1,77 +1,72 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import WarningIcon from '@mui/icons-material/Warning';
-import { Box, Card, Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
+import { Grid, Stack, Tab, TabList, TabPanel, Tabs } from "@mui/joy";
 import DRAlert from "components/DRAlert";
+import DRIconButton from 'components/DRIconButton';
+import DRStepperDots from 'components/DRStepperDots';
 import DRSupportCard from "components/DRSupportCard";
-import DRTable from "components/DRTable";
 import GifsGrid, { IGifGridRow } from 'components/Grid/GifsGrid';
 import { gitHubLink } from "constant";
-import { ReactElement } from "react-markdown/lib/react-markdown";
+import { ReactElement, useState } from 'react';
 import { Link } from "react-router-dom";
 import { analyticPageView } from "utility/Analytics";
 
 type SupportDataType = {
     card: ReactElement,
-    discord_role: boolean,
-    voting_power: boolean,
-    news: boolean,
 }
 
 const data: SupportDataType[] = [
     {
         card: <DRSupportCard
-            stars={1}
             title="Official Supporter"
             month_price={2}
             year_price={20}
-        />,
-        discord_role: true,
-        news: true,
-        voting_power: false,
+            discord_role={true}
+            news={true}
+            voting_power={false}
+        />
     },
-
     {
         card: <DRSupportCard
-            stars={2}
             title="Super Supporter"
             month_price={5}
             year_price={50}
-        />,
-        discord_role: true,
-        news: true,
-        voting_power: true,
+            discord_role={true}
+            news={true}
+            voting_power={true}
+        />
     },
     {
         card: <DRSupportCard
-            stars={3}
             title="Mega Supporter"
             month_price={10}
             year_price={100}
-        />,
-        discord_role: true,
-        news: true,
-        voting_power: true,
+            discord_role={true}
+            news={true}
+            voting_power={true}
+        />
     },
     {
         card: <DRSupportCard
-            stars={4}
             title="Ultra Supporter"
             month_price={15}
             year_price={150}
-        />,
-        discord_role: true,
-        news: true,
-        voting_power: true,
+            discord_role={true}
+            news={true}
+            voting_power={true}
+        />
     },
     {
         card: <DRSupportCard
-            stars={5}
             title="VIP Supporter"
             month_price={20}
             year_price={200}
-        />,
-        discord_role: true,
-        news: true,
-        voting_power: true,
+            discord_role={true}
+            news={true}
+            voting_power={true}
+        />
     },
 ];
 
@@ -85,6 +80,21 @@ const gifs: IGifGridRow[] = [
 
 function Support() {
     analyticPageView("Support")
+    const [activeStep, setActiveStep] = useState(0);
+
+    const handleNext = () => {
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep === data.length - 3) return 0
+            return prevActiveStep + 1
+        });
+    };
+
+    const handleBack = () => {
+        setActiveStep((prevActiveStep) => {
+            if (prevActiveStep === 0) return data.length - 3
+            return prevActiveStep - 1
+        });
+    };
 
     return (
         <>
@@ -113,57 +123,90 @@ function Support() {
                         To get the rewards you will have to connect to Discord (information <Link to={"howtoconnectwithdiscord"}>here</Link>), or connect with the dedicated support page, es Patreon (<a href={gitHubLink + "/drincs-website/issues/38"}>under development</a>)
                     </DRAlert>
                     <DRAlert
+                        startDecorator={<FavoriteIcon />}
                         color="primary"
                     >
-                        The percentage next to the buttons is the percentage that will be retained by the support site. So the higher the percentage the more I'm going to lose out on it
+                        Not support me just to get the benefits, but to make sure that I can spend more time on the project
                     </DRAlert>
                 </Stack>
                 {/* pc */}
-                <DRTable
+                <Grid
+                    container
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={1}
                     sx={{
                         display: { xs: 'none', lg: 'flex' },
-                        width: "98%",
-                        marginBottom: 2,
                     }}
-                    titles={["Plans", "Discord Role", "Private News", "Voting Power"]}
-                    data={data}
-                    toMirrorAcrossDiagonal
-                />
+                >
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={4}
+                    >
+                        <DRIconButton
+                            icon={<NavigateBeforeIcon />}
+                            ariaLabel="Before"
+                            size="sm"
+                            onClick={handleBack}
+                        />
+                        {data.map((item, index) => {
+                            if (index === activeStep || index === activeStep + 1 || index === activeStep + 2)
+                                return <Grid>{item.card}</Grid>
+                            return <></>
+                        })}
+
+                        <DRIconButton
+                            icon={<NavigateNextIcon />}
+                            ariaLabel="Next"
+                            size="sm"
+                            onClick={handleNext}
+                        />
+                    </Grid>
+                    <Grid>
+                        <DRStepperDots
+                            steps={data.length - 2}
+                            activeStep={activeStep}
+                        />
+                    </Grid>
+                </Grid>
                 {/* mobile */}
-                <Card
+                <Tabs
+                    aria-label="Pricing plan"
+                    defaultValue={1}
+                    variant="outlined"
                     sx={{
+                        borderRadius: 'lg',
+                        boxShadow: 'sm',
+                        overflow: 'auto',
                         display: { lg: 'none' },
-                        width: "90%",
+                        width: "98%",
+                        maxWidth: 700,
                         marginBottom: 2,
                     }}
                 >
-                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                        <Tabs defaultValue={1} >
-                            <TabList>
-                                <Tab value={0}>Official</Tab>
-                                <Tab value={1}>Super</Tab>
-                                <Tab value={2}>Mega</Tab>
-                                <Tab value={3}>Ultra</Tab>
-                                <Tab value={4}>VIP</Tab>
-                            </TabList>
-                            {data.map((item, index) => {
-                                return <TabPanel value={index}>
-                                    {item.card}
-                                    <DRTable
-                                        titles={["Discord Role", "Private News", "Voting Power"]}
-                                        data={[Object.values(item).filter((element, index) => { return index !== 0 })]}
-                                        toMirrorAcrossDiagonal
-                                    />
-                                </TabPanel>
-                            })}
-                        </Tabs>
-                    </Box>
-                </Card>
+                    <TabList>
+                        <Tab value={0}>Official</Tab>
+                        <Tab value={1}>Super</Tab>
+                        <Tab value={2}>Mega</Tab>
+                        <Tab value={3}>Ultra</Tab>
+                        <Tab value={4}>VIP</Tab>
+                    </TabList>
+                    {data.map((item, index) => {
+                        return <TabPanel value={index}>
+                            {item.card}
+                        </TabPanel>
+                    })}
+                </Tabs>
+                {/* gifs */}
                 <GifsGrid
                     title={"Gifs"}
                     data={gifs}
                 />
-            </Grid>
+            </Grid >
         </>
     );
 }

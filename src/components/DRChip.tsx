@@ -8,6 +8,7 @@ export interface IDRChipProps {
     children?: ReactNode
     sx?: SxProps
     ariaLabel?: string
+    size?: 'sm' | 'md' | 'lg'
 }
 
 function DRChip(props: IDRChipProps) {
@@ -15,7 +16,8 @@ function DRChip(props: IDRChipProps) {
         label,
         children,
         sx,
-        ariaLabel
+        ariaLabel,
+        size,
     } = props;
 
     try {
@@ -23,9 +25,9 @@ function DRChip(props: IDRChipProps) {
             <Tooltip
                 title={ariaLabel}
             >
-
                 <Chip
                     sx={sx}
+                    size={size}
                 >
                     {label}
                     {children}
