@@ -12,7 +12,6 @@ import GifsGrid, { IGifGridRow } from 'components/Grid/GifsGrid';
 import PayPalIcon from 'components/Icon/PayPalIcon';
 import { gitHubLink } from "constant";
 import { ReactElement, useState } from 'react';
-import { Link } from "react-router-dom";
 import { analyticPageView } from "utility/Analytics";
 
 type SupportDataType = {
@@ -144,11 +143,6 @@ function Support() {
                         startDecorator={<WarningIcon />}
                     >
                         The awards are still under development. For more information read: <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
-                    </DRAlert>
-                    <DRAlert
-                        color="primary"
-                    >
-                        To get the rewards you will have to connect to Discord (information <Link to={"howtoconnectwithdiscord"}>here</Link>), or connect with the dedicated support page, es Patreon (<a href={gitHubLink + "/drincs-website/issues/38"}>under development</a>)
                     </DRAlert>
                     <DRAlert
                         startDecorator={<FavoriteIcon />}
