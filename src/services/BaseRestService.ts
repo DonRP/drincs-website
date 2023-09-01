@@ -119,6 +119,9 @@ class BaseRestService {
             if (!message) {
                 message = "There was an error in the server"
             }
+            else {
+                logError("showMessage", "message is null")
+            }
             this.enqueueSnackbar(message, { variant });
         }
     };
