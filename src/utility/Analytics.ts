@@ -47,3 +47,19 @@ export function analyticSignUp(method: string) {
         logError("analyticSignUp", err)
     }
 }
+
+export function analyticException(description: string, fatal: boolean = false) {
+    if (process.env.NODE_ENV !== 'production') {
+        return
+    }
+    try {
+        const analytics = getFirebaseAnalytics();
+        logEvent(analytics, "exception", {
+            fatal: fatal,
+            description: description,
+        });
+    }
+    catch (err) {
+        logError("analyticException", err)
+    }
+}
