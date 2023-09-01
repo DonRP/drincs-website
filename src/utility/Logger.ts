@@ -3,7 +3,7 @@ import { Logtail } from "@logtail/browser";
 export function logInfo(message: string, body: any = "") {
     if (process.env.NODE_ENV === 'production') {
         try {
-            let logtail = new Logtail(process.env.LOGTAIL_WEBAPI_KEY || "");
+            let logtail = new Logtail(process.env.LOGTAIL_WEBSITE_KEY || "");
             logtail.info(message, body);
         }
         catch (ex) { }
@@ -15,7 +15,7 @@ export function logInfo(message: string, body: any = "") {
 export function logWarn(message: string, body: any = "") {
     if (process.env.NODE_ENV === 'production') {
         try {
-            let logtail = new Logtail(process.env.LOGTAIL_WEBAPI_KEY || "");
+            let logtail = new Logtail(process.env.LOGTAIL_WEBSITE_KEY || "");
             logtail.warn(message, body);
         }
         catch (ex) { }
@@ -26,7 +26,7 @@ export function logWarn(message: string, body: any = "") {
 export function logError(message: string, body: any = "") {
     if (process.env.NODE_ENV === 'production') {
         try {
-            let logtail = new Logtail(process.env.LOGTAIL_WEBAPI_KEY || "");
+            let logtail = new Logtail(process.env.LOGTAIL_WEBSITE_KEY || "");
             logtail.error(message, body);
         }
         catch (ex) { }
