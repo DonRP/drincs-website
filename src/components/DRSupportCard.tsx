@@ -2,7 +2,6 @@ import Check from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
-import { myUseTheme } from 'Theme';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
@@ -19,7 +18,6 @@ type IDRSupportCardProps = {
 
 function DRSupportCard(props: IDRSupportCardProps) {
     const { title, month_price, year_price, discord_role, news, voting_power } = props;
-    const theme = myUseTheme()
 
     try {
         return (
@@ -133,9 +131,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                     window.open("https://www.patreon.com/DRincs")
                                 }}
                                 startIcon={
-                                    <PatreonIcon
-                                        fill={theme.palette.text.primary}
-                                    />
+                                    <PatreonIcon />
                                 }
                                 endIcon={
                                     <DRChip
