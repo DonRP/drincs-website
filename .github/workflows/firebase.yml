@@ -53,7 +53,14 @@ jobs:
       # https://github.com/FirebaseExtended/action-hosting-deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
         env:
-          REACT_APP_LOGTAIL_WEBSITE_KEY: ${{ secrets.REACT_APP_LOGTAIL_WEBSITE_KEY}}
+          REACT_APP_LOGTAIL_WEBSITE_KEY: ${{ secrets.LOGTAIL_WEBSITE_KEY }}
+          REACT_APP_FIREBASE_WEBSITE_APIKEY: ${{ secrets.FIREBASE_WEBSITE_APIKEY }}
+          REACT_APP_FIREBASE_WEBSITE_AUTHDOMAIN: ${{ secrets.FIREBASE_WEBSITE_AUTHDOMAIN }}
+          REACT_APP_FIREBASE_WEBSITE_PROJECTID: ${{ secrets.FIREBASE_WEBSITE_PROJECTID }}
+          REACT_APP_FIREBASE_WEBSITE_STORAGEBUCKET: ${{ secrets.FIREBASE_WEBSITE_STORAGEBUCKET }}
+          REACT_APP_FIREBASE_WEBSITE_MESSAGINGSENDERID: ${{ secrets.FIREBASE_WEBSITE_MESSAGINGSENDERID }}
+          REACT_APP_FIREBASE_WEBSITE_APPID: ${{ secrets.FIREBASE_WEBSITE_APPID }}
+          REACT_APP_FIREBASE_WEBSITE_MEASUREMENTID: ${{ secrets.FIREBASE_WEBSITE_MEASUREMENTID }}
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DRINCS_WEBSITE }}'
