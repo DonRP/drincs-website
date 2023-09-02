@@ -52,6 +52,8 @@ jobs:
           path: build
       # https://github.com/FirebaseExtended/action-hosting-deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
+        env:
+          REACT_APP_LOGTAIL_WEBSITE_KEY: ${{ secrets.REACT_APP_LOGTAIL_WEBSITE_KEY}}
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_DRINCS_WEBSITE }}'
