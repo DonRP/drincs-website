@@ -40,9 +40,15 @@ function Wiki(props: WikiProps) {
                 sx={{
                     position: "fixed",
                     right: "3%",
-                    bottom: "10%",
+                    bottom: { xs: "11%", md: "12%" },
+                    minHeight: { md: "60px" },
+                    minWidth: { md: "60px" },
                 }}>
-                <EditIcon />
+                <EditIcon
+                    sx={{
+                        fontSize: { md: "2rem" },
+                    }}
+                />
             </Fab>
             <Grid
                 container
