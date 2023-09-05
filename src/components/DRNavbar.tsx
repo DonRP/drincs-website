@@ -291,7 +291,7 @@ function DRNavbar(props: IDRNavbarProps) {
                         variant="extended"
                         color="primary"
                         aria-label="add"
-                        // position="sticky"
+                        size="large"
                         onClick={goToSupport}
                         sx={{
                             mr: 1,
@@ -299,8 +299,17 @@ function DRNavbar(props: IDRNavbarProps) {
                             right: "2%",
                             bottom: "2%",
                             backgroundColor: "gold",
-                        }}>
-                        <VolunteerActivismIcon sx={{ mr: 1 }} />
+                            fontSize: { md: "1.1rem" },
+                            minHeight: { md: "60px" },
+                            minWidth: { md: "200px" },
+                        }}
+                    >
+                        <VolunteerActivismIcon
+                            sx={{
+                                mr: 1,
+                                fontSize: { md: "2rem" },
+                            }}
+                        />
                         <strong>
                             {supportPage?.title}
                         </strong>
