@@ -104,23 +104,6 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 }
                             />
                         </Grid>
-                        {/* <Grid xs={12}>
-                            <DRButtonNoMargin
-                                title='PayPal'
-                                ariaLabel='0% retained by PayPal'
-                                marginTop={0}
-                                marginBottom={0}
-                                onClick={() => {
-                                    window.open("https://www.paypal.com/paypalme/DRincsProductions")
-                                }}
-                                endIcon={
-                                    <DRChip
-                                        label="0%"
-                                        sx={{ color: "green" }}
-                                    />
-                                }
-                            />
-                        </Grid> */}
                         <Grid xs={12}>
                             <DRButtonNoMargin
                                 label='Patreon'

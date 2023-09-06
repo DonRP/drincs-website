@@ -60,4 +60,22 @@
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
+    <url>
+        <loc>https://www.buymeacoffee.com/DRincs</loc>
+        <lastmod>2023-09-06</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.paypal.com/paypalme/DRincsProductions</loc>
+        <lastmod>2023-09-06</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://www.patreon.com/DRincs</loc>
+        <lastmod>2023-09-06</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset> 
