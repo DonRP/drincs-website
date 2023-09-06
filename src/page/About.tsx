@@ -6,7 +6,6 @@ import { Card, CardMedia } from '@mui/material';
 import DRButton from 'components/DRButton';
 import { Link } from 'react-router-dom';
 import { analyticPageView } from 'utility/Analytics';
-import './About.css';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
 // https://www.w3schools.com/howto/howto_css_blurred_background.asp
@@ -37,7 +36,7 @@ function About() {
             <Card
                 elevation={24}
                 sx={{
-                    backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
+                    backgroundImage: `url(https://raw.githubusercontent.com/DRincs-Productions/ABFD/master/game/gui/main_menu.webp)`,
                     backgroundColor: "##000",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",

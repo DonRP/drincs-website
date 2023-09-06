@@ -1,7 +1,8 @@
 import DRAutocomplete from 'components/DRAutocomplete';
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { ABFDrepo, DeviceABFD, VersionABFD } from 'constant';
+import { DeviceABFD, VersionABFD } from 'constant';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { getEnumDescriptions } from 'utility/UtilityEnum';
@@ -47,28 +48,28 @@ function ABFDBugForm(props: IProps) {
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: ABFDrepo,
-            title: "[Report WebSite]" + data.title,
+            repo: ProjectsEnum.ABFD,
+            title: "[Report] " + data.title,
             body: `### What happened?
 
-            ${data.description}
+${data.description}
+
+### Device
+
+${data.device}
+
+### Version
+
+${data.version}
+
+### User Nickname
+
+${data.nickname || "_No response_"}
             
-            ### Device
-            
-            ${data.device}
-            
-            ### Version
-            
-            ${data.version}
-            
-            ### User Nickname
-            
-            ${data.nickname || "_No response_"}
-                        
-            ### Additional Description
-            
-            ${data.additionalDescription || "_No response_"}
-            `,
+### Additional Description
+
+${data.additionalDescription || "_No response_"}
+`,
             labels: ["bug"],
         }
         return res

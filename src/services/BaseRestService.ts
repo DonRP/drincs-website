@@ -70,6 +70,31 @@ class BaseRestService {
         );
     }
 
+    private catchResult<T>(ex: any): HttpResponse<T> {
+        let res = new HttpResponse<T>()
+        res.isSuccessStatusCode = false
+        if (ex instanceof AxiosError) {
+            if (ex.code === AxiosError.ERR_NETWORK) {
+                res.messages = ex.response?.data?.messages
+                res.messagesToShow = "There was an error a network error"
+            }
+            if (ex.code === AxiosError.ERR_BAD_REQUEST) {
+                res.messages = AxiosError.ERR_BAD_REQUEST
+                res.messagesToShow = "There was an error a bad request"
+            }
+            else if (ex.response?.data && ex.response?.data instanceof AxiosError) {
+                return res
+            }
+        }
+        else {
+            if (ex instanceof Error) {
+                res.messages = ex.message
+            }
+            res.messagesToShow = "There was an error in the client"
+        }
+        return res
+    }
+
     private inizialHeaders(token?: string, tokenType = "Bearer") {
         // performs api calls sending the required authentication headers
         const headers: HeadersType = {
@@ -94,10 +119,7 @@ class BaseRestService {
                 return response?.data
             })
             .catch((ex) => {
-                if (ex instanceof AxiosError) {
-                    return ex.response?.data
-                }
-                logError("getRequest Error", ex);
+                return this.catchResult<T>(ex)
             });
     }
 
@@ -107,10 +129,7 @@ class BaseRestService {
                 return response?.data
             })
             .catch((ex) => {
-                if (ex instanceof AxiosError) {
-                    return ex.response?.data
-                }
-                logError("postRequest Error", ex);
+                return this.catchResult<T>(ex)
             });
     }
 

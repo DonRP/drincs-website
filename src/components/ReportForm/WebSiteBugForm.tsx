@@ -1,7 +1,8 @@
 import DRAutocomplete from 'components/DRAutocomplete';
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { Browser, DeviceABFD, WebSiteRepo } from 'constant';
+import { Browser, DeviceABFD } from 'constant';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { getEnumDescriptions } from 'utility/UtilityEnum';
@@ -47,28 +48,28 @@ function WebSiteBugForm(props: IProps) {
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: WebSiteRepo,
-            title: "[Report WebSite]" + data.title,
+            repo: ProjectsEnum.WebSite,
+            title: "[Report] " + data.title,
             body: `### What happened?
 
-            ${data.description}
-            
-            ### Browser
-            
-            ${data.browser}
-            
-            ### Device
-            
-            ${data.device}
+${data.description}
 
-            ### User Nickname
+### Browser
 
-            ${data.nickname || "_No response_"}
+${data.browser}
 
-            ### Additional Description
-            
-            ${data.additionalDescription || "_No response_"}
-            `,
+### Device
+
+${data.device}
+
+### User Nickname
+
+${data.nickname || "_No response_"}
+
+### Additional Description
+
+${data.additionalDescription || "_No response_"}
+`,
             labels: ["bug"],
         }
         return res

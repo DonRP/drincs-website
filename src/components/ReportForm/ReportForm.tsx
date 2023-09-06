@@ -2,6 +2,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import DRAlert from 'components/DRAlert';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRDialog, { IDRDialogProps } from 'components/DRDialog';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
 import { useMemo, useState } from 'react';
 import GitService from 'services/GitHubService';
@@ -15,14 +16,14 @@ interface ReportFormProps<T> extends IDRDialogProps {
 }
 
 export interface ReportBody {
-    repo: string,
+    repo: ProjectsEnum,
     title: string,
     body: string,
     labels: string[],
 }
 
 function ReportForm<T>(props: ReportFormProps<T>) {
-    const { children, onClose, getData, ...rest } = props;
+    const { children, onClose, getData, clearData, ...rest } = props;
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
     const githubService = useMemo(() => { return new GitService(enqueueSnackbar) }, [enqueueSnackbar]);
@@ -37,6 +38,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
         githubService.createIssue(data.repo, data.title, data.body, data.labels).then(res => {
             setLoading(false);
             onClose()
+            clearData()
         }).catch(err => {
             logError("send Report", err)
             setLoading(false);
