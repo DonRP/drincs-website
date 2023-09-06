@@ -16,7 +16,7 @@
         <loc>https://drincs-website.web.app/a-big-family-in-debit</loc>
         <lastmod>2023-09-06</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>1</priority>
+        <priority>1.0</priority>
     </url>
     <url>
         <loc>https://drincs-website.web.app/support</loc>
