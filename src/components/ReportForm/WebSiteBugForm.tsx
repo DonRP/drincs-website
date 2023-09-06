@@ -49,27 +49,27 @@ function WebSiteBugForm(props: IProps) {
         setErrorFields([])
         let res: ReportBody = {
             repo: ProjectsEnum.WebSite,
-            title: "[Report WebSite]" + data.title,
+            title: "[Report] " + data.title,
             body: `### What happened?
 
-            ${data.description}
-            
-            ### Browser
-            
-            ${data.browser}
-            
-            ### Device
-            
-            ${data.device}
+${data.description}
 
-            ### User Nickname
+### Browser
 
-            ${data.nickname || "_No response_"}
+${data.browser}
 
-            ### Additional Description
-            
-            ${data.additionalDescription || "_No response_"}
-            `,
+### Device
+
+${data.device}
+
+### User Nickname
+
+${data.nickname || "_No response_"}
+
+### Additional Description
+
+${data.additionalDescription || "_No response_"}
+`,
             labels: ["bug"],
         }
         return res

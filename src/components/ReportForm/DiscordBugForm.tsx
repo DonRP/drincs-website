@@ -38,19 +38,19 @@ function DiscordBugForm(props: IProps) {
         setErrorFields([])
         let res: ReportBody = {
             repo: ProjectsEnum.DiscordBot,
-            title: "[Report WebSite]" + data.title,
+            title: "[Report] " + data.title,
             body: `### What happened?
 
-            ${data.description}
+${data.description}
+
+### User Nickname
+
+${data.nickname || "_No response_"}
             
-            ### User Nickname
-            
-            ${data.nickname || "_No response_"}
-                        
-            ### Additional Description
-            
-            ${data.additionalDescription || "_No response_"}
-            `,
+### Additional Description
+
+${data.additionalDescription || "_No response_"}
+`,
             labels: ["bug"],
         }
         return res

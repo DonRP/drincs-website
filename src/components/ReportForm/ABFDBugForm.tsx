@@ -49,27 +49,27 @@ function ABFDBugForm(props: IProps) {
         setErrorFields([])
         let res: ReportBody = {
             repo: ProjectsEnum.ABFD,
-            title: "[Report WebSite]" + data.title,
+            title: "[Report] " + data.title,
             body: `### What happened?
 
-            ${data.description}
+${data.description}
+
+### Device
+
+${data.device}
+
+### Version
+
+${data.version}
+
+### User Nickname
+
+${data.nickname || "_No response_"}
             
-            ### Device
-            
-            ${data.device}
-            
-            ### Version
-            
-            ${data.version}
-            
-            ### User Nickname
-            
-            ${data.nickname || "_No response_"}
-                        
-            ### Additional Description
-            
-            ${data.additionalDescription || "_No response_"}
-            `,
+### Additional Description
+
+${data.additionalDescription || "_No response_"}
+`,
             labels: ["bug"],
         }
         return res

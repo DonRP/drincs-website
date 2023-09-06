@@ -23,7 +23,7 @@ export interface ReportBody {
 }
 
 function ReportForm<T>(props: ReportFormProps<T>) {
-    const { children, onClose, getData, ...rest } = props;
+    const { children, onClose, getData, clearData, ...rest } = props;
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
     const githubService = useMemo(() => { return new GitService(enqueueSnackbar) }, [enqueueSnackbar]);
@@ -38,6 +38,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
         githubService.createIssue(data.repo, data.title, data.body, data.labels).then(res => {
             setLoading(false);
             onClose()
+            clearData()
         }).catch(err => {
             logError("send Report", err)
             setLoading(false);
