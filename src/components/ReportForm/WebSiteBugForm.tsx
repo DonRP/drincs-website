@@ -1,7 +1,8 @@
 import DRAutocomplete from 'components/DRAutocomplete';
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { Browser, DeviceABFD, WebSiteRepo } from 'constant';
+import { Browser, DeviceABFD } from 'constant';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { getEnumDescriptions } from 'utility/UtilityEnum';
@@ -47,7 +48,7 @@ function WebSiteBugForm(props: IProps) {
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: WebSiteRepo,
+            repo: ProjectsEnum.WebSite,
             title: "[Report WebSite]" + data.title,
             body: `### What happened?
 

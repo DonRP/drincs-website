@@ -1,7 +1,8 @@
 import DRAutocomplete from 'components/DRAutocomplete';
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { ABFDrepo, DeviceABFD, VersionABFD } from 'constant';
+import { DeviceABFD, VersionABFD } from 'constant';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { getEnumDescriptions } from 'utility/UtilityEnum';
@@ -47,7 +48,7 @@ function ABFDBugForm(props: IProps) {
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: ABFDrepo,
+            repo: ProjectsEnum.ABFD,
             title: "[Report WebSite]" + data.title,
             body: `### What happened?
 

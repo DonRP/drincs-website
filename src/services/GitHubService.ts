@@ -1,20 +1,21 @@
+import { ProjectsEnum } from "enum/ProjectsEnum";
 import { HttpResponse } from "model/HttpResponse";
 import { GitHubCreateIssueBody } from "model/git/GitHubCreateIssueBody";
 import BaseRestService from "./BaseRestService";
 
 class GitService extends BaseRestService {
-    async createIssue(repo: string, title: string, bodyIssue = "", labels: string[] = []): Promise<HttpResponse<any>> {
+    async createIssue(repo: ProjectsEnum, title: string, bodyIssue = "", labels: string[] = []): Promise<HttpResponse<any>> {
         if (!repo) {
             return new HttpResponse()
         }
 
         let body: GitHubCreateIssueBody = {
-            "title": title,
-            "body": bodyIssue,
-            "labels": labels,
+            title: title,
+            body: bodyIssue,
+            label: labels,
         }
 
-        return this.postRequest(this.urlwebapi + `/GitHub/CreateIssue?repositoryName=${repo}`, body)
+        return this.postRequest(this.urlwebapi + `/GitHub/CreateIssue?projectId=${repo}`, body)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     this.showMessage(response?.messagesToShow, 'error')

@@ -1,5 +1,6 @@
 export interface GitHubCreateIssueBody {
-    title: string
-    body: string
-    labels: string[]
+    title?: string;
+    body?: string;
+    label?: string[];
+    milestone?: number;
 }

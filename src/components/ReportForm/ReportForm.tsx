@@ -2,6 +2,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import DRAlert from 'components/DRAlert';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRDialog, { IDRDialogProps } from 'components/DRDialog';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
 import { useMemo, useState } from 'react';
 import GitService from 'services/GitHubService';
@@ -15,7 +16,7 @@ interface ReportFormProps<T> extends IDRDialogProps {
 }
 
 export interface ReportBody {
-    repo: string,
+    repo: ProjectsEnum,
     title: string,
     body: string,
     labels: string[],

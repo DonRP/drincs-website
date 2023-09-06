@@ -1,6 +1,6 @@
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { DiscordRepo } from 'constant';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
@@ -37,7 +37,7 @@ function DiscordBugForm(props: IProps) {
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: DiscordRepo,
+            repo: ProjectsEnum.DiscordBot,
             title: "[Report WebSite]" + data.title,
             body: `### What happened?
 
