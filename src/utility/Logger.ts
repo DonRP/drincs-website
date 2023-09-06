@@ -6,7 +6,7 @@ function logtailIsAvailable(useAnalytic: boolean) {
         if (useAnalytic) {
             analyticException("Logtail key not found")
         }
-        console.info("Logtail key not found.")
+        console.warn("Logtail key not found.")
         return false;
     }
 }
