@@ -27,6 +27,8 @@ function App() {
     // }
     const routes = [
         { title: "about", path: "/", element: <About /> },
+        { title: "about", path: "/drincs", element: <About /> },
+        { title: "about", path: "/a-big-family-in-debit", element: <About /> },
         { title: "⬇️download", path: "/download", element: <Download /> },
         // { title: "🗞️news", path: "/news", element: <News /> },
         { title: "🌍translations", path: "/translations", element: <Translations /> },
