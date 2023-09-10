@@ -67,7 +67,7 @@ function App() {
                                 <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink={`https://raw.githubusercontent.com/wiki/${ABFDrepo}/how-to-translate.md`} />} />
                                 <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo={`DRincs-Productions/daz-assert-ABFD-all-in-one`} />} />
                                 <Route key="drincs" path="/drincs" element={<About />} />
-                                <Route key="a-big-family-in-debit" path="/a-big-family-in-debit" element={<About />>} />
+                                <Route key="a-big-family-in-debit" path="/a-big-family-in-debit" element={<About />} />
                             </Routes>
                         </SnackbarProvider>
                     </RecoilRoot>
