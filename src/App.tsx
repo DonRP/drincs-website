@@ -27,8 +27,6 @@ function App() {
     // }
     const routes = [
         { title: "about", path: "/", element: <About /> },
-        { title: "about", path: "/drincs", element: <About /> },
-        { title: "about", path: "/a-big-family-in-debit", element: <About /> },
         { title: "⬇️download", path: "/download", element: <Download /> },
         // { title: "🗞️news", path: "/news", element: <News /> },
         { title: "🌍translations", path: "/translations", element: <Translations /> },
@@ -68,6 +66,8 @@ function App() {
                                 <Route key={supportRoute.title} path={supportRoute.path} element={supportRoute.element} />
                                 <Route key="howtotranslate" path="/howtotranslate" element={<MarkdownPage markdownLink={`https://raw.githubusercontent.com/wiki/${ABFDrepo}/how-to-translate.md`} />} />
                                 <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo={`DRincs-Productions/daz-assert-ABFD-all-in-one`} />} />
+                                <Route key="drincs" path="/drincs" element={<About />} />
+                                <Route key="a-big-family-in-debit" path="/a-big-family-in-debit" element={<About />>} />
                             </Routes>
                         </SnackbarProvider>
                     </RecoilRoot>
