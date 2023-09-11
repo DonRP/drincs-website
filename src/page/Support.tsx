@@ -10,7 +10,7 @@ import DRStepperDots from 'components/DRStepperDots';
 import DRSupportCard from "components/DRSupportCard";
 import GifsGrid, { IGifGridRow } from 'components/Grid/GifsGrid';
 import PayPalIcon from 'components/Icon/PayPalIcon';
-import { BuyMeACoffeeRepo, gitHubLink } from "constant";
+import { BuyMeACoffeeLink, gitHubLink } from "constant";
 import { ReactElement, useState } from 'react';
 import { analyticPageView } from "utility/Analytics";
 
@@ -85,7 +85,7 @@ const gifs: IGifGridRow[] = [
                 Buy Me A Coffe
             </Typography>
         </Typography>,
-        link: BuyMeACoffeeRepo,
+        link: BuyMeACoffeeLink,
     },
     {
         logo: <Typography

@@ -2,6 +2,7 @@ import Check from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
+import { PatreonLink } from 'constant';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
@@ -111,7 +112,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
-                                    window.open("https://www.patreon.com/DRincs")
+                                    window.open(PatreonLink)
                                 }}
                                 startIcon={
                                     <PatreonIcon />
