@@ -78,4 +78,10 @@
         <changefreq>yearly</changefreq>
         <priority>0.8</priority>
     </url>
+    <url>
+        <loc>https://ko-fi.com/drincsproductions</loc>
+        <lastmod>2023-09-06</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.8</priority>
+    </url>
 </urlset> 

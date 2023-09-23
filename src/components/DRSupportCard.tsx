@@ -2,10 +2,11 @@ import Check from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
-import { BuyMeACoffeeLink, PatreonLink } from 'constant';
+import { BuyMeACoffeeLink, KofiLink, PatreonLink } from 'constant';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
+import KofiIcon from './Icon/KofiIcon';
 import PatreonIcon from './Icon/PatreonIcon';
 
 type IDRSupportCardProps = {
@@ -83,6 +84,28 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         alignItems="center"
                         spacing={1}
                     >
+                        <Grid xs={12}>
+                            <DRButtonNoMargin
+                                label='Ko-fi'
+                                size='sm'
+                                variant="soft"
+                                color="neutral"
+                                onClick={() => {
+                                    window.open(KofiLink)
+                                }}
+                                startIcon={
+                                    <KofiIcon />
+                                }
+                                endIcon={
+                                    <DRChip
+                                        label="8%"
+                                        size='sm'
+                                        ariaLabel='0% retained by Patreon'
+                                        sx={{ color: "green" }}
+                                    />
+                                }
+                            />
+                        </Grid>
                         <Grid xs={12}>
                             <DRButtonNoMargin
                                 label='Buy Me A Coffe'

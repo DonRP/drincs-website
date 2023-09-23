@@ -9,8 +9,9 @@ import DRIconButton from 'components/DRIconButton';
 import DRStepperDots from 'components/DRStepperDots';
 import DRSupportCard from "components/DRSupportCard";
 import GifsGrid, { IGifGridRow } from 'components/Grid/GifsGrid';
+import KofiIcon from 'components/Icon/KofiIcon';
 import PayPalIcon from 'components/Icon/PayPalIcon';
-import { BuyMeACoffeeLink, gitHubLink } from "constant";
+import { BuyMeACoffeeLink, KofiLink, gitHubLink } from "constant";
 import { ReactElement, useState } from 'react';
 import { analyticPageView } from "utility/Analytics";
 
@@ -72,6 +73,21 @@ const data: SupportDataType[] = [
 ];
 
 const gifs: IGifGridRow[] = [
+    {
+        logo: <Typography
+            level="title-lg"
+            sx={{ mr: 'auto' }}
+            fontSize={20}
+        >
+            <KofiIcon />
+            <Typography
+                ml={2}
+            >
+                Ko-fi
+            </Typography>
+        </Typography>,
+        link: KofiLink,
+    },
     {
         logo: <Typography
             level="title-lg"
@@ -226,7 +242,7 @@ function Support() {
                 <GifsGrid
                     title={"Gifs"}
                     data={gifs}
-                    height={208}
+                    height={283}
                 />
             </Grid >
         </>
