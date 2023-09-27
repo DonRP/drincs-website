@@ -6,6 +6,7 @@ export const DiscordRepo = "DRincs-Productions/drincs-discord-bot"
 export const BuyMeACoffeeLink = "https://www.buymeacoffee.com/drincsproductions"
 export const PatreonLink = "https://www.patreon.com/DRincsProductions"
 export const KofiLink = "https://ko-fi.com/drincsproductions"
+export const BoostyLink = "https://boosty.to/drincsproductions"
 export enum DeviceABFD {
     Windows,
     Linux,

@@ -2,10 +2,11 @@ import Check from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
-import { BuyMeACoffeeLink, KofiLink, PatreonLink } from 'constant';
+import { BoostyLink, BuyMeACoffeeLink, KofiLink, PatreonLink } from 'constant';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
+import BoostyIcon from './Icon/BoostyIcon';
 import KofiIcon from './Icon/KofiIcon';
 import PatreonIcon from './Icon/PatreonIcon';
 
@@ -149,6 +150,37 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                     />
                                 }
                             />
+                        </Grid>
+                        <Grid
+                            xs={12}
+                            container
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={1}
+                        >
+                            <Grid xs={12}>
+                                <DRButtonNoMargin
+                                    label='Boosty'
+                                    size='sm'
+                                    variant="soft"
+                                    color="neutral"
+                                    onClick={() => {
+                                        window.open(BoostyLink)
+                                    }}
+                                    startIcon={
+                                        <BoostyIcon />
+                                    }
+                                    endIcon={
+                                        <DRChip
+                                            label="8%"
+                                            size='sm'
+                                            ariaLabel='10% retained by Boosty'
+                                            sx={{ color: "red" }}
+                                        />
+                                    }
+                                />
+                            </Grid>
                         </Grid>
                     </Grid>
                 </CardActions>
