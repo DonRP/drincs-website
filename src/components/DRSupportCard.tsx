@@ -1,12 +1,12 @@
 import Check from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
 import { BoostyLink, BuyMeACoffeeLink, KofiLink, PatreonLink } from 'constant';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
 import BoostyIcon from './Icon/BoostyIcon';
+import BuyMeACoffeeIcon from './Icon/BuyMeACoffeeIcon';
 import KofiIcon from './Icon/KofiIcon';
 import PatreonIcon from './Icon/PatreonIcon';
 
@@ -117,7 +117,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                     window.open(BuyMeACoffeeLink)
                                 }}
                                 startIcon={
-                                    <FreeBreakfastIcon fontSize="small" />
+                                    <BuyMeACoffeeIcon />
                                 }
                                 endIcon={
                                     <DRChip
