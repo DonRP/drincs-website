@@ -10,6 +10,7 @@ import { analyticPageView } from "utility/Analytics";
 export type ISignInSidePageProps = {
     authService: AuthService,
     enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey,
+    onClose: () => void,
 }
 
 export type IProps = {
@@ -86,8 +87,8 @@ function SignInSide(props: IProps) {
                             </div>
                         </Grid>
                         {isLogin ?
-                            <Login authService={authService} enqueueSnackbar={enqueueSnackbar} /> :
-                            <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} />
+                            <Login authService={authService} enqueueSnackbar={enqueueSnackbar} onClose={onClose} /> :
+                            <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} onClose={onClose} />
                         }
                         <Typography
                             mt={0.5}

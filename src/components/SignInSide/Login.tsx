@@ -4,7 +4,6 @@ import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { showMessage } from 'services/BaseRestService';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
@@ -13,13 +12,12 @@ import DRButtonSignInSide from './DRButtonSignInSide';
 
 function Login(props: ISignInSidePageProps) {
     var validator = require('validator');
-    let navigate = useNavigate();
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [rememberMe, setRememberMe] = useState<boolean>(true)
     const [openChangePassword, setOpenChangePassword] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
-    const { authService, enqueueSnackbar } = props;
+    const { authService, enqueueSnackbar, onClose } = props;
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
@@ -55,7 +53,7 @@ function Login(props: ISignInSidePageProps) {
         if (errorFields.length === 0) {
             authService.doLogIn(account, rememberMe).then(res => {
                 if (res) {
-                    navigate("/");
+                    onClose()
                 }
                 setLoading(false)
             }).catch(() => {
