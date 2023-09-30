@@ -13,7 +13,7 @@ export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?
     enqueueSnackbar(message, { variant });
 };
 
-const use_local_webapi = false
+const use_local_webapi = true
 
 export function geturlwebapi(): string {
     if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
@@ -82,8 +82,24 @@ class BaseRestService {
                 res.messages = AxiosError.ERR_BAD_REQUEST
                 res.messagesToShow = "There was an error a bad request"
             }
-            else if (ex.response?.data && ex.response?.data instanceof AxiosError) {
-                return res
+            else if (ex.response?.data) {
+                try {
+                    if (ex.response?.data?.messages) {
+                        res.messages = ex.response?.data?.messages
+                    }
+                    if (ex.response?.data?.messagesToShow) {
+                        res.messagesToShow = ex.response?.data?.messagesToShow
+                    }
+                    else if (ex.response?.data?.message) {
+                        res.messagesToShow = ex.response?.data?.message
+                    }
+                    else {
+                        res.messagesToShow = "There was an error in the server"
+                    }
+                }
+                catch (ex) {
+                    logError("BaseRestService.catchResult() error", ex)
+                }
             }
         }
         else {
