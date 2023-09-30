@@ -10,7 +10,9 @@ More Info: https://learn.microsoft.com/it-it/windows/dev-environment/javascript/
 sudo apt install curl
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 ```
+```shell
 restart `wsl --shutdown`
+```
 ```shell
 command -v nvm
 nvm ls
