@@ -5,7 +5,7 @@ import { analyticLogin, analyticSignUp } from "utility/Analytics";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
-    return Boolean(localStorage.getItem("username_token"));
+    return Boolean(localStorage.getItem("username_token") ?? sessionStorage.getItem("username_token"));
 };
 export const getUserName = (): string => {
     return localStorage.getItem("username") || "";
