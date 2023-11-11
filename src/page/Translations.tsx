@@ -9,6 +9,7 @@ const OtherTranslationProjects = [
     ProjectsEnum.BadMemories,
     ProjectsEnum.BigBrotherAS,
     ProjectsEnum.WitchHunter,
+    ProjectsEnum.AnotherChance,
 ]
 
 function Translations() {
