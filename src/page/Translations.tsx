@@ -6,10 +6,10 @@ import { analyticPageView } from 'utility/Analytics';
 const OtherTranslationProjects = [
     ProjectsEnum.AFamilyVenture,
     ProjectsEnum.AmityPark,
+    ProjectsEnum.AnotherChance,
     ProjectsEnum.BadMemories,
     ProjectsEnum.BigBrotherAS,
     ProjectsEnum.WitchHunter,
-    ProjectsEnum.AnotherChance,
 ]
 
 function Translations() {
