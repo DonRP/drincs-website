@@ -8,4 +8,5 @@ export enum ProjectsEnum {
     ABFD,
     WebSite,
     DiscordBot,
+    AnotherChance,
 }
