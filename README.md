@@ -20,9 +20,15 @@ node -v
 npm i
 ```
 
-# Deploy
+# Run App
 ```shell
 npm start
+```
+
+# Run Build
+```shell
+npm install -g serve
+serve -s build
 ```
 
 after F5
