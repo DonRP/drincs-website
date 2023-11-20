@@ -25,13 +25,13 @@ npm i
 npm start
 ```
 
+after F5
+
 # Run Build
 ```shell
 npm install -g serve
 serve -s build
 ```
-
-after F5
 
 # Interface
 The interface was developed with [MUI](https://mui.com/components/).
