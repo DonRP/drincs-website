@@ -1,6 +1,6 @@
 import { Card } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { ElementContent } from "react-markdown/lib";
+import { ElementContent, Markdown } from "react-markdown/lib";
 import remarkGfm from 'remark-gfm';
 import './Markdown.css';
 
@@ -32,16 +32,16 @@ function MarkdownCard(props: IMarkdownCardProps) {
                 paddingY: 2,
             }}
         >
-            <ReactMarkdown
+            <Markdown
                 children={text}
                 remarkPlugins={[remarkGfm]}
                 // https://dzone.com/articles/how-to-style-images-with-markdown
-                transformImageUri={(src: string, alt: string, title: string | null) => {
-                    return src + '#markdownimg'
-                }}
-                transformLinkUri={transformLinkUri ? transformLinkUri : (href: string, children: Array<ElementContent>, title: string | null) => {
-                    return href
-                }}
+                ={(src: string, alt: string, title: string | null) => {
+                return src + '#markdownimg'
+            }}
+            urlTransform={transformLinkUri ? transformLinkUri : (href: string, children: Array<ElementContent>, title: string | null) => {
+                return href
+            }}
             />
         </Card>
     );
