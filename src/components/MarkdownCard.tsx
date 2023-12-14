@@ -1,7 +1,6 @@
 import { Card } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { ElementContent, TransformLink } from "react-markdown/lib/ast-to-react";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import { ElementContent } from "react-markdown/lib";
 import remarkGfm from 'remark-gfm';
 import './Markdown.css';
 

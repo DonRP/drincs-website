@@ -2,7 +2,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Grid } from '@mui/joy';
 import { Fab } from '@mui/material';
 import MarkdownCard from "components/MarkdownCard";
-import { ElementContent } from "react-markdown/lib/ast-to-react";
+import { ElementContent } from 'react-markdown/lib';
 import { analyticPageView } from "utility/Analytics";
 
 type WikiProps = {
@@ -14,7 +14,7 @@ type WikiProps = {
 function Wiki(props: WikiProps) {
 
     const { urlRepo, sidebar = "_Sidebar.md", routeLink } = props
-    const transformLinkUri = (href: string, children: Array<ElementContent>, title: string | null) => {
+    const transformLinkUri = (href: string, children: ElementContent[], title: string | null) => {
         if (href.includes("https")) {
             return href
         }
