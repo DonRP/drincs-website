@@ -6,9 +6,10 @@ import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { materialUseTheme } from 'Theme';
 import React from 'react';
-import { Link, To, useLocation, useNavigate } from 'react-router-dom';
+import { To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
 import DRErrorComponent from './DRErrorComponent';
+import DRLink from './DRLink';
 import DRLogo from './String/DRLogo';
 
 // https://mui.com/components/app-bar/
@@ -84,7 +85,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                 component="div"
                                 sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                             >
-                                <Link
+                                <DRLink
                                     to={"/"}
                                     key={"logo_link"}
                                     style={{
@@ -92,8 +93,10 @@ function DRNavbar(props: IDRNavbarProps) {
                                         color: "white",
                                     }}
                                 >
-                                    <DRLogo />
-                                </Link>
+                                    <DRLogo
+                                        fontSize={24}
+                                    />
+                                </DRLink>
                             </Typography>
                             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                                 <Grid
@@ -103,22 +106,16 @@ function DRNavbar(props: IDRNavbarProps) {
                                     alignItems="center"
                                 >
                                     {pages.map((page) => (
-                                        <Link
-                                            to={page.path}
-                                            key={page.title + "_link"}
-                                            style={{
-                                                textDecoration: 'none',
-                                                color: "white",
+                                        <Button
+                                            key={page.title}
+                                            onClick={() => {
+                                                navigate(page.path);
+                                                handleCloseNavMenu()
                                             }}
+                                            sx={{ my: 2, color: 'white', display: 'inline-table' }}
                                         >
-                                            <Button
-                                                key={page.title}
-                                                onClick={handleCloseNavMenu}
-                                                sx={{ my: 2, color: 'white', display: 'inline-table' }}
-                                            >
-                                                {page.title}
-                                            </Button>
-                                        </Link>
+                                            {page.title}
+                                        </Button>
                                     ))}
                                     {extern_link.map((page) => (
                                         <Button
@@ -176,23 +173,23 @@ function DRNavbar(props: IDRNavbarProps) {
                                     }}
                                 >
                                     {pages.map((page) => (
-                                        <Link
-                                            to={page.path}
-                                            key={page.title + "_link"}
-                                            style={{
-                                                textDecoration: 'none',
-                                                color: "white",
-                                            }}
+                                        <MenuItem
+                                            key={page.title}
+                                            onClick={handleCloseNavMenu}
                                         >
-                                            <MenuItem
-                                                key={page.title}
-                                                onClick={handleCloseNavMenu}
+                                            <DRLink
+                                                to={page.path}
+                                                key={page.title + "_link"}
+                                                style={{
+                                                    textDecoration: 'none',
+                                                    color: "white",
+                                                }}
                                             >
                                                 <Typography textAlign="center">
                                                     {page.title}
                                                 </Typography>
-                                            </MenuItem>
-                                        </Link>
+                                            </DRLink>
+                                        </MenuItem>
                                     ))}
                                     {extern_link.map((page) => (
                                         <MenuItem
@@ -214,7 +211,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                 component="div"
                                 sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                             >
-                                <Link
+                                <DRLink
                                     to={"/"}
                                     key={"logo_link"}
                                     style={{
@@ -222,8 +219,10 @@ function DRNavbar(props: IDRNavbarProps) {
                                         color: "white",
                                     }}
                                 >
-                                    <DRLogo />
-                                </Link>
+                                    <DRLogo
+                                        fontSize={24}
+                                    />
+                                </DRLink>
                             </Typography>
                             {!isLoggedIn() &&
                                 <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
