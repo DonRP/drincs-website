@@ -194,7 +194,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     {error &&
                         <DRIconButton
                             icon={<ReplayIcon />}
-                            ariaLabel="Reload"
+                            ariaLabel={t("reload")}
                             color="neutral"
                             size="sm"
                             onClick={() => {

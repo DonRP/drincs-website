@@ -1,5 +1,6 @@
 {
 	"translation": {
 		"err_generic" : "C'è stato un errore"
+		, "reload" : "Ricarica"
 	}
 }
