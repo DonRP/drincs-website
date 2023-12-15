@@ -26,7 +26,7 @@ function News() {
         urlNoApiCode.forEach(element => {
             tweetService.getTweets(element + "?type=user_timeline").then(res => {
                 if (res) {
-                    setTweetList(res)
+                    // setTweetList(res)
                     return
                 }
             }).catch(err => {
