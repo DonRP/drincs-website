@@ -42,7 +42,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             setLoading(false);
             onClose()
             clearData()
-            showToast("The issue has been created. Thank you very much.", 'success', enqueueSnackbar)
+            showToast(t("success_create_issue"), 'success', enqueueSnackbar)
         }).catch(err => {
             logError("send Report", err)
             showToastByMyError(err, enqueueSnackbar, t)
@@ -53,18 +53,18 @@ function ReportForm<T>(props: ReportFormProps<T>) {
     return (
         <DRDialog
             {...rest}
-            title={"Bug report"}
+            title={t("bug_report")}
             maxWidth={"md"}
             onClose={onClose}
             actions={
                 <>
                     <DRButtonNoMargin
-                        label='Cancel'
+                        label={t("cancel")}
                         onClick={onClose}
                         disabled={loading}
                     />
                     <DRButtonNoMargin
-                        label='Send'
+                        label={t("send")}
                         onClick={handleSend}
                         loading={loading}
                     />
@@ -75,7 +75,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             <DRAlert
                 startDecorator={< ImageIcon />}
             >
-                To add images or files you can use WeTransfer (or other methods to share files) and add the link to the text. Or use GitHub
+                {t("for_add_image_into_bug_report")}
             </DRAlert>
 
         </DRDialog>

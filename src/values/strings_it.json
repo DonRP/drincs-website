@@ -2,5 +2,12 @@
 	"translation": {
 		"err_generic" : "C'è stato un errore"
 		, "reload" : "Ricarica"
+		, "info" : "Info"
+		, "translate" : "Traduci"
+		, "success_create_issue" : "La segnalazione è stata creata con successo. Grazie!"
+		, "bug_report" : "Segnala un bug"
+		, "cancel" : "Annulla"
+		, "send" : "Invia"
+		, "for_add_image_into_bug_report" : "Per aggiungere un'immagine o file alla segnalazione, usa WeTransfer ( o altri servizi simili ) e incolla il link. O usa GitHub)"
 	}
 }

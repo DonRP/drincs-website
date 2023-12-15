@@ -2,5 +2,12 @@
 	"translation": {
 		"err_generic" : "There was an error"
 		, "reload" : "Reload"
+		, "info" : "Info"
+		, "translate" : "Translate"
+		, "success_create_issue" : "The issue has been created. Thank you very much."
+		, "bug_report" : "Bug report"
+		, "cancel" : "Cancel"
+		, "send" : "Send"
+		, "for_add_image_into_bug_report" : "To add images or files you can use WeTransfer (or other methods to share files) and add the link. Or use GitHub"
 	}
 }

@@ -207,14 +207,14 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             <Typography level="title-lg">{data.name}</Typography>
                             <DRIconButton
                                 icon={<HelpOutlineIcon />}
-                                ariaLabel="Info"
+                                ariaLabel={t("info")}
                                 color="neutral"
                                 size="sm"
                                 sx={{ position: 'absolute', top: '0.875rem', right: '9.5rem' }}
                                 onClick={handleExpandClick}
                             />
                             <DRButton
-                                label='Translate'
+                                label={t("translate")}
                                 color="primary"
                                 fullWidth={false}
                                 marginLeft={16}
