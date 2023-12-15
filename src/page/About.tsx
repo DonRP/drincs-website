@@ -4,7 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Grid from '@mui/joy/Grid';
 import { Card, CardMedia } from '@mui/material';
 import DRButton from 'components/DRButton';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { analyticPageView } from 'utility/Analytics';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
@@ -12,6 +12,7 @@ import { analyticPageView } from 'utility/Analytics';
 
 function About() {
     analyticPageView("About")
+    let navigate = useNavigate();
 
     const Keyframes = styled("div")({
         animationName: "pulse",
@@ -87,45 +88,41 @@ function About() {
                             bottom: "50px",
                         }}
                     >
-                        <Grid  >
-                            <Link
-                                to={"/support"}
-                                key={"logo_link"}
-                            >
-                                <DRButton
-                                    key="support"
-                                    label='SUPPORT'
-                                    sx={{
-                                        my: 2,
-                                        backgroundColor: "gold",
-                                        width: "40vh",
-                                        height: "8vh",
-                                        minHeight: "50px",
-                                        minWidth: "170px",
-                                        color: "black",
-                                    }}
-                                    startIcon={<FavoriteIcon />}
-                                />
-                            </Link>
+                        <Grid>
+                            <DRButton
+                                key="support"
+                                label='SUPPORT'
+                                sx={{
+                                    my: 2,
+                                    backgroundColor: "gold",
+                                    width: "40vh",
+                                    height: "8vh",
+                                    minHeight: "50px",
+                                    minWidth: "170px",
+                                    color: "black",
+                                }}
+                                startIcon={<FavoriteIcon />}
+                                onClick={() => {
+                                    navigate("/support");
+                                }}
+                            />
                         </Grid>
-                        <Grid  >
-                            <Link
-                                to={"/download"}
-                                key={"logo_link"}
-                            >
-                                <DRButton
-                                    key="download"
-                                    label='DOWNLOAD'
-                                    sx={{
-                                        my: 2,
-                                        width: "40vh",
-                                        height: "8vh",
-                                        minHeight: "50px",
-                                        minWidth: "170px",
-                                    }}
-                                    endIcon={<DownloadIcon />}
-                                />
-                            </Link>
+                        <Grid>
+                            <DRButton
+                                key="download"
+                                label='DOWNLOAD'
+                                sx={{
+                                    my: 2,
+                                    width: "40vh",
+                                    height: "8vh",
+                                    minHeight: "50px",
+                                    minWidth: "170px",
+                                }}
+                                endIcon={<DownloadIcon />}
+                                onClick={() => {
+                                    navigate("/download");
+                                }}
+                            />
                         </Grid>
                     </Grid>
                 </Grid>
