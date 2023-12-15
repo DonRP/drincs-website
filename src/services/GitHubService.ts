@@ -1,5 +1,6 @@
 import { ProjectsEnum } from "enum/ProjectsEnum";
 import { HttpResponse } from "model/HttpResponse";
+import { MyError } from "model/MyError";
 import { GitHubCreateIssueBody } from "model/git/GitHubCreateIssueBody";
 import BaseRestService from "./BaseRestService";
 
@@ -18,17 +19,12 @@ class GitService extends BaseRestService {
         return this.postRequest<string>(this.urlwebapi + `/GitHub/CreateIssue?projectId=${repo}`, body)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
-                    this.showMessage(response?.messagesToShow, 'error')
-                    throw new Error(bodyIssue);
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
-                this.showMessage("The issue has been created. Thank you very much.", 'success');
                 return response;
             })
             .catch((res) => {
-                return res.response.json().then((body: any) => {
-                    this.showError(body)
-                    throw new Error(body);
-                });
+                throw res
             });
     }
 }
