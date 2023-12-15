@@ -20,7 +20,7 @@ function News() {
 
     const [tweetList, setTweetList] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
-    const tweetService = useMemo(() => { return new TweetService(enqueueSnackbar) }, [enqueueSnackbar]);
+    const tweetService = useMemo(() => { return new TweetService() }, [enqueueSnackbar]);
 
     useEffect(() => {
         urlNoApiCode.forEach(element => {

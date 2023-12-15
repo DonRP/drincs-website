@@ -42,17 +42,11 @@ export function geturlwebapivercel(): string {
 }
 
 class BaseRestService {
-    constructor(enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) {
-        if (enqueueSnackbar) {
-            this.enqueueSnackbar = enqueueSnackbar
-        }
-    }
     urlwebapi = geturlwebapi()
     urlwebapiold = geturlwebapiold();
     urlwebapivercel = geturlwebapivercel()
-    enqueueSnackbar: null | ((message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) = null
 
-    private catchResult<T>(ex: any): MyError {
+    private catchResult(ex: any): MyError {
         let res = new MyError()
         if (ex instanceof AxiosError) {
             if (ex.code === AxiosError.ERR_NETWORK) {
@@ -119,7 +113,7 @@ class BaseRestService {
                 return response?.data
             })
             .catch((ex) => {
-                throw this.catchResult<T>(ex)
+                throw this.catchResult(ex)
             });
     }
 
@@ -129,7 +123,7 @@ class BaseRestService {
                 return response?.data
             })
             .catch((ex) => {
-                throw this.catchResult<T>(ex)
+                throw this.catchResult(ex)
             });
     }
 }

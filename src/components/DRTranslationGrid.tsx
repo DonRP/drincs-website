@@ -15,9 +15,11 @@ import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { useEffect, useMemo, useState } from "react";
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
+import { useTranslation } from 'react-i18next';
 import { useRecoilState } from 'recoil';
 import TranslationService from 'services/TranslationService';
 import { logError } from 'utility/Logger';
+import { showToastByMyError } from 'utility/ShowToast';
 import DRButton from './DRButton';
 import DRErrorComponent from './DRErrorComponent';
 import DRIconButton from './DRIconButton';
@@ -158,8 +160,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     const { enqueueSnackbar } = useSnackbar();
     const { projectId, height = 350, rowHeight = 75 } = props
     const [error, setError] = useState(false)
-    const translationService = useMemo(() => { return new TranslationService(enqueueSnackbar) }, [enqueueSnackbar]);
+    const translationService = useMemo(() => { return new TranslationService() }, []);
     const [data, setData] = useRecoilState(translationState(projectId));
+    const { t } = useTranslation(["translation"]);
 
     useEffect(() => {
         if (error) return
@@ -169,8 +172,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         }).catch(err => {
             logError("getLanguages", err)
             setError(true)
+            showToastByMyError(err, enqueueSnackbar, t)
         })
-    }, [projectId, translationService, data, setData, error]);
+    }, [projectId, translationService, data, setData, error, t, enqueueSnackbar]);
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {

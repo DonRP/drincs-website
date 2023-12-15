@@ -23,7 +23,7 @@ function SignInSide(props: IProps) {
 
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const { enqueueSnackbar } = useSnackbar();
-    const authService = new AuthService(enqueueSnackbar);
+    const authService = new AuthService();
     const { onClose, open } = props;
 
     return (

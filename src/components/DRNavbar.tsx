@@ -5,7 +5,6 @@ import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuIte
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { materialUseTheme } from 'Theme';
-import { useSnackbar } from 'notistack';
 import React from 'react';
 import { Link, To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
@@ -31,7 +30,6 @@ function DRNavbar(props: IDRNavbarProps) {
     const materialTheme = materialUseTheme();
     const location = useLocation();
     let navigate = useNavigate();
-    const { enqueueSnackbar } = useSnackbar();
     const { pages = [], supportPage, extern_link = [], openLogin } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -263,7 +261,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         onClose={handleCloseUserMenu}
                                     >
                                         <MenuItem key={2} onClick={() => {
-                                            let authService = new AuthService(enqueueSnackbar);
+                                            let authService = new AuthService();
                                             authService.logOut()
                                             handleCloseUserMenu()
                                         }}>

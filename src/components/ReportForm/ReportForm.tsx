@@ -28,7 +28,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
     const { children, onClose, getData, clearData, ...rest } = props;
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
-    const githubService = useMemo(() => { return new GitService(enqueueSnackbar) }, [enqueueSnackbar]);
+    const githubService = useMemo(() => { return new GitService() }, []);
     const { t } = useTranslation(["translation"]);
 
     const handleSend = () => {
