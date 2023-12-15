@@ -5,8 +5,10 @@ import DRDialog, { IDRDialogProps } from 'components/DRDialog';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import GitService from 'services/GitHubService';
 import { logError } from 'utility/Logger';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 
 interface ReportFormProps<T> extends IDRDialogProps {
     data: T,
@@ -27,6 +29,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
     const githubService = useMemo(() => { return new GitService(enqueueSnackbar) }, [enqueueSnackbar]);
+    const { t } = useTranslation(["translation"]);
 
     const handleSend = () => {
         setLoading(true)
@@ -39,8 +42,10 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             setLoading(false);
             onClose()
             clearData()
+            showToast("The issue has been created. Thank you very much.", 'success', enqueueSnackbar)
         }).catch(err => {
             logError("send Report", err)
+            showToastByMyError(err, enqueueSnackbar, t)
             setLoading(false);
         })
     }
