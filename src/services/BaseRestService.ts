@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
 import { HttpResponse } from "model/HttpResponse";
+import { MyError } from "model/MyError";
 import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from "notistack";
 import { logError } from "utility/Logger";
 
@@ -51,28 +52,8 @@ class BaseRestService {
     urlwebapivercel = geturlwebapivercel()
     enqueueSnackbar: null | ((message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey) = null
 
-    showError(body: any) {
-        this.showMessage("There was an error in the server", 'error')
-        logError("fech", body)
-        if (body.error) {
-            window.alert(body.error)
-        }
-        else if (body.messagesToShow) {
-            window.alert(body.messagesToShow)
-        }
-        else if (body.message) {
-            window.alert(body.message)
-        } else {
-            window.alert("basdfas")
-        }
-        throw Object.assign(
-            new Error(body)
-        );
-    }
-
-    private catchResult<T>(ex: any): HttpResponse<T> {
-        let res = new HttpResponse<T>()
-        res.isSuccessStatusCode = false
+    private catchResult<T>(ex: any): MyError {
+        let res = new MyError()
         if (ex instanceof AxiosError) {
             if (ex.code === AxiosError.ERR_NETWORK) {
                 res.messages = ex.response?.data?.messages
@@ -102,11 +83,14 @@ class BaseRestService {
                 }
             }
         }
+        if (ex instanceof MyError) {
+            res = ex
+        }
         else {
             if (ex instanceof Error) {
                 res.messages = ex.message
             }
-            res.messagesToShow = "There was an error in the client"
+            res.messagesToShow = "There was an error"
         }
         return res
     }
@@ -135,7 +119,7 @@ class BaseRestService {
                 return response?.data
             })
             .catch((ex) => {
-                return this.catchResult<T>(ex)
+                throw this.catchResult<T>(ex)
             });
     }
 
@@ -145,21 +129,9 @@ class BaseRestService {
                 return response?.data
             })
             .catch((ex) => {
-                return this.catchResult<T>(ex)
+                throw this.catchResult<T>(ex)
             });
     }
-
-    showMessage = (message: string | undefined | null, variant: VariantType) => {
-        if (this.enqueueSnackbar) {
-            if (!message) {
-                message = "There was an error in the server"
-            }
-            else {
-                logError("showMessage", "message is null")
-            }
-            this.enqueueSnackbar(message, { variant });
-        }
-    };
 }
-export default BaseRestService;
 
+export default BaseRestService;

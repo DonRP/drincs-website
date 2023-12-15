@@ -4,7 +4,9 @@ import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { showMessage } from 'services/BaseRestService';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
@@ -18,6 +20,7 @@ function Login(props: ISignInSidePageProps) {
     const [openChangePassword, setOpenChangePassword] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const { authService, enqueueSnackbar, onClose } = props;
+    const { t } = useTranslation(["translation"]);
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
@@ -56,7 +59,8 @@ function Login(props: ISignInSidePageProps) {
                     onClose()
                 }
                 setLoading(false)
-            }).catch(() => {
+            }).catch((err) => {
+                showToastByMyError(err, enqueueSnackbar, t)
                 setLoading(false)
             })
         }
@@ -72,11 +76,13 @@ function Login(props: ISignInSidePageProps) {
         if (errorFields.length === 0) {
             authService.resetPassword(account.email).then(res => {
                 if (res) {
+                    showToast("Email was sent to reset the password", 'success', enqueueSnackbar)
                     setOpenChangePassword(false)
                 }
                 setLoading(false)
-            }).catch(() => {
+            }).catch((err) => {
                 setLoading(false)
+                showToastByMyError(err, enqueueSnackbar, t)
             })
         }
         else {

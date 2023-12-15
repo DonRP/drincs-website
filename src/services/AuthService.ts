@@ -1,6 +1,7 @@
 import { AuthData } from "model/Auth/AuthData";
 import { LoginAccount } from "model/Auth/LoginAccount";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { MyError } from "model/MyError";
 import { analyticLogin, analyticSignUp } from "utility/Analytics";
 import BaseRestService from "./BaseRestService";
 
@@ -20,8 +21,7 @@ class AuthService extends BaseRestService {
         return this.postRequest<AuthData>(this.urlwebapi + `/Auth/SignInWithEmailAndPassword`, account)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
-                    this.showMessage(response?.messagesToShow, 'error')
-                    return false
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
                 if (rememberMe) {
                     localStorage.setItem("username", response.content.username ?? "");
@@ -35,10 +35,7 @@ class AuthService extends BaseRestService {
                 return true
             })
             .catch((res) => {
-                return res.response.json().then((body: any) => {
-                    this.showError(body)
-                    return false
-                });
+                throw res
             });
     };
 
@@ -50,17 +47,12 @@ class AuthService extends BaseRestService {
         return this.postRequest<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
-                    this.showMessage(response?.messagesToShow, 'error')
-                    return false
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
-                this.showMessage("Email was sent to reset the password", 'success');
                 return true
             })
             .catch((res) => {
-                return res.response.json().then((body: any) => {
-                    this.showError(body)
-                    return false
-                });
+                throw res
             });
     };
 
@@ -72,21 +64,17 @@ class AuthService extends BaseRestService {
         return this.postRequest<AuthData>(this.urlwebapi + `/Auth/CreateAccount`, account)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
-                    this.showMessage(response?.messagesToShow, 'error')
-                    return false
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
                 analyticSignUp("/Auth/CreateAccount")
                 return true
             })
             .catch((res) => {
-                return res.response.json().then((body: any) => {
-                    this.showError(body)
-                    return false
-                });
+                throw res
             });
     };
 
-    async logOut() {
+    logOut() {
         localStorage.removeItem("username");
         localStorage.removeItem("username_token");
         sessionStorage.removeItem("username");

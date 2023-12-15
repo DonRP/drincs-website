@@ -4,7 +4,9 @@ import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { showMessage } from 'services/BaseRestService';
+import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 import DRButtonSignInSide from './DRButtonSignInSide';
@@ -16,6 +18,7 @@ function SignUp(props: ISignInSidePageProps) {
     const [emailVerification, setEmailVerification] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const { authService, enqueueSnackbar } = props;
+    const { t } = useTranslation(["translation"]);
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
         let fields = [];
@@ -45,8 +48,9 @@ function SignUp(props: ISignInSidePageProps) {
                     setEmailVerification(true)
                 }
                 setLoading(false)
-            }).catch(() => {
+            }).catch((err) => {
                 setLoading(false)
+                showToastByMyError(err, enqueueSnackbar, t)
             })
         }
         else {
