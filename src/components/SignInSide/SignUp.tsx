@@ -33,7 +33,7 @@ function SignUp(props: ISignInSidePageProps) {
         }
         if (!validator.isEmail(account.email)) {
             fields.push("email")
-            showMessage(enqueueSnackbar, "The email is invalid", 'error');
+            showMessage(enqueueSnackbar, t("invalid_email"), 'error');
         }
         return fields;
     }
@@ -70,13 +70,13 @@ function SignUp(props: ISignInSidePageProps) {
                         <Typography
                             component="h1"
                         >
-                            {"Sign up"}
+                            {t("sign_up")}
                         </Typography>
                     </Grid>
                 </Grid>
                 <DRTextField
                     fieldName="displayName"
-                    label="Username"
+                    label={t("username")}
                     defaultValue={account.displayName}
                     onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
@@ -86,7 +86,7 @@ function SignUp(props: ISignInSidePageProps) {
                 />
                 <DRTextField
                     fieldName="email"
-                    label="Email Address"
+                    label={t("email")}
                     defaultValue={account.email}
                     onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
@@ -98,7 +98,7 @@ function SignUp(props: ISignInSidePageProps) {
                 />
                 <DRTextField
                     fieldName="password"
-                    label="Password"
+                    label={t("password")}
                     defaultValue={account.password}
                     onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
@@ -114,7 +114,7 @@ function SignUp(props: ISignInSidePageProps) {
                 label="I want to receive inspiration, marketing promotions and updates via email."
             /> */}
                 <DRButtonSignInSide
-                    label='Sign Up'
+                    label={t("sign_up")}
                     onClick={handelSignUp}
                     loading={loading}
                 />
@@ -131,7 +131,7 @@ function SignUp(props: ISignInSidePageProps) {
                     }}
                 />
                 <Typography marginBottom={10} marginTop={1}>
-                    A verification email was sent.
+                    {t("verification_mail_sent")}
                 </Typography>
             </>
         )

@@ -32,7 +32,7 @@ function Login(props: ISignInSidePageProps) {
         }
         if (!validator.isEmail(account.email)) {
             fields.push("email")
-            showMessage(enqueueSnackbar, "The email is invalid", 'error');
+            showMessage(enqueueSnackbar, t("invalid_email"), 'error');
         }
         return fields;
     }
@@ -44,7 +44,7 @@ function Login(props: ISignInSidePageProps) {
         }
         if (!validator.isEmail(account.email)) {
             fields.push("email")
-            showMessage(enqueueSnackbar, "The email is invalid", 'error');
+            showMessage(enqueueSnackbar, t("invalid_email"), 'error');
         }
         return fields;
     }
@@ -76,7 +76,7 @@ function Login(props: ISignInSidePageProps) {
         if (errorFields.length === 0) {
             authService.resetPassword(account.email).then(res => {
                 if (res) {
-                    showToast("Email was sent to reset the password", 'success', enqueueSnackbar)
+                    showToast(t("success_send_mail_for_reset_password"), 'success', enqueueSnackbar)
                     setOpenChangePassword(false)
                 }
                 setLoading(false)
@@ -103,13 +103,13 @@ function Login(props: ISignInSidePageProps) {
                             <Typography
                                 component="h1"
                             >
-                                {"Sign in"}
+                                {t("sign_in")}
                             </Typography>
                         </Grid>
                     </Grid>
                     <DRTextField
                         fieldName="email"
-                        label="Email"
+                        label={t("email")}
                         defaultValue={account.email}
                         onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
@@ -120,7 +120,7 @@ function Login(props: ISignInSidePageProps) {
                     />
                     <DRTextField
                         fieldName="password"
-                        label="Password"
+                        label={t("password")}
                         defaultValue={account.password}
                         onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
@@ -130,12 +130,12 @@ function Login(props: ISignInSidePageProps) {
                     />
                     <DRCheckBox
                         fieldName="rememberMe"
-                        label={"Remember me"}
+                        label={t("remember_me")}
                         checked={rememberMe}
                         onChangeValue={(fieldName, value) => setRememberMe(value)}
                     />
                     <DRButtonSignInSide
-                        label='Log in'
+                        label={t("sign_in")}
                         onClick={handelLogin}
                         loading={loading}
                     />
@@ -150,13 +150,13 @@ function Login(props: ISignInSidePageProps) {
                             <Typography
                                 component="h1"
                             >
-                                {"Reset Password"}
+                                {t("reset_password")}
                             </Typography>
                         </Grid>
                     </Grid>
                     <DRTextField
                         fieldName="email"
-                        label="Email"
+                        label={t("email")}
                         defaultValue={account.email}
                         onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
@@ -166,7 +166,7 @@ function Login(props: ISignInSidePageProps) {
                         errorFields={errorFields}
                     />
                     <DRButtonSignInSide
-                        label='Send email'
+                        label={t("send_mail")}
                         onClick={handelResetPassword}
                         loading={loading}
                     />
@@ -176,11 +176,11 @@ function Login(props: ISignInSidePageProps) {
                     endDecorator={<Link
                         onClick={() => { setOpenChangePassword((value) => !value) }}
                     >
-                        {openChangePassword ? "Back to login" : "Reset password"}
+                        {openChangePassword ? t("back_to_sign_in") : t("reset_password")}
                     </Link>}
                     fontSize="sm"
                 >
-                    {openChangePassword ? "Already have an account?" : "Forgot your password?"}
+                    {openChangePassword ? t("do_have_account") : t("forgot_password")}
                 </Typography>
             </>
         );
