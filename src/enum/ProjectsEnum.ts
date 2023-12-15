@@ -9,4 +9,5 @@ export enum ProjectsEnum {
     WebSite,
     DiscordBot,
     AnotherChance,
+    NarutoShinobiLord,
 }
