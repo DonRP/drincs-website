@@ -5,8 +5,10 @@ import DRDialog, { IDRDialogProps } from 'components/DRDialog';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import GitService from 'services/GitHubService';
 import { logError } from 'utility/Logger';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 
 interface ReportFormProps<T> extends IDRDialogProps {
     data: T,
@@ -26,7 +28,8 @@ function ReportForm<T>(props: ReportFormProps<T>) {
     const { children, onClose, getData, clearData, ...rest } = props;
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
-    const githubService = useMemo(() => { return new GitService(enqueueSnackbar) }, [enqueueSnackbar]);
+    const githubService = useMemo(() => { return new GitService() }, []);
+    const { t } = useTranslation(["translation"]);
 
     const handleSend = () => {
         setLoading(true)
@@ -39,8 +42,10 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             setLoading(false);
             onClose()
             clearData()
+            showToast(t("success_create_issue"), 'success', enqueueSnackbar)
         }).catch(err => {
             logError("send Report", err)
+            showToastByMyError(err, enqueueSnackbar, t)
             setLoading(false);
         })
     }
@@ -48,18 +53,18 @@ function ReportForm<T>(props: ReportFormProps<T>) {
     return (
         <DRDialog
             {...rest}
-            title={"Bug report"}
+            title={t("bug_report")}
             maxWidth={"md"}
             onClose={onClose}
             actions={
                 <>
                     <DRButtonNoMargin
-                        label='Cancel'
+                        label={t("cancel")}
                         onClick={onClose}
                         disabled={loading}
                     />
                     <DRButtonNoMargin
-                        label='Send'
+                        label={t("send")}
                         onClick={handleSend}
                         loading={loading}
                     />
@@ -70,7 +75,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             <DRAlert
                 startDecorator={< ImageIcon />}
             >
-                To add images or files you can use WeTransfer (or other methods to share files) and add the link to the text. Or use GitHub
+                {t("for_add_image_into_bug_report")}
             </DRAlert>
 
         </DRDialog>

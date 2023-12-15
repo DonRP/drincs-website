@@ -1,0 +1,27 @@
+{
+	"translation": {
+		"err_generic" : "There was an error"
+		, "reload" : "Reload"
+		, "info" : "Info"
+		, "translate" : "Translate"
+		, "success_create_issue" : "The issue has been created. Thank you very much."
+		, "bug_report" : "Bug report"
+		, "cancel" : "Cancel"
+		, "send" : "Send"
+		, "for_add_image_into_bug_report" : "To add images or files you can use WeTransfer (or other methods to share files) and add the link. Or use GitHub"
+		, "invalid_email" : "The email is invalid"
+		, "success_send_mail_for_reset_password" : "Email was sent to reset the password"
+		, "sign_in" : "Sign in"
+		, "email" : "Email"
+		, "password" : "Password"
+		, "remember_me" : "Remember me"
+		, "reset_password" : "Reset password"
+		, "forgot_password" : "Forgot your password?"
+		, "sign_up" : "Sign up"
+		, "send_mail" : "Send mail"
+		, "back_to_sign_in" : "Back to sign in"
+		, "do_have_account" : "Do you already have an account?"
+		, "username" : "Username"
+		, "verification_mail_sent" : "A verification email was sent."
+	}
+}

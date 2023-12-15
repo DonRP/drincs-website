@@ -25,7 +25,7 @@
     },
     // reorganise imports
     "editor.codeActionsOnSave": {
-        "source.organizeImports": true
+        "source.organizeImports": "explicit"
     },
     // references
     "javascript.referencesCodeLens.enabled": true,

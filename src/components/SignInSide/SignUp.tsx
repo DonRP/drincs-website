@@ -4,7 +4,9 @@ import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { showMessage } from 'services/BaseRestService';
+import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isNullOrEmpty } from 'utility/UtilityFunctionts';
 import DRButtonSignInSide from './DRButtonSignInSide';
@@ -16,6 +18,7 @@ function SignUp(props: ISignInSidePageProps) {
     const [emailVerification, setEmailVerification] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const { authService, enqueueSnackbar } = props;
+    const { t } = useTranslation(["translation"]);
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
         let fields = [];
@@ -30,7 +33,7 @@ function SignUp(props: ISignInSidePageProps) {
         }
         if (!validator.isEmail(account.email)) {
             fields.push("email")
-            showMessage(enqueueSnackbar, "The email is invalid", 'error');
+            showMessage(enqueueSnackbar, t("invalid_email"), 'error');
         }
         return fields;
     }
@@ -45,8 +48,9 @@ function SignUp(props: ISignInSidePageProps) {
                     setEmailVerification(true)
                 }
                 setLoading(false)
-            }).catch(() => {
+            }).catch((err) => {
                 setLoading(false)
+                showToastByMyError(err, enqueueSnackbar, t)
             })
         }
         else {
@@ -66,13 +70,13 @@ function SignUp(props: ISignInSidePageProps) {
                         <Typography
                             component="h1"
                         >
-                            {"Sign up"}
+                            {t("sign_up")}
                         </Typography>
                     </Grid>
                 </Grid>
                 <DRTextField
                     fieldName="displayName"
-                    label="Username"
+                    label={t("username")}
                     defaultValue={account.displayName}
                     onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
@@ -82,7 +86,7 @@ function SignUp(props: ISignInSidePageProps) {
                 />
                 <DRTextField
                     fieldName="email"
-                    label="Email Address"
+                    label={t("email")}
                     defaultValue={account.email}
                     onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
@@ -94,7 +98,7 @@ function SignUp(props: ISignInSidePageProps) {
                 />
                 <DRTextField
                     fieldName="password"
-                    label="Password"
+                    label={t("password")}
                     defaultValue={account.password}
                     onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
@@ -110,7 +114,7 @@ function SignUp(props: ISignInSidePageProps) {
                 label="I want to receive inspiration, marketing promotions and updates via email."
             /> */}
                 <DRButtonSignInSide
-                    label='Sign Up'
+                    label={t("sign_up")}
                     onClick={handelSignUp}
                     loading={loading}
                 />
@@ -127,7 +131,7 @@ function SignUp(props: ISignInSidePageProps) {
                     }}
                 />
                 <Typography marginBottom={10} marginTop={1}>
-                    A verification email was sent.
+                    {t("verification_mail_sent")}
                 </Typography>
             </>
         )
