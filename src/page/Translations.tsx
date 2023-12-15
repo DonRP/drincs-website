@@ -11,6 +11,7 @@ const OtherTranslationProjects = [
     ProjectsEnum.AnotherChance,
     ProjectsEnum.BadMemories,
     ProjectsEnum.BigBrotherAS,
+    ProjectsEnum.NarutoShinobiLord,
     ProjectsEnum.WitchHunter,
 ]
 
