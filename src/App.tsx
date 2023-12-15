@@ -4,6 +4,7 @@ import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
 import MarkdownPage from 'components/MarkdownPage';
 import { ABFDrepo, discordLink, gitHubLink } from 'constant';
 import ErrorBoundary from 'errer_check/ErrorBoundary';
+import { useI18n } from 'i18n';
 import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
 import Download from 'page/Download';
@@ -41,6 +42,7 @@ function App() {
     ];
     const supportRoute = { title: "support me", path: "/support", element: <Support /> }
     const [openLogin, setOpenLogin] = useState(false);
+    useI18n()
 
     return (
         <ErrorBoundary>
