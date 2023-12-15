@@ -1,19 +1,23 @@
 import { Card } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { ElementContent, Markdown } from "react-markdown/lib";
+import Markdown, { UrlTransform } from "react-markdown";
 import remarkGfm from 'remark-gfm';
 import './Markdown.css';
 
 type IMarkdownCardProps = {
     markdownLink: string,
-    transformLinkUri?: TransformLink,
+    transformUrl?: UrlTransform,
     minWidth?: number,
 }
 
 function MarkdownCard(props: IMarkdownCardProps) {
+    const {
+        transformUrl = (url, key, node) => {
+            return url
+        },
+    } = props
     const [text, setText] = useState("");
     const url = props.markdownLink;
-    const transformLinkUri = props.transformLinkUri;
     const minWidth = props.minWidth;
 
     useEffect(() => {
@@ -35,13 +39,13 @@ function MarkdownCard(props: IMarkdownCardProps) {
             <Markdown
                 children={text}
                 remarkPlugins={[remarkGfm]}
-                // https://dzone.com/articles/how-to-style-images-with-markdown
-                ={(src: string, alt: string, title: string | null) => {
-                return src + '#markdownimg'
-            }}
-            urlTransform={transformLinkUri ? transformLinkUri : (href: string, children: Array<ElementContent>, title: string | null) => {
-                return href
-            }}
+                urlTransform={(url, key, node) => {
+                    if (key === "src") { // image
+                        // https://dzone.com/articles/how-to-style-images-with-markdown
+                        return url + '#markdownimg'
+                    }
+                    return transformUrl(url, key, node)
+                }}
             />
         </Card>
     );

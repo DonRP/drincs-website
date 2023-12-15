@@ -2,7 +2,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Grid } from '@mui/joy';
 import { Fab } from '@mui/material';
 import MarkdownCard from "components/MarkdownCard";
-import { ElementContent } from 'react-markdown/lib';
+import { UrlTransform } from "react-markdown";
 import { analyticPageView } from "utility/Analytics";
 
 type WikiProps = {
@@ -14,12 +14,12 @@ type WikiProps = {
 function Wiki(props: WikiProps) {
 
     const { urlRepo, sidebar = "_Sidebar.md", routeLink } = props
-    const transformLinkUri = (href: string, children: ElementContent[], title: string | null) => {
-        if (href.includes("https")) {
-            return href
+    const transformLinkUri: UrlTransform = (url, key, node) => {
+        if (routeLink.includes("https")) {
+            return routeLink
         }
         else {
-            return `${routeLink}?route=${href}`
+            return `${routeLink}?route=${url}`
         }
     }
     const queryParameters = new URLSearchParams(window.location.search)
@@ -69,13 +69,13 @@ function Wiki(props: WikiProps) {
                     <MarkdownCard
                         minWidth={150}
                         markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${sidebar}`}
-                        transformLinkUri={transformLinkUri}
+                        transformUrl={transformLinkUri}
                     />
                 </Grid>
                 <Grid xs={7}>
                     <MarkdownCard
                         markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${route}.md`}
-                        transformLinkUri={transformLinkUri}
+                        transformUrl={transformLinkUri}
                     />
                 </Grid>
                 <Grid xs={12}
@@ -84,7 +84,7 @@ function Wiki(props: WikiProps) {
                     <MarkdownCard
                         minWidth={150}
                         markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${sidebar}`}
-                        transformLinkUri={transformLinkUri}
+                        transformUrl={transformLinkUri}
                     />
                 </Grid>
                 <Grid xs={2}
