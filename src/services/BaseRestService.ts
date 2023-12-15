@@ -83,7 +83,7 @@ class BaseRestService {
                 }
             }
         }
-        if (ex instanceof MyError) {
+        else if (ex instanceof MyError) {
             res = ex
         }
         else {
