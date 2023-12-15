@@ -1,4 +1,6 @@
+import EngineeringIcon from '@mui/icons-material/Engineering';
 import { Grid } from '@mui/joy';
+import DRAlert from 'components/DRAlert';
 import DRTranslationGrid from 'components/DRTranslationGrid';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { analyticPageView } from 'utility/Analytics';
@@ -25,6 +27,12 @@ function Translations() {
             paddingBottom={3}
         >
             <h2>Other Games</h2>
+            <DRAlert
+                startDecorator={<EngineeringIcon />}
+                color="warning"
+            >
+                The loading could be a little slow. I am currently leaving on a free server ...
+            </DRAlert>
             {OtherTranslationProjects.map((item) =>
                 <Grid
                     key={item}
