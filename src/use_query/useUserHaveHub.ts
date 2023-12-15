@@ -14,22 +14,17 @@ export function useGetLanguages(props: IProps<TranslationResult>) {
 		then: thenFn,
 		catch: catchFn,
 		projectId,
-		staleTime = 60000, // 1 minute
 		...rest
 	} = props;
 	return useMyQuery({
 		...rest,
-		staleTime: staleTime,
+		staleTime: 300000,
 		queryKey: [GET_LANGUAGES_CACHE_KEY, projectId.toString()],
 		queryFn: async () => {
 			let service = new TranslationService()
 			return service.getLanguages(projectId).then(res => {
-				if (!res || !res.isSuccessStatusCode || !res.content) {
-					catchFn && catchFn(res)
-					throw res
-				}
-				thenFn && thenFn(res?.content)
-				return res?.content
+				thenFn && thenFn(res)
+				return res
 			}).catch(err => {
 				catchFn && catchFn(err)
 				throw err

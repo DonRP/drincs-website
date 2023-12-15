@@ -7,18 +7,15 @@ import { AspectRatio, Card, CircularProgress, Grid, Skeleton, Typography } from 
 import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { useQueryClient } from '@tanstack/react-query';
 import { myUseTheme } from 'Theme';
-import { translationState } from 'atoms/translationState';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResultItem } from 'model/Translation/TranslationResult';
 import { useSnackbar } from 'notistack';
 import * as React from 'react';
-import { useEffect, useMemo, useState } from "react";
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import { useTranslation } from 'react-i18next';
-import { useRecoilState } from 'recoil';
-import TranslationService from 'services/TranslationService';
-import { logError } from 'utility/Logger';
+import { GET_LANGUAGES_CACHE_KEY, useGetLanguages } from 'use_query/useUserHaveHub';
 import { showToastByMyError } from 'utility/ShowToast';
 import DRButton from './DRButton';
 import DRErrorComponent from './DRErrorComponent';
@@ -159,22 +156,18 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = myUseTheme()
     const { enqueueSnackbar } = useSnackbar();
     const { projectId, height = 350, rowHeight = 75 } = props
-    const [error, setError] = useState(false)
-    const translationService = useMemo(() => { return new TranslationService() }, []);
-    const [data, setData] = useRecoilState(translationState(projectId));
     const { t } = useTranslation(["translation"]);
-
-    useEffect(() => {
-        if (error) return
-        if (data) return
-        translationService.getLanguages(projectId).then(res => {
-            setData(res?.content)
-        }).catch(err => {
-            logError("getLanguages", err)
-            setError(true)
+    const queryClient = useQueryClient()
+    const {
+        isLoading,
+        isError,
+        data = undefined,
+    } = useGetLanguages({
+        catch: (err) => {
             showToastByMyError(err, enqueueSnackbar, t)
-        })
-    }, [projectId, translationService, data, setData, error, t, enqueueSnackbar]);
+        },
+        projectId: projectId,
+    })
 
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {
@@ -188,17 +181,17 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     sx={{
                         minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
                         maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
-                        backgroundColor: error ? theme.palette.danger[500] : null,
+                        backgroundColor: isError ? theme.palette.danger[500] : null,
                     }}
                 >
-                    {error &&
+                    {isError &&
                         <DRIconButton
                             icon={<ReplayIcon />}
                             ariaLabel={t("reload")}
                             color="neutral"
                             size="sm"
                             onClick={() => {
-                                setError(false)
+                                queryClient.invalidateQueries({ queryKey: [GET_LANGUAGES_CACHE_KEY] });
                             }}
                         />
                     }
@@ -231,7 +224,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             />
                         </div>
                     }
-                    {!data &&
+                    {isLoading &&
                         <Skeleton variant="text" sx={{ fontSize: '2rem' }} />
                     }
                     {data?.logo &&
@@ -248,7 +241,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             </AspectRatio>
                         </CardActionArea>
                     }
-                    {!data?.logo &&
+                    {isLoading &&
                         <Skeleton variant="rectangular" width={{ xs: 350, sm: 550, md: 700, lg: 900 }} height={200}
                             sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
                         />
@@ -269,7 +262,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             rowHeight={rowHeight}
                         />
                     </div>}
-                    {!data?.list &&
+                    {isLoading &&
                         <Skeleton variant="rectangular" width={{ xs: 350, sm: 550, md: 700, lg: 900 }} height={height}
                             sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
                         />
