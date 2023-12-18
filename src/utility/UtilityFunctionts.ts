@@ -1,4 +1,4 @@
-export function isNullOrEmpty(value: any) {
+export function isEmptyOrSpaces(value: any) {
     return (!value || value.toString() === "")
 }
 

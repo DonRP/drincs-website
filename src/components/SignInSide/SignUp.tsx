@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { showMessage } from 'services/BaseRestService';
 import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
-import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import DRButtonSignInSide from './DRButtonSignInSide';
 
 function SignUp(props: ISignInSidePageProps) {
@@ -22,13 +22,13 @@ function SignUp(props: ISignInSidePageProps) {
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
         let fields = [];
-        if (isNullOrEmpty(account.email)) {
+        if (isEmptyOrSpaces(account.email)) {
             fields.push("email")
         }
-        if (isNullOrEmpty(account.password)) {
+        if (isEmptyOrSpaces(account.password)) {
             fields.push("password")
         }
-        if (isNullOrEmpty(account.displayName)) {
+        if (isEmptyOrSpaces(account.displayName)) {
             fields.push("displayName")
         }
         if (!validator.isEmail(account.email)) {

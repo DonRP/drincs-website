@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { showMessage } from 'services/BaseRestService';
 import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
 import DRButtonSignInSide from './DRButtonSignInSide';
 
@@ -24,10 +24,10 @@ function Login(props: ISignInSidePageProps) {
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
-        if (isNullOrEmpty(account.email)) {
+        if (isEmptyOrSpaces(account.email)) {
             fields.push("email")
         }
-        if (isNullOrEmpty(account.password)) {
+        if (isEmptyOrSpaces(account.password)) {
             fields.push("password")
         }
         if (!validator.isEmail(account.email)) {
@@ -39,7 +39,7 @@ function Login(props: ISignInSidePageProps) {
 
     const validateResetPassword = (account: LoginAccount): string[] => {
         let fields = [];
-        if (isNullOrEmpty(account.email)) {
+        if (isEmptyOrSpaces(account.email)) {
             fields.push("email")
         }
         if (!validator.isEmail(account.email)) {

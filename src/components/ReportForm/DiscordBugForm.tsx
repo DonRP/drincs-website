@@ -3,7 +3,7 @@ import DRTextarea from 'components/DRTextarea';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import ReportForm, { ReportBody } from './ReportForm';
 
 type IProps = {
@@ -25,10 +25,10 @@ function DiscordBugForm(props: IProps) {
 
     function getData() {
         let error: string[] = []
-        if (isNullOrEmpty(data.description)) {
+        if (isEmptyOrSpaces(data.description)) {
             error.push("description")
         }
-        if (isNullOrEmpty(data.title)) {
+        if (isEmptyOrSpaces(data.title)) {
             error.push("title")
         }
         setErrorFields(error)
