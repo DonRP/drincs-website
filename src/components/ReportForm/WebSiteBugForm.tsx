@@ -109,7 +109,7 @@ ${data.additionalDescription || "_No response_"}
                 helperText="Which Browser were you using?"
                 options={browsers}
                 required
-                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value?.oid, data, setData)}
                 defaultValue={data?.browser}
                 errorFields={errorFields}
                 disableClearable
@@ -120,7 +120,7 @@ ${data.additionalDescription || "_No response_"}
                 helperText="Which device were you using?"
                 options={devices}
                 required
-                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value?.oid, data, setData)}
                 defaultValue={data?.device}
                 errorFields={errorFields}
                 disableClearable
