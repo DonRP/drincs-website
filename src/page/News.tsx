@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import CircularIndeterminate from "components/CircularIndeterminate";
 import DRTwitterPost from "components/DRTwitterPost";
 import { useSnackbar } from "notistack";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import TweetService from "services/TwitterService";
 import { analyticPageView } from "utility/Analytics";
 import { logError } from "utility/Logger";
@@ -15,12 +15,13 @@ const urlNoApiCode = [
     "https://v1.nocodeapi.com/test43545345/twitter/jLutCbnyHTFjEMEt",
 ]
 
+const tweetService = new TweetService()
+
 function News() {
     analyticPageView("News")
 
     const [tweetList, setTweetList] = useState([]);
     const { enqueueSnackbar } = useSnackbar();
-    const tweetService = useMemo(() => { return new TweetService() }, [enqueueSnackbar]);
 
     useEffect(() => {
         urlNoApiCode.forEach(element => {

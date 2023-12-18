@@ -4,7 +4,7 @@ import { DRButtonNoMargin } from 'components/DRButton';
 import DRDialog, { IDRDialogProps } from 'components/DRDialog';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import GitService from 'services/GitHubService';
 import { logError } from 'utility/Logger';
@@ -24,11 +24,12 @@ export interface ReportBody {
     labels: string[],
 }
 
+const githubService = new GitService()
+
 function ReportForm<T>(props: ReportFormProps<T>) {
     const { children, onClose, getData, clearData, ...rest } = props;
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
-    const githubService = useMemo(() => { return new GitService() }, []);
     const { t } = useTranslation(["translation"]);
 
     const handleSend = () => {
