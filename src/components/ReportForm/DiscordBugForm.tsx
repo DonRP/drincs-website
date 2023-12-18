@@ -8,7 +8,7 @@ import ReportForm, { ReportBody } from './ReportForm';
 
 type IProps = {
     open: boolean;
-    onClose: () => void;
+    setOpen: (open: boolean) => void;
 }
 
 class BugType {
@@ -19,7 +19,10 @@ class BugType {
 }
 
 function DiscordBugForm(props: IProps) {
-    const { open, onClose } = props;
+    const {
+        open,
+        setOpen,
+    } = props;
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [data, setData] = useState<BugType>(new BugType())
 
@@ -59,7 +62,7 @@ ${data.additionalDescription || "_No response_"}
     return (
         <ReportForm<BugType>
             open={open}
-            onClose={onClose}
+            setOpen={setOpen}
             title={"Bug report"}
             data={data}
             maxWidth={"md"}

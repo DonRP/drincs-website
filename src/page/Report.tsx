@@ -130,15 +130,15 @@ function Report() {
             </Grid>
             <ABFDBugForm
                 open={openABFDBug}
-                onClose={() => setOpenABFDBug(false)}
+                setOpen={setOpenABFDBug}
             />
             <WebSiteBugForm
                 open={openWebSiteBug}
-                onClose={() => setOpenWebSiteBug(false)}
+                setOpen={setOpenWebSiteBug}
             />
             <DiscordBugForm
                 open={openDiscordBug}
-                onClose={() => setDiscordBug(false)}
+                setOpen={setDiscordBug}
             />
         </>
     );
