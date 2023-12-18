@@ -1,43 +1,99 @@
-import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, AutocompleteValue, TextField } from '@mui/material';
+import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, AutocompleteProps, createFilterOptions } from '@mui/joy';
+import { AutocompleteValue } from '@mui/material';
+import { IOnChangeGeneric, findSimilarItemFromLookupByProperty } from 'utility/UtilityComponenets';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
-interface IProps extends IDRTextFormControlBaseProps {
-    fieldName: string,
-    label: string,
-    defaultValue: string,
-    onChange: (event: any, newVal: number | null) => void,
-    options: string[],
+interface IProps<T> extends AutocompleteProps<T, any, any, any>, IDRTextFormControlBaseProps {
+    fieldName: string
+    onChangeGeneric?: IOnChangeGeneric<T>
+    descriptionFieldName?: string
+    oidFieldName?: string
     errorFields?: string[];
-    error?: boolean;
-    disableClearable?: boolean;
 }
 
-function DRAutocomplete(props: IProps) {
+/**
+ * TODO: genera un console log di errore della MUI se use default value
+ * MUI: A component is changing the default value state of an uncontrolled Autocomplete after being initialized. To suppress this warning opt to use a controlled Autocomplete.
+ * https://legacy.reactjs.org/docs/forms.html#controlled-components
+ * @param props 
+ * @returns 
+ */
+function DRAutocomplete<T extends object>(props: IProps<T>) {
     const {
         fieldName,
         label,
-        defaultValue,
-        onChange,
+        onChangeGeneric,
         options,
         helperText,
         required,
+        descriptionFieldName = "description",
+        oidFieldName = "oid",
+        addHelperMarginIfIsHidden,
         errorFields = [],
         error,
-        disableClearable,
-    } = props
+        ...rest
+    } = props;
 
-    const autocompleteOnChange:
-        (
-            event: React.SyntheticEvent,
-            value: AutocompleteValue<any, any, any, any>,
-            reason: AutocompleteChangeReason,
-            details?: AutocompleteChangeDetails<any>,
-        ) => void
-        = (event, value: any) => {
-            event.target as any
-            onChange(fieldName, value)
+    const autocompleteOnChange = (event: React.SyntheticEvent,
+        value: AutocompleteValue<T, any, any, any>,
+        reason: AutocompleteChangeReason,
+        details?: AutocompleteChangeDetails<T>) => {
+        onChangeGeneric && onChangeGeneric(fieldName, value as T)
+    }
+
+    /**
+     * TODO option non dovrebbe essere any, ma T
+     * @param option 
+     * @returns 
+     */
+    const getDescription = (option: any | undefined, descriptionFieldName: string): string => {
+        if (!option) {
+            return ""
         }
+        try {
+            if (option && option.hasOwnProperty(descriptionFieldName)) {
+                if (option[descriptionFieldName] !== null && option[descriptionFieldName] !== undefined) {
+                    return option[descriptionFieldName]
+                }
+            }
+        }
+        catch (error) {
+            console.error("filterOptions catch, id: " + fieldName, error)
+        }
+        console.error("Autocomplete descriptionFieldName is invalid, id: " + fieldName)
+        return ""
+    }
+
+    const getOptionLabel = (option: string | T): string => {
+        if (typeof option === "string") {
+            // passa di qui quando gli viene passato un default value
+            let res = findSimilarItemFromLookupByProperty(options, oidFieldName, option)
+            if (res) {
+                return getDescription(res, descriptionFieldName)
+            }
+            return option
+        }
+        return getDescription(option, descriptionFieldName)
+    }
+    const filterOptions = createFilterOptions({
+        matchFrom: 'start',
+        stringify: (option: T) => {
+            return getDescription(option, descriptionFieldName)
+        },
+    });
+    const isOptionEqualToValue = (option: T, value: T | string | undefined) => {
+        if (typeof value === "string") {
+            // passa di qui quando gli viene passato un default value
+            return getDescription(option, oidFieldName).toString() === value
+        }
+        if (option && option.hasOwnProperty(oidFieldName)) {
+            return getDescription(option, oidFieldName) === getDescription(value, oidFieldName)
+        }
+        console.warn("warn isOptionEqualToValue oidFieldName is invalid, id: " + fieldName, option, value)
+        return getDescription(option, descriptionFieldName) === getDescription(value, descriptionFieldName)
+    }
+
 
     try {
         return (
@@ -45,17 +101,18 @@ function DRAutocomplete(props: IProps) {
                 label={label}
                 helperText={helperText}
                 required={required}
+                error={error || errorFields.includes(fieldName)}
+                addHelperMarginIfIsHidden={addHelperMarginIfIsHidden}
             >
                 <Autocomplete
-                    id={fieldName}
-                    value={defaultValue}
+                    {...rest}
+                    placeholder="Type something"
+                    getOptionLabel={getOptionLabel}
+                    filterOptions={filterOptions}
                     onChange={autocompleteOnChange}
                     options={options}
-                    disableClearable={disableClearable}
-                    renderInput={(params) => <TextField
-                        error={error || errorFields.includes(fieldName)}
-                        {...params}
-                    />}
+                    error={error || errorFields.includes(fieldName)}
+                    isOptionEqualToValue={isOptionEqualToValue}
                 />
             </DRTextFormControlBase>
         )
@@ -64,4 +121,4 @@ function DRAutocomplete(props: IProps) {
     }
 }
 
-export default DRAutocomplete   
+export default DRAutocomplete

@@ -5,7 +5,7 @@ import { DeviceABFD, VersionABFD } from 'constant';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { getEnumDescriptions } from 'utility/UtilityEnum';
+import { getEnumLookup } from 'utility/UtilityEnum';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import ReportForm, { ReportBody } from './ReportForm';
 
@@ -30,9 +30,9 @@ class BugType {
 function ABFDBugForm(props: IProps) {
     const { open, onClose } = props;
     const [errorFields, setErrorFields] = useState<string[]>([])
-    const versions = getEnumDescriptions(VersionABFD)
-    const devices = getEnumDescriptions(DeviceABFD)
-    const [data, setData] = useState<BugType>(new BugType(devices[0], versions[0]))
+    const versions = getEnumLookup<string>(VersionABFD)
+    const devices = getEnumLookup<string>(DeviceABFD)
+    const [data, setData] = useState<BugType>(new BugType(devices[0].oid, versions[0].oid))
 
     function getData() {
         let error: string[] = []
@@ -83,7 +83,7 @@ ${data.additionalDescription || "_No response_"}
             data={data}
             maxWidth={"md"}
             getData={getData}
-            clearData={() => setData(new BugType(devices[0], versions[0]))}
+            clearData={() => setData(new BugType(devices[0].oid, versions[0].oid))}
         >
             <DRTextField
                 fieldName="title"
@@ -109,7 +109,7 @@ ${data.additionalDescription || "_No response_"}
                 helperText="Which device were you using?"
                 options={devices}
                 required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value?.oid, data, setData)}
                 defaultValue={data?.device}
                 errorFields={errorFields}
                 disableClearable
@@ -120,7 +120,7 @@ ${data.additionalDescription || "_No response_"}
                 helperText="What version of our software are you running?"
                 options={versions}
                 required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value?.oid, data, setData)}
                 defaultValue={data?.version}
                 errorFields={errorFields}
                 disableClearable

@@ -5,7 +5,7 @@ import { Browser, DeviceABFD } from 'constant';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { getEnumDescriptions } from 'utility/UtilityEnum';
+import { getEnumLookup } from 'utility/UtilityEnum';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import ReportForm, { ReportBody } from './ReportForm';
 
@@ -30,9 +30,9 @@ class BugType {
 function WebSiteBugForm(props: IProps) {
     const { open, onClose } = props;
     const [errorFields, setErrorFields] = useState<string[]>([])
-    const browsers = getEnumDescriptions(Browser)
-    const devices = getEnumDescriptions(DeviceABFD)
-    const [data, setData] = useState<BugType>(new BugType(devices[0], browsers[0]))
+    const browsers = getEnumLookup<string>(Browser)
+    const devices = getEnumLookup<string>(DeviceABFD)
+    const [data, setData] = useState<BugType>(new BugType(devices[0].oid, browsers[0].oid))
 
     function getData() {
         let error: string[] = []
@@ -83,7 +83,7 @@ ${data.additionalDescription || "_No response_"}
             data={data}
             maxWidth={"md"}
             getData={getData}
-            clearData={() => setData(new BugType(devices[0], browsers[0]))}
+            clearData={() => setData(new BugType(devices[0].oid, browsers[0].oid))}
         >
             <DRTextField
                 fieldName="title"
@@ -109,7 +109,7 @@ ${data.additionalDescription || "_No response_"}
                 helperText="Which Browser were you using?"
                 options={browsers}
                 required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.browser}
                 errorFields={errorFields}
                 disableClearable
@@ -120,7 +120,7 @@ ${data.additionalDescription || "_No response_"}
                 helperText="Which device were you using?"
                 options={devices}
                 required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.device}
                 errorFields={errorFields}
                 disableClearable
