@@ -132,7 +132,12 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="rememberMe"
                         label={t("remember_me")}
                         checked={rememberMe}
-                        onChangeValue={(fieldName, value) => setRememberMe(value)}
+                        onChangeGeneric={(fieldName, value) => {
+                            if (value === null) {
+                                value = false
+                            }
+                            setRememberMe(value)
+                        }}
                     />
                     <DRButtonSignInSide
                         onClick={handelLogin}

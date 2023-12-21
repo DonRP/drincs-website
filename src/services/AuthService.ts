@@ -13,7 +13,7 @@ export const getUserName = (): string => {
 };
 
 class AuthService extends BaseRestService {
-    async doLogIn(account: LoginAccount, rememberMe: boolean) {
+    async doLogIn(account: LoginAccount, rememberMe: boolean = false) {
         if (!account) {
             return false
         }
