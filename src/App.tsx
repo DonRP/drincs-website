@@ -15,6 +15,7 @@ import Support from 'page/Support';
 import Translations from 'page/Translations';
 import Wiki from 'page/Wiki';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { geturlwebapi } from 'services/BaseRestService';
@@ -24,16 +25,14 @@ axios.get(geturlwebapi() + "/discord/awakens").catch((err) => {
 })
 
 function App() {
-    // if (process.env.NODE_ENV !== 'production') {
-    //     console.log('🛠️Looks like we are in development mode!');
-    // }
+    const { t } = useTranslation(["translation"]);
     const routes = [
-        { title: "about", path: "/", element: <About /> },
-        { title: "⬇️download", path: "/download", element: <Download /> },
+        { title: t("about").toLocaleLowerCase(), path: "/", element: <About /> },
+        { title: "⬇️" + t("download").toLocaleLowerCase(), path: "/download", element: <Download /> },
         // { title: "🗞️news", path: "/news", element: <News /> },
-        { title: "🌍translations", path: "/translations", element: <Translations /> },
-        { title: "📖wiki", path: "/wiki", element: <Wiki routeLink="wiki" urlRepo={ABFDrepo} /> },
-        { title: "🐞bug/request", path: "/report", element: <Report /> },
+        { title: "🌍" + t("translations").toLocaleLowerCase(), path: "/translations", element: <Translations /> },
+        { title: "📖" + t("wiki").toLocaleLowerCase(), path: "/wiki", element: <Wiki routeLink="wiki" urlRepo={ABFDrepo} /> },
+        { title: "🐞" + t("bug/request").toLocaleLowerCase(), path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
         { title: "💬discord", path: discordLink },
