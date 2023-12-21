@@ -11,6 +11,7 @@ import * as locales from '@mui/x-data-grid/locales';
 import { useQueryClient } from '@tanstack/react-query';
 import { myUseTheme } from 'Theme';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
+import { TFunction } from 'i18next';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResultItem } from 'model/Translation/TranslationResult';
 import { useSnackbar } from 'notistack';
 import * as React from 'react';
@@ -23,131 +24,133 @@ import { getLanguageDataGrid } from './DRDataGrid';
 import DRErrorComponent from './DRErrorComponent';
 import DRIconButton from './DRIconButton';
 
-const columns: GridColDef<TranslationResultItem>[] = [
-    {
-        field: 'targetLanguages',
-        headerName: 'Language',
-        flex: 1,
-        minWidth: 100,
-        renderCell: (params: GridRenderCellParams<TranslationResultItem, TargetLanguages>) => (
-            <strong>
-                <Grid
-                    container
-                    direction={{ xs: "column", sm: "row" }}
-                    justifyContent="center"
-                    alignItems="center"
-                    spacing={{ xs: 0, sm: 2, md: 2 }}
-                >
-                    <Grid sx={{ display: { xs: 'flex', md: 'none' } }} >
-                        <FlagIcon code={params.value?.twoLettersCode.toUpperCase() as FlagIconCode} size={50} height={40} alt={params.value?.name} />
-                    </Grid>
-                    <Grid sx={{ display: { xs: 'none', md: 'flex' } }} >
-                        <FlagIcon code={params.value?.twoLettersCode.toUpperCase() as FlagIconCode} size={65} height={50} alt={params.value?.name} />
-                    </Grid>
-                    <Grid>
-                        {params.value?.name}
-                    </Grid>
-                </Grid>
-            </strong >
-        ),
-    },
-    {
-        field: 'release',
-        headerName: 'Download',
-        flex: 1,
-        minWidth: 150,
-        renderCell: (params: GridRenderCellParams<TranslationResultItem, GitHubTranslationRelease>) => (
-            <strong>
-                {params.value &&
-                    <DRButton
-                        color="primary"
-                        size="sm"
-                        marginLeft={0}
-                        marginBottom={0}
-                        marginRight={0}
-                        marginTop={0}
-                        onClick={() => {
-                            window.open(params.value?.downloadUrl)
-                        }}
-                        startDecorator={<DownloadIcon />}
+function columns(t: TFunction<[string]>): GridColDef<TranslationResultItem>[] {
+    return [
+        {
+            field: 'targetLanguages',
+            headerName: t('language'),
+            flex: 1,
+            minWidth: 100,
+            renderCell: (params: GridRenderCellParams<TranslationResultItem, TargetLanguages>) => (
+                <strong>
+                    <Grid
+                        container
+                        direction={{ xs: "column", sm: "row" }}
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={{ xs: 0, sm: 2, md: 2 }}
                     >
-                        {params.value?.version}
-                    </DRButton>
-                }
-            </strong>
-        ),
-    },
-    {
-        field: 'translated',
-        headerName: 'Translated',
-        flex: 1,
-        minWidth: 50,
-        renderCell: (params: GridRenderCellParams<TranslationResultItem, number>) => (
-            <strong>
-                {params.value !== 100 &&
-                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                        <CircularProgress
-                            determinate
-                            value={params.value}
-                        />
-                        <Box
-                            sx={{
-                                top: 0,
-                                left: 0,
-                                bottom: 0,
-                                right: 0,
-                                position: 'absolute',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
+                        <Grid sx={{ display: { xs: 'flex', md: 'none' } }} >
+                            <FlagIcon code={params.value?.twoLettersCode.toUpperCase() as FlagIconCode} size={50} height={40} alt={params.value?.name} />
+                        </Grid>
+                        <Grid sx={{ display: { xs: 'none', md: 'flex' } }} >
+                            <FlagIcon code={params.value?.twoLettersCode.toUpperCase() as FlagIconCode} size={65} height={50} alt={params.value?.name} />
+                        </Grid>
+                        <Grid>
+                            {params.value?.name}
+                        </Grid>
+                    </Grid >
+                </strong >
+            ),
+        },
+        {
+            field: 'release',
+            headerName: t('download'),
+            flex: 1,
+            minWidth: 150,
+            renderCell: (params: GridRenderCellParams<TranslationResultItem, GitHubTranslationRelease>) => (
+                <strong>
+                    {params.value &&
+                        <DRButton
+                            color="primary"
+                            size="sm"
+                            marginLeft={0}
+                            marginBottom={0}
+                            marginRight={0}
+                            marginTop={0}
+                            onClick={() => {
+                                window.open(params.value?.downloadUrl)
                             }}
+                            startDecorator={<DownloadIcon />}
                         >
-                            {params.value ? `${Math.round(params.value)}%` : ""}
+                            {params.value?.version}
+                        </DRButton>
+                    }
+                </strong>
+            ),
+        },
+        {
+            field: 'translated',
+            headerName: t('translated'),
+            flex: 1,
+            minWidth: 50,
+            renderCell: (params: GridRenderCellParams<TranslationResultItem, number>) => (
+                <strong>
+                    {params.value !== 100 &&
+                        <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                            <CircularProgress
+                                determinate
+                                value={params.value}
+                            />
+                            <Box
+                                sx={{
+                                    top: 0,
+                                    left: 0,
+                                    bottom: 0,
+                                    right: 0,
+                                    position: 'absolute',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                {params.value ? `${Math.round(params.value)}%` : ""}
+                            </Box>
                         </Box>
-                    </Box>
-                }
-                {params.value === 100 &&
-                    <CheckIcon sx={{ color: "springgreen" }} />
-                }
-            </strong>
-        ),
-    },
-    // {
-    //     field: 'approved',
-    //     headerName: 'Approved',
-    //     flex: 1,
-    //     minWidth: 50,
-    //     renderCell: (params: GridRenderCellParams<TranslationResultItem, number>) => (
-    //         <strong>
-    //             {params.value !== 100 &&
-    //                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-    //                     <CircularProgress
-    //                         determinate
-    //                         value={params.value}
-    //                     />
-    //                     <Box
-    //                         sx={{
-    //                             top: 0,
-    //                             left: 0,
-    //                             bottom: 0,
-    //                             right: 0,
-    //                             position: 'absolute',
-    //                             display: 'flex',
-    //                             alignItems: 'center',
-    //                             justifyContent: 'center',
-    //                         }}
-    //                     >
-    //                         {params.value ? `${Math.round(params.value)}%` : ""}
-    //                     </Box>
-    //                 </Box>
-    //             }
-    //             {params.value === 100 &&
-    //                 <CheckIcon sx={{ color: "springgreen" }} />
-    //             }
-    //         </strong>
-    //     ),
-    // },
-];
+                    }
+                    {params.value === 100 &&
+                        <CheckIcon sx={{ color: "springgreen" }} />
+                    }
+                </strong>
+            ),
+        },
+        // {
+        //     field: 'approved',
+        //     headerName: 'Approved',
+        //     flex: 1,
+        //     minWidth: 50,
+        //     renderCell: (params: GridRenderCellParams<TranslationResultItem, number>) => (
+        //         <strong>
+        //             {params.value !== 100 &&
+        //                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+        //                     <CircularProgress
+        //                         determinate
+        //                         value={params.value}
+        //                     />
+        //                     <Box
+        //                         sx={{
+        //                             top: 0,
+        //                             left: 0,
+        //                             bottom: 0,
+        //                             right: 0,
+        //                             position: 'absolute',
+        //                             display: 'flex',
+        //                             alignItems: 'center',
+        //                             justifyContent: 'center',
+        //                         }}
+        //                     >
+        //                         {params.value ? `${Math.round(params.value)}%` : ""}
+        //                     </Box>
+        //                 </Box>
+        //             }
+        //             {params.value === 100 &&
+        //                 <CheckIcon sx={{ color: "springgreen" }} />
+        //             }
+        //         </strong>
+        //     ),
+        // },
+    ];
+}
 
 type IDRTranslationGridProps = {
     projectId: ProjectsEnum,
@@ -264,7 +267,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                     {data?.list && <div style={{ height: height, width: '100%' }}>
                         <DataGrid
                             rows={data.list}
-                            columns={columns}
+                            columns={columns(t)}
                             rowHeight={rowHeight}
                             localeText={
                                 getLanguageDataGrid(locales)
