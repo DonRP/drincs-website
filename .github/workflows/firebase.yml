@@ -36,6 +36,7 @@ jobs:
         REACT_APP_FIREBASE_WEBSITE_APPID: ${{ secrets.FIREBASE_WEBSITE_APPID }}
         REACT_APP_FIREBASE_WEBSITE_MEASUREMENTID: ${{ secrets.FIREBASE_WEBSITE_MEASUREMENTID }}
       run: |
+        git submodule update --init --recursive
         npm install
         npm ci
         npm run build

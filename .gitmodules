@@ -1,0 +1,4 @@
+[submodule "src/values/translations"]
+	path = src/values/translations
+	url = https://github.com/DRincs-Productions/drincs-website-translations
+	branch = l10n_main
