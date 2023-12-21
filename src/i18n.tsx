@@ -15,8 +15,8 @@ type Resurces = {
 
 const getResurces = () => {
   let resources: Resurces = {
-    en: require('../src/values/strings_en.json') as Resurce,
-    it: require('../src/values/strings_it.json') as Resurce,
+    en: require('../src/values/translations/strings_en.json') as Resurce,
+    it: require('../src/values/translations/strings_it.json') as Resurce,
   }
   return resources
 }
