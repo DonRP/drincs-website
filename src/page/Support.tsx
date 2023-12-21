@@ -210,6 +210,8 @@ function Support() {
                         <DRStepperDots
                             steps={data.length - 2}
                             activeStep={activeStep}
+                            backButton={<></>}
+                            nextButton={<></>}
                         />
                     </Grid>
                 </Grid>
