@@ -15,7 +15,7 @@ interface IProps extends IDRTextFormControlBaseProps {
     children?: ReactNode,
 }
 
-function DRTextFormControlBase(props: IProps) {
+export default function DRTextFormControlBase(props: IProps) {
     const {
         label,
         helperText,
@@ -52,5 +52,3 @@ function DRTextFormControlBase(props: IProps) {
         return <DRErrorComponent error={error} text={"DRTextFormControlBase"} />
     }
 }
-
-export default DRTextFormControlBase;
