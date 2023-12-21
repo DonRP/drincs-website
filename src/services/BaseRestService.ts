@@ -84,7 +84,7 @@ class BaseRestService {
             if (ex instanceof Error) {
                 res.messages = ex.message
             }
-            res.messagesToShow = "There was an error"
+            res.messagesToShow = "err_generic"
         }
         return res
     }

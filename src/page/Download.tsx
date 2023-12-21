@@ -4,6 +4,7 @@ import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import FolderZipIcon from '@mui/icons-material/FolderZip';
 import { Grid } from '@mui/joy';
 import DownloadGrid, { IDownloadGridRow } from 'components/Grid/DownloadGrid';
+import { useTranslation } from 'react-i18next';
 import { analyticPageView } from 'utility/Analytics';
 
 const rowsABFD: IDownloadGridRow[] = [
@@ -119,6 +120,7 @@ const rowsABFD: IDownloadGridRow[] = [
 
 function Download() {
     analyticPageView("Download")
+    const { t } = useTranslation(["translation"]);
 
     return (
         <>
@@ -130,7 +132,7 @@ function Download() {
                 paddingTop={3}
                 paddingBottom={3}
             >
-                <h2>Download</h2>
+                <h2>{t("download")}</h2>
                 <DownloadGrid
                     title="A Big Family in Debit"
                     data={rowsABFD}

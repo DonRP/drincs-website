@@ -4,6 +4,7 @@ import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import AuthService, { isLoggedIn } from "services/AuthService";
 import { analyticPageView } from "utility/Analytics";
 
@@ -20,7 +21,7 @@ export type IProps = {
 
 function SignInSide(props: IProps) {
     analyticPageView("SignInSide")
-
+    const { t } = useTranslation(["translation"]);
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const { enqueueSnackbar } = useSnackbar();
     const authService = new AuthService();
@@ -96,7 +97,7 @@ function SignInSide(props: IProps) {
                             endDecorator={<Link
                                 onClick={() => { setIsLogin((value) => !value) }}
                             >
-                                {isLogin ? "Sign Up" : "Sign in"}
+                                {isLogin ? "Sign Up" : t("sign_in")}
                             </Link>}
                             fontSize="sm"
                         >
