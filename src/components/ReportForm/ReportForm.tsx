@@ -65,15 +65,17 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             actions={
                 <>
                     <DRButtonNoMargin
-                        label={t("cancel")}
                         onClick={() => setOpen(false)}
                         disabled={loading}
-                    />
+                    >
+                        {t("cancel")}
+                    </DRButtonNoMargin>
                     <DRButtonNoMargin
-                        label={t("send")}
                         onClick={handleSend}
                         loading={loading}
-                    />
+                    >
+                        {t("send")}
+                    </DRButtonNoMargin>
                 </>
             }
         >

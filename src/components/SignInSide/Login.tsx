@@ -1,4 +1,5 @@
 import { Grid, Link, Typography } from '@mui/joy';
+import { DRButtonSignInSide } from 'components/DRButton';
 import DRErrorComponent from 'components/DRErrorComponent';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
@@ -10,7 +11,6 @@ import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
-import DRButtonSignInSide from './DRButtonSignInSide';
 
 function Login(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -135,10 +135,11 @@ function Login(props: ISignInSidePageProps) {
                         onChangeValue={(fieldName, value) => setRememberMe(value)}
                     />
                     <DRButtonSignInSide
-                        label={t("sign_in")}
                         onClick={handelLogin}
                         loading={loading}
-                    />
+                    >
+                        {t("sign_in")}
+                    </DRButtonSignInSide>
                 </>}
                 {openChangePassword && <>
                     <Grid container
@@ -166,10 +167,11 @@ function Login(props: ISignInSidePageProps) {
                         errorFields={errorFields}
                     />
                     <DRButtonSignInSide
-                        label={t("send_mail")}
                         onClick={handelResetPassword}
                         loading={loading}
-                    />
+                    >
+                        {t("send_mail")}
+                    </DRButtonSignInSide>
                 </>}
                 <Typography
                     mt={0.5}

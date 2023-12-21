@@ -1,5 +1,6 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Grid, Typography } from '@mui/joy';
+import { DRButtonSignInSide } from 'components/DRButton';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { ISignInSidePageProps } from 'page/SignInSide';
@@ -9,7 +10,6 @@ import { showMessage } from 'services/BaseRestService';
 import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
-import DRButtonSignInSide from './DRButtonSignInSide';
 
 function SignUp(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -110,14 +110,15 @@ function SignUp(props: ISignInSidePageProps) {
                 />
                 {/* // TODO: To Implement  */}
                 {/* <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-            /> */}
+                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                    label="I want to receive inspiration, marketing promotions and updates via email."
+                /> */}
                 <DRButtonSignInSide
-                    label={t("sign_up")}
                     onClick={handelSignUp}
                     loading={loading}
-                />
+                >
+                    {t("sign_up")}
+                </DRButtonSignInSide>
             </>
         );
     }

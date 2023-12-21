@@ -58,7 +58,6 @@ const columns: GridColDef<TranslationResultItem>[] = [
             <strong>
                 {params.value &&
                     <DRButton
-                        label={params.value?.version}
                         color="primary"
                         size="sm"
                         marginLeft={0}
@@ -68,8 +67,10 @@ const columns: GridColDef<TranslationResultItem>[] = [
                         onClick={() => {
                             window.open(params.value?.downloadUrl)
                         }}
-                        startIcon={<DownloadIcon />}
-                    />
+                        startDecorator={<DownloadIcon />}
+                    >
+                        {params.value?.version}
+                    </DRButton>
                 }
             </strong>
         ),
@@ -207,7 +208,6 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                 onClick={handleExpandClick}
                             />
                             <DRButton
-                                label={t("translate")}
                                 color="primary"
                                 fullWidth={false}
                                 marginLeft={16}
@@ -218,10 +218,12 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                 onClick={() => {
                                     window.open(data?.crowdinLink)
                                 }}
-                                endIcon={<GTranslateIcon />}
+                                endDecorator={<GTranslateIcon />}
                                 size="sm"
                                 sx={{ position: 'absolute', top: '0.875rem', right: '1.1rem' }}
-                            />
+                            >
+                                {t("translate")}
+                            </DRButton>
                         </div>
                     }
                     {isLoading &&

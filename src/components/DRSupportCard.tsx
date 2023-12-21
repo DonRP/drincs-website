@@ -87,17 +87,16 @@ function DRSupportCard(props: IDRSupportCardProps) {
                     >
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='Ko-fi'
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
                                     window.open(KofiLink)
                                 }}
-                                startIcon={
+                                startDecorator={
                                     <KofiIcon />
                                 }
-                                endIcon={
+                                endDecorator={
                                     <DRChip
                                         label="8%"
                                         size='sm'
@@ -105,21 +104,22 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                         sx={{ color: "green" }}
                                     />
                                 }
-                            />
+                            >
+                                {"Ko-fi"}
+                            </DRButtonNoMargin>
                         </Grid>
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='Buy Me A Coffe'
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
                                     window.open(BuyMeACoffeeLink)
                                 }}
-                                startIcon={
+                                startDecorator={
                                     <BuyMeACoffeeIcon />
                                 }
-                                endIcon={
+                                endDecorator={
                                     <DRChip
                                         label="0%"
                                         size='sm'
@@ -127,21 +127,22 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                         sx={{ color: "green" }}
                                     />
                                 }
-                            />
+                            >
+                                {"Buy Me A Coffe"}
+                            </DRButtonNoMargin>
                         </Grid>
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='Patreon'
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
                                     window.open(PatreonLink)
                                 }}
-                                startIcon={
+                                startDecorator={
                                     <PatreonIcon />
                                 }
-                                endIcon={
+                                endDecorator={
                                     <DRChip
                                         label="8%"
                                         size='sm'
@@ -149,7 +150,9 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                         sx={{ color: "red" }}
                                     />
                                 }
-                            />
+                            >
+                                {"Patreon"}
+                            </DRButtonNoMargin>
                         </Grid>
                         <Grid
                             xs={12}
@@ -161,17 +164,16 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         >
                             <Grid xs={12}>
                                 <DRButtonNoMargin
-                                    label='Boosty'
                                     size='sm'
                                     variant="soft"
                                     color="neutral"
                                     onClick={() => {
                                         window.open(BoostyLink)
                                     }}
-                                    startIcon={
+                                    startDecorator={
                                         <BoostyIcon />
                                     }
-                                    endIcon={
+                                    endDecorator={
                                         <DRChip
                                             label="8%"
                                             size='sm'
@@ -179,7 +181,9 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                             sx={{ color: "red" }}
                                         />
                                     }
-                                />
+                                >
+                                    {"Boosty"}
+                                </DRButtonNoMargin>
                             </Grid>
                         </Grid>
                     </Grid>
