@@ -1,90 +1,19 @@
-import CheckIcon from '@mui/icons-material/Check';
-import ClearIcon from '@mui/icons-material/Clear';
-import { Avatar, Grid } from '@mui/joy';
-import { Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableRow } from '@mui/material';
-import { green, red } from '@mui/material/colors';
-import { isBoolean, isObject } from 'utility/UtilityFunctionts';
+import { Skeleton, Table, TableProps } from '@mui/joy';
+import { CSSProperties } from 'react';
+import { isObject } from 'utility/UtilityFunctionts';
 import DRErrorComponent from './DRErrorComponent';
 
-type IDRTable = {
+interface IProps extends TableProps {
     titles?: string[],
     data?: any[][] | object[],
     verticalTitle?: boolean,
     width?: number,
     height?: number,
     toMirrorAcrossDiagonal?: boolean,
-    sx?: SxProps;
-}
-
-type IDRTableCell = {
-    element: any;
-}
-
-function DRTableCell(props: IDRTableCell) {
-    const { element } = props;
-
-    try {
-        if (isBoolean(element)) {
-            if (element) {
-                return <TableCell align="center">
-                    <Grid
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                    >
-                        <Grid>
-                            <Avatar
-                                sx={{
-                                    bgcolor: green[500],
-                                    width: 20,
-                                    height: 20
-                                }}
-                            >
-                                <CheckIcon
-                                    sx={{
-                                        width: 15,
-                                        height: 15
-                                    }}
-                                />
-                            </Avatar>
-                        </Grid>
-                    </Grid>
-                </TableCell>
-            }
-            else {
-                return <TableCell align="center">
-                    <Grid
-                        container
-                        direction="column"
-                        justifyContent="flex-start"
-                        alignItems="center"
-                    >
-                        <Grid>
-                            <Avatar
-                                sx={{
-                                    bgcolor: red[500],
-                                    width: 20,
-                                    height: 20
-                                }}
-                            >
-                                <ClearIcon
-                                    sx={{
-                                        width: 15,
-                                        height: 15
-                                    }}
-                                />
-                            </Avatar>
-                        </Grid>
-                    </Grid>
-                </TableCell>
-            }
-        }
-        return <TableCell align="center">
-            {element}
-        </TableCell>
-    } catch (error) {
-        return <DRErrorComponent error={error} text={"DRTableCell"} />
-    }
+    sxColumns?: CSSProperties[]
+    sxRows?: CSSProperties[]
+    loading?: boolean
+    laodingRows?: number
 }
 
 function convertData(oldData: any[][] | object[] = [], revert = false): any[][] {
@@ -122,51 +51,99 @@ function convertData(oldData: any[][] | object[] = [], revert = false): any[][] 
     return result
 }
 
-function DRTable(props: IDRTable) {
-    const { verticalTitle, toMirrorAcrossDiagonal, titles, data, sx } = props;
-    const dataUsed = convertData(data, toMirrorAcrossDiagonal)
-    try {
-        return (
-            <TableContainer
-                component={Paper}
-                sx={sx}
-            >
-                <Table>
-                    <TableBody>
-                        {verticalTitle && titles &&
-                            <TableRow>
-                                {titles.map((title) => {
-                                    return <TableCell >
-                                        {title}
-                                    </TableCell>
-                                })}
-                            </TableRow>
-                        }
 
-                        {dataUsed.map((item, index) => {
-                            return item.length > 0 ? <TableRow  >
-                                {!verticalTitle && titles &&
-                                    <TableCell >
-                                        {titles.length > index && <>
-                                            {titles[index]}
-                                        </>}
-                                    </TableCell>
+export default function DRTable(props: IProps) {
+    const {
+        verticalTitle
+        , toMirrorAcrossDiagonal
+        , titles
+        , data
+        , sxColumns = []
+        , sxRows = []
+        , borderAxis = "both"
+        , loading
+        , laodingRows = 5
+        , ...rest
+    } = props;
+
+    const dataUsed = convertData(data, toMirrorAcrossDiagonal)
+
+    try {
+        if (loading) {
+            return (
+                <>
+                    <Table
+                        borderAxis={borderAxis}
+                        {...rest}
+                        sx={{
+                            paddingX: 1,
+                        }}
+                    >
+                    </Table>
+                    {Array.from(Array(laodingRows), (e, i) => {
+                        return <Skeleton animation="wave" variant="text" level="h2" key={i} />
+                    })}
+                </>
+            );
+        }
+        return (
+            <Table
+                borderAxis={borderAxis}
+                {...rest}
+            >
+                <thead>
+                    {!verticalTitle && titles &&
+                        <tr>
+                            {titles.map((title) => {
+                                return <th  >
+                                    {title}
+                                </th>
+                            })}
+                        </tr>
+                    }
+                </thead>
+                <tbody>
+
+                    {dataUsed.map((item, indexRox) => {
+                        return item.length > 0 ? <tr key={indexRox}>
+                            {verticalTitle && titles &&
+                                <th >
+                                    {titles.length > indexRox && <>
+                                        {titles[indexRox]}
+                                    </>}
+                                </th>
+                            }
+                            {item.map((item, indexColumn) => {
+                                if (sxColumns.length > indexColumn) {
+                                    return <th
+                                        scope="row"
+                                        style={sxColumns[indexColumn]}
+                                        key={indexColumn}
+                                    >
+                                        {item}
+                                    </th>
                                 }
-                                {item.map((title) => {
-                                    return <DRTableCell
-                                        element={title}
-                                    />
-                                })}
-                            </TableRow>
-                                : <></>
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                                if (sxRows.length > indexRox) {
+                                    return <td
+                                        style={sxRows[indexRox]}
+                                        key={indexColumn}
+                                    >
+                                        {item}
+                                    </td>
+                                }
+                                return <td
+                                    key={indexColumn}
+                                >
+                                    {item}
+                                </td>
+                            })}
+                        </tr>
+                            : <></>
+                    })}
+                </tbody>
+            </Table>
         );
     } catch (error) {
         return <DRErrorComponent error={error} text={"DRTable"} />
     }
 }
-
-export default DRTable;
