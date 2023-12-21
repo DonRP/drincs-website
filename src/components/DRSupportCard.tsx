@@ -98,11 +98,12 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 }
                                 endDecorator={
                                     <DRChip
-                                        label="8%"
                                         size='sm'
                                         ariaLabel='0% retained by Patreon'
                                         sx={{ color: "green" }}
-                                    />
+                                    >
+                                        {"8%"}
+                                    </DRChip>
                                 }
                             >
                                 {"Ko-fi"}
@@ -121,11 +122,12 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 }
                                 endDecorator={
                                     <DRChip
-                                        label="0%"
                                         size='sm'
                                         ariaLabel='0% retained by BuyMeACoffe'
                                         sx={{ color: "green" }}
-                                    />
+                                    >
+                                        {"0%"}
+                                    </DRChip>
                                 }
                             >
                                 {"Buy Me A Coffe"}
@@ -144,11 +146,12 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 }
                                 endDecorator={
                                     <DRChip
-                                        label="8%"
                                         size='sm'
                                         ariaLabel='8% retained by Patreon'
                                         sx={{ color: "red" }}
-                                    />
+                                    >
+                                        {"8%"}
+                                    </DRChip>
                                 }
                             >
                                 {"Patreon"}
@@ -175,11 +178,12 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                     }
                                     endDecorator={
                                         <DRChip
-                                            label="8%"
                                             size='sm'
                                             ariaLabel='10% retained by Boosty'
                                             sx={{ color: "red" }}
-                                        />
+                                        >
+                                            {"8%"}
+                                        </DRChip>
                                     }
                                 >
                                     {"Boosty"}
