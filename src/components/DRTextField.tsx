@@ -1,62 +1,47 @@
-import { Input, InputSlotsAndSlotProps, VariantProp } from '@mui/joy';
+import { Input, InputProps, InputTypeMap } from '@mui/joy';
 import { FocusEventHandler } from 'react';
+import { IOnChangeGeneric } from 'utility/UtilityComponenets';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
-type DefaultValueType = string | number | ReadonlyArray<string> | undefined
+export type DefaultValueTypeTextField = string | number | ReadonlyArray<string> | undefined
 
-interface IProps<T extends DefaultValueType> extends InputSlotsAndSlotProps, IDRTextFormControlBaseProps {
+export interface ICTextFieldProps<T extends DefaultValueTypeTextField> extends InputProps<InputTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+}>, IDRTextFormControlBaseProps {
     fieldName: string;
-    placeholder?: string;
-    defaultValue?: T
-    onChange: (fieldName: string, value: T | any) => void;
-    variant?: VariantProp
-    type?: | 'button'
-    | 'checkbox'
-    | 'color'
-    | 'date'
-    | 'datetime-local'
-    | 'email'
-    | 'file'
-    | 'hidden'
-    | 'image'
-    | 'month'
-    | 'number'
-    | 'password'
-    | 'radio'
-    | 'range'
-    | 'reset'
-    | 'search'
-    | 'submit'
-    | 'tel'
-    | 'text'
-    | 'time'
-    | 'url'
-    | 'week'
-    fullWidth?: boolean;
-    autoComplete?: string;
-    autoFocus?: boolean;
+    onChangeGeneric?: IOnChangeGeneric<T>
+    onBlurGeneric?: IOnChangeGeneric<T>
+    maxLength?: number
     errorFields?: string[];
-    error?: boolean;
 }
 
-function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
+export default function DRTextField<T extends DefaultValueTypeTextField>(props: ICTextFieldProps<T>) {
     const {
         fieldName,
         label,
         helperText,
         defaultValue,
         onChange,
+        onChangeGeneric,
         type = "text",
         fullWidth = true,
         errorFields = [],
         required,
-        error,
+        onBlurGeneric,
+        addHelperMarginIfIsHidden,
+        disabled,
+        error = errorFields.includes(fieldName),
+        maxLength = 100,
+        slotProps,
         ...rest
     } = props;
-    const textFieldOnChange: FocusEventHandler<HTMLInputElement> = (event) => {
-        event.target.value as T
-        onChange(fieldName, event.target.value)
+
+    const textFieldOnChange: FocusEventHandler<HTMLInputElement> | undefined = onChangeGeneric ? (event) => {
+        onChangeGeneric(fieldName, event.target.value as T)
+    } : undefined
+    const textFieldOnBlur: FocusEventHandler<HTMLInputElement> = (event) => {
+        onBlurGeneric && onBlurGeneric(fieldName, event.target.value as T)
     }
 
     try {
@@ -65,16 +50,26 @@ function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
                 label={label}
                 helperText={helperText}
                 required={required}
+                error={error}
+                addHelperMarginIfIsHidden={addHelperMarginIfIsHidden}
             >
                 <Input
                     {...rest}
                     id={fieldName}
                     name={fieldName}
-                    onBlur={textFieldOnChange}
+                    onBlur={textFieldOnBlur}
+                    onChange={onChange || textFieldOnChange}
                     defaultValue={defaultValue}
                     type={type}
                     fullWidth={fullWidth}
-                    error={error || errorFields.includes(fieldName)}
+                    error={error}
+                    disabled={disabled}
+                    slotProps={{
+                        input: {
+                            maxLength: maxLength,
+                        },
+                        ...slotProps
+                    }}
                 />
             </DRTextFormControlBase>
         )
@@ -82,5 +77,3 @@ function DRTextField<T extends DefaultValueType>(props: IProps<T>) {
         return <DRErrorComponent error={error} text={"DRTextField"} />
     }
 }
-
-export default DRTextField;

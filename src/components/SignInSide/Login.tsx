@@ -111,7 +111,7 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="email"
                         label={t("email")}
                         defaultValue={account.email}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
                         type='email'
                         required
@@ -122,7 +122,7 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="password"
                         label={t("password")}
                         defaultValue={account.password}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
                         type='password'
                         required
@@ -164,7 +164,7 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="email"
                         label={t("email")}
                         defaultValue={account.email}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
                         type='email'
                         required

@@ -94,7 +94,7 @@ ${data.additionalDescription || "_No response_"}
                 fieldName="title"
                 label="Title"
                 required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.title || ""}
                 errorFields={errorFields}
             />
