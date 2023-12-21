@@ -1,5 +1,6 @@
 import { AspectRatio, Card, Typography } from '@mui/joy';
 import { DataGrid, GridColDef, GridValidRowModel } from '@mui/x-data-grid';
+import * as locales from '@mui/x-data-grid/locales';
 import DRErrorComponent from './DRErrorComponent';
 
 export interface IDRDataGridProps<T extends IData> {
@@ -17,6 +18,14 @@ interface IProps<T extends IData> extends IDRDataGridProps<T> {
 
 interface IData extends GridValidRowModel {
     id?: number,
+}
+
+export const getLanguageDataGrid = (locales: any) => {
+    let languageBrowser = navigator.language.replace("-", "")
+    if (languageBrowser.length === 2) {
+        languageBrowser = languageBrowser + languageBrowser.toUpperCase()
+    }
+    return locales[`${languageBrowser}`]?.components?.MuiDataGrid?.defaultProps?.localeText
 }
 
 function DRDataGrid<T extends IData>(props: IProps<T>) {
@@ -53,6 +62,9 @@ function DRDataGrid<T extends IData>(props: IProps<T>) {
                         hideFooter={hideFooter}
                         hideFooterPagination={hideFooter}
                         hideFooterSelectedRowCount={hideFooter}
+                        localeText={
+                            getLanguageDataGrid(locales)
+                        }
                     />
                 </div>
             </Card>

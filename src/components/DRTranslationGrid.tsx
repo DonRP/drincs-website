@@ -7,6 +7,7 @@ import { AspectRatio, Card, CircularProgress, Grid, Skeleton, Typography } from 
 import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import * as locales from '@mui/x-data-grid/locales';
 import { useQueryClient } from '@tanstack/react-query';
 import { myUseTheme } from 'Theme';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
@@ -18,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { GET_LANGUAGES_CACHE_KEY, useGetLanguages } from 'use_query/useUserHaveHub';
 import { showToastByMyError } from 'utility/ShowToast';
 import DRButton from './DRButton';
+import { getLanguageDataGrid } from './DRDataGrid';
 import DRErrorComponent from './DRErrorComponent';
 import DRIconButton from './DRIconButton';
 
@@ -262,6 +264,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             rows={data.list}
                             columns={columns}
                             rowHeight={rowHeight}
+                            localeText={
+                                getLanguageDataGrid(locales)
+                            }
                         />
                     </div>}
                     {isLoading &&
