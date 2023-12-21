@@ -85,7 +85,7 @@ ${data.additionalDescription || "_No response_"}
                 helperText="Also tell us, what did you expect to happen?"
                 placeholder="Tell us what you see!"
                 required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.description || ""}
                 errorFields={errorFields}
             />
@@ -94,7 +94,7 @@ ${data.additionalDescription || "_No response_"}
                 label="Your Nickname"
                 helperText="Add your contact so we can contact you for more information"
                 placeholder="Discrod: _balck_ram_"
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.nickname || ""}
                 errorFields={errorFields}
             />
@@ -102,7 +102,7 @@ ${data.additionalDescription || "_No response_"}
                 fieldName="additionalDescription"
                 label="Additional Description"
                 helperText="Add a description to help us understand"
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.additionalDescription || ""}
                 errorFields={errorFields}
             />

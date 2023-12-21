@@ -1,4 +1,4 @@
-import { Textarea, TextareaSlotsAndSlotProps, VariantProp } from '@mui/joy';
+import { Textarea, TextareaProps, TextareaTypeMap } from '@mui/joy';
 import { FocusEventHandler } from 'react';
 import { IOnChangeGeneric } from 'utility/UtilityComponenets';
 import DRErrorComponent from './DRErrorComponent';
@@ -6,18 +6,13 @@ import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextForm
 
 type DefaultValueType = string | number | ReadonlyArray<string> | undefined
 
-interface IProps<T extends DefaultValueType> extends TextareaSlotsAndSlotProps, IDRTextFormControlBaseProps {
+interface IProps<T extends DefaultValueType> extends IDRTextFormControlBaseProps,
+    TextareaProps<TextareaTypeMap['defaultComponent'], {
+        component?: React.ElementType;
+    }> {
     fieldName: string;
-    placeholder?: string;
-    defaultValue?: T
-    onChange: IOnChangeGeneric<T>
-    variant?: VariantProp
-    autoComplete?: string;
-    autoFocus?: boolean;
+    onChangeGeneric: IOnChangeGeneric<T>
     errorFields?: string[];
-    error?: boolean;
-    minRows?: number;
-    maxRows?: number;
 }
 
 function DRTextarea(props: IProps<string>) {
@@ -25,16 +20,15 @@ function DRTextarea(props: IProps<string>) {
         fieldName,
         label,
         helperText,
-        onChange,
+        onChangeGeneric,
         errorFields = [],
         required,
         error,
         minRows = 2,
-        maxRows,
         ...rest
     } = props;
     const textFieldOnChange: FocusEventHandler<HTMLTextAreaElement> = (event) => {
-        onChange(fieldName, event.target.value)
+        onChangeGeneric && onChangeGeneric(fieldName, event.target.value)
     }
 
     try {
@@ -51,7 +45,6 @@ function DRTextarea(props: IProps<string>) {
                     onBlur={textFieldOnChange}
                     error={error || errorFields.includes(fieldName)}
                     minRows={minRows}
-                    maxRows={maxRows}
                 />
             </DRTextFormControlBase>
         )
