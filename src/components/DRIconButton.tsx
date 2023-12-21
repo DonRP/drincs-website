@@ -1,31 +1,18 @@
-import { Box, CircularProgress, ColorPaletteProp, IconButton, Tooltip, VariantProp } from "@mui/joy";
-import { SxProps } from "@mui/joy/styles/types";
-import DRErrorComponent from "./DRErrorComponent";
+import { Box, CircularProgress, IconButton, IconButtonProps, IconButtonTypeMap, Tooltip } from '@mui/joy';
+import DRErrorComponent from './DRErrorComponent';
 
-interface IProps {
-    onClick?: () => void,
-    icon: any,
-    disabled?: boolean,
-    ariaLabel?: string,
-    variant?: VariantProp
-    color?: ColorPaletteProp
-    size?: 'sm' | 'md' | 'lg'
-    sx?: SxProps
-    position?: 'relative' | 'absolute'
+export interface IProps extends IconButtonProps<IconButtonTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+}> {
+    ariaLabel?: string
 }
 
-function DRIconButton(props: IProps) {
+export default function DRIconButton(props: IProps) {
     const {
-        onClick,
-        icon,
-        disabled,
+        children,
         ariaLabel,
-        variant,
-        color,
-        size,
-        sx,
+        ...rest
     } = props;
-
 
     try {
         return (
@@ -33,15 +20,10 @@ function DRIconButton(props: IProps) {
                 title={ariaLabel}
             >
                 <IconButton
+                    {...rest}
                     aria-label={ariaLabel}
-                    disabled={disabled}
-                    onClick={onClick}
-                    color={color}
-                    variant={variant}
-                    size={size}
-                    sx={sx}
                 >
-                    {icon}
+                    {children}
                 </IconButton>
             </Tooltip>
         );
@@ -49,8 +31,6 @@ function DRIconButton(props: IProps) {
         return <DRErrorComponent error={error} text={"DRIconButton"} />
     }
 }
-
-export default DRIconButton;
 
 interface ILoadingProps extends IProps {
     loading?: boolean,

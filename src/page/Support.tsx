@@ -186,11 +186,12 @@ function Support() {
                         spacing={4}
                     >
                         <DRIconButton
-                            icon={<NavigateBeforeIcon />}
                             ariaLabel="Before"
                             size="sm"
                             onClick={handleBack}
-                        />
+                        >
+                            <NavigateBeforeIcon />
+                        </DRIconButton>
                         {data.map((item, index) => {
                             if (index === activeStep || index === activeStep + 1 || index === activeStep + 2)
                                 return <Grid>{item.card}</Grid>
@@ -198,11 +199,12 @@ function Support() {
                         })}
 
                         <DRIconButton
-                            icon={<NavigateNextIcon />}
                             ariaLabel="Next"
                             size="sm"
                             onClick={handleNext}
-                        />
+                        >
+                            <NavigateNextIcon />
+                        </DRIconButton>
                     </Grid>
                     <Grid>
                         <DRStepperDots

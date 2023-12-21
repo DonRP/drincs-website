@@ -189,26 +189,28 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                 >
                     {isError &&
                         <DRIconButton
-                            icon={<ReplayIcon />}
                             ariaLabel={t("reload")}
                             color="neutral"
                             size="sm"
                             onClick={() => {
                                 queryClient.invalidateQueries({ queryKey: [GET_LANGUAGES_CACHE_KEY] });
                             }}
-                        />
+                        >
+                            <ReplayIcon />
+                        </DRIconButton>
                     }
                     {data &&
                         <div>
                             <Typography level="title-lg">{data.name}</Typography>
                             <DRIconButton
-                                icon={<HelpOutlineIcon />}
                                 ariaLabel={t("info")}
                                 color="neutral"
                                 size="sm"
                                 sx={{ position: 'absolute', top: '0.875rem', right: '9.5rem' }}
                                 onClick={handleExpandClick}
-                            />
+                            >
+                                <HelpOutlineIcon />
+                            </DRIconButton>
                             <DRButton
                                 color="primary"
                                 fullWidth={false}
