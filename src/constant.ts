@@ -8,22 +8,22 @@ export const PatreonLink = "https://www.patreon.com/DRincsProductions"
 export const KofiLink = "https://ko-fi.com/drincsproductions"
 export const BoostyLink = "https://boosty.to/drincsproductions"
 export enum DeviceABFD {
-    Windows,
-    Linux,
-    MacOS,
-    Android,
-    IOS,
+    Windows = "Windows",
+    Linux = "Linux",
+    MacOS = "MacOS",
+    Android = "Android",
+    IOS = "IOS",
 }
 export enum VersionABFD {
-    "v0.1.1",
-    "v0.1.0",
+    v0_1_1 = "v0.1.1",
+    v0_1_0 = "v0.1.0",
 }
 
 export enum Browser {
-    "Google Chrome",
-    "Microsoft Edge",
-    Firefox,
-    Safari,
-    Opera,
-    Brave
+    GoogleChrome = "Google Chrome",
+    MicrosoftEdge = "Microsoft Edge",
+    Firefox = "Firefox",
+    Safari = "Safari",
+    Opera = "Opera",
+    Brave = "Brave",
 }

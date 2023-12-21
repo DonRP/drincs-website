@@ -30,13 +30,14 @@ const columns: GridColDef<IGifGridRow>[] = [
             <strong>
                 <Box sx={{ position: 'relative', display: 'inline-flex' }}>
                     <DRButtonNoMargin
-                        label='Start now'
                         variant="outlined"
                         onClick={() => {
                             window.open(params.value)
                         }}
-                        endIcon={<KeyboardArrowRight />}
-                    />
+                        endDecorator={<KeyboardArrowRight />}
+                    >
+                        {"Start now"}
+                    </DRButtonNoMargin>
                 </Box>
             </strong >
         ),

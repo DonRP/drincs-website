@@ -87,69 +87,75 @@ function DRSupportCard(props: IDRSupportCardProps) {
                     >
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='Ko-fi'
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
                                     window.open(KofiLink)
                                 }}
-                                startIcon={
+                                startDecorator={
                                     <KofiIcon />
                                 }
-                                endIcon={
+                                endDecorator={
                                     <DRChip
-                                        label="8%"
                                         size='sm'
                                         ariaLabel='0% retained by Patreon'
                                         sx={{ color: "green" }}
-                                    />
+                                    >
+                                        {"8%"}
+                                    </DRChip>
                                 }
-                            />
+                            >
+                                {"Ko-fi"}
+                            </DRButtonNoMargin>
                         </Grid>
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='Buy Me A Coffe'
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
                                     window.open(BuyMeACoffeeLink)
                                 }}
-                                startIcon={
+                                startDecorator={
                                     <BuyMeACoffeeIcon />
                                 }
-                                endIcon={
+                                endDecorator={
                                     <DRChip
-                                        label="0%"
                                         size='sm'
                                         ariaLabel='0% retained by BuyMeACoffe'
                                         sx={{ color: "green" }}
-                                    />
+                                    >
+                                        {"0%"}
+                                    </DRChip>
                                 }
-                            />
+                            >
+                                {"Buy Me A Coffe"}
+                            </DRButtonNoMargin>
                         </Grid>
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='Patreon'
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
                                     window.open(PatreonLink)
                                 }}
-                                startIcon={
+                                startDecorator={
                                     <PatreonIcon />
                                 }
-                                endIcon={
+                                endDecorator={
                                     <DRChip
-                                        label="8%"
                                         size='sm'
                                         ariaLabel='8% retained by Patreon'
                                         sx={{ color: "red" }}
-                                    />
+                                    >
+                                        {"8%"}
+                                    </DRChip>
                                 }
-                            />
+                            >
+                                {"Patreon"}
+                            </DRButtonNoMargin>
                         </Grid>
                         <Grid
                             xs={12}
@@ -161,25 +167,27 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         >
                             <Grid xs={12}>
                                 <DRButtonNoMargin
-                                    label='Boosty'
                                     size='sm'
                                     variant="soft"
                                     color="neutral"
                                     onClick={() => {
                                         window.open(BoostyLink)
                                     }}
-                                    startIcon={
+                                    startDecorator={
                                         <BoostyIcon />
                                     }
-                                    endIcon={
+                                    endDecorator={
                                         <DRChip
-                                            label="8%"
                                             size='sm'
                                             ariaLabel='10% retained by Boosty'
                                             sx={{ color: "red" }}
-                                        />
+                                        >
+                                            {"8%"}
+                                        </DRChip>
                                     }
-                                />
+                                >
+                                    {"Boosty"}
+                                </DRButtonNoMargin>
                             </Grid>
                         </Grid>
                     </Grid>

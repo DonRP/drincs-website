@@ -1,23 +1,16 @@
-import { Chip, Tooltip } from '@mui/joy';
-import { SxProps } from '@mui/joy/styles/types';
-import { ReactNode } from 'react';
+import { Chip, ChipProps, ChipTypeMap, Tooltip } from '@mui/joy';
 import DRErrorComponent from './DRErrorComponent';
 
-export interface IDRChipProps {
-    label: string,
-    children?: ReactNode
-    sx?: SxProps
+export interface IProps extends ChipProps<ChipTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+}> {
     ariaLabel?: string
-    size?: 'sm' | 'md' | 'lg'
 }
 
-function DRChip(props: IDRChipProps) {
+function DRChip(props: IProps) {
     const {
-        label,
-        children,
-        sx,
         ariaLabel,
-        size,
+        ...rest
     } = props;
 
     try {
@@ -26,12 +19,8 @@ function DRChip(props: IDRChipProps) {
                 title={ariaLabel}
             >
                 <Chip
-                    sx={sx}
-                    size={size}
-                >
-                    {label}
-                    {children}
-                </Chip>
+                    {...rest}
+                />
             </Tooltip>
         );
     } catch (error) {

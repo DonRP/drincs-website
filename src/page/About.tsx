@@ -4,6 +4,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Grid from '@mui/joy/Grid';
 import { Card, CardMedia } from '@mui/material';
 import DRButton from 'components/DRButton';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { analyticPageView } from 'utility/Analytics';
 
@@ -13,6 +14,7 @@ import { analyticPageView } from 'utility/Analytics';
 function About() {
     analyticPageView("About")
     let navigate = useNavigate();
+    const { t } = useTranslation(["translation"]);
 
     const Keyframes = styled("div")({
         animationName: "pulse",
@@ -91,7 +93,6 @@ function About() {
                         <Grid>
                             <DRButton
                                 key="support"
-                                label='SUPPORT'
                                 sx={{
                                     my: 2,
                                     backgroundColor: "gold",
@@ -101,16 +102,17 @@ function About() {
                                     minWidth: "170px",
                                     color: "black",
                                 }}
-                                startIcon={<FavoriteIcon />}
+                                startDecorator={<FavoriteIcon />}
                                 onClick={() => {
                                     navigate("/support");
                                 }}
-                            />
+                            >
+                                {t("support").toLocaleUpperCase()}
+                            </DRButton>
                         </Grid>
                         <Grid>
                             <DRButton
                                 key="download"
-                                label='DOWNLOAD'
                                 sx={{
                                     my: 2,
                                     width: "40vh",
@@ -118,11 +120,13 @@ function About() {
                                     minHeight: "50px",
                                     minWidth: "170px",
                                 }}
-                                endIcon={<DownloadIcon />}
+                                endDecorator={<DownloadIcon />}
                                 onClick={() => {
                                     navigate("/download");
                                 }}
-                            />
+                            >
+                                {t("download").toLocaleUpperCase()}
+                            </DRButton>
                         </Grid>
                     </Grid>
                 </Grid>

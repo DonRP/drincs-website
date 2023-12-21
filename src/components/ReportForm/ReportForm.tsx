@@ -4,7 +4,7 @@ import { DRButtonNoMargin } from 'components/DRButton';
 import DRDialog, { IDRDialogProps } from 'components/DRDialog';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import GitService from 'services/GitHubService';
 import { logError } from 'utility/Logger';
@@ -14,7 +14,6 @@ interface ReportFormProps<T> extends IDRDialogProps {
     data: T,
     getData: () => ReportBody | undefined,
     clearData: () => void,
-    onClose: () => void,
 }
 
 export interface ReportBody {
@@ -24,11 +23,18 @@ export interface ReportBody {
     labels: string[],
 }
 
+const githubService = new GitService()
+
 function ReportForm<T>(props: ReportFormProps<T>) {
-    const { children, onClose, getData, clearData, ...rest } = props;
+    const {
+        children,
+        setOpen,
+        getData,
+        clearData,
+        ...rest
+    } = props;
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
-    const githubService = useMemo(() => { return new GitService() }, []);
     const { t } = useTranslation(["translation"]);
 
     const handleSend = () => {
@@ -40,7 +46,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
         }
         githubService.createIssue(data.repo, data.title, data.body, data.labels).then(res => {
             setLoading(false);
-            onClose()
+            setOpen(false)
             clearData()
             showToast(t("success_create_issue"), 'success', enqueueSnackbar)
         }).catch(err => {
@@ -53,21 +59,23 @@ function ReportForm<T>(props: ReportFormProps<T>) {
     return (
         <DRDialog
             {...rest}
-            title={t("bug_report")}
+            head={t("bug_report")}
             maxWidth={"md"}
-            onClose={onClose}
+            setOpen={setOpen}
             actions={
                 <>
                     <DRButtonNoMargin
-                        label={t("cancel")}
-                        onClick={onClose}
+                        onClick={() => setOpen(false)}
                         disabled={loading}
-                    />
+                    >
+                        {t("cancel")}
+                    </DRButtonNoMargin>
                     <DRButtonNoMargin
-                        label={t("send")}
                         onClick={handleSend}
                         loading={loading}
-                    />
+                    >
+                        {t("send")}
+                    </DRButtonNoMargin>
                 </>
             }
         >

@@ -78,44 +78,47 @@ const columns: GridColDef<IDownloadGridRow>[] = [
                             <Grid>
                                 {params.value?.mediafire &&
                                     <DRButtonNoMargin
-                                        label='Mediafire'
                                         variant="outlined"
-                                        startIcon={
+                                        startDecorator={
                                             <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
                                         }
                                         onClick={() => {
                                             window.open(params.value?.mediafire)
                                         }}
                                         color='success'
-                                    />
+                                    >
+                                        {"Mediafire"}
+                                    </DRButtonNoMargin>
                                 }
                             </Grid>
                             <Grid>
                                 {params.value?.mega &&
                                     <DRButtonNoMargin
-                                        label='Mega'
                                         variant='soft'
-                                        startIcon={
+                                        startDecorator={
                                             <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
                                         }
                                         onClick={() => {
                                             window.open(params.value?.mega)
                                         }}
-                                    />
+                                    >
+                                        {"Mega"}
+                                    </DRButtonNoMargin>
                                 }
                             </Grid>
                             <Grid>
                                 {params.value?.discord &&
                                     <DRButtonNoMargin
-                                        label='Discord - Supporter'
                                         variant='soft'
-                                        startIcon={
+                                        startDecorator={
                                             <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
                                         }
                                         onClick={() => {
                                             window.open(discordLink)
                                         }}
-                                    />
+                                    >
+                                        {"Discord - Supporter"}
+                                    </DRButtonNoMargin>
                                 }
                             </Grid>
                         </Grid>

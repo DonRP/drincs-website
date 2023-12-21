@@ -7,6 +7,7 @@ import { AspectRatio, Card, CircularProgress, Grid, Skeleton, Typography } from 
 import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import * as locales from '@mui/x-data-grid/locales';
 import { useQueryClient } from '@tanstack/react-query';
 import { myUseTheme } from 'Theme';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
@@ -18,6 +19,7 @@ import { useTranslation } from 'react-i18next';
 import { GET_LANGUAGES_CACHE_KEY, useGetLanguages } from 'use_query/useUserHaveHub';
 import { showToastByMyError } from 'utility/ShowToast';
 import DRButton from './DRButton';
+import { getLanguageDataGrid } from './DRDataGrid';
 import DRErrorComponent from './DRErrorComponent';
 import DRIconButton from './DRIconButton';
 
@@ -58,7 +60,6 @@ const columns: GridColDef<TranslationResultItem>[] = [
             <strong>
                 {params.value &&
                     <DRButton
-                        label={params.value?.version}
                         color="primary"
                         size="sm"
                         marginLeft={0}
@@ -68,8 +69,10 @@ const columns: GridColDef<TranslationResultItem>[] = [
                         onClick={() => {
                             window.open(params.value?.downloadUrl)
                         }}
-                        startIcon={<DownloadIcon />}
-                    />
+                        startDecorator={<DownloadIcon />}
+                    >
+                        {params.value?.version}
+                    </DRButton>
                 }
             </strong>
         ),
@@ -186,28 +189,29 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                 >
                     {isError &&
                         <DRIconButton
-                            icon={<ReplayIcon />}
                             ariaLabel={t("reload")}
                             color="neutral"
                             size="sm"
                             onClick={() => {
                                 queryClient.invalidateQueries({ queryKey: [GET_LANGUAGES_CACHE_KEY] });
                             }}
-                        />
+                        >
+                            <ReplayIcon />
+                        </DRIconButton>
                     }
                     {data &&
                         <div>
                             <Typography level="title-lg">{data.name}</Typography>
                             <DRIconButton
-                                icon={<HelpOutlineIcon />}
                                 ariaLabel={t("info")}
                                 color="neutral"
                                 size="sm"
                                 sx={{ position: 'absolute', top: '0.875rem', right: '9.5rem' }}
                                 onClick={handleExpandClick}
-                            />
+                            >
+                                <HelpOutlineIcon />
+                            </DRIconButton>
                             <DRButton
-                                label={t("translate")}
                                 color="primary"
                                 fullWidth={false}
                                 marginLeft={16}
@@ -218,10 +222,12 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                                 onClick={() => {
                                     window.open(data?.crowdinLink)
                                 }}
-                                endIcon={<GTranslateIcon />}
+                                endDecorator={<GTranslateIcon />}
                                 size="sm"
                                 sx={{ position: 'absolute', top: '0.875rem', right: '1.1rem' }}
-                            />
+                            >
+                                {t("translate")}
+                            </DRButton>
                         </div>
                     }
                     {isLoading &&
@@ -260,6 +266,9 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             rows={data.list}
                             columns={columns}
                             rowHeight={rowHeight}
+                            localeText={
+                                getLanguageDataGrid(locales)
+                            }
                         />
                     </div>}
                     {isLoading &&

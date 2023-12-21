@@ -1,57 +1,56 @@
-import { Close } from '@mui/icons-material';
-import { Box, IconButton, Typography } from '@mui/joy';
-import { Breakpoint, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
-import { ReactNode } from 'react';
-import DRErrorComponent from './DRErrorComponent';
+import { DialogContent, ModalClose } from '@mui/joy';
+import DialogActions from '@mui/joy/DialogActions';
+import DialogTitle from '@mui/joy/DialogTitle';
+import Divider from '@mui/joy/Divider';
+import Modal from '@mui/joy/Modal';
+import ModalDialog, { ModalDialogProps } from '@mui/joy/ModalDialog';
 
-export type IDRDialogProps = {
-    open: boolean,
-    maxWidth?: Breakpoint | false,
-    title: string,
-    children?: ReactNode,
-    actions?: ReactNode,
-    onClose?: () => void,
+interface IProps extends IDRDialogProps {
+    children?: React.ReactNode;
+    actions?: React.ReactNode;
 }
 
-function DRDialog(props: IDRDialogProps) {
-    const { open = false, maxWidth = false, title, children, actions, onClose } = props;
+export interface IDRDialogProps extends ModalDialogProps {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    head?: string | React.ReactNode;
+}
 
-    try {
-        return (
-            <Dialog
-                open={open}
-                maxWidth={maxWidth}
-            >
-                <DialogTitle>
-                    <Typography
-                        component="h1"
-                        fontSize={20}
-                        sx={{
-                            paddingLeft: 3,
-                            paddingTop: 1,
-                        }}
-                    >
-                        {title}
-                    </Typography>
-                </DialogTitle>
-                <Box position="absolute" top={0} right={0} >
-                    <IconButton
-                        onClick={onClose}
-                    >
-                        <Close />
-                    </IconButton>
-                </Box>
-                <DialogContent>
+function DRDialog(props: IProps) {
+    const {
+        open
+        , setOpen
+        , children
+        , actions
+        , head
+        , ...rest
+    } = props;
+
+    return (
+        <Modal open={open} onClose={() => setOpen(false)}>
+            <ModalDialog {...rest}>
+                <ModalClose />
+                {head &&
+                    <DialogTitle>
+                        {head}
+                    </DialogTitle>
+                }
+                {head &&
+                    <Divider />
+                }
+                <DialogContent
+                    sx={{
+                        padding: 1
+                    }}
+                >
                     {children}
                 </DialogContent>
                 <DialogActions>
                     {actions}
                 </DialogActions>
-            </Dialog>
-        );
-    } catch (error) {
-        return <DRErrorComponent error={error} text={"DRDialog"} />
-    }
+            </ModalDialog>
+        </Modal>
+    );
 }
 
 export default DRDialog;

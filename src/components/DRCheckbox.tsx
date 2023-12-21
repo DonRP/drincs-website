@@ -1,21 +1,28 @@
-import { Checkbox, CheckboxSlotsAndSlotProps } from "@mui/joy";
+import { Checkbox, CheckboxProps, CheckboxTypeMap } from "@mui/joy";
 import { FocusEventHandler } from "react";
+import { IOnChangeGeneric } from "utility/UtilityComponenets";
 import DRErrorComponent from "./DRErrorComponent";
 
-interface IProps extends CheckboxSlotsAndSlotProps {
-    onChangeValue: (fieldName: string, value: boolean) => void;
+interface IProps extends CheckboxProps<CheckboxTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+}> {
+    onChangeGeneric: IOnChangeGeneric<boolean>;
     errorFields?: string[];
     fieldName: string;
-    label: string;
     error?: boolean
-    checked?: boolean;
 }
 
-function DRCheckBox(props: IProps) {
-    const { onChangeValue, errorFields, fieldName, error, ...rest } = props;
-    let internalError = error || errorFields?.includes(fieldName)
-    const drCheckBoxOnChange: FocusEventHandler<HTMLInputElement> = (event) => {
-        onChangeValue(fieldName, event.target.checked)
+export default function DRCheckBox(props: IProps) {
+    const {
+        onChangeGeneric,
+        fieldName,
+        errorFields,
+        error = errorFields?.includes(fieldName),
+        ...rest
+    } = props;
+
+    const checkBoxOnChange: FocusEventHandler<HTMLInputElement> = (event) => {
+        onChangeGeneric(fieldName, event.target.checked)
     }
 
     try {
@@ -24,13 +31,11 @@ function DRCheckBox(props: IProps) {
                 {...rest}
                 id={fieldName}
                 name={fieldName}
-                onChange={drCheckBoxOnChange}
-                color={internalError ? "danger" : "primary"}
+                onChange={checkBoxOnChange}
+                color={error ? "danger" : "primary"}
             />
         );
     } catch (error) {
         return <DRErrorComponent error={error} text={"DRCheckBox"} />
     }
 }
-
-export default DRCheckBox;

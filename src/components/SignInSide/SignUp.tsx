@@ -1,5 +1,6 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Grid, Typography } from '@mui/joy';
+import { DRButtonSignInSide } from 'components/DRButton';
 import DRTextField from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { ISignInSidePageProps } from 'page/SignInSide';
@@ -8,8 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { showMessage } from 'services/BaseRestService';
 import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
-import { isNullOrEmpty } from 'utility/UtilityFunctionts';
-import DRButtonSignInSide from './DRButtonSignInSide';
+import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 
 function SignUp(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -22,13 +22,13 @@ function SignUp(props: ISignInSidePageProps) {
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
         let fields = [];
-        if (isNullOrEmpty(account.email)) {
+        if (isEmptyOrSpaces(account.email)) {
             fields.push("email")
         }
-        if (isNullOrEmpty(account.password)) {
+        if (isEmptyOrSpaces(account.password)) {
             fields.push("password")
         }
-        if (isNullOrEmpty(account.displayName)) {
+        if (isEmptyOrSpaces(account.displayName)) {
             fields.push("displayName")
         }
         if (!validator.isEmail(account.email)) {
@@ -78,7 +78,7 @@ function SignUp(props: ISignInSidePageProps) {
                     fieldName="displayName"
                     label={t("username")}
                     defaultValue={account.displayName}
-                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     required
                     autoFocus
@@ -88,7 +88,7 @@ function SignUp(props: ISignInSidePageProps) {
                     fieldName="email"
                     label={t("email")}
                     defaultValue={account.email}
-                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     required
                     fullWidth
@@ -100,7 +100,7 @@ function SignUp(props: ISignInSidePageProps) {
                     fieldName="password"
                     label={t("password")}
                     defaultValue={account.password}
-                    onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                    onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                     variant="outlined"
                     type='password'
                     required
@@ -110,14 +110,15 @@ function SignUp(props: ISignInSidePageProps) {
                 />
                 {/* // TODO: To Implement  */}
                 {/* <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-            /> */}
+                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                    label="I want to receive inspiration, marketing promotions and updates via email."
+                /> */}
                 <DRButtonSignInSide
-                    label={t("sign_up")}
                     onClick={handelSignUp}
                     loading={loading}
-                />
+                >
+                    {t("sign_up")}
+                </DRButtonSignInSide>
             </>
         );
     }

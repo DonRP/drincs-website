@@ -1,44 +1,25 @@
-import MobileStepper from '@mui/material/MobileStepper';
+import MobileStepper, { MobileStepperProps } from '@mui/material/MobileStepper';
 
-type IProps = {
-    steps: number;
-    activeStep: number;
+interface IProps extends MobileStepperProps {
 }
 
 export default function DRStepperDots(props: IProps) {
-    const { steps, activeStep } = props;
+    const {
+        sx,
+        variant = "dots",
+        position = "static",
+        ...rest
+    } = props;
 
     return (
         <MobileStepper
             sx={{
                 backgroundColor: "transparent",
+                ...sx,
             }}
-            variant="dots"
-            steps={steps}
-            position="static"
-            activeStep={activeStep}
-            nextButton={
-                // <Button size="small" onClick={handleNext} disabled={activeStep === steps - 1}>
-                //     Next
-                //     {theme.direction === 'rtl' ? (
-                //         <KeyboardArrowLeft />
-                //     ) : (
-                //         <KeyboardArrowRight />
-                //     )}
-                // </Button>
-                <></>
-            }
-            backButton={
-                // <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
-                //     {theme.direction === 'rtl' ? (
-                //         <KeyboardArrowRight />
-                //     ) : (
-                //         <KeyboardArrowLeft />
-                //     )}
-                //     Back
-                // </Button>
-                <></>
-            }
+            variant={variant}
+            position={position}
+            {...rest}
         />
     );
 }

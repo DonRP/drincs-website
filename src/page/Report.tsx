@@ -8,16 +8,18 @@ import DiscordBugForm from 'components/ReportForm/DiscordBugForm';
 import WebSiteBugForm from 'components/ReportForm/WebSiteBugForm';
 import { ABFDrepo, WebSiteRepo, discordLink } from 'constant';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { analyticPageView } from 'utility/Analytics';
 function Report() {
     const [openABFDBug, setOpenABFDBug] = useState(false)
     const [openWebSiteBug, setOpenWebSiteBug] = useState(false)
     const [openDiscordBug, setDiscordBug] = useState(false)
+    const { t } = useTranslation(["translation"]);
 
     const rowsABFD: IReportGridRow[] = [
         {
             info: {
-                title: "Bug report",
+                title: t("bug_report"),
                 description: "Create a report to help us improve",
             },
             link: {
@@ -53,7 +55,7 @@ function Report() {
     const rowsWebService: IReportGridRow[] = [
         {
             info: {
-                title: "Bug report",
+                title: t("bug_report"),
                 description: "Create a report to help us improve",
             },
             link: {
@@ -73,7 +75,7 @@ function Report() {
     const rowsDiscord: IReportGridRow[] = [
         {
             info: {
-                title: "Bug report",
+                title: t("bug_report"),
                 description: "Create a report to help us improve",
             },
             link: {
@@ -130,15 +132,15 @@ function Report() {
             </Grid>
             <ABFDBugForm
                 open={openABFDBug}
-                onClose={() => setOpenABFDBug(false)}
+                setOpen={setOpenABFDBug}
             />
             <WebSiteBugForm
                 open={openWebSiteBug}
-                onClose={() => setOpenWebSiteBug(false)}
+                setOpen={setOpenWebSiteBug}
             />
             <DiscordBugForm
                 open={openDiscordBug}
-                onClose={() => setDiscordBug(false)}
+                setOpen={setDiscordBug}
             />
         </>
     );

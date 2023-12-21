@@ -1,4 +1,5 @@
 import { Grid, Link, Typography } from '@mui/joy';
+import { DRButtonSignInSide } from 'components/DRButton';
 import DRErrorComponent from 'components/DRErrorComponent';
 import DRTextField from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
@@ -8,9 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { showMessage } from 'services/BaseRestService';
 import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
-import DRButtonSignInSide from './DRButtonSignInSide';
 
 function Login(props: ISignInSidePageProps) {
     var validator = require('validator');
@@ -24,10 +24,10 @@ function Login(props: ISignInSidePageProps) {
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
-        if (isNullOrEmpty(account.email)) {
+        if (isEmptyOrSpaces(account.email)) {
             fields.push("email")
         }
-        if (isNullOrEmpty(account.password)) {
+        if (isEmptyOrSpaces(account.password)) {
             fields.push("password")
         }
         if (!validator.isEmail(account.email)) {
@@ -39,7 +39,7 @@ function Login(props: ISignInSidePageProps) {
 
     const validateResetPassword = (account: LoginAccount): string[] => {
         let fields = [];
-        if (isNullOrEmpty(account.email)) {
+        if (isEmptyOrSpaces(account.email)) {
             fields.push("email")
         }
         if (!validator.isEmail(account.email)) {
@@ -111,7 +111,7 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="email"
                         label={t("email")}
                         defaultValue={account.email}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
                         type='email'
                         required
@@ -122,7 +122,7 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="password"
                         label={t("password")}
                         defaultValue={account.password}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
                         type='password'
                         required
@@ -132,13 +132,19 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="rememberMe"
                         label={t("remember_me")}
                         checked={rememberMe}
-                        onChangeValue={(fieldName, value) => setRememberMe(value)}
+                        onChangeGeneric={(fieldName, value) => {
+                            if (value === null) {
+                                value = false
+                            }
+                            setRememberMe(value)
+                        }}
                     />
                     <DRButtonSignInSide
-                        label={t("sign_in")}
                         onClick={handelLogin}
                         loading={loading}
-                    />
+                    >
+                        {t("sign_in")}
+                    </DRButtonSignInSide>
                 </>}
                 {openChangePassword && <>
                     <Grid container
@@ -158,7 +164,7 @@ function Login(props: ISignInSidePageProps) {
                         fieldName="email"
                         label={t("email")}
                         defaultValue={account.email}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
                         type='email'
                         required
@@ -166,10 +172,11 @@ function Login(props: ISignInSidePageProps) {
                         errorFields={errorFields}
                     />
                     <DRButtonSignInSide
-                        label={t("send_mail")}
                         onClick={handelResetPassword}
                         loading={loading}
-                    />
+                    >
+                        {t("send_mail")}
+                    </DRButtonSignInSide>
                 </>}
                 <Typography
                     mt={0.5}

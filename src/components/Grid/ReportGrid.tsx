@@ -64,10 +64,11 @@ const columns: GridColDef<IReportGridRow>[] = [
                             <DRIconButton
                                 ariaLabel='Open Web-Form'
                                 variant="soft"
-                                icon={<OpenInNewIcon />}
                                 onClick={params.value.website}
                                 color='success'
-                            />
+                            >
+                                <OpenInNewIcon />
+                            </DRIconButton>
                         </Grid>
                     }
                     {params.value?.github &&
@@ -75,11 +76,12 @@ const columns: GridColDef<IReportGridRow>[] = [
                             <DRIconButton
                                 variant='soft'
                                 ariaLabel='Requires a GitHub account'
-                                icon={<GitHubIcon />}
                                 onClick={() => {
                                     window.open(params.value?.github)
                                 }}
-                            />
+                            >
+                                <GitHubIcon />
+                            </DRIconButton>
                         </Grid>
                     }
                 </Grid>
