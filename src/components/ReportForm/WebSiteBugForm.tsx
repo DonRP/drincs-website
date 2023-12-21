@@ -4,6 +4,7 @@ import DRTextarea from 'components/DRTextarea';
 import { Browser, DeviceABFD } from 'constant';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { getEnumLookup } from 'utility/UtilityEnum';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
@@ -36,6 +37,7 @@ function WebSiteBugForm(props: IProps) {
     const browsers = getEnumLookup<string>(Browser)
     const devices = getEnumLookup<string>(DeviceABFD)
     const [data, setData] = useState<BugType>(new BugType(devices[0].oid, browsers[0].oid))
+    const { t } = useTranslation(["translation"]);
 
     function getData() {
         let error: string[] = []
@@ -82,7 +84,7 @@ ${data.additionalDescription || "_No response_"}
         <ReportForm<BugType>
             open={open}
             setOpen={setOpen}
-            title={"Bug report"}
+            head={t("bug_report")}
             data={data}
             maxWidth={"md"}
             getData={getData}

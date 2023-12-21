@@ -59,7 +59,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
     return (
         <DRDialog
             {...rest}
-            title={t("bug_report")}
+            head={t("bug_report")}
             maxWidth={"md"}
             setOpen={setOpen}
             actions={

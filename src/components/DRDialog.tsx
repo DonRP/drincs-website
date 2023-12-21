@@ -6,16 +6,14 @@ import Modal from '@mui/joy/Modal';
 import ModalDialog, { ModalDialogProps } from '@mui/joy/ModalDialog';
 
 interface IProps extends IDRDialogProps {
-    open: boolean;
-    setOpen: (open: boolean) => void;
     children?: React.ReactNode;
-    head?: string | React.ReactNode;
     actions?: React.ReactNode;
 }
 
 export interface IDRDialogProps extends ModalDialogProps {
     open: boolean;
     setOpen: (open: boolean) => void;
+    head?: string | React.ReactNode;
 }
 
 function DRDialog(props: IProps) {

@@ -2,6 +2,7 @@ import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import ReportForm, { ReportBody } from './ReportForm';
@@ -25,6 +26,7 @@ function DiscordBugForm(props: IProps) {
     } = props;
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [data, setData] = useState<BugType>(new BugType())
+    const { t } = useTranslation(["translation"]);
 
     function getData() {
         let error: string[] = []
@@ -63,7 +65,7 @@ ${data.additionalDescription || "_No response_"}
         <ReportForm<BugType>
             open={open}
             setOpen={setOpen}
-            title={"Bug report"}
+            head={t("bug_report")}
             data={data}
             maxWidth={"md"}
             getData={getData}
