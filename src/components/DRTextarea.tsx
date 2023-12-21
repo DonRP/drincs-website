@@ -1,5 +1,6 @@
 import { Textarea, TextareaSlotsAndSlotProps, VariantProp } from '@mui/joy';
 import { FocusEventHandler } from 'react';
+import { IOnChangeGeneric } from 'utility/UtilityComponenets';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 
@@ -9,7 +10,7 @@ interface IProps<T extends DefaultValueType> extends TextareaSlotsAndSlotProps, 
     fieldName: string;
     placeholder?: string;
     defaultValue?: T
-    onChange: (fieldName: string, value: T | any) => void;
+    onChange: IOnChangeGeneric<T>
     variant?: VariantProp
     autoComplete?: string;
     autoFocus?: boolean;
@@ -19,7 +20,7 @@ interface IProps<T extends DefaultValueType> extends TextareaSlotsAndSlotProps, 
     maxRows?: number;
 }
 
-function DRTextarea<T extends DefaultValueType>(props: IProps<T>) {
+function DRTextarea(props: IProps<string>) {
     const {
         fieldName,
         label,
@@ -33,7 +34,6 @@ function DRTextarea<T extends DefaultValueType>(props: IProps<T>) {
         ...rest
     } = props;
     const textFieldOnChange: FocusEventHandler<HTMLTextAreaElement> = (event) => {
-        event.target.value as T
         onChange(fieldName, event.target.value)
     }
 
