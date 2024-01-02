@@ -15,8 +15,8 @@ function Wiki(props: WikiProps) {
 
     const { urlRepo, sidebar = "_Sidebar.md", routeLink } = props
     const transformLinkUri: UrlTransform = (url, key, node) => {
-        if (routeLink.includes("https")) {
-            return routeLink
+        if (url.includes("https")) {
+            return url
         }
         else {
             return `${routeLink}?route=${url}`

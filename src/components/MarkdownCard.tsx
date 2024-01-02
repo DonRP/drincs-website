@@ -1,10 +1,10 @@
 import { Card } from "@mui/joy";
 import { useEffect, useState } from "react";
-import Markdown, { UrlTransform } from "react-markdown";
+import Markdown, { Options, UrlTransform } from "react-markdown";
 import remarkGfm from 'remark-gfm';
 import './Markdown.css';
 
-type IMarkdownCardProps = {
+interface IMarkdownCardProps extends Options {
     markdownLink: string,
     transformUrl?: UrlTransform,
     minWidth?: number,
@@ -19,6 +19,7 @@ function MarkdownCard(props: IMarkdownCardProps) {
         markdownLink: url,
         minWidth,
         maxWidth,
+        ...rest
     } = props
     const [text, setText] = useState("");
 
@@ -47,6 +48,7 @@ function MarkdownCard(props: IMarkdownCardProps) {
                     }
                     return transformUrl(url, key, node)
                 }}
+                {...rest}
             />
         </Card>
     );
