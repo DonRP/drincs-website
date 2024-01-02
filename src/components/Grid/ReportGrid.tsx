@@ -114,9 +114,7 @@ function ReportGrid(props: IReportGridProps) {
             columns={columns}
             height={height}
             hideFooter
-            slots={{
-                columnHeaders: () => null,
-            }}
+            hideHeader
         />
     );
 }

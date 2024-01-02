@@ -10,6 +10,7 @@ export interface IDRDataGridProps<T extends IData> extends DataGridProps<T> {
     height?: number,
     rowHeight?: number,
     hideFooter?: boolean,
+    hideHeader?: boolean,
 }
 
 interface IProps<T extends IData> extends IDRDataGridProps<T> {
@@ -35,14 +36,26 @@ function DRDataGrid<T extends IData>(props: IProps<T>) {
         logoImage,
         height = 350,
         rowHeight = 75,
-        columns,
         hideFooter,
+        hideHeader,
+        slots,
         ...rest
     } = props;
     const internalRows = rows.map(((d, index) => {
         d.id = index
         return d;
     }))
+
+    const mySlots = () => {
+        let res = slots
+        if (hideHeader) {
+            res = {
+                ...res,
+                columnHeaders: () => null,
+            }
+        }
+        return res
+    }
 
     try {
         return (
@@ -66,7 +79,6 @@ function DRDataGrid<T extends IData>(props: IProps<T>) {
                 <div style={{ height: height, width: '100%' }}>
                     <DataGrid
                         rows={internalRows}
-                        columns={columns}
                         rowHeight={rowHeight}
                         hideFooter={hideFooter}
                         hideFooterPagination={hideFooter}
@@ -74,6 +86,7 @@ function DRDataGrid<T extends IData>(props: IProps<T>) {
                         localeText={
                             getLanguageDataGrid(locales)
                         }
+                        slots={mySlots()}
                         {...rest}
                     />
                 </div>

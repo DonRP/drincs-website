@@ -60,9 +60,7 @@ function GifsGrid(props: IProps) {
             columns={columns}
             height={height}
             hideFooter
-            slots={{
-                columnHeaders: () => null,
-            }}
+            hideHeader
         />
     );
 }
