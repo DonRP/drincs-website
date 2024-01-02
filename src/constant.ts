@@ -8,11 +8,11 @@ export const PatreonLink = "https://www.patreon.com/DRincsProductions"
 export const KofiLink = "https://ko-fi.com/drincsproductions"
 export const BoostyLink = "https://boosty.to/drincsproductions"
 export enum DeviceABFD {
-    Windows = "Windows",
+    WindowsOS = "Windows",
     Linux = "Linux",
     MacOS = "MacOS",
     Android = "Android",
-    IOS = "IOS",
+    IOS = "iOS",
 }
 export enum VersionABFD {
     v0_1_1 = "v0.1.1",
