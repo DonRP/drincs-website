@@ -25,6 +25,7 @@ axios.get(geturlwebapi() + "/discord/awakens").catch((err) => {
 })
 
 function App() {
+    useI18n()
     const { t } = useTranslation(["translation"]);
     const routes = [
         { title: t("about").toLocaleLowerCase(), path: "/", element: <About /> },
@@ -40,10 +41,9 @@ function App() {
             title: "GitHub", path: gitHubLink
         },
     ];
-    const supportRoute = { title: t("support_me"), path: "/support", element: <Support /> }
+    const supportRoute = { title: t("support_us"), path: "/support", element: <Support /> }
     const [openLogin, setOpenLogin] = useState(false);
     const queryClient = new QueryClient()
-    useI18n()
 
     return (
         <ErrorBoundary>

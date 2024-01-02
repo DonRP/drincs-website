@@ -107,7 +107,7 @@ function About() {
                                     navigate("/support");
                                 }}
                             >
-                                {t("support").toLocaleUpperCase()}
+                                {t("support_us").toLocaleUpperCase()}
                             </DRButton>
                         </Grid>
                         <Grid>

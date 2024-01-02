@@ -18,6 +18,8 @@ nvm install node
 nvm ls
 node -v
 npm i
+# add translations files
+git submodule update --init --recursive
 ```
 
 # Run App
