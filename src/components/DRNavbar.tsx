@@ -177,20 +177,14 @@ function DRNavbar(props: IDRNavbarProps) {
                                     {pages.map((page) => (
                                         <MenuItem
                                             key={page.title}
-                                            onClick={handleCloseNavMenu}
+                                            onClick={() => {
+                                                navigate(page.path);
+                                                handleCloseNavMenu()
+                                            }}
                                         >
-                                            <DRLink
-                                                to={page.path}
-                                                key={page.title + "_link"}
-                                                style={{
-                                                    textDecoration: 'none',
-                                                    color: "white",
-                                                }}
-                                            >
-                                                <Typography textAlign="center">
-                                                    {page.title}
-                                                </Typography>
-                                            </DRLink>
+                                            <Typography textAlign="center">
+                                                {page.title}
+                                            </Typography>
                                         </MenuItem>
                                     ))}
                                     {extern_link.map((page) => (

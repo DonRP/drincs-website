@@ -26,8 +26,7 @@ function Translations() {
             direction="column"
             justifyContent="flex-start"
             alignItems="center"
-            paddingTop={3}
-            paddingBottom={3}
+            paddingY={3}
         >
             <h2>{t("other_games")}</h2>
             <DRAlert

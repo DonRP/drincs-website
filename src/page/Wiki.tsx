@@ -15,8 +15,8 @@ function Wiki(props: WikiProps) {
 
     const { urlRepo, sidebar = "_Sidebar.md", routeLink } = props
     const transformLinkUri: UrlTransform = (url, key, node) => {
-        if (routeLink.includes("https")) {
-            return routeLink
+        if (url.includes("https")) {
+            return url
         }
         else {
             return `${routeLink}?route=${url}`
@@ -55,41 +55,24 @@ function Wiki(props: WikiProps) {
                 direction={{ xs: "column", md: "row" }}
                 justifyContent="center"
                 alignItems={{ xs: "stretch", md: "flex-start" }}
-                spacing={0}
-                marginTop={5}
-                marginBottom={5}
+                spacing={{ xs: 0, lg: 2 }}
+                paddingY={3}
+                paddingX={{ xs: 0, md: 3 }}
             >
-
-                <Grid xs={1}
-                    sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
-                />
-                <Grid xs={2}
-                    sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
-                >
-                    <MarkdownCard
-                        minWidth={150}
-                        markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${sidebar}`}
-                        transformUrl={transformLinkUri}
-                    />
-                </Grid>
-                <Grid xs={7}>
+                <Grid xs={0} lg={0.5} xl={1} />
+                <Grid xs={12} md={9} lg={8} xl={7}>
                     <MarkdownCard
                         markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${route}.md`}
                         transformUrl={transformLinkUri}
                     />
                 </Grid>
-                <Grid xs={12}
-                    sx={{ flexGrow: 1, display: { xs: 'grid', md: 'none' } }}
-                >
+                <Grid xs={12} md={3}>
                     <MarkdownCard
-                        minWidth={150}
                         markdownLink={`https://raw.githubusercontent.com/wiki/${urlRepo}/${sidebar}`}
                         transformUrl={transformLinkUri}
                     />
                 </Grid>
-                <Grid xs={2}
-                    sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}
-                />
+                <Grid xs={0} lg={0.5} xl={1} />
             </Grid>
         </>
     );
