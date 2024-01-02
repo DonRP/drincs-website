@@ -1,4 +1,5 @@
 import ImageIcon from '@mui/icons-material/Image';
+import { Theme, useMediaQuery } from '@mui/material';
 import DRAlert from 'components/DRAlert';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRDialog, { IDRDialogProps } from 'components/DRDialog';
@@ -30,12 +31,14 @@ function ReportForm<T>(props: ReportFormProps<T>) {
         children,
         setOpen,
         getData,
+        layout,
         clearData,
         ...rest
     } = props;
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
     const { t } = useTranslation(["translation"]);
+    const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
     const handleSend = () => {
         setLoading(true)
@@ -62,6 +65,8 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             head={t("bug_reports")}
             maxWidth={"md"}
             setOpen={setOpen}
+            layout={smScreen ? "fullscreen" : layout}
+            minWidth={800}
             actions={
                 <>
                     <DRButtonNoMargin
