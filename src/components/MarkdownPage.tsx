@@ -14,12 +14,14 @@ function MarkdownPage(props: IHowToTranslateProps) {
             direction="column"
             justifyContent="flex-start"
             alignItems="center"
-            marginTop={5}
-            marginBottom={5}
+            padding={{ xs: 0, md: 3 }}
         >
-            <MarkdownCard
-                markdownLink={url}
-            />
+            <Grid>
+                <MarkdownCard
+                    markdownLink={url}
+                    maxWidth={1000}
+                />
+            </Grid>
         </Grid>
     );
 };
