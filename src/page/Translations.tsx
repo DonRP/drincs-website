@@ -3,6 +3,7 @@ import { Grid } from '@mui/joy';
 import DRAlert from 'components/DRAlert';
 import DRTranslationGrid from 'components/DRTranslationGrid';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
+import { useTranslation } from 'react-i18next';
 import { analyticPageView } from 'utility/Analytics';
 
 const OtherTranslationProjects = [
@@ -16,6 +17,7 @@ const OtherTranslationProjects = [
 ]
 
 function Translations() {
+    const { t } = useTranslation(["translation"]);
     analyticPageView("Translations")
 
     return (
@@ -27,12 +29,12 @@ function Translations() {
             paddingTop={3}
             paddingBottom={3}
         >
-            <h2>Other Games</h2>
+            <h2>{t("other_games")}</h2>
             <DRAlert
                 startDecorator={<EngineeringIcon />}
                 color="warning"
             >
-                The loading could be a little slow. I am currently leaving on a free server ...
+                {t("slow_loading_info")}
             </DRAlert>
             {OtherTranslationProjects.map((item) =>
                 <Grid

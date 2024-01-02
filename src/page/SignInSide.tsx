@@ -4,6 +4,7 @@ import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import AuthService, { isLoggedIn } from "services/AuthService";
 import { analyticPageView } from "utility/Analytics";
 
@@ -20,7 +21,7 @@ export type IProps = {
 
 function SignInSide(props: IProps) {
     analyticPageView("SignInSide")
-
+    const { t } = useTranslation(["translation"]);
     const [isLogin, setIsLogin] = useState<boolean>(true);
     const { enqueueSnackbar } = useSnackbar();
     const authService = new AuthService();
@@ -82,7 +83,7 @@ function SignInSide(props: IProps) {
                                 />
 
                                 {isLoggedIn() &&
-                                    "You are already logged in"
+                                    t("already_logged_in")
                                 }
                             </div>
                         </Grid>
@@ -96,11 +97,11 @@ function SignInSide(props: IProps) {
                             endDecorator={<Link
                                 onClick={() => { setIsLogin((value) => !value) }}
                             >
-                                {isLogin ? "Sign Up" : "Sign in"}
+                                {isLogin ? t("sign_up") : t("sign_in")}
                             </Link>}
                             fontSize="sm"
                         >
-                            {isLogin ? "Don't have an account?" : "Already have an account?"}
+                            {isLogin ? t("dont_have_an_account") : t("do_have_account")}
                         </Typography>
 
                         <Copyright />

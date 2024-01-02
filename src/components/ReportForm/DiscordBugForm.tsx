@@ -65,7 +65,7 @@ ${data.additionalDescription || "_No response_"}
         <ReportForm<BugType>
             open={open}
             setOpen={setOpen}
-            head={t("bug_report")}
+            head={t("bug_reports")}
             data={data}
             maxWidth={"md"}
             getData={getData}
@@ -73,7 +73,7 @@ ${data.additionalDescription || "_No response_"}
         >
             <DRTextField
                 fieldName="title"
-                label="Title"
+                label={t("title")}
                 required
                 onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.title || ""}
@@ -81,9 +81,9 @@ ${data.additionalDescription || "_No response_"}
             />
             <DRTextarea
                 fieldName="description"
-                label="What happened?"
-                helperText="Also tell us, what did you expect to happen?"
-                placeholder="Tell us what you see!"
+                label={t("what_happened")}
+                helperText={t("what_happened_helper")}
+                placeholder={t("what_happened_placeholder")}
                 required
                 onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.description || ""}
@@ -91,17 +91,17 @@ ${data.additionalDescription || "_No response_"}
             />
             <DRTextarea
                 fieldName="nickname"
-                label="Your Nickname"
-                helperText="Add your contact so we can contact you for more information"
-                placeholder="Discrod: _balck_ram_"
+                label={t("your_nickname")}
+                helperText={t("nickname_helper")}
+                placeholder={t("nickname_placeholder")}
                 onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.nickname || ""}
                 errorFields={errorFields}
             />
             <DRTextarea
                 fieldName="additionalDescription"
-                label="Additional Description"
-                helperText="Add a description to help us understand"
+                label={t("additional_description")}
+                helperText={t("additional_description_helper")}
                 onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.additionalDescription || ""}
                 errorFields={errorFields}

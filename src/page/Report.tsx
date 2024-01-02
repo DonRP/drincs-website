@@ -19,8 +19,8 @@ function Report() {
     const rowsABFD: IReportGridRow[] = [
         {
             info: {
-                title: t("bug_report"),
-                description: "Create a report to help us improve",
+                title: t("bug_reports"),
+                description: t("bug_report_info"),
             },
             link: {
                 website: () => { setOpenABFDBug(true) },
@@ -28,24 +28,24 @@ function Report() {
         },
         {
             info: {
-                title: "Feature request",
-                description: "Suggest an idea for this project",
+                title: t("feature_request"),
+                description: t("feature_request_info"),
             },
             link: {
             }
         },
         {
             info: {
-                title: "Writing or Translation",
-                description: "For issues relating to the Writing or Translation",
+                title: t("writing_or_translation"),
+                description: t("writing_or_translation_info"),
             },
             link: {
             }
         },
         {
             info: {
-                title: "New Quest-Mission",
-                description: "New Quest-Mission",
+                title: t("new_game_quest"),
+                description: t("new_game_quest_info"),
             },
             link: {
             }
@@ -55,8 +55,8 @@ function Report() {
     const rowsWebService: IReportGridRow[] = [
         {
             info: {
-                title: t("bug_report"),
-                description: "Create a report to help us improve",
+                title: t("bug_reports"),
+                description: t("bug_report_info"),
             },
             link: {
                 website: () => { setOpenWebSiteBug(true) },
@@ -64,8 +64,8 @@ function Report() {
         },
         {
             info: {
-                title: "Feature request",
-                description: "Suggest an idea for this project",
+                title: t("feature_request"),
+                description: t("feature_request_info"),
             },
             link: {
             }
@@ -75,8 +75,8 @@ function Report() {
     const rowsDiscord: IReportGridRow[] = [
         {
             info: {
-                title: t("bug_report"),
-                description: "Create a report to help us improve",
+                title: t("bug_reports"),
+                description: t("bug_report_info"),
             },
             link: {
                 website: () => { setDiscordBug(true) },
@@ -84,8 +84,8 @@ function Report() {
         },
         {
             info: {
-                title: "Feature request",
-                description: "Suggest an idea for this project",
+                title: t("feature_request"),
+                description: t("feature_request_info"),
             },
             link: {
             }
@@ -105,11 +105,11 @@ function Report() {
                 paddingTop={3}
                 paddingBottom={3}
             >
-                <h2>Report</h2>
+                <h2>{t("report")}</h2>
                 <DRAlert
                     startDecorator={< DiscordIcon fill={theme.palette.logo.dicord} />}
                 >
-                    Before opening an <i>issue</i> it is recommended to talk about the <i>issue</i> first on <a href={discordLink}>Discord</a>
+                    {t("before_opening_issue_info") + " "}<a href={discordLink}>Discord</a>
                 </DRAlert>
                 <ReportGrid
                     title="A Big Family in Debit"
