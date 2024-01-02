@@ -2,6 +2,7 @@ import Check from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
 import { BoostyLink, BuyMeACoffeeLink, KofiLink, PatreonLink } from 'constant';
+import { useTranslation } from 'react-i18next';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
@@ -20,6 +21,7 @@ type IDRSupportCardProps = {
 }
 
 function DRSupportCard(props: IDRSupportCardProps) {
+    const { t } = useTranslation(["translation"]);
     const { title, month_price, year_price, discord_role, news, voting_power } = props;
 
     try {
@@ -41,7 +43,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                 >
                     {month_price}€{' '}
                     <Typography fontSize="sm" textColor="text.tertiary">
-                        / month
+                        {"/ " + t("month").toLocaleLowerCase()}
                     </Typography>
                 </Typography>
                 <Typography
@@ -51,7 +53,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                 >
                     {year_price}€{' '}
                     <Typography fontSize="sm" textColor="text.tertiary">
-                        / year
+                        {"/ " + t("year").toLocaleLowerCase()}
                     </Typography>
                 </Typography>
                 <Divider inset="none" />
@@ -60,19 +62,19 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         <ListItemDecorator>
                             {discord_role ? <Check /> : <ClearIcon />}
                         </ListItemDecorator>
-                        Discord Role
+                        {t("site_role", { site: "Discord" })}
                     </ListItem>
                     <ListItem>
                         <ListItemDecorator>
                             {news ? <Check /> : <ClearIcon />}
                         </ListItemDecorator>
-                        Private News
+                        {t("private_news")}
                     </ListItem>
                     <ListItem>
                         <ListItemDecorator>
                             {voting_power ? <Check /> : <ClearIcon />}
                         </ListItemDecorator>
-                        Voting Power
+                        {t("voting_power")}
                     </ListItem>
                 </List>
                 <Divider inset="none" />
