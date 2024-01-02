@@ -19,7 +19,7 @@ function Report() {
     const rowsABFD: IReportGridRow[] = [
         {
             info: {
-                title: t("bug_report"),
+                title: t("bug_reports"),
                 description: t("bug_report_info"),
             },
             link: {
@@ -55,7 +55,7 @@ function Report() {
     const rowsWebService: IReportGridRow[] = [
         {
             info: {
-                title: t("bug_report"),
+                title: t("bug_reports"),
                 description: t("bug_report_info"),
             },
             link: {
@@ -75,7 +75,7 @@ function Report() {
     const rowsDiscord: IReportGridRow[] = [
         {
             info: {
-                title: t("bug_report"),
+                title: t("bug_reports"),
                 description: t("bug_report_info"),
             },
             link: {

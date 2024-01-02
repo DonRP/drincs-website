@@ -84,7 +84,7 @@ ${data.additionalDescription || "_No response_"}
         <ReportForm<BugType>
             open={open}
             setOpen={setOpen}
-            head={t("bug_report")}
+            head={t("bug_reports")}
             data={data}
             maxWidth={"md"}
             getData={getData}

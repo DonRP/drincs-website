@@ -32,7 +32,7 @@ function App() {
         // { title: "🗞️news", path: "/news", element: <News /> },
         { title: "🌍" + t("translations").toLocaleLowerCase(), path: "/translations", element: <Translations /> },
         { title: "📖" + t("wiki").toLocaleLowerCase(), path: "/wiki", element: <Wiki routeLink="wiki" urlRepo={ABFDrepo} /> },
-        { title: "🐞" + t("bug/request").toLocaleLowerCase(), path: "/report", element: <Report /> },
+        { title: "🐞" + t("bug/requests").toLocaleLowerCase(), path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
         { title: "💬discord", path: discordLink },
