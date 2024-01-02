@@ -6,6 +6,7 @@ import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { materialUseTheme } from 'Theme';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
 import DRErrorComponent from './DRErrorComponent';
@@ -29,12 +30,13 @@ type IDRNavbarProps = {
 
 function DRNavbar(props: IDRNavbarProps) {
     const materialTheme = materialUseTheme();
+    const { t } = useTranslation(["translation"]);
     const location = useLocation();
     let navigate = useNavigate();
     const { pages = [], supportPage, extern_link = [], openLogin } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-    const loginTitle = "login";
+    const loginTitle = t("login");
 
     const transitionDuration = {
         enter: materialTheme.transitions.duration.enteringScreen,
@@ -238,7 +240,7 @@ function DRNavbar(props: IDRNavbarProps) {
                             {/* PC and Mobile */}
                             {isLoggedIn() &&
                                 <>
-                                    <Tooltip title="Open settings">
+                                    <Tooltip title={t("expand")}>
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                             <Avatar alt={getUserName()} src="/static/images/avatar/2.jpg" />
                                         </IconButton>
@@ -264,7 +266,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                             authService.logOut()
                                             handleCloseUserMenu()
                                         }}>
-                                            <Typography textAlign="center">Log Out</Typography>
+                                            <Typography textAlign="center">{t("log_out")}</Typography>
                                         </MenuItem>
                                     </Menu>
                                 </>
@@ -287,7 +289,7 @@ function DRNavbar(props: IDRNavbarProps) {
                     <Fab
                         variant="extended"
                         color="primary"
-                        aria-label="add"
+                        aria-label={supportPage?.title}
                         size="large"
                         onClick={goToSupport}
                         sx={{

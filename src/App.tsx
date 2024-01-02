@@ -40,7 +40,7 @@ function App() {
             title: "GitHub", path: gitHubLink
         },
     ];
-    const supportRoute = { title: "support me", path: "/support", element: <Support /> }
+    const supportRoute = { title: t("support_me"), path: "/support", element: <Support /> }
     const [openLogin, setOpenLogin] = useState(false);
     const queryClient = new QueryClient()
     useI18n()
