@@ -12,6 +12,7 @@ import BuyMeACoffeeIcon from 'components/Icon/BuyMeACoffeeIcon';
 import KofiIcon from 'components/Icon/KofiIcon';
 import PayPalIcon from 'components/Icon/PayPalIcon';
 import { BuyMeACoffeeLink, KofiLink, gitHubLink } from "constant";
+import { t } from 'i18next';
 import { ReactElement, useState } from 'react';
 import { analyticPageView } from "utility/Analytics";
 
@@ -158,13 +159,13 @@ function Support() {
                         color="warning"
                         startDecorator={<WarningIcon />}
                     >
-                        The awards are still under development. For more information read: <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
+                        {t("support_development_info") + " "} <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
                     </DRAlert>
                     <DRAlert
                         startDecorator={<FavoriteIcon />}
                         color="primary"
                     >
-                        Not support me just to get the benefits, but to make sure that I can spend more time on the project
+                        {t("not_support_us_for_benefits")}
                     </DRAlert>
                 </Stack>
                 {/* pc */}
@@ -186,7 +187,7 @@ function Support() {
                         spacing={4}
                     >
                         <DRIconButton
-                            ariaLabel="Before"
+                            ariaLabel={t("before")}
                             size="sm"
                             onClick={handleBack}
                         >
@@ -199,7 +200,7 @@ function Support() {
                         })}
 
                         <DRIconButton
-                            ariaLabel="Next"
+                            ariaLabel={t("next")}
                             size="sm"
                             onClick={handleNext}
                         >
@@ -217,7 +218,7 @@ function Support() {
                 </Grid>
                 {/* mobile */}
                 <Tabs
-                    aria-label="Pricing plan"
+                    aria-label={t("pricing_plan")}
                     defaultValue={1}
                     variant="outlined"
                     sx={{
@@ -244,7 +245,7 @@ function Support() {
                 </Tabs>
                 {/* gifs */}
                 <GifsGrid
-                    title={"Gifs"}
+                    title={t("gifs")}
                     rows={gifs}
                     height={227}
                 />

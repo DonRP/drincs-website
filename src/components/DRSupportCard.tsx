@@ -101,7 +101,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 endDecorator={
                                     <DRChip
                                         size='sm'
-                                        ariaLabel='0% retained by Patreon'
+                                        ariaLabel={t("retained_by", { site: "Ko-fi", percent: "0%" })}
                                         sx={{ color: "green" }}
                                     >
                                         {"8%"}
@@ -125,7 +125,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 endDecorator={
                                     <DRChip
                                         size='sm'
-                                        ariaLabel='0% retained by BuyMeACoffe'
+                                        ariaLabel={t("retained_by", { site: "BuyMeACoffe", percent: "0%" })}
                                         sx={{ color: "green" }}
                                     >
                                         {"0%"}
@@ -149,7 +149,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 endDecorator={
                                     <DRChip
                                         size='sm'
-                                        ariaLabel='8% retained by Patreon'
+                                        ariaLabel={t("retained_by", { site: "Patreon", percent: "8%" })}
                                         sx={{ color: "red" }}
                                     >
                                         {"8%"}
@@ -181,7 +181,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                     endDecorator={
                                         <DRChip
                                             size='sm'
-                                            ariaLabel='10% retained by Boosty'
+                                            ariaLabel={t("retained_by", { site: "Boosty", percent: "10%" })}
                                             sx={{ color: "red" }}
                                         >
                                             {"8%"}
