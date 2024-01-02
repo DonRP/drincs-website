@@ -15,8 +15,8 @@ export enum DeviceABFD {
     IOS = "iOS",
 }
 export enum VersionABFD {
-    v0_1_1 = "v0.1.1",
-    v0_1_0 = "v0.1.0",
+    "v0.1.1" = "v0.1.1",
+    "v0.1.0" = "v0.1.0",
 }
 
 export enum Browser {

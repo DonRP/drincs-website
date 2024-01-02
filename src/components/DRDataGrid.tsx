@@ -1,11 +1,11 @@
 import { AspectRatio, Card, Typography } from '@mui/joy';
-import { DataGrid, GridColDef, GridValidRowModel } from '@mui/x-data-grid';
+import { DataGrid, DataGridProps, GridColDef, GridValidRowModel } from '@mui/x-data-grid';
 import * as locales from '@mui/x-data-grid/locales';
 import DRErrorComponent from './DRErrorComponent';
 
-export interface IDRDataGridProps<T extends IData> {
+export interface IDRDataGridProps<T extends IData> extends DataGridProps<T> {
     title: string,
-    data: T[],
+    rows: T[],
     logoImage?: string,
     height?: number,
     rowHeight?: number,
@@ -29,8 +29,17 @@ export const getLanguageDataGrid = (locales: any) => {
 }
 
 function DRDataGrid<T extends IData>(props: IProps<T>) {
-    const { title, data, logoImage, height = 350, rowHeight = 75, columns, hideFooter } = props;
-    let internalData = data.map(((d, index) => {
+    const {
+        title,
+        rows,
+        logoImage,
+        height = 350,
+        rowHeight = 75,
+        columns,
+        hideFooter,
+        ...rest
+    } = props;
+    const internalRows = rows.map(((d, index) => {
         d.id = index
         return d;
     }))
@@ -56,7 +65,7 @@ function DRDataGrid<T extends IData>(props: IProps<T>) {
                 }
                 <div style={{ height: height, width: '100%' }}>
                     <DataGrid
-                        rows={internalData}
+                        rows={internalRows}
                         columns={columns}
                         rowHeight={rowHeight}
                         hideFooter={hideFooter}
@@ -65,6 +74,7 @@ function DRDataGrid<T extends IData>(props: IProps<T>) {
                         localeText={
                             getLanguageDataGrid(locales)
                         }
+                        {...rest}
                     />
                 </div>
             </Card>

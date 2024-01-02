@@ -245,8 +245,8 @@ function Support() {
                 {/* gifs */}
                 <GifsGrid
                     title={"Gifs"}
-                    data={gifs}
-                    height={283}
+                    rows={gifs}
+                    height={227}
                 />
             </Grid >
         </>

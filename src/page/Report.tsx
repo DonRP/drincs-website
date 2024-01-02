@@ -113,20 +113,20 @@ function Report() {
                 </DRAlert>
                 <ReportGrid
                     title="A Big Family in Debit"
-                    data={rowsABFD}
-                    height={358}
+                    rows={rowsABFD}
+                    height={302}
                     githubLink={`https://github.com/${ABFDrepo}/issues/new/choose`}
                 />
                 <ReportGrid
                     title="Web Service"
-                    data={rowsWebService}
-                    height={208}
+                    rows={rowsWebService}
+                    height={152}
                     githubLink={`https://github.com/${WebSiteRepo}/issues/new/choose`}
                 />
                 <ReportGrid
                     title="Discord"
-                    data={rowsDiscord}
-                    height={208}
+                    rows={rowsDiscord}
+                    height={152}
                     githubLink='https://github.com/DRincs-Productions/drincs-discord-bot/issues/new/choose'
                 />
             </Grid>

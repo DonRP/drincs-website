@@ -28,12 +28,12 @@ function App() {
     useI18n()
     const { t } = useTranslation(["translation"]);
     const routes = [
-        { title: t("about").toLocaleLowerCase(), path: "/", element: <About /> },
-        { title: "⬇️" + t("download").toLocaleLowerCase(), path: "/download", element: <Download /> },
+        { title: t("about"), path: "/", element: <About /> },
+        { title: "⬇️" + t("download"), path: "/download", element: <Download /> },
         // { title: "🗞️news", path: "/news", element: <News /> },
-        { title: "🌍" + t("translations").toLocaleLowerCase(), path: "/translations", element: <Translations /> },
-        { title: "📖" + t("wiki").toLocaleLowerCase(), path: "/wiki", element: <Wiki routeLink="wiki" urlRepo={ABFDrepo} /> },
-        { title: "🐞" + t("bug/requests").toLocaleLowerCase(), path: "/report", element: <Report /> },
+        { title: "🌍" + t("translations"), path: "/translations", element: <Translations /> },
+        { title: "📖" + t("wiki"), path: "/wiki", element: <Wiki routeLink="wiki" urlRepo={ABFDrepo} /> },
+        { title: "🐞" + t("bug/requests"), path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
         { title: "💬discord", path: discordLink },

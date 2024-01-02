@@ -2,7 +2,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
+import DRDataGrid from 'components/DRDataGrid';
 import DRIconButton from 'components/DRIconButton';
 
 type IReportLink = {
@@ -90,12 +90,15 @@ const columns: GridColDef<IReportGridRow>[] = [
     },
 ];
 
-interface IReportGridProps extends IDRDataGridProps<IReportGridRow> {
+interface IReportGridProps {
+    title: string,
+    rows: IReportGridRow[],
+    height?: number,
     githubLink: string,
 }
 
 function ReportGrid(props: IReportGridProps) {
-    const { title, data, logoImage, height, rowHeight, githubLink } = props;
+    const { title, rows: data, height, githubLink } = props;
 
     let internalData = data.map((d) => {
         if (!d.link.github) {
@@ -107,12 +110,13 @@ function ReportGrid(props: IReportGridProps) {
     return (
         <DRDataGrid
             title={title}
-            data={internalData}
+            rows={internalData}
             columns={columns}
-            logoImage={logoImage}
             height={height}
-            rowHeight={rowHeight}
             hideFooter
+            slots={{
+                columnHeaders: () => null,
+            }}
         />
     );
 }

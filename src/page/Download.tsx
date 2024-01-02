@@ -138,7 +138,7 @@ function Download() {
                 <h2>{t("download")}</h2>
                 <DownloadGrid
                     title="A Big Family in Debit"
-                    data={rowsABFD(t)}
+                    rows={rowsABFD(t)}
                     height={358}
                 />
             </Grid>

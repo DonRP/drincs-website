@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
+import DRDataGrid from 'components/DRDataGrid';
 import { discordLink } from 'constant';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -134,21 +134,22 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
     ];
 }
 
-interface IDownloadGridProps extends IDRDataGridProps<IDownloadGridRow> {
+interface IDownloadGridProps {
+    title: string,
+    rows: IDownloadGridRow[],
+    height?: number,
 }
 
 function DownloadGrid(props: IDownloadGridProps) {
     const { t } = useTranslation(["translation"]);
-    const { title, data, logoImage, height, rowHeight } = props;
+    const { title, rows: data, height } = props;
 
     return (
         <DRDataGrid
             title={title}
-            data={data}
+            rows={data}
             columns={columns(t)}
-            logoImage={logoImage}
             height={height}
-            rowHeight={rowHeight}
             hideFooter
         />
     );

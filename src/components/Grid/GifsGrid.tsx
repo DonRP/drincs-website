@@ -1,7 +1,7 @@
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { Box } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
+import DRDataGrid from 'components/DRDataGrid';
 import { ReactElement } from 'react';
 import { DRButtonNoMargin } from '../DRButton';
 
@@ -13,7 +13,7 @@ export type IGifGridRow = {
 const columns: GridColDef<IGifGridRow>[] = [
     {
         field: 'logo',
-        headerName: 'Site',
+        headerName: '',
         flex: 1,
         minWidth: 25,
         renderCell: (params: GridRenderCellParams<IGifGridRow, ReactElement>) => (
@@ -44,21 +44,25 @@ const columns: GridColDef<IGifGridRow>[] = [
     },
 ];
 
-interface IProps extends IDRDataGridProps<IGifGridRow> {
+interface IProps {
+    title: string,
+    rows: IGifGridRow[],
+    height?: number,
 }
 
 function GifsGrid(props: IProps) {
-    const { title, data, logoImage, height, rowHeight } = props;
+    const { title, rows: data, height } = props;
 
     return (
         <DRDataGrid
             title={title}
-            data={data}
+            rows={data}
             columns={columns}
-            logoImage={logoImage}
             height={height}
-            rowHeight={rowHeight}
             hideFooter
+            slots={{
+                columnHeaders: () => null,
+            }}
         />
     );
 }
