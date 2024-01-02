@@ -23,7 +23,7 @@ export type IReportGridRow = {
 const columns: GridColDef<IReportGridRow>[] = [
     {
         field: 'info',
-        headerName: 'Description',
+        headerName: '',
         flex: 1,
         renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
             <Box

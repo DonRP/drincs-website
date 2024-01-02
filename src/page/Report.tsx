@@ -105,7 +105,7 @@ function Report() {
                 paddingTop={3}
                 paddingBottom={3}
             >
-                <h2>{t("report")}</h2>
+                <h2>{t("reports")}</h2>
                 <DRAlert
                     startDecorator={< DiscordIcon fill={theme.palette.logo.dicord} />}
                 >
