@@ -110,7 +110,7 @@ ${data.additionalDescription || "_No response_"}
             />
             <DRAutocomplete
                 fieldName="device"
-                label="Device"
+                label={t("device")}
                 helperText="Which device were you using?"
                 options={devices}
                 required
@@ -121,7 +121,7 @@ ${data.additionalDescription || "_No response_"}
             />
             <DRAutocomplete
                 fieldName="version"
-                label="Version"
+                label={t("version")}
                 helperText="What version of our software are you running?"
                 options={versions}
                 required

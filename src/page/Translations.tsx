@@ -16,6 +16,7 @@ const OtherTranslationProjects = [
 ]
 
 function Translations() {
+    const { t } = useTranslation(["translation"]);
     analyticPageView("Translations")
 
     return (
@@ -27,7 +28,7 @@ function Translations() {
             paddingTop={3}
             paddingBottom={3}
         >
-            <h2>Other Games</h2>
+            <h2>{t("other_games")}</h2>
             <DRAlert
                 startDecorator={<EngineeringIcon />}
                 color="warning"

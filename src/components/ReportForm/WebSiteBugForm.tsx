@@ -121,7 +121,7 @@ ${data.additionalDescription || "_No response_"}
             />
             <DRAutocomplete
                 fieldName="device"
-                label="Device"
+                label={t("device")}
                 helperText="Which device were you using?"
                 options={devices}
                 required

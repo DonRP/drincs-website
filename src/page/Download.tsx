@@ -4,10 +4,11 @@ import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import FolderZipIcon from '@mui/icons-material/FolderZip';
 import { Grid } from '@mui/joy';
 import DownloadGrid, { IDownloadGridRow } from 'components/Grid/DownloadGrid';
+import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { analyticPageView } from 'utility/Analytics';
 
-const rowsABFD: (t: any) => IDownloadGridRow[] = (t) => {
+const rowsABFD: (t: TFunction<[string]>) => IDownloadGridRow[] = (t) => {
     return [
         {
             id: 0, device: {
