@@ -83,7 +83,7 @@ function SignInSide(props: IProps) {
                                 />
 
                                 {isLoggedIn() &&
-                                    "You are already logged in"
+                                    t("already_logged_in")
                                 }
                             </div>
                         </Grid>
@@ -97,11 +97,11 @@ function SignInSide(props: IProps) {
                             endDecorator={<Link
                                 onClick={() => { setIsLogin((value) => !value) }}
                             >
-                                {isLogin ? "Sign Up" : t("sign_in")}
+                                {isLogin ? t("sign_up") : t("sign_in")}
                             </Link>}
                             fontSize="sm"
                         >
-                            {isLogin ? "Don't have an account?" : "Already have an account?"}
+                            {isLogin ? t("dont_have_an_account") : t("do_have_account")}
                         </Typography>
 
                         <Copyright />
