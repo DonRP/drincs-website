@@ -126,6 +126,10 @@ class BaseRestService {
                 throw this.catchResult(ex)
             });
     }
+
+    geToken(): string | null {
+        return localStorage.getItem("access_token") ?? sessionStorage.getItem("access_token")
+    }
 }
 
 export default BaseRestService;

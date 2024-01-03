@@ -6,7 +6,7 @@ import { analyticLogin, analyticSignUp } from "utility/Analytics";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
-    return Boolean(localStorage.getItem("username_token") ?? sessionStorage.getItem("username_token"));
+    return Boolean(localStorage.getItem("access_token") ?? sessionStorage.getItem("access_token"));
 };
 export const getUserName = (): string => {
     return localStorage.getItem("username") || "";
@@ -25,11 +25,11 @@ class AuthService extends BaseRestService {
                 }
                 if (rememberMe) {
                     localStorage.setItem("username", response.content.username ?? "");
-                    localStorage.setItem("username_token", response.content.token ?? "");
+                    localStorage.setItem("access_token", response.content.token ?? "");
                 }
                 else {
                     sessionStorage.setItem("username", response.content.username ?? "");
-                    sessionStorage.setItem("username_token", response.content.token ?? "");
+                    sessionStorage.setItem("access_token", response.content.token ?? "");
                 }
                 analyticLogin("/Auth/SignInWithEmailAndPassword")
                 return true
@@ -74,11 +74,30 @@ class AuthService extends BaseRestService {
             });
     };
 
+    async getProfile() {
+        let token = this.geToken()
+        if (!token) {
+            console.error("AuthService.getProfile token not found")
+            throw new MyError("err_token_not_found")
+        }
+
+        return this.getRequest<AuthData>(this.urlwebapi + `/Auth/GetProfile`, token)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                return response.content
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
     logOut() {
         localStorage.removeItem("username");
-        localStorage.removeItem("username_token");
+        localStorage.removeItem("access_token");
         sessionStorage.removeItem("username");
-        sessionStorage.removeItem("username_token");
+        sessionStorage.removeItem("access_token");
     };
 }
 
