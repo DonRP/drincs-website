@@ -1,4 +1,3 @@
-import EmailIcon from '@mui/icons-material/Email';
 import { Grid, Typography } from '@mui/joy';
 import { DRButtonSignInSide } from 'components/DRButton';
 import DRTextField from "components/DRTextField";
@@ -11,13 +10,20 @@ import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 
-function SignUp(props: ISignInSidePageProps) {
+interface IPros extends ISignInSidePageProps {
+    setEmailVerification: (value: boolean) => void
+}
+
+function SignUp(props: IPros) {
     var validator = require('validator');
     const [account, setAccount] = useState<NewAccountRecord>(new NewAccountRecord());
     const [errorFields, setErrorFields] = useState<string[]>([])
-    const [emailVerification, setEmailVerification] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
-    const { authService, enqueueSnackbar } = props;
+    const {
+        authService,
+        enqueueSnackbar,
+        setEmailVerification,
+    } = props;
     const { t } = useTranslation(["translation"]);
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
@@ -58,85 +64,68 @@ function SignUp(props: ISignInSidePageProps) {
         }
     };
 
-    if (!emailVerification) {
-        return (
-            <>
-                <Grid container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center"
-                >
-                    <Grid>
-                        <Typography
-                            component="h1"
-                        >
-                            {t("sign_up")}
-                        </Typography>
-                    </Grid>
+    return (
+        <>
+            <Grid container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+            >
+                <Grid>
+                    <Typography
+                        component="h1"
+                    >
+                        {t("sign_up")}
+                    </Typography>
                 </Grid>
-                <DRTextField
-                    fieldName="displayName"
-                    label={t("username")}
-                    defaultValue={account.displayName}
-                    onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
-                    variant="outlined"
-                    required
-                    autoFocus
-                    errorFields={errorFields}
-                />
-                <DRTextField
-                    fieldName="email"
-                    label={t("email")}
-                    defaultValue={account.email}
-                    onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
-                    variant="outlined"
-                    required
-                    fullWidth
-                    autoComplete="email"
-                    type='email'
-                    errorFields={errorFields}
-                />
-                <DRTextField
-                    fieldName="password"
-                    label={t("password")}
-                    defaultValue={account.password}
-                    onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
-                    variant="outlined"
-                    type='password'
-                    required
-                    fullWidth
-                    autoComplete="current-password"
-                    errorFields={errorFields}
-                />
-                {/* // TODO: To Implement  */}
-                {/* <FormControlLabel
+            </Grid>
+            <DRTextField
+                fieldName="displayName"
+                label={t("username")}
+                defaultValue={account.displayName}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                variant="outlined"
+                required
+                autoFocus
+                errorFields={errorFields}
+            />
+            <DRTextField
+                fieldName="email"
+                label={t("email")}
+                defaultValue={account.email}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                variant="outlined"
+                required
+                fullWidth
+                autoComplete="email"
+                type='email'
+                errorFields={errorFields}
+            />
+            <DRTextField
+                fieldName="password"
+                label={t("password")}
+                defaultValue={account.password}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                variant="outlined"
+                type='password'
+                required
+                fullWidth
+                autoComplete="current-password"
+                errorFields={errorFields}
+            />
+            {/* // TODO: To Implement  */}
+            {/* <FormControlLabel
                     control={<Checkbox value="allowExtraEmails" color="primary" />}
                     label="I want to receive inspiration, marketing promotions and updates via email."
                 /> */}
-                <DRButtonSignInSide
-                    onClick={handelSignUp}
-                    loading={loading}
-                >
-                    {t("sign_up")}
-                </DRButtonSignInSide>
-            </>
-        );
-    }
-    else {
-        return (
-            <>
-                <EmailIcon fontSize='large' color='action'
-                    style={{
-                        marginTop: 50,
-                        // backgroundColor: theme.palette.secondary.main
-                    }}
-                />
-                <Typography marginBottom={10} marginTop={1}>
-                    {t("verification_mail_sent")}
-                </Typography>
-            </>
-        )
-    }
+            <DRButtonSignInSide
+                onClick={handelSignUp}
+                loading={loading}
+            >
+                {t("sign_up")}
+            </DRButtonSignInSide>
+        </>
+    );
 }
 
 export default SignUp;
