@@ -9,6 +9,7 @@ import { useI18n } from 'i18n';
 import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
 import Download from 'page/Download';
+import MyProfile from 'page/MyProfile';
 import Report from 'page/Report';
 import SignInSide from 'page/SignInSide';
 import Support from 'page/Support';
@@ -72,6 +73,7 @@ function App() {
                                     <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo={`DRincs-Productions/daz-assert-ABFD-all-in-one`} />} />
                                     <Route key="drincs" path="/drincs" element={<About />} />
                                     <Route key="a-big-family-in-debit" path="/a-big-family-in-debit" element={<About />} />
+                                    <Route key="profile" path="/profile" element={<MyProfile />} />
                                 </Routes>
                             </SnackbarProvider>
                         </RecoilRoot>

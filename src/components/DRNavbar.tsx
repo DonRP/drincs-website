@@ -5,6 +5,7 @@ import { CircularProgress } from '@mui/joy';
 import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import { useQueryClient } from '@tanstack/react-query';
 import { materialUseTheme } from 'Theme';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
@@ -12,7 +13,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { isLoggedIn } from 'services/AuthService';
-import { useGetProfileCache } from 'use_query/useGetUser';
+import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
 import { showToastByMyError } from 'utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
 import DRLink from './DRLink';
@@ -42,6 +43,7 @@ function DRNavbar(props: IDRNavbarProps) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const loginTitle = t("login");
+    const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
     const {
         isLoading,
@@ -83,6 +85,9 @@ function DRNavbar(props: IDRNavbarProps) {
             return false
         }
         if (location.pathname === "/") {
+            return false
+        }
+        if (location.pathname === "/profile") {
             return false
         }
         return true;
@@ -270,9 +275,17 @@ function DRNavbar(props: IDRNavbarProps) {
                                         open={Boolean(anchorElUser)}
                                         onClose={handleCloseUserMenu}
                                     >
-                                        <MenuItem key={2} onClick={() => {
+                                        <MenuItem onClick={() => {
+                                            navigate("/profile");
+                                            handleCloseUserMenu()
+                                            queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+                                        }}>
+                                            <Typography textAlign="center">{t("my_profile")}</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={() => {
                                             let authService = new AuthService();
                                             authService.logOut()
+                                            // TODO: clear cache
                                             handleCloseUserMenu()
                                         }}>
                                             <Typography textAlign="center">{t("log_out")}</Typography>
