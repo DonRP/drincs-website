@@ -61,7 +61,7 @@ class AuthService extends BaseRestService {
             return false
         }
 
-        return this.postRequest<AuthData>(this.urlwebapi + `/Auth/CreateAccount`, account)
+        return this.postRequest<boolean>(this.urlwebapi + `/Auth/CreateAccount`, account)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
