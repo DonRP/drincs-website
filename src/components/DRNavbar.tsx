@@ -278,14 +278,14 @@ function DRNavbar(props: IDRNavbarProps) {
                                         <MenuItem onClick={() => {
                                             navigate("/profile");
                                             handleCloseUserMenu()
-                                            queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
                                         }}>
                                             <Typography textAlign="center">{t("my_profile")}</Typography>
                                         </MenuItem>
                                         <MenuItem onClick={() => {
                                             let authService = new AuthService();
                                             authService.logOut()
-                                            // TODO: clear cache
+                                            location.pathname === "/profile" && navigate("/");
+                                            queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
                                             handleCloseUserMenu()
                                         }}>
                                             <Typography textAlign="center">{t("log_out")}</Typography>
