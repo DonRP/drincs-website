@@ -1,15 +1,13 @@
 import { AuthData } from "model/Auth/AuthData";
 import { LoginAccount } from "model/Auth/LoginAccount";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
+import { UserProfile } from "model/Auth/UserProfile";
 import { MyError } from "model/MyError";
 import { analyticLogin, analyticSignUp } from "utility/Analytics";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {
     return Boolean(localStorage.getItem("access_token") ?? sessionStorage.getItem("access_token"));
-};
-export const getUserName = (): string => {
-    return localStorage.getItem("username") || "";
 };
 
 class AuthService extends BaseRestService {
@@ -24,11 +22,9 @@ class AuthService extends BaseRestService {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
                 if (rememberMe) {
-                    localStorage.setItem("username", response.content.username ?? "");
                     localStorage.setItem("access_token", response.content.token ?? "");
                 }
                 else {
-                    sessionStorage.setItem("username", response.content.username ?? "");
                     sessionStorage.setItem("access_token", response.content.token ?? "");
                 }
                 analyticLogin("/Auth/SignInWithEmailAndPassword")
@@ -81,7 +77,7 @@ class AuthService extends BaseRestService {
             throw new MyError("err_token_not_found")
         }
 
-        return this.getRequest<AuthData>(this.urlwebapi + `/Auth/GetProfile`, token)
+        return this.getRequest<UserProfile>(this.urlwebapi + `/Auth/GetProfile`, token)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
@@ -94,9 +90,7 @@ class AuthService extends BaseRestService {
     }
 
     logOut() {
-        localStorage.removeItem("username");
         localStorage.removeItem("access_token");
-        sessionStorage.removeItem("username");
         sessionStorage.removeItem("access_token");
     };
 }

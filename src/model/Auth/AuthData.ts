@@ -1,6 +1,6 @@
 export interface AuthData {
-    token?: string;
+    token: string;
     tokenExpirationTime: number;
     id: string;
-    username: string;
+    emailVerified: boolean;
 }

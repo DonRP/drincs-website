@@ -1,14 +1,19 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { CircularProgress } from '@mui/joy';
 import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { materialUseTheme } from 'Theme';
+import { UserProfile } from 'model/Auth/UserProfile';
+import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
-import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
+import AuthService, { isLoggedIn } from 'services/AuthService';
+import { useGetProfileCache } from 'use_query/useGetUser';
+import { showToastByMyError } from 'utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
 import DRLink from './DRLink';
 import DRLogo from './String/DRLogo';
@@ -37,6 +42,15 @@ function DRNavbar(props: IDRNavbarProps) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const loginTitle = t("login");
+    const { enqueueSnackbar } = useSnackbar();
+    const {
+        isLoading,
+        data: userInfo = new UserProfile(),
+    } = useGetProfileCache({
+        catch: (err) => {
+            showToastByMyError(t("get_user_profile_error"), enqueueSnackbar, t)
+        },
+    })
 
     const transitionDuration = {
         enter: materialTheme.transitions.duration.enteringScreen,
@@ -236,7 +250,8 @@ function DRNavbar(props: IDRNavbarProps) {
                                 <>
                                     <Tooltip title={t("expand")}>
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt={getUserName()} src="/static/images/avatar/2.jpg" />
+                                            {isLoading && <CircularProgress />}
+                                            {!isLoading && <Avatar alt={userInfo.displayName} src={userInfo.photoURL} />}
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
