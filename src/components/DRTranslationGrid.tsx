@@ -17,7 +17,7 @@ import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import { useTranslation } from 'react-i18next';
-import { GET_LANGUAGES_CACHE_KEY, useGetLanguages } from 'use_query/useUserHaveHub';
+import { GET_LANGUAGES_CACHE_KEY, useGetLanguages } from 'use_query/useGetLanguages';
 import { showToastByMyError } from 'utility/ShowToast';
 import DRButton from './DRButton';
 import { getLanguageDataGrid } from './DRDataGrid';
