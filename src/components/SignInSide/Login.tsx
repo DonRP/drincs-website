@@ -1,3 +1,5 @@
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import KeyIcon from '@mui/icons-material/Key';
 import { Grid, Link, Typography } from '@mui/joy';
 import { DRButtonSignInSide } from 'components/DRButton';
 import DRErrorComponent from 'components/DRErrorComponent';
@@ -117,6 +119,7 @@ function Login(props: ISignInSidePageProps) {
                         required
                         autoFocus
                         errorFields={errorFields}
+                        startDecorator={<EmailRoundedIcon />}
                     />
                     <DRTextField
                         fieldName="password"
@@ -127,6 +130,7 @@ function Login(props: ISignInSidePageProps) {
                         type='password'
                         required
                         errorFields={errorFields}
+                        startDecorator={<KeyIcon />}
                     />
                     <DRCheckBox
                         fieldName="rememberMe"
@@ -170,6 +174,7 @@ function Login(props: ISignInSidePageProps) {
                         required
                         autoFocus
                         errorFields={errorFields}
+                        startDecorator={<EmailRoundedIcon />}
                     />
                     <DRButtonSignInSide
                         onClick={handelForgotPassword}
