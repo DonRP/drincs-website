@@ -37,7 +37,7 @@ function Login(props: ISignInSidePageProps) {
         return fields;
     }
 
-    const validateResetPassword = (account: LoginAccount): string[] => {
+    const validateForgotPassword = (account: LoginAccount): string[] => {
         let fields = [];
         if (isEmptyOrSpaces(account.email)) {
             fields.push("email")
@@ -69,12 +69,12 @@ function Login(props: ISignInSidePageProps) {
         }
     };
 
-    const handelResetPassword = () => {
+    const handelForgotPassword = () => {
         setLoading(true)
-        let errorFields = validateResetPassword(account)
+        let errorFields = validateForgotPassword(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            authService.resetPassword(account.email).then(res => {
+            authService.forgotPassword(account.email).then(res => {
                 if (res) {
                     showToast(t("success_send_mail_for_reset_password"), 'success', enqueueSnackbar)
                     setOpenChangePassword(false)
@@ -172,7 +172,7 @@ function Login(props: ISignInSidePageProps) {
                         errorFields={errorFields}
                     />
                     <DRButtonSignInSide
-                        onClick={handelResetPassword}
+                        onClick={handelForgotPassword}
                         loading={loading}
                     >
                         {t("send_mail")}

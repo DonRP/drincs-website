@@ -39,12 +39,12 @@ class AuthService extends BaseRestService {
             });
     };
 
-    async resetPassword(email: string) {
+    async forgotPassword(email: string) {
         if (!email) {
             return false
         }
 
-        return this.postRequest<string>(this.urlwebapi + `/Auth/ResetPassword?email=${email}`)
+        return this.postRequest<string>(this.urlwebapi + `/Auth/ForgotPassword?email=${email}`)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
