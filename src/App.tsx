@@ -37,9 +37,9 @@ function App() {
         { title: "🐞" + t("bug/requests"), path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
-        { title: "💬discord", path: discordLink },
+        { title: "🔗Discord", path: discordLink },
         {
-            title: "GitHub", path: gitHubLink
+            title: "🔗GitHub", path: gitHubLink
         },
     ];
     const supportRoute = { title: t("support_us"), path: "/support", element: <Support /> }
