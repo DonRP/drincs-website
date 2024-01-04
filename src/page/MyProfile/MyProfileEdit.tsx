@@ -106,7 +106,7 @@ export default function MyProfileEdit() {
                             setIsChanged(true)
                         }}
                         onBlurGeneric={(fieldName, value) => {
-                            if (value && !checkIfIsValidEmail(data.email)) {
+                            if (value && !checkIfIsValidEmail(userInfo.email)) {
                                 setNotValidEmail(true)
                             }
                             else {
