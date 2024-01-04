@@ -62,7 +62,7 @@ export default function MyProfileEdit() {
         return service.editProfile(profile).then((res) => {
             queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
             setLoading(false)
-            showToast(t('process_success'), "success", enqueueSnackbar)
+            showToast(t('edit_success'), "success", enqueueSnackbar)
             navigate("/profile")
         }).catch((err) => {
             showToastByMyError(err, enqueueSnackbar, t)
