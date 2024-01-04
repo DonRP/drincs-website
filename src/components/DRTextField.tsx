@@ -1,5 +1,7 @@
-import { Input, InputProps, InputTypeMap, useTheme } from '@mui/joy';
-import { FocusEventHandler } from 'react';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { IconButton, Input, InputProps, InputTypeMap, useTheme } from '@mui/joy';
+import { FocusEventHandler, useState } from 'react';
 import { IOnChangeGeneric } from 'utility/UtilityComponenets';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
@@ -93,6 +95,28 @@ export function DRTextFieldNotEditable<T extends DefaultValueTypeTextField>(prop
                     color: useTheme().palette.text.primary,
                 }
             }}
+            {...rest}
+        />
+    )
+}
+
+export function DRTextFieldPassword<T extends DefaultValueTypeTextField>(props: ICTextFieldProps<T>) {
+    const {
+        ...rest
+    } = props;
+    const [showPassword, setShowPassword] = useState(false);
+
+    return (
+        <DRTextField
+            placeholder="password"
+            type={showPassword ? 'text' : 'password'}
+            endDecorator={
+                <IconButton size="sm"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                >
+                    {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                </IconButton>
+            }
             {...rest}
         />
     )

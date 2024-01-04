@@ -129,6 +129,9 @@ export default function MyProfile() {
                             whitespace: "nowrap",
                             minWidth: "max-content"
                         }}
+                        onClick={() => {
+                            navigate("/profile/change-password");
+                        }}
                     >
                         {t("edit_password")}
                     </DRButtonNoMargin>

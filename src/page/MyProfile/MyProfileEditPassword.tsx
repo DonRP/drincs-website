@@ -1,66 +1,64 @@
 import { Stack } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
-import { useQueryClient } from '@tanstack/react-query';
 import { DRButtonNoMargin } from 'components/DRButton';
-import DRTextField from 'components/DRTextField';
-import { EditProfile } from 'model/Auth/EditProfile';
-import { UserProfile } from 'model/Auth/UserProfile';
+import { DRTextFieldPassword } from 'components/DRTextField';
+import { EditPassword } from 'model/Auth/EditPasswordBody';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import AuthService from 'services/AuthService';
-import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
-import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
+import { checkIfIsEqualPassword, checkIfIsValidPassword } from 'utility/EmailPasswordUtility';
 import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import MyProfileCard from './MyProfileCard';
 
-export default function MyProfileEdit() {
+export default function MyProfileEditPassword() {
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
-    const {
-        data = new UserProfile(),
-    } = useGetProfileCache({
-        then: (data) => {
-            setUserInfo(data)
-        },
-        catch: (err) => {
-            showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
-        },
-    })
-    const [userInfo, setUserInfo] = useState<UserProfile>(data)
-    const [notValidEmail, setNotValidEmail] = useState<boolean>(false)
+    const [data, setData] = useState<EditPassword>(new EditPassword())
+    const [notValidPassword, setNotValidPassword] = useState<boolean>(false)
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [isChanged, setIsChanged] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
-    const queryClient = useQueryClient()
+    const [notEqualPassword, setNotEqualPassword] = useState<boolean>(!checkIfIsEqualPassword(data.password, data.repeatPassword))
 
     const handel = () => {
         setLoading(true)
 
         let fields = []
-        if (!checkIfIsValidEmail(userInfo.email)) {
-            fields.push('email')
+        if (!data.password) {
+            fields.push("password")
         }
-        if (!userInfo.displayName) {
-            fields.push('displayName')
+        if (!data.repeatPassword) {
+            fields.push("repeatPassword")
         }
 
-        setErrorFields(fields)
         if (fields.length > 0) {
+            setErrorFields(fields)
             setLoading(false)
             return
         }
 
-        let service = new AuthService()
-        let profile: EditProfile = {
-            email: userInfo.email,
-            displayName: userInfo.displayName,
+        if (!checkIfIsValidPassword(data.password)) {
+            errorFields.push('password')
+            setErrorFields(fields)
+            setLoading(false)
+            return
         }
-        return service.editProfile(profile).then((res) => {
-            queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+
+        if (!checkIfIsEqualPassword(data.password, data.repeatPassword)) {
+            errorFields.push("repeatPassword")
+            setErrorFields(fields)
+            setLoading(false)
+            return
+        }
+
+        setErrorFields(fields)
+
+        let service = new AuthService()
+        return service.changePassword(data).then((res) => {
             setLoading(false)
             showToast(t('edit_success'), "success", enqueueSnackbar)
             navigate("/profile")
@@ -84,39 +82,35 @@ export default function MyProfileEdit() {
             }
             body={
                 <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                    <DRTextField
-                        fieldName="displayName"
-                        label={t("username")}
-                        value={userInfo.displayName}
+                    <DRTextFieldPassword
+                        fieldName="password"
+                        label={t('password')}
+                        value={data.password}
+                        required
+                        error={notValidPassword}
                         errorFields={errorFields}
                         onChangeGeneric={(fieldName, value) => {
-                            handleInputChangeByFieldName(fieldName, value, userInfo, setUserInfo)
+                            handleInputChangeByFieldName(fieldName, value, data, setData)
+                            setNotEqualPassword(!checkIfIsEqualPassword(value as string, data.repeatPassword))
+                            setNotValidPassword(!checkIfIsValidPassword(value as string))
                             setIsChanged(true)
                         }}
-                        required
+                        helperText={t('password_helper')}
                     />
-                    <DRTextField
-                        fieldName="email"
-                        label={t("email")}
-                        value={userInfo.email}
-                        error={notValidEmail}
+                    <DRTextFieldPassword
+                        fieldName="repeatPassword"
+                        label={t('repeat_password')}
+                        value={data.repeatPassword}
+                        required
                         errorFields={errorFields}
                         onChangeGeneric={(fieldName, value) => {
-                            handleInputChangeByFieldName(fieldName, value, userInfo, setUserInfo)
+                            handleInputChangeByFieldName(fieldName, value, data, setData)
+                            setNotEqualPassword(!checkIfIsEqualPassword(value as string, data.password))
                             setIsChanged(true)
                         }}
-                        onBlurGeneric={(fieldName, value) => {
-                            if (value && !checkIfIsValidEmail(userInfo.email)) {
-                                setNotValidEmail(true)
-                            }
-                            else {
-                                setNotValidEmail(false)
-                            }
-                        }}
+                        helperText={notEqualPassword ? t('password_not_equal') : ""}
+                        error={notEqualPassword}
                         addHelperMarginIfIsHidden
-                        helperText={notValidEmail ? t('invalid_email') : ''}
-                        type='email'
-                        required
                     />
                 </Stack>
             }

@@ -11,6 +11,7 @@ import About from 'page/About';
 import Download from 'page/Download';
 import MyProfile from 'page/MyProfile/MyProfile';
 import MyProfileEdit from 'page/MyProfile/MyProfileEdit';
+import MyProfileEditPassword from 'page/MyProfile/MyProfileEditPassword';
 import Report from 'page/Report';
 import SignInSide from 'page/SignInSide';
 import Support from 'page/Support';
@@ -79,7 +80,8 @@ function App() {
                                 {isLoggedIn() &&
                                     <Routes>
                                         <Route key="profile" path="/profile" element={<MyProfile />} />
-                                        <Route key="profileedit" path="/profile/edit" element={<MyProfileEdit />} />
+                                        <Route key="profile-edit" path="/profile/edit" element={<MyProfileEdit />} />
+                                        <Route key="profile-change-password" path="/profile/change-password" element={<MyProfileEditPassword />} />
                                     </Routes>
                                 }
                             </SnackbarProvider>

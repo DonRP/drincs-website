@@ -1,4 +1,5 @@
 import { AuthData } from "model/Auth/AuthData";
+import { EditPasswordBody } from "model/Auth/EditPasswordBody";
 import { EditProfile } from "model/Auth/EditProfile";
 import { LoginAccount } from "model/Auth/LoginAccount";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
@@ -122,6 +123,25 @@ class AuthService extends BaseRestService {
         }
 
         return this.putRequest<UserProfile>(this.urlwebapi + `/Auth/EditProfile`, profile, token)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                return true
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
+    async changePassword(body: EditPasswordBody) {
+        let token = this.geToken()
+        if (!token) {
+            console.error("AuthService.getProfile token not found")
+            throw new MyError("err_token_not_found")
+        }
+
+        return this.putRequest<boolean>(this.urlwebapi + `/Auth/ChangePassword`, body, token)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
