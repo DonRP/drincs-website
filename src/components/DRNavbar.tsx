@@ -38,7 +38,7 @@ function DRNavbar(props: IDRNavbarProps) {
     const materialTheme = materialUseTheme();
     const { t } = useTranslation(["translation"]);
     const location = useLocation();
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const { pages = [], supportPage, extern_link = [], openLogin } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -87,7 +87,7 @@ function DRNavbar(props: IDRNavbarProps) {
         if (location.pathname === "/") {
             return false
         }
-        if (location.pathname === "/profile") {
+        if (location.pathname.includes("/profile")) {
             return false
         }
         return true;

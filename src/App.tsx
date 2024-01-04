@@ -10,6 +10,7 @@ import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
 import Download from 'page/Download';
 import MyProfile from 'page/MyProfile/MyProfile';
+import MyProfileEdit from 'page/MyProfile/MyProfileEdit';
 import Report from 'page/Report';
 import SignInSide from 'page/SignInSide';
 import Support from 'page/Support';
@@ -78,6 +79,7 @@ function App() {
                                 {isLoggedIn() &&
                                     <Routes>
                                         <Route key="profile" path="/profile" element={<MyProfile />} />
+                                        <Route key="profileedit" path="/profile/edit" element={<MyProfileEdit />} />
                                     </Routes>
                                 }
                             </SnackbarProvider>

@@ -10,6 +10,7 @@ import { DRTextFieldNotEditable } from 'components/DRTextField';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { useGetProfileCache } from 'use_query/useGetUser';
 import { showToast } from 'utility/ShowToast';
 import MyProfileCard from './MyProfileCard';
@@ -17,6 +18,7 @@ import ResendVerificationMailButton from './ResendVerificationMailButton';
 
 export default function MyProfile() {
     const { t } = useTranslation(["translation"]);
+    const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
     const {
         isLoading,
@@ -75,18 +77,14 @@ export default function MyProfile() {
                         <DRTextFieldNotEditable
                             fieldName="displayName"
                             label={t("username")}
-                            value={userInfo.displayName}
-                            required
-                            disabled
+                            defaultValue={userInfo.displayName}
                         />
                         <DRTextFieldNotEditable
                             fieldName="email"
                             label={t("email")}
-                            value={userInfo.email}
+                            defaultValue={userInfo.email}
                             type='email'
-                            required
                             startDecorator={<EmailRoundedIcon />}
-                            disabled
                             endDecorator={
                                 userInfo.emailVerified ?
                                     <DRChip
@@ -141,6 +139,9 @@ export default function MyProfile() {
                         sx={{
                             whitespace: "nowrap",
                             minWidth: "max-content"
+                        }}
+                        onClick={() => {
+                            navigate("/profile/edit");
                         }}
                     >
                         {t("edit")}
