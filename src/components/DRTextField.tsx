@@ -1,4 +1,4 @@
-import { Input, InputProps, InputTypeMap } from '@mui/joy';
+import { Input, InputProps, InputTypeMap, useTheme } from '@mui/joy';
 import { FocusEventHandler } from 'react';
 import { IOnChangeGeneric } from 'utility/UtilityComponenets';
 import DRErrorComponent from './DRErrorComponent';
@@ -76,4 +76,24 @@ export default function DRTextField<T extends DefaultValueTypeTextField>(props: 
     } catch (error) {
         return <DRErrorComponent error={error} text={"DRTextField"} />
     }
+}
+
+export function DRTextFieldNotEditable<T extends DefaultValueTypeTextField>(props: ICTextFieldProps<T>) {
+    const {
+        disabled = true,
+        sx,
+        ...rest
+    } = props;
+
+    return (
+        <DRTextField
+            disabled={disabled}
+            sx={{
+                ".Mui-disabled": {
+                    color: useTheme().palette.text.primary,
+                }
+            }}
+            {...rest}
+        />
+    )
 }

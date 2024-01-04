@@ -1,5 +1,5 @@
 import { UserProfile } from "model/Auth/UserProfile";
-import AuthService from "../services/AuthService";
+import AuthService, { getAccessToken, isLoggedIn } from "../services/AuthService";
 import { UseMyQueryProps, useMyQuery } from "./useMyQuery";
 
 export const GET_PROFILE_CACHE_KEY = "AuthService.getProfile";
@@ -14,8 +14,11 @@ export function useGetProfileCache(props: IProps<UserProfile>) {
 	} = props;
 	return useMyQuery({
 		...rest,
-		queryKey: [GET_PROFILE_CACHE_KEY],
+		queryKey: [GET_PROFILE_CACHE_KEY, getAccessToken() || ""],
 		queryFn: async () => {
+			if (!isLoggedIn()) {
+				return new UserProfile()
+			}
 			let authService = new AuthService()
 			return authService.getProfile().then((res) => {
 				thenFn && thenFn(res)

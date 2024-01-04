@@ -9,7 +9,7 @@ import { useI18n } from 'i18n';
 import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
 import Download from 'page/Download';
-import MyProfile from 'page/MyProfile';
+import MyProfile from 'page/MyProfile/MyProfile';
 import Report from 'page/Report';
 import SignInSide from 'page/SignInSide';
 import Support from 'page/Support';

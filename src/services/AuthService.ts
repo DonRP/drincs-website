@@ -10,6 +10,11 @@ export const isLoggedIn = () => {
     return Boolean(localStorage.getItem("access_token") ?? sessionStorage.getItem("access_token"));
 };
 
+export const getAccessToken = () => {
+    let auth = new AuthService()
+    return auth.geToken()
+}
+
 class AuthService extends BaseRestService {
     async doLogIn(account: LoginAccount, rememberMe: boolean = false) {
         if (!account) {
