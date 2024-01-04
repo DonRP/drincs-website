@@ -94,6 +94,25 @@ class AuthService extends BaseRestService {
             });
     }
 
+    async resendEmail() {
+        let token = this.geToken()
+        if (!token) {
+            console.error("AuthService.getProfile token not found")
+            throw new MyError("err_token_not_found")
+        }
+
+        return this.putRequest<boolean>(this.urlwebapi + `/Auth/ResendVerificationEmail`, undefined, token)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                return true
+            })
+            .catch((res) => {
+                throw res
+            });
+    };
+
     logOut() {
         localStorage.removeItem("access_token");
         sessionStorage.removeItem("access_token");
