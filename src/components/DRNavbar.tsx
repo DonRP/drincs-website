@@ -14,7 +14,7 @@ import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { isLoggedIn } from 'services/AuthService';
 import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
-import { showToastByMyError } from 'utility/ShowToast';
+import { showToast } from 'utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
 import DRLink from './DRLink';
 import DRLogo from './String/DRLogo';
@@ -50,7 +50,7 @@ function DRNavbar(props: IDRNavbarProps) {
         data: userInfo = new UserProfile(),
     } = useGetProfileCache({
         catch: (err) => {
-            showToastByMyError(t("get_user_profile_error"), enqueueSnackbar, t)
+            showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
         },
     })
 

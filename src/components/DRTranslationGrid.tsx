@@ -13,12 +13,10 @@ import { myUseTheme } from 'Theme';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { TFunction } from 'i18next';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResultItem } from 'model/Translation/TranslationResult';
-import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import { useTranslation } from 'react-i18next';
 import { GET_LANGUAGES_CACHE_KEY, useGetLanguages } from 'use_query/useGetLanguages';
-import { showToastByMyError } from 'utility/ShowToast';
 import DRButton from './DRButton';
 import { getLanguageDataGrid } from './DRDataGrid';
 import DRErrorComponent from './DRErrorComponent';
@@ -160,7 +158,6 @@ type IDRTranslationGridProps = {
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = myUseTheme()
-    const { enqueueSnackbar } = useSnackbar();
     const { projectId, height = 350, rowHeight = 75 } = props
     const { t } = useTranslation(["translation"]);
     const queryClient = useQueryClient()
@@ -169,9 +166,6 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         isError,
         data = undefined,
     } = useGetLanguages({
-        catch: (err) => {
-            showToastByMyError(err, enqueueSnackbar, t)
-        },
         projectId: projectId,
     })
 
@@ -196,7 +190,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             color="neutral"
                             size="sm"
                             onClick={() => {
-                                queryClient.invalidateQueries({ queryKey: [GET_LANGUAGES_CACHE_KEY] });
+                                queryClient.invalidateQueries({ queryKey: [GET_LANGUAGES_CACHE_KEY, projectId.toString()] });
                             }}
                         >
                             <ReplayIcon />
