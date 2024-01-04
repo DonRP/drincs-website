@@ -1,14 +1,18 @@
 import { Stack } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
+import { useQueryClient } from '@tanstack/react-query';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRTextField from 'components/DRTextField';
+import { EditProfile } from 'model/Auth/EditProfile';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useGetProfileCache } from 'use_query/useGetUser';
-import { showToast } from 'utility/ShowToast';
+import AuthService from 'services/AuthService';
+import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
+import { checkIfIsValidEmail } from 'utility/EmailUtility';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import MyProfileCard from './MyProfileCard';
 
@@ -19,11 +23,52 @@ export default function MyProfileEdit() {
     const {
         data = new UserProfile(),
     } = useGetProfileCache({
+        then: (data) => {
+            setUserInfo(data)
+        },
         catch: (err) => {
             showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
         },
     })
     const [userInfo, setUserInfo] = useState<UserProfile>(data)
+    const [notValidEmail, setNotValidEmail] = useState<boolean>(false)
+    const [errorFields, setErrorFields] = useState<string[]>([])
+    const [isChanged, setIsChanged] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false)
+    const queryClient = useQueryClient()
+
+    const handel = () => {
+        setLoading(true)
+
+        let fields = []
+        if (!checkIfIsValidEmail(userInfo.email)) {
+            fields.push('email')
+        }
+        if (!userInfo.displayName) {
+            fields.push('displayName')
+        }
+
+        setErrorFields(fields)
+        if (fields.length > 0) {
+            setLoading(false)
+            return
+        }
+
+        let service = new AuthService()
+        let profile: EditProfile = {
+            email: userInfo.email,
+            displayName: userInfo.displayName,
+        }
+        return service.editProfile(profile).then((res) => {
+            queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+            setLoading(false)
+            showToast(t('process_success'), "success", enqueueSnackbar)
+            navigate("/profile")
+        }).catch((err) => {
+            showToastByMyError(err, enqueueSnackbar, t)
+            setLoading(false)
+        })
+    };
 
     return (
         <MyProfileCard
@@ -43,14 +88,33 @@ export default function MyProfileEdit() {
                         fieldName="displayName"
                         label={t("username")}
                         value={userInfo.displayName}
-                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, userInfo, setUserInfo)}
+                        errorFields={errorFields}
+                        onChangeGeneric={(fieldName, value) => {
+                            handleInputChangeByFieldName(fieldName, value, userInfo, setUserInfo)
+                            setIsChanged(true)
+                        }}
                         required
                     />
                     <DRTextField
                         fieldName="email"
                         label={t("email")}
                         value={userInfo.email}
-                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, userInfo, setUserInfo)}
+                        error={notValidEmail}
+                        errorFields={errorFields}
+                        onChangeGeneric={(fieldName, value) => {
+                            handleInputChangeByFieldName(fieldName, value, userInfo, setUserInfo)
+                            setIsChanged(true)
+                        }}
+                        onBlurGeneric={(fieldName, value) => {
+                            if (value && !checkIfIsValidEmail(data.email)) {
+                                setNotValidEmail(true)
+                            }
+                            else {
+                                setNotValidEmail(false)
+                            }
+                        }}
+                        addHelperMarginIfIsHidden
+                        helperText={notValidEmail ? t('invalid_email') : ''}
                         type='email'
                         required
                     />
@@ -79,6 +143,9 @@ export default function MyProfileEdit() {
                             whitespace: "nowrap",
                             minWidth: "max-content"
                         }}
+                        disabled={!isChanged}
+                        onClick={handel}
+                        loading={loading}
                     >
                         {t("save")}
                     </DRButtonNoMargin>

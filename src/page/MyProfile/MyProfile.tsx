@@ -77,12 +77,12 @@ export default function MyProfile() {
                         <DRTextFieldNotEditable
                             fieldName="displayName"
                             label={t("username")}
-                            defaultValue={userInfo.displayName}
+                            value={userInfo.displayName}
                         />
                         <DRTextFieldNotEditable
                             fieldName="email"
                             label={t("email")}
-                            defaultValue={userInfo.email}
+                            value={userInfo.email}
                             type='email'
                             startDecorator={<EmailRoundedIcon />}
                             endDecorator={
