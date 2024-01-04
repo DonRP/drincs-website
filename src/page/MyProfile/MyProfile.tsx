@@ -117,12 +117,20 @@ export default function MyProfile() {
                         variant="outlined"
                         color='danger'
                         disabled={isLoading}
+                        sx={{
+                            whitespace: "nowrap",
+                            minWidth: "max-content"
+                        }}
                     >
                         {t("delete_account")}
                     </DRButtonNoMargin>
                     <DRButtonNoMargin
                         size="sm"
                         disabled={isLoading}
+                        sx={{
+                            whitespace: "nowrap",
+                            minWidth: "max-content"
+                        }}
                     >
                         {t("edit_password")}
                     </DRButtonNoMargin>
@@ -130,6 +138,10 @@ export default function MyProfile() {
                         size="sm"
                         variant="solid"
                         disabled={isLoading}
+                        sx={{
+                            whitespace: "nowrap",
+                            minWidth: "max-content"
+                        }}
                     >
                         {t("edit")}
                     </DRButtonNoMargin>
