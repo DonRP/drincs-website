@@ -37,6 +37,7 @@ function DRTextarea(props: IProps<string>) {
                 label={label}
                 helperText={helperText}
                 required={required}
+                error={error || errorFields.includes(fieldName)}
             >
                 <Textarea
                     {...rest}
