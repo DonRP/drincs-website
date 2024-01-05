@@ -147,6 +147,18 @@ class BaseRestService {
             });
     }
 
+    async postFileRequest<T>(url: string, body: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        let headers = this.inizialHeaders(token, tokenType)
+        headers["headers"]["Content-Type"] = "multipart/form-data"
+        return axios.post<HttpResponse<T>>(url, body, headers)
+            .then(response => {
+                return response?.data
+            })
+            .catch((ex) => {
+                throw this.catchResult(ex)
+            });
+    }
+
     geToken(): string | null {
         return localStorage.getItem("access_token") ?? sessionStorage.getItem("access_token")
     }

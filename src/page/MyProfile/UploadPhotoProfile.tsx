@@ -6,7 +6,8 @@ import DRIconButton from 'components/DRIconButton';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showToast } from 'utility/ShowToast';
+import AuthService from 'services/AuthService';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',
@@ -21,7 +22,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function UploadPhotoProfile() {
-    const [image, setImage] = useState({ preview: '', data: '' })
+    const [image, setImage] = useState({ preview: '', data: '', name: '' })
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
     const [openDeleteConfirm, setOpenDeleteConfirm] = useState<boolean>(false)
@@ -30,6 +31,7 @@ export default function UploadPhotoProfile() {
         const img = {
             preview: URL.createObjectURL(e.target.files[0]),
             data: e.target.files[0],
+            name: e.target.files[0].name
         }
         if (img.data.size > 1000000) {
             showToast(t("file_size_must_be_less_than_1mb"), 'warning', enqueueSnackbar)
@@ -72,6 +74,21 @@ export default function UploadPhotoProfile() {
                 head={<>
                     {t('upload_image')}
                 </>}
+                onClickAsync={async () => {
+                    let authService = new AuthService()
+                    return authService.updateProfileImage(image.data, image.name).then((res) => {
+                        if (res) {
+                            showToast(t("edit_success"), 'success', enqueueSnackbar)
+                            return true
+                        } else {
+                            showToast(t("err_generic"), 'error', enqueueSnackbar)
+                            return false
+                        }
+                    }).catch((err) => {
+                        showToastByMyError(err, enqueueSnackbar, t)
+                        return false
+                    })
+                }}
             >
                 <AspectRatio
                     ratio="1"
