@@ -137,6 +137,16 @@ class BaseRestService {
             });
     }
 
+    async deleteRequest<T>(url: string, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.delete<HttpResponse<T>>(url, this.inizialHeaders(token, tokenType))
+            .then(response => {
+                return response?.data
+            })
+            .catch((ex) => {
+                throw this.catchResult(ex)
+            });
+    }
+
     geToken(): string | null {
         return localStorage.getItem("access_token") ?? sessionStorage.getItem("access_token")
     }

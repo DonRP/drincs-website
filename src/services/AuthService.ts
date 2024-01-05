@@ -153,6 +153,25 @@ class AuthService extends BaseRestService {
             });
     }
 
+    async delteAccount() {
+        let token = this.geToken()
+        if (!token) {
+            console.error("AuthService.getProfile token not found")
+            throw new MyError("err_token_not_found")
+        }
+
+        return this.deleteRequest<boolean>(this.urlwebapi + `/Auth/DeleteAccount`, token)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                return true
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
     logOut() {
         localStorage.removeItem("access_token");
         sessionStorage.removeItem("access_token");

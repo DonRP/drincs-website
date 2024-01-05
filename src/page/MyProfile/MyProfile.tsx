@@ -15,6 +15,7 @@ import { useGetProfileCache } from 'use_query/useGetUser';
 import { showToast } from 'utility/ShowToast';
 import MyProfileCard from './MyProfileCard';
 import ResendVerificationMailButton from './ResendVerificationMailButton';
+import UserDeleteButton from './UserDeleteButton';
 
 export default function MyProfile() {
     const { t } = useTranslation(["translation"]);
@@ -110,18 +111,7 @@ export default function MyProfile() {
             }
             actions={
                 <>
-                    <DRButtonNoMargin
-                        size="sm"
-                        variant="outlined"
-                        color='danger'
-                        disabled={isLoading}
-                        sx={{
-                            whitespace: "nowrap",
-                            minWidth: "max-content"
-                        }}
-                    >
-                        {t("delete_account")}
-                    </DRButtonNoMargin>
+                    <UserDeleteButton />
                     <DRButtonNoMargin
                         size="sm"
                         disabled={isLoading}
