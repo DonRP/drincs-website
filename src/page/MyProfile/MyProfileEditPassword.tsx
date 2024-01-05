@@ -1,4 +1,4 @@
-import { Stack } from '@mui/joy';
+import { Box } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
 import { DRButtonNoMargin } from 'components/DRButton';
 import { DRTextFieldPassword } from 'components/DRTextField';
@@ -81,7 +81,7 @@ export default function MyProfileEditPassword() {
                 </>
             }
             body={
-                <Stack spacing={2} sx={{ flexGrow: 1 }}>
+                <Box sx={{ flexGrow: 1 }}>
                     <DRTextFieldPassword
                         fieldName="password"
                         label={t('password')}
@@ -96,6 +96,7 @@ export default function MyProfileEditPassword() {
                             setIsChanged(true)
                         }}
                         helperText={t('password_helper')}
+                        sx={{ mb: 2 }}
                     />
                     <DRTextFieldPassword
                         fieldName="repeatPassword"
@@ -112,7 +113,7 @@ export default function MyProfileEditPassword() {
                         error={notEqualPassword}
                         addHelperMarginIfIsHidden
                     />
-                </Stack>
+                </Box>
             }
             actions={
                 <>

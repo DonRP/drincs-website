@@ -1,4 +1,4 @@
-import { Stack } from '@mui/joy';
+import { Box } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
 import { useQueryClient } from '@tanstack/react-query';
 import { DRButtonNoMargin } from 'components/DRButton';
@@ -83,7 +83,7 @@ export default function MyProfileEdit() {
                 </>
             }
             body={
-                <Stack spacing={2} sx={{ flexGrow: 1 }}>
+                <Box sx={{ flexGrow: 1 }}>
                     <DRTextField
                         fieldName="displayName"
                         label={t("username")}
@@ -94,6 +94,7 @@ export default function MyProfileEdit() {
                             setIsChanged(true)
                         }}
                         required
+                        sx={{ mb: 2 }}
                     />
                     <DRTextField
                         fieldName="email"
@@ -118,7 +119,7 @@ export default function MyProfileEdit() {
                         type='email'
                         required
                     />
-                </Stack>
+                </Box>
             }
             actions={
                 <>
