@@ -1,11 +1,9 @@
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRChip from 'components/DRChip';
-import DRIconButton from 'components/DRIconButton';
 import { DRTextFieldNotEditable } from 'components/DRTextField';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
@@ -15,6 +13,7 @@ import { useGetProfileCache } from 'use_query/useGetUser';
 import { showToast } from 'utility/ShowToast';
 import MyProfileCard from './MyProfileCard';
 import ResendVerificationMailButton from './ResendVerificationMailButton';
+import UploadPhotoProfile from './UploadPhotoProfile';
 import UserDeleteButton from './UserDeleteButton';
 
 export default function MyProfile() {
@@ -56,23 +55,7 @@ export default function MyProfile() {
                                 alt=""
                             />
                         </AspectRatio>
-                        <DRIconButton
-                            ariaLabel={t("edit")}
-                            size="sm"
-                            variant="outlined"
-                            color="neutral"
-                            sx={{
-                                bgcolor: 'background.body',
-                                position: 'absolute',
-                                zIndex: 2,
-                                borderRadius: '50%',
-                                left: 100,
-                                top: 170,
-                                boxShadow: 'sm',
-                            }}
-                        >
-                            <EditRoundedIcon />
-                        </DRIconButton>
+                        <UploadPhotoProfile />
                     </Stack>
                     <Stack spacing={2} sx={{ flexGrow: 1 }}>
                         <DRTextFieldNotEditable
