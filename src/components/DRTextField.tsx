@@ -108,7 +108,6 @@ export function DRTextFieldPassword<T extends DefaultValueTypeTextField>(props: 
 
     return (
         <DRTextField
-            placeholder="password"
             type={showPassword ? 'text' : 'password'}
             endDecorator={
                 <IconButton size="sm"

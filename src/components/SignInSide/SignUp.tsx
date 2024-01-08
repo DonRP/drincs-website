@@ -1,6 +1,6 @@
 import { Grid, Typography } from '@mui/joy';
 import { DRButtonSignInSide } from 'components/DRButton';
-import DRTextField from "components/DRTextField";
+import DRTextField, { DRTextFieldPassword } from "components/DRTextField";
 import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
@@ -101,7 +101,7 @@ function SignUp(props: IPros) {
                 type='email'
                 errorFields={errorFields}
             />
-            <DRTextField
+            <DRTextFieldPassword
                 fieldName="password"
                 label={t("password")}
                 defaultValue={account.password}

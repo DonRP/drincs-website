@@ -3,7 +3,7 @@ import KeyIcon from '@mui/icons-material/Key';
 import { Grid, Link, Typography } from '@mui/joy';
 import { DRButtonSignInSide } from 'components/DRButton';
 import DRErrorComponent from 'components/DRErrorComponent';
-import DRTextField from 'components/DRTextField';
+import DRTextField, { DRTextFieldPassword } from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
@@ -121,7 +121,7 @@ function Login(props: ISignInSidePageProps) {
                         errorFields={errorFields}
                         startDecorator={<EmailRoundedIcon />}
                     />
-                    <DRTextField
+                    <DRTextFieldPassword
                         fieldName="password"
                         label={t("password")}
                         defaultValue={account.password}
@@ -131,6 +131,11 @@ function Login(props: ISignInSidePageProps) {
                         required
                         errorFields={errorFields}
                         startDecorator={<KeyIcon />}
+                        onKeyDown={(ev) => {
+                            if (ev.key === 'Enter') {
+                                handelLogin()
+                            }
+                        }}
                     />
                     <DRCheckBox
                         fieldName="rememberMe"
