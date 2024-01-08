@@ -6,7 +6,7 @@ import DRTextField from 'components/DRTextField';
 import { EditProfile } from 'model/Auth/EditProfile';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import AuthService from 'services/AuthService';
@@ -36,6 +36,9 @@ export default function MyProfileEdit() {
     const [isChanged, setIsChanged] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
     const queryClient = useQueryClient()
+    useEffect(() => {
+        setUserInfo(data)
+    }, [data])
 
     const handel = () => {
         setLoading(true)

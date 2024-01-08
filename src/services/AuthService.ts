@@ -172,7 +172,7 @@ class AuthService extends BaseRestService {
             });
     }
 
-    async updateProfileImage(image: any, name: string) {
+    async updateProfileImage(image: any, name: string): Promise<string> {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
@@ -182,12 +182,12 @@ class AuthService extends BaseRestService {
         formData.append('file', image)
         formData.append('name', name)
 
-        return this.postFileRequest<UserProfile>(this.urlwebapi + `/Auth/EditImageProfile`, formData, token)
+        return this.postFileRequest<string>(this.urlwebapi + `/Auth/EditImageProfile`, formData, token)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
-                return true
+                return response.content || ""
             })
             .catch((res) => {
                 throw res

@@ -22,7 +22,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 type IProps = {
-    afterSave: () => void
+    afterSave: (image: string) => void
 }
 
 export default function UploadPhotoProfile(props: IProps) {
@@ -84,7 +84,7 @@ export default function UploadPhotoProfile(props: IProps) {
                     return authService.updateProfileImage(image.data, image.name).then((res) => {
                         if (res) {
                             showToast(t("edit_success"), 'success', enqueueSnackbar)
-                            afterSave()
+                            afterSave(res)
                             return true
                         } else {
                             showToast(t("err_generic"), 'error', enqueueSnackbar)

@@ -2,15 +2,15 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
-import { useQueryClient } from '@tanstack/react-query';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRChip from 'components/DRChip';
 import { DRTextFieldNotEditable } from 'components/DRTextField';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
+import { useGetProfileCache } from 'use_query/useGetUser';
 import { showToast } from 'utility/ShowToast';
 import MyProfileCard from './MyProfileCard';
 import ResendVerificationMailButton from './ResendVerificationMailButton';
@@ -21,15 +21,21 @@ export default function MyProfile() {
     const { t } = useTranslation(["translation"]);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
-    const queryClient = useQueryClient()
     const {
         isLoading,
-        data: userInfo = new UserProfile(),
+        data = new UserProfile(),
     } = useGetProfileCache({
+        then: (data) => {
+            setUserInfo(data)
+        },
         catch: (err) => {
             showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
         },
     })
+    const [userInfo, setUserInfo] = useState<UserProfile>(data)
+    useEffect(() => {
+        setUserInfo(data)
+    }, [data])
 
     return (
         <MyProfileCard
@@ -58,8 +64,11 @@ export default function MyProfile() {
                             />
                         </AspectRatio>
                         <UploadPhotoProfile
-                            afterSave={() => {
-                                queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+                            afterSave={(image) => {
+                                setUserInfo({
+                                    ...userInfo,
+                                    photoURL: image
+                                })
                             }}
                         />
                     </Stack>
