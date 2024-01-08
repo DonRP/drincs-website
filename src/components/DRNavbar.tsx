@@ -45,11 +45,22 @@ function DRNavbar(props: IDRNavbarProps) {
     const loginTitle = t("login");
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
+    const logOutOnClick = () => () => {
+        let authService = new AuthService();
+        authService.logOut()
+        location.pathname.includes("/profile") && navigate("/");
+        queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+        handleCloseUserMenu()
+    }
     const {
         isLoading,
         data: userInfo = new UserProfile(),
     } = useGetProfileCache({
         catch: (err) => {
+            if (err?.messagesToShow === 'api_jwt_expired') {
+                showToast(t("api_jwt_expired"), "warning", enqueueSnackbar)
+                logOutOnClick()
+            }
             showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
         },
     })
@@ -281,13 +292,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                         }}>
                                             <Typography textAlign="center">{t("my_profile")}</Typography>
                                         </MenuItem>
-                                        <MenuItem onClick={() => {
-                                            let authService = new AuthService();
-                                            authService.logOut()
-                                            location.pathname === "/profile" && navigate("/");
-                                            queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
-                                            handleCloseUserMenu()
-                                        }}>
+                                        <MenuItem onClick={logOutOnClick}>
                                             <Typography textAlign="center">{t("log_out")}</Typography>
                                         </MenuItem>
                                     </Menu>

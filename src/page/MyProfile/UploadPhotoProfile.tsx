@@ -21,11 +21,16 @@ const VisuallyHiddenInput = styled('input')({
     width: 1,
 });
 
-export default function UploadPhotoProfile() {
+type IProps = {
+    afterSave: () => void
+}
+
+export default function UploadPhotoProfile(props: IProps) {
     const [image, setImage] = useState({ preview: '', data: '', name: '' })
     const { t } = useTranslation(["translation"]);
     const { enqueueSnackbar } = useSnackbar();
     const [openDeleteConfirm, setOpenDeleteConfirm] = useState<boolean>(false)
+    const { afterSave } = props
 
     const handleFileChange = (e: any) => {
         const img = {
@@ -79,6 +84,7 @@ export default function UploadPhotoProfile() {
                     return authService.updateProfileImage(image.data, image.name).then((res) => {
                         if (res) {
                             showToast(t("edit_success"), 'success', enqueueSnackbar)
+                            afterSave()
                             return true
                         } else {
                             showToast(t("err_generic"), 'error', enqueueSnackbar)

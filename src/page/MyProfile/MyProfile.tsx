@@ -2,6 +2,7 @@ import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
+import { useQueryClient } from '@tanstack/react-query';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRChip from 'components/DRChip';
 import { DRTextFieldNotEditable } from 'components/DRTextField';
@@ -9,7 +10,7 @@ import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { useGetProfileCache } from 'use_query/useGetUser';
+import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
 import { showToast } from 'utility/ShowToast';
 import MyProfileCard from './MyProfileCard';
 import ResendVerificationMailButton from './ResendVerificationMailButton';
@@ -20,6 +21,7 @@ export default function MyProfile() {
     const { t } = useTranslation(["translation"]);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+    const queryClient = useQueryClient()
     const {
         isLoading,
         data: userInfo = new UserProfile(),
@@ -55,7 +57,11 @@ export default function MyProfile() {
                                 alt=""
                             />
                         </AspectRatio>
-                        <UploadPhotoProfile />
+                        <UploadPhotoProfile
+                            afterSave={() => {
+                                queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+                            }}
+                        />
                     </Stack>
                     <Stack spacing={2} sx={{ flexGrow: 1 }}>
                         <DRTextFieldNotEditable
