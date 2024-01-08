@@ -8,14 +8,13 @@ import { LoginAccount } from 'model/Auth/LoginAccount';
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showMessage } from 'services/BaseRestService';
+import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
 import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
 
 function Login(props: ISignInSidePageProps) {
-    var validator = require('validator');
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [rememberMe, setRememberMe] = useState<boolean>(true)
@@ -23,30 +22,23 @@ function Login(props: ISignInSidePageProps) {
     const [loading, setLoading] = useState<boolean>(false)
     const { authService, enqueueSnackbar, onClose } = props;
     const { t } = useTranslation(["translation"]);
+    const [notValidEmail, setNotValidEmail] = useState<boolean>(false)
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
-        if (isEmptyOrSpaces(account.email)) {
-            fields.push("email")
+        if (!account.email || notValidEmail) {
+            fields.push('email')
         }
         if (isEmptyOrSpaces(account.password)) {
             fields.push("password")
-        }
-        if (!validator.isEmail(account.email)) {
-            fields.push("email")
-            showMessage(enqueueSnackbar, t("invalid_email"), 'error');
         }
         return fields;
     }
 
     const validateForgotPassword = (account: LoginAccount): string[] => {
         let fields = [];
-        if (isEmptyOrSpaces(account.email)) {
-            fields.push("email")
-        }
-        if (!validator.isEmail(account.email)) {
-            fields.push("email")
-            showMessage(enqueueSnackbar, t("invalid_email"), 'error');
+        if (!account.email || notValidEmail) {
+            fields.push('email')
         }
         return fields;
     }
@@ -120,6 +112,17 @@ function Login(props: ISignInSidePageProps) {
                         autoFocus
                         errorFields={errorFields}
                         startDecorator={<EmailRoundedIcon />}
+                        addHelperMarginIfIsHidden
+                        helperText={notValidEmail ? t('invalid_email') : ''}
+                        error={notValidEmail}
+                        onBlurGeneric={(fieldName, value) => {
+                            if (value && !checkIfIsValidEmail(account.email)) {
+                                setNotValidEmail(true)
+                            }
+                            else {
+                                setNotValidEmail(false)
+                            }
+                        }}
                     />
                     <DRTextFieldPassword
                         fieldName="password"
@@ -131,6 +134,7 @@ function Login(props: ISignInSidePageProps) {
                         required
                         errorFields={errorFields}
                         startDecorator={<KeyIcon />}
+                        addHelperMarginIfIsHidden
                         onKeyDown={(ev) => {
                             if (ev.key === 'Enter') {
                                 handelLogin()
@@ -180,6 +184,17 @@ function Login(props: ISignInSidePageProps) {
                         autoFocus
                         errorFields={errorFields}
                         startDecorator={<EmailRoundedIcon />}
+                        addHelperMarginIfIsHidden
+                        error={notValidEmail}
+                        helperText={notValidEmail ? t('invalid_email') : ''}
+                        onBlurGeneric={(fieldName, value) => {
+                            if (value && !checkIfIsValidEmail(account.email)) {
+                                setNotValidEmail(true)
+                            }
+                            else {
+                                setNotValidEmail(false)
+                            }
+                        }}
                     />
                     <DRButtonSignInSide
                         onClick={handelForgotPassword}

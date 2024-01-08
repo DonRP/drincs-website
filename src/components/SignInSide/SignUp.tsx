@@ -5,7 +5,7 @@ import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { showMessage } from 'services/BaseRestService';
+import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
 import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
@@ -15,10 +15,10 @@ interface IPros extends ISignInSidePageProps {
 }
 
 function SignUp(props: IPros) {
-    var validator = require('validator');
     const [account, setAccount] = useState<NewAccountRecord>(new NewAccountRecord());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [loading, setLoading] = useState<boolean>(false)
+    const [notValidEmail, setNotValidEmail] = useState<boolean>(false)
     const {
         authService,
         enqueueSnackbar,
@@ -28,18 +28,14 @@ function SignUp(props: IPros) {
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
         let fields = [];
-        if (isEmptyOrSpaces(account.email)) {
-            fields.push("email")
+        if (!account.email || notValidEmail) {
+            fields.push('email')
         }
         if (isEmptyOrSpaces(account.password)) {
             fields.push("password")
         }
         if (isEmptyOrSpaces(account.displayName)) {
             fields.push("displayName")
-        }
-        if (!validator.isEmail(account.email)) {
-            fields.push("email")
-            showMessage(enqueueSnackbar, t("invalid_email"), 'error');
         }
         return fields;
     }
@@ -100,6 +96,17 @@ function SignUp(props: IPros) {
                 autoComplete="email"
                 type='email'
                 errorFields={errorFields}
+                addHelperMarginIfIsHidden
+                helperText={notValidEmail ? t('invalid_email') : ''}
+                error={notValidEmail}
+                onBlurGeneric={(fieldName, value) => {
+                    if (value && !checkIfIsValidEmail(account.email)) {
+                        setNotValidEmail(true)
+                    }
+                    else {
+                        setNotValidEmail(false)
+                    }
+                }}
             />
             <DRTextFieldPassword
                 fieldName="password"
