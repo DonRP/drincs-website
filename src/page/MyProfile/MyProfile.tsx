@@ -1,4 +1,6 @@
+import EditIcon from '@mui/icons-material/Edit';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import KeyIcon from '@mui/icons-material/Key';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
@@ -120,6 +122,7 @@ export default function MyProfile() {
                         onClick={() => {
                             navigate("/profile/change-password");
                         }}
+                        startDecorator={<KeyIcon />}
                     >
                         {t("edit_password")}
                     </DRButtonNoMargin>
@@ -134,6 +137,7 @@ export default function MyProfile() {
                         onClick={() => {
                             navigate("/profile/edit");
                         }}
+                        startDecorator={<EditIcon />}
                     >
                         {t("edit")}
                     </DRButtonNoMargin>

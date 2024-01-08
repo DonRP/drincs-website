@@ -1,3 +1,5 @@
+import SaveIcon from '@mui/icons-material/Save';
+import UndoIcon from '@mui/icons-material/Undo';
 import { Box } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
 import { DRButtonNoMargin } from 'components/DRButton';
@@ -128,6 +130,7 @@ export default function MyProfileEditPassword() {
                         onClick={() => {
                             navigate("/profile");
                         }}
+                        startDecorator={<UndoIcon />}
                     >
                         {t("cancel")}
                     </DRButtonNoMargin>
@@ -141,6 +144,7 @@ export default function MyProfileEditPassword() {
                         disabled={!isChanged}
                         onClick={handel}
                         loading={loading}
+                        startDecorator={<SaveIcon />}
                     >
                         {t("save")}
                     </DRButtonNoMargin>

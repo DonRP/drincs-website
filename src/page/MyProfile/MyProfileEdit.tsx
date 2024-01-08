@@ -1,3 +1,5 @@
+import SaveIcon from '@mui/icons-material/Save';
+import UndoIcon from '@mui/icons-material/Undo';
 import { Box } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
 import { useQueryClient } from '@tanstack/react-query';
@@ -137,6 +139,7 @@ export default function MyProfileEdit() {
                         onClick={() => {
                             navigate("/profile");
                         }}
+                        startDecorator={<UndoIcon />}
                     >
                         {t("cancel")}
                     </DRButtonNoMargin>
@@ -150,6 +153,7 @@ export default function MyProfileEdit() {
                         disabled={!isChanged}
                         onClick={handel}
                         loading={loading}
+                        startDecorator={<SaveIcon />}
                     >
                         {t("save")}
                     </DRButtonNoMargin>
