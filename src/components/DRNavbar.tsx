@@ -45,7 +45,7 @@ function DRNavbar(props: IDRNavbarProps) {
     const loginTitle = t("login");
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
-    const logOutOnClick = () => () => {
+    const logOutOnClick = () => {
         let authService = new AuthService();
         authService.logOut()
         location.pathname.includes("/profile") && navigate("/");
