@@ -14,7 +14,7 @@ export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?
     enqueueSnackbar(message, { variant });
 };
 
-const use_local_webapi = false
+const use_local_webapi = true
 
 export function geturlwebapi(): string {
     if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
@@ -49,15 +49,7 @@ class BaseRestService {
     private catchResult(ex: any): MyError {
         let res = new MyError()
         if (ex instanceof AxiosError) {
-            if (ex.code === AxiosError.ERR_NETWORK) {
-                res.messages = ex.response?.data?.messages
-                res.messagesToShow = "There was an error a network error"
-            }
-            if (ex.code === AxiosError.ERR_BAD_REQUEST) {
-                res.messages = AxiosError.ERR_BAD_REQUEST
-                res.messagesToShow = "There was an error a bad request"
-            }
-            else if (ex.response?.data) {
+            if (ex.response?.data) {
                 try {
                     if (ex.response?.data?.messages) {
                         res.messages = ex.response?.data?.messages
@@ -69,12 +61,20 @@ class BaseRestService {
                         res.messagesToShow = ex.response?.data?.message
                     }
                     else {
-                        res.messagesToShow = "There was an error in the server"
+                        res.messagesToShow = "error_server"
                     }
                 }
                 catch (ex) {
                     logError("BaseRestService.catchResult() error", ex)
                 }
+            }
+            else if (ex.code === AxiosError.ERR_NETWORK) {
+                res.messages = ex.response?.data?.messages
+                res.messagesToShow = "error_network"
+            }
+            else if (ex.code === AxiosError.ERR_BAD_REQUEST) {
+                res.messages = AxiosError.ERR_BAD_REQUEST
+                res.messagesToShow = "error_bad_request"
             }
         }
         else if (ex instanceof MyError) {
@@ -125,6 +125,42 @@ class BaseRestService {
             .catch((ex) => {
                 throw this.catchResult(ex)
             });
+    }
+
+    async putRequest<T>(url: string, body: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.put<HttpResponse<T>>(url, body, this.inizialHeaders(token, tokenType))
+            .then(response => {
+                return response?.data
+            })
+            .catch((ex) => {
+                throw this.catchResult(ex)
+            });
+    }
+
+    async deleteRequest<T>(url: string, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        return axios.delete<HttpResponse<T>>(url, this.inizialHeaders(token, tokenType))
+            .then(response => {
+                return response?.data
+            })
+            .catch((ex) => {
+                throw this.catchResult(ex)
+            });
+    }
+
+    async postFileRequest<T>(url: string, body: any = {}, token?: string, tokenType?: string): Promise<HttpResponse<T>> {
+        let headers = this.inizialHeaders(token, tokenType)
+        headers["headers"]["Content-Type"] = "multipart/form-data"
+        return axios.post<HttpResponse<T>>(url, body, headers)
+            .then(response => {
+                return response?.data
+            })
+            .catch((ex) => {
+                throw this.catchResult(ex)
+            });
+    }
+
+    geToken(): string | null {
+        return localStorage.getItem("access_token") ?? sessionStorage.getItem("access_token")
     }
 }
 

@@ -1,14 +1,20 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import { CircularProgress } from '@mui/joy';
 import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import { useQueryClient } from '@tanstack/react-query';
 import { materialUseTheme } from 'Theme';
+import { UserProfile } from 'model/Auth/UserProfile';
+import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
-import AuthService, { getUserName, isLoggedIn } from 'services/AuthService';
+import AuthService, { isLoggedIn } from 'services/AuthService';
+import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
+import { showToast } from 'utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
 import DRLink from './DRLink';
 import DRLogo from './String/DRLogo';
@@ -32,11 +38,32 @@ function DRNavbar(props: IDRNavbarProps) {
     const materialTheme = materialUseTheme();
     const { t } = useTranslation(["translation"]);
     const location = useLocation();
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const { pages = [], supportPage, extern_link = [], openLogin } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const loginTitle = t("login");
+    const queryClient = useQueryClient()
+    const { enqueueSnackbar } = useSnackbar();
+    const logOutOnClick = () => () => {
+        let authService = new AuthService();
+        authService.logOut()
+        location.pathname.includes("/profile") && navigate("/");
+        queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+        handleCloseUserMenu()
+    }
+    const {
+        isLoading,
+        data: userInfo = new UserProfile(),
+    } = useGetProfileCache({
+        catch: (err) => {
+            if (err?.messagesToShow === 'api_jwt_expired') {
+                showToast(t("api_jwt_expired"), "warning", enqueueSnackbar)
+                logOutOnClick()
+            }
+            showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
+        },
+    })
 
     const transitionDuration = {
         enter: materialTheme.transitions.duration.enteringScreen,
@@ -69,6 +96,9 @@ function DRNavbar(props: IDRNavbarProps) {
             return false
         }
         if (location.pathname === "/") {
+            return false
+        }
+        if (location.pathname.includes("/profile")) {
             return false
         }
         return true;
@@ -236,7 +266,8 @@ function DRNavbar(props: IDRNavbarProps) {
                                 <>
                                     <Tooltip title={t("expand")}>
                                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            <Avatar alt={getUserName()} src="/static/images/avatar/2.jpg" />
+                                            {isLoading && <CircularProgress />}
+                                            {!isLoading && <Avatar alt={userInfo.displayName} src={userInfo.photoURL} />}
                                         </IconButton>
                                     </Tooltip>
                                     <Menu
@@ -255,11 +286,13 @@ function DRNavbar(props: IDRNavbarProps) {
                                         open={Boolean(anchorElUser)}
                                         onClose={handleCloseUserMenu}
                                     >
-                                        <MenuItem key={2} onClick={() => {
-                                            let authService = new AuthService();
-                                            authService.logOut()
+                                        <MenuItem onClick={() => {
+                                            navigate("/profile");
                                             handleCloseUserMenu()
                                         }}>
+                                            <Typography textAlign="center">{t("my_profile")}</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={logOutOnClick}>
                                             <Typography textAlign="center">{t("log_out")}</Typography>
                                         </MenuItem>
                                     </Menu>

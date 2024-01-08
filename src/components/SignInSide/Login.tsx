@@ -1,3 +1,5 @@
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import KeyIcon from '@mui/icons-material/Key';
 import { Grid, Link, Typography } from '@mui/joy';
 import { DRButtonSignInSide } from 'components/DRButton';
 import DRErrorComponent from 'components/DRErrorComponent';
@@ -37,7 +39,7 @@ function Login(props: ISignInSidePageProps) {
         return fields;
     }
 
-    const validateResetPassword = (account: LoginAccount): string[] => {
+    const validateForgotPassword = (account: LoginAccount): string[] => {
         let fields = [];
         if (isEmptyOrSpaces(account.email)) {
             fields.push("email")
@@ -69,12 +71,12 @@ function Login(props: ISignInSidePageProps) {
         }
     };
 
-    const handelResetPassword = () => {
+    const handelForgotPassword = () => {
         setLoading(true)
-        let errorFields = validateResetPassword(account)
+        let errorFields = validateForgotPassword(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            authService.resetPassword(account.email).then(res => {
+            authService.forgotPassword(account.email).then(res => {
                 if (res) {
                     showToast(t("success_send_mail_for_reset_password"), 'success', enqueueSnackbar)
                     setOpenChangePassword(false)
@@ -117,6 +119,7 @@ function Login(props: ISignInSidePageProps) {
                         required
                         autoFocus
                         errorFields={errorFields}
+                        startDecorator={<EmailRoundedIcon />}
                     />
                     <DRTextField
                         fieldName="password"
@@ -127,6 +130,7 @@ function Login(props: ISignInSidePageProps) {
                         type='password'
                         required
                         errorFields={errorFields}
+                        startDecorator={<KeyIcon />}
                     />
                     <DRCheckBox
                         fieldName="rememberMe"
@@ -170,9 +174,10 @@ function Login(props: ISignInSidePageProps) {
                         required
                         autoFocus
                         errorFields={errorFields}
+                        startDecorator={<EmailRoundedIcon />}
                     />
                     <DRButtonSignInSide
-                        onClick={handelResetPassword}
+                        onClick={handelForgotPassword}
                         loading={loading}
                     >
                         {t("send_mail")}

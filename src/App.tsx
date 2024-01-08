@@ -9,6 +9,9 @@ import { useI18n } from 'i18n';
 import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
 import Download from 'page/Download';
+import MyProfile from 'page/MyProfile/MyProfile';
+import MyProfileEdit from 'page/MyProfile/MyProfileEdit';
+import MyProfileEditPassword from 'page/MyProfile/MyProfileEditPassword';
 import Report from 'page/Report';
 import SignInSide from 'page/SignInSide';
 import Support from 'page/Support';
@@ -18,6 +21,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import { isLoggedIn } from 'services/AuthService';
 import { geturlwebapi } from 'services/BaseRestService';
 import './App.css';
 
@@ -36,9 +40,9 @@ function App() {
         { title: "🐞" + t("bug/requests"), path: "/report", element: <Report /> },
     ];
     const extern_link: IPageDRNavbar[] = [
-        { title: "💬discord", path: discordLink },
+        { title: "🔗Discord", path: discordLink },
         {
-            title: "GitHub", path: gitHubLink
+            title: "🔗GitHub", path: gitHubLink
         },
     ];
     const supportRoute = { title: t("support_us"), path: "/support", element: <Support /> }
@@ -73,6 +77,13 @@ function App() {
                                     <Route key="drincs" path="/drincs" element={<About />} />
                                     <Route key="a-big-family-in-debit" path="/a-big-family-in-debit" element={<About />} />
                                 </Routes>
+                                {isLoggedIn() &&
+                                    <Routes>
+                                        <Route key="profile" path="/profile" element={<MyProfile />} />
+                                        <Route key="profile-edit" path="/profile/edit" element={<MyProfileEdit />} />
+                                        <Route key="profile-change-password" path="/profile/change-password" element={<MyProfileEditPassword />} />
+                                    </Routes>
+                                }
                             </SnackbarProvider>
                         </RecoilRoot>
                     </QueryClientProvider>

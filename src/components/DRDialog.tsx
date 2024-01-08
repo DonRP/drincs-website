@@ -16,7 +16,7 @@ export interface IDRDialogProps extends ModalDialogProps {
     head?: string | React.ReactNode;
 }
 
-function DRDialog(props: IProps) {
+export default function DRDialog(props: IProps) {
     const {
         open
         , setOpen
@@ -52,5 +52,3 @@ function DRDialog(props: IProps) {
         </Modal>
     );
 }
-
-export default DRDialog;

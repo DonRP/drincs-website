@@ -7,6 +7,7 @@ export const BuyMeACoffeeLink = "https://www.buymeacoffee.com/drincsproductions"
 export const PatreonLink = "https://www.patreon.com/DRincsProductions"
 export const KofiLink = "https://ko-fi.com/drincsproductions"
 export const BoostyLink = "https://boosty.to/drincsproductions"
+export const validPasswordRegex = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\^$*.\\[\\]{}\\(\\)?\\-"!@#%&/\\\\,><\':;|_~`+=])\\S{8,}$';
 export enum DeviceABFD {
     WindowsOS = "Windows",
     Linux = "Linux",
