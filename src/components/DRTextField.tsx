@@ -33,7 +33,7 @@ export default function DRTextField<T extends DefaultValueTypeTextField>(props: 
         onBlurGeneric,
         addHelperMarginIfIsHidden,
         disabled,
-        error = errorFields.includes(fieldName),
+        error,
         maxLength = 100,
         slotProps,
         ...rest
@@ -52,7 +52,7 @@ export default function DRTextField<T extends DefaultValueTypeTextField>(props: 
                 label={label}
                 helperText={helperText}
                 required={required}
-                error={error}
+                error={error || errorFields.includes(fieldName)}
                 addHelperMarginIfIsHidden={addHelperMarginIfIsHidden}
             >
                 <Input
@@ -64,7 +64,7 @@ export default function DRTextField<T extends DefaultValueTypeTextField>(props: 
                     defaultValue={defaultValue}
                     type={type}
                     fullWidth={fullWidth}
-                    error={error}
+                    error={error || errorFields.includes(fieldName)}
                     disabled={disabled}
                     slotProps={{
                         input: {

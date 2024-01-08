@@ -28,6 +28,7 @@ function Login(props: ISignInSidePageProps) {
         let fields = [];
         if (!account.email || notValidEmail) {
             fields.push('email')
+            setNotValidEmail(true)
         }
         if (isEmptyOrSpaces(account.password)) {
             fields.push("password")
@@ -39,6 +40,7 @@ function Login(props: ISignInSidePageProps) {
         let fields = [];
         if (!account.email || notValidEmail) {
             fields.push('email')
+            setNotValidEmail(true)
         }
         return fields;
     }

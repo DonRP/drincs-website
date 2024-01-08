@@ -5,7 +5,7 @@ import { NewAccountRecord } from "model/Auth/NewAccountRecord";
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
+import { checkIfIsValidEmail, checkIfIsValidPassword } from 'utility/EmailPasswordUtility';
 import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
@@ -19,6 +19,7 @@ function SignUp(props: IPros) {
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [loading, setLoading] = useState<boolean>(false)
     const [notValidEmail, setNotValidEmail] = useState<boolean>(false)
+    const [notValidPassword, setNotValidPassword] = useState<boolean>(false)
     const {
         authService,
         enqueueSnackbar,
@@ -28,11 +29,13 @@ function SignUp(props: IPros) {
 
     const validateSignUp = (account: NewAccountRecord): string[] => {
         let fields = [];
-        if (!account.email || notValidEmail) {
+        if (isEmptyOrSpaces(account.email) || notValidEmail) {
             fields.push('email')
+            setNotValidEmail(true)
         }
-        if (isEmptyOrSpaces(account.password)) {
+        if (isEmptyOrSpaces(account.password) || notValidPassword) {
             fields.push("password")
+            setNotValidPassword(true)
         }
         if (isEmptyOrSpaces(account.displayName)) {
             fields.push("displayName")
@@ -112,13 +115,18 @@ function SignUp(props: IPros) {
                 fieldName="password"
                 label={t("password")}
                 defaultValue={account.password}
-                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                onChangeGeneric={(fieldName, value) => {
+                    handleInputChangeByFieldName(fieldName, value, account, setAccount)
+                    setNotValidPassword(!checkIfIsValidPassword(value as string))
+                }}
                 variant="outlined"
                 type='password'
                 required
                 fullWidth
                 autoComplete="current-password"
                 errorFields={errorFields}
+                error={notValidPassword}
+                helperText={t('password_helper')}
             />
             {/* // TODO: To Implement  */}
             {/* <FormControlLabel
