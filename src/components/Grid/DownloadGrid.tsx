@@ -6,6 +6,7 @@ import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import DRDataGrid from 'components/DRDataGrid';
 import DRIconButton from 'components/DRIconButton';
+import ItchIcon from 'components/Icon/ItchIcon';
 import { discordLink } from 'constant';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -16,6 +17,7 @@ type IDownloadLink = {
     mega?: string,
     mediafire?: string,
     discord?: boolean,
+    itch?: string,
     sha?: string,
 }
 type IDownloadDevice = {
@@ -127,6 +129,19 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
                                             }}
                                         >
                                             {t("only_supporter")}
+                                        </DRButtonNoMargin>
+                                    }
+                                </Grid>
+                                <Grid>
+                                    {params.value?.itch &&
+                                        <DRButtonNoMargin
+                                            variant='soft'
+                                            startDecorator={<ItchIcon />}
+                                            onClick={() => {
+                                                window.open(params.value?.itch)
+                                            }}
+                                        >
+                                            {"Itch.io"}
                                         </DRButtonNoMargin>
                                     }
                                 </Grid>
