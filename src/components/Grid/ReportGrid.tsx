@@ -2,7 +2,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
+import DRDataGrid from 'components/DRDataGrid';
 import DRIconButton from 'components/DRIconButton';
 
 type IReportLink = {
@@ -23,7 +23,7 @@ export type IReportGridRow = {
 const columns: GridColDef<IReportGridRow>[] = [
     {
         field: 'info',
-        headerName: 'Description',
+        headerName: '',
         flex: 1,
         renderCell: (params: GridRenderCellParams<IReportGridRow, IReportInto>) => (
             <Box
@@ -64,10 +64,11 @@ const columns: GridColDef<IReportGridRow>[] = [
                             <DRIconButton
                                 ariaLabel='Open Web-Form'
                                 variant="soft"
-                                icon={<OpenInNewIcon />}
                                 onClick={params.value.website}
                                 color='success'
-                            />
+                            >
+                                <OpenInNewIcon />
+                            </DRIconButton>
                         </Grid>
                     }
                     {params.value?.github &&
@@ -75,11 +76,12 @@ const columns: GridColDef<IReportGridRow>[] = [
                             <DRIconButton
                                 variant='soft'
                                 ariaLabel='Requires a GitHub account'
-                                icon={<GitHubIcon />}
                                 onClick={() => {
                                     window.open(params.value?.github)
                                 }}
-                            />
+                            >
+                                <GitHubIcon />
+                            </DRIconButton>
                         </Grid>
                     }
                 </Grid>
@@ -88,12 +90,15 @@ const columns: GridColDef<IReportGridRow>[] = [
     },
 ];
 
-interface IReportGridProps extends IDRDataGridProps<IReportGridRow> {
+interface IReportGridProps {
+    title: string,
+    rows: IReportGridRow[],
+    height?: number,
     githubLink: string,
 }
 
 function ReportGrid(props: IReportGridProps) {
-    const { title, data, logoImage, height, rowHeight, githubLink } = props;
+    const { title, rows: data, height, githubLink } = props;
 
     let internalData = data.map((d) => {
         if (!d.link.github) {
@@ -105,12 +110,11 @@ function ReportGrid(props: IReportGridProps) {
     return (
         <DRDataGrid
             title={title}
-            data={internalData}
+            rows={internalData}
             columns={columns}
-            logoImage={logoImage}
             height={height}
-            rowHeight={rowHeight}
             hideFooter
+            hideHeader
         />
     );
 }

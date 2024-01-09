@@ -4,15 +4,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import Grid from '@mui/joy/Grid';
 import { Card, CardMedia } from '@mui/material';
 import DRButton from 'components/DRButton';
-import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router';
 import { analyticPageView } from 'utility/Analytics';
-import './About.css';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
 // https://www.w3schools.com/howto/howto_css_blurred_background.asp
 
 function About() {
     analyticPageView("About")
+    let navigate = useNavigate();
+    const { t } = useTranslation(["translation"]);
 
     const Keyframes = styled("div")({
         animationName: "pulse",
@@ -37,7 +39,7 @@ function About() {
             <Card
                 elevation={24}
                 sx={{
-                    backgroundImage: `url(https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp)`,
+                    backgroundImage: `url(https://raw.githubusercontent.com/DRincs-Productions/ABFD/master/game/gui/main_menu.webp)`,
                     backgroundColor: "##000",
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
@@ -88,45 +90,43 @@ function About() {
                             bottom: "50px",
                         }}
                     >
-                        <Grid  >
-                            <Link
-                                to={"/support"}
-                                key={"logo_link"}
+                        <Grid>
+                            <DRButton
+                                key="support"
+                                sx={{
+                                    my: 2,
+                                    backgroundColor: "gold",
+                                    width: "40vh",
+                                    height: "8vh",
+                                    minHeight: "50px",
+                                    minWidth: "170px",
+                                    color: "black",
+                                }}
+                                startDecorator={<FavoriteIcon />}
+                                onClick={() => {
+                                    navigate("/support");
+                                }}
                             >
-                                <DRButton
-                                    key="support"
-                                    label='SUPPORT'
-                                    sx={{
-                                        my: 2,
-                                        backgroundColor: "gold",
-                                        width: "40vh",
-                                        height: "8vh",
-                                        minHeight: "50px",
-                                        minWidth: "170px",
-                                        color: "black",
-                                    }}
-                                    startIcon={<FavoriteIcon />}
-                                />
-                            </Link>
+                                {t("support_us").toLocaleUpperCase()}
+                            </DRButton>
                         </Grid>
-                        <Grid  >
-                            <Link
-                                to={"/download"}
-                                key={"logo_link"}
+                        <Grid>
+                            <DRButton
+                                key="download"
+                                sx={{
+                                    my: 2,
+                                    width: "40vh",
+                                    height: "8vh",
+                                    minHeight: "50px",
+                                    minWidth: "170px",
+                                }}
+                                endDecorator={<DownloadIcon />}
+                                onClick={() => {
+                                    navigate("/download");
+                                }}
                             >
-                                <DRButton
-                                    key="download"
-                                    label='DOWNLOAD'
-                                    sx={{
-                                        my: 2,
-                                        width: "40vh",
-                                        height: "8vh",
-                                        minHeight: "50px",
-                                        minWidth: "170px",
-                                    }}
-                                    endIcon={<DownloadIcon />}
-                                />
-                            </Link>
+                                {t("download").toLocaleUpperCase()}
+                            </DRButton>
                         </Grid>
                     </Grid>
                 </Grid>

@@ -18,14 +18,22 @@ nvm install node
 nvm ls
 node -v
 npm i
+# add translations files
+git submodule update --init --recursive
 ```
 
-# Deploy
+# Run App
 ```shell
 npm start
 ```
 
 after F5
+
+# Run Build
+```shell
+npm install -g serve
+serve -s build
+```
 
 # Interface
 The interface was developed with [MUI](https://mui.com/components/).

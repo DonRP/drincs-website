@@ -5,4 +5,9 @@ export enum ProjectsEnum {
     BigBrotherAS,
     BadMemories,
     WitchHunter,
+    ABFD,
+    WebSite,
+    DiscordBot,
+    AnotherChance,
+    NarutoShinobiLord,
 }

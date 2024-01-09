@@ -1,8 +1,10 @@
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { Box } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRDataGrid, { IDRDataGridProps } from 'components/DRDataGrid';
+import DRDataGrid from 'components/DRDataGrid';
+import { TFunction, t } from 'i18next';
 import { ReactElement } from 'react';
+import { useTranslation } from 'react-i18next';
 import { DRButtonNoMargin } from '../DRButton';
 
 export type IGifGridRow = {
@@ -10,54 +12,60 @@ export type IGifGridRow = {
     link: string,
 }
 
-const columns: GridColDef<IGifGridRow>[] = [
-    {
-        field: 'logo',
-        headerName: 'Site',
-        flex: 1,
-        minWidth: 25,
-        renderCell: (params: GridRenderCellParams<IGifGridRow, ReactElement>) => (
-            <strong>
-                {params.value}
-            </strong >
-        ),
-    },
-    {
-        field: 'link',
-        headerName: '',
-        minWidth: 200,
-        renderCell: (params: GridRenderCellParams<IGifGridRow, string>) => (
-            <strong>
-                <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                    <DRButtonNoMargin
-                        label='Start now'
-                        variant="outlined"
-                        onClick={() => {
-                            window.open(params.value)
-                        }}
-                        endIcon={<KeyboardArrowRight />}
-                    />
-                </Box>
-            </strong >
-        ),
-    },
-];
+const columns: (t: TFunction<[string]>) => GridColDef<IGifGridRow>[] = () => {
+    return [
+        {
+            field: 'logo',
+            headerName: '',
+            flex: 1,
+            minWidth: 25,
+            renderCell: (params: GridRenderCellParams<IGifGridRow, ReactElement>) => (
+                <strong>
+                    {params.value}
+                </strong >
+            ),
+        },
+        {
+            field: 'link',
+            headerName: '',
+            minWidth: 200,
+            renderCell: (params: GridRenderCellParams<IGifGridRow, string>) => (
+                <strong>
+                    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                        <DRButtonNoMargin
+                            variant="outlined"
+                            onClick={() => {
+                                window.open(params.value)
+                            }}
+                            endDecorator={<KeyboardArrowRight />}
+                        >
+                            {t("start_now")}
+                        </DRButtonNoMargin>
+                    </Box>
+                </strong >
+            ),
+        },
+    ];
+}
 
-interface IProps extends IDRDataGridProps<IGifGridRow> {
+interface IProps {
+    title: string,
+    rows: IGifGridRow[],
+    height?: number,
 }
 
 function GifsGrid(props: IProps) {
-    const { title, data, logoImage, height, rowHeight } = props;
+    const { title, rows: data, height } = props;
+    const { t } = useTranslation(["translation"]);
 
     return (
         <DRDataGrid
             title={title}
-            data={data}
-            columns={columns}
-            logoImage={logoImage}
+            rows={data}
+            columns={columns(t)}
             height={height}
-            rowHeight={rowHeight}
             hideFooter
+            hideHeader
         />
     );
 }

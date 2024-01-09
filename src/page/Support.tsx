@@ -1,5 +1,4 @@
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import WarningIcon from '@mui/icons-material/Warning';
@@ -9,8 +8,11 @@ import DRIconButton from 'components/DRIconButton';
 import DRStepperDots from 'components/DRStepperDots';
 import DRSupportCard from "components/DRSupportCard";
 import GifsGrid, { IGifGridRow } from 'components/Grid/GifsGrid';
+import BuyMeACoffeeIcon from 'components/Icon/BuyMeACoffeeIcon';
+import KofiIcon from 'components/Icon/KofiIcon';
 import PayPalIcon from 'components/Icon/PayPalIcon';
-import { gitHubLink } from "constant";
+import { BuyMeACoffeeLink, KofiLink, gitHubLink } from "constant";
+import { t } from 'i18next';
 import { ReactElement, useState } from 'react';
 import { analyticPageView } from "utility/Analytics";
 
@@ -78,14 +80,29 @@ const gifs: IGifGridRow[] = [
             sx={{ mr: 'auto' }}
             fontSize={20}
         >
-            <FreeBreakfastIcon />
+            <KofiIcon />
+            <Typography
+                ml={2}
+            >
+                Ko-fi
+            </Typography>
+        </Typography>,
+        link: KofiLink,
+    },
+    {
+        logo: <Typography
+            level="title-lg"
+            sx={{ mr: 'auto' }}
+            fontSize={20}
+        >
+            <BuyMeACoffeeIcon />
             <Typography
                 ml={2}
             >
                 Buy Me A Coffe
             </Typography>
         </Typography>,
-        link: "https://www.buymeacoffee.com/DRincs",
+        link: BuyMeACoffeeLink,
     },
     {
         logo: <Typography
@@ -142,13 +159,13 @@ function Support() {
                         color="warning"
                         startDecorator={<WarningIcon />}
                     >
-                        The awards are still under development. For more information read: <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
+                        {t("support_development_info") + " "} <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
                     </DRAlert>
                     <DRAlert
                         startDecorator={<FavoriteIcon />}
                         color="primary"
                     >
-                        Not support me just to get the benefits, but to make sure that I can spend more time on the project
+                        {t("not_support_us_for_benefits")}
                     </DRAlert>
                 </Stack>
                 {/* pc */}
@@ -170,11 +187,12 @@ function Support() {
                         spacing={4}
                     >
                         <DRIconButton
-                            icon={<NavigateBeforeIcon />}
-                            ariaLabel="Before"
+                            ariaLabel={t("before")}
                             size="sm"
                             onClick={handleBack}
-                        />
+                        >
+                            <NavigateBeforeIcon />
+                        </DRIconButton>
                         {data.map((item, index) => {
                             if (index === activeStep || index === activeStep + 1 || index === activeStep + 2)
                                 return <Grid>{item.card}</Grid>
@@ -182,22 +200,25 @@ function Support() {
                         })}
 
                         <DRIconButton
-                            icon={<NavigateNextIcon />}
-                            ariaLabel="Next"
+                            ariaLabel={t("next")}
                             size="sm"
                             onClick={handleNext}
-                        />
+                        >
+                            <NavigateNextIcon />
+                        </DRIconButton>
                     </Grid>
                     <Grid>
                         <DRStepperDots
                             steps={data.length - 2}
                             activeStep={activeStep}
+                            backButton={<></>}
+                            nextButton={<></>}
                         />
                     </Grid>
                 </Grid>
                 {/* mobile */}
                 <Tabs
-                    aria-label="Pricing plan"
+                    aria-label={t("pricing_plan")}
                     defaultValue={1}
                     variant="outlined"
                     sx={{
@@ -224,9 +245,9 @@ function Support() {
                 </Tabs>
                 {/* gifs */}
                 <GifsGrid
-                    title={"Gifs"}
-                    data={gifs}
-                    height={208}
+                    title={t("gifs")}
+                    rows={gifs}
+                    height={227}
                 />
             </Grid >
         </>

@@ -1,15 +1,18 @@
-import { Avatar, CssVarsProvider, Grid, Link, Modal, ModalClose, Sheet, Typography } from "@mui/joy";
+import EmailIcon from '@mui/icons-material/Email';
+import { Avatar, AvatarGroup, CssVarsProvider, Grid, Link, Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 import Copyright from "components/Copyright";
 import Login from "components/SignInSide/Login";
 import SignUp from "components/SignInSide/SignUp";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import AuthService, { isLoggedIn } from "services/AuthService";
 import { analyticPageView } from "utility/Analytics";
 
-export type ISignInSidePageProps = {
+export interface ISignInSidePageProps {
     authService: AuthService,
     enqueueSnackbar: (message: SnackbarMessage, options?: OptionsObject | undefined) => SnackbarKey,
+    onClose: () => void,
 }
 
 export type IProps = {
@@ -19,10 +22,11 @@ export type IProps = {
 
 function SignInSide(props: IProps) {
     analyticPageView("SignInSide")
-
+    const { t } = useTranslation(["translation"]);
     const [isLogin, setIsLogin] = useState<boolean>(true);
+    const [isCheckMail, setIsCheckMail] = useState<boolean>(false);
     const { enqueueSnackbar } = useSnackbar();
-    const authService = new AuthService(enqueueSnackbar);
+    const authService = new AuthService();
     const { onClose, open } = props;
 
     return (
@@ -65,42 +69,85 @@ function SignInSide(props: IProps) {
                                 bgcolor: 'background.surface',
                             }}
                         />
-                        <Grid>
-                            <div
-                                style={{
-                                    // margin: theme.spacing(2, 6),
-                                    display: "flex",
-                                    flexDirection: "column",
-                                    alignItems: "center"
-                                }}
-                            >
-                                <Avatar
-                                    src="logo512.png"
-                                    size="lg"
-                                    sx={{ width: 56, height: 56, marginBottom: 2 }}
-                                />
+                        {!isCheckMail ?
+                            <>
+                                <Grid>
+                                    <div
+                                        style={{
+                                            // margin: theme.spacing(2, 6),
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center"
+                                        }}
+                                    >
+                                        <Avatar
+                                            src="logo512.png"
+                                            size="lg"
+                                            sx={{ width: 56, height: 56, marginBottom: 2 }}
+                                        />
 
-                                {isLoggedIn() &&
-                                    "You are already logged in"
+                                        {isLoggedIn() &&
+                                            t("already_logged_in")
+                                        }
+                                    </div>
+                                </Grid>
+                                {isLogin ?
+                                    <Login authService={authService} enqueueSnackbar={enqueueSnackbar} onClose={onClose} /> :
+                                    <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} onClose={onClose} setEmailVerification={setIsCheckMail} />
                                 }
-                            </div>
-                        </Grid>
-                        {isLogin ?
-                            <Login authService={authService} enqueueSnackbar={enqueueSnackbar} /> :
-                            <SignUp authService={authService} enqueueSnackbar={enqueueSnackbar} />
-                        }
-                        <Typography
-                            mt={0.5}
-                            mb={2}
-                            endDecorator={<Link
-                                onClick={() => { setIsLogin((value) => !value) }}
+                                <Typography
+                                    mt={0.5}
+                                    mb={2}
+                                    endDecorator={<Link
+                                        onClick={() => { setIsLogin((value) => !value) }}
+                                    >
+                                        {isLogin ? t("sign_up") : t("sign_in")}
+                                    </Link>}
+                                    fontSize="sm"
+                                >
+                                    {isLogin ? t("dont_have_an_account") : t("do_have_account")}
+                                </Typography>
+                            </>
+                            :
+                            <Grid
+                                container
+                                direction="column"
+                                justifyContent="center"
+                                alignItems="center"
+                                marginTop={7}
+                                marginBottom={10}
                             >
-                                {isLogin ? "Sign Up" : "Sign in"}
-                            </Link>}
-                            fontSize="sm"
-                        >
-                            {isLogin ? "Don't have an account?" : "Already have an account?"}
-                        </Typography>
+                                <Grid>
+                                    <AvatarGroup
+                                        sx={{
+                                            "--Avatar-size": "70px"
+                                        }}
+                                    >
+                                        <Avatar>
+                                            <EmailIcon
+                                                color='primary'
+                                                sx={{ fontSize: 50 }}
+                                            />
+                                        </Avatar>
+                                    </AvatarGroup>
+                                </Grid>
+                                <Grid>
+                                    <Typography marginTop={1}>
+                                        {t("verification_mail_sent")}
+                                    </Typography>
+                                </Grid>
+                                <Grid>
+                                    <Link
+                                        onClick={() => {
+                                            setIsCheckMail(false)
+                                            setIsLogin(true)
+                                        }}
+                                    >
+                                        {t("back_to_sign_in")}
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        }
 
                         <Copyright />
                     </Sheet>

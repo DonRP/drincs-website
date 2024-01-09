@@ -27,9 +27,16 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install and ci and build
       env:
-        REACT_APP_API_KEY_CROWDIN: ${{ secrets.API_KEY_CROWDIN }}
-        REACT_APP_API_KEY_GITHUB: ${{ secrets.API_KEY_GITHUB }}
+        REACT_APP_LOGTAIL_WEBSITE_KEY: ${{ secrets.LOGTAIL_WEBSITE_KEY }}
+        REACT_APP_FIREBASE_WEBSITE_APIKEY: ${{ secrets.FIREBASE_WEBSITE_APIKEY }}
+        REACT_APP_FIREBASE_WEBSITE_AUTHDOMAIN: ${{ secrets.FIREBASE_WEBSITE_AUTHDOMAIN }}
+        REACT_APP_FIREBASE_WEBSITE_PROJECTID: ${{ secrets.FIREBASE_WEBSITE_PROJECTID }}
+        REACT_APP_FIREBASE_WEBSITE_STORAGEBUCKET: ${{ secrets.FIREBASE_WEBSITE_STORAGEBUCKET }}
+        REACT_APP_FIREBASE_WEBSITE_MESSAGINGSENDERID: ${{ secrets.FIREBASE_WEBSITE_MESSAGINGSENDERID }}
+        REACT_APP_FIREBASE_WEBSITE_APPID: ${{ secrets.FIREBASE_WEBSITE_APPID }}
+        REACT_APP_FIREBASE_WEBSITE_MEASUREMENTID: ${{ secrets.FIREBASE_WEBSITE_MEASUREMENTID }}
       run: |
+        git submodule update --init --recursive
         npm install
         npm ci
         npm run build

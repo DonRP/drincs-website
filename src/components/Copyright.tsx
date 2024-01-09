@@ -1,5 +1,6 @@
-import { Link, Typography } from "@mui/joy";
+import { Typography } from "@mui/joy";
 import { gitHubLink } from "constant";
+import DRLink from "./DRLink";
 
 function Copyright() {
     return (
@@ -8,12 +9,11 @@ function Copyright() {
             sx={{ alignSelf: 'center' }}
         >
             {"Copyright © "}
-            <Link
-                textColor={"text.secondary"}
-                href={gitHubLink + "/drincs-website"}
+            <DRLink
+                to={gitHubLink + "/drincs-website"}
             >
                 DRincs WebSite
-            </Link>{" "}
+            </DRLink>{" "}
             {new Date().getFullYear()}
         </Typography>
     );

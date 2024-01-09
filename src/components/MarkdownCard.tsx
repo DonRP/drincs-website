@@ -1,21 +1,27 @@
 import { Card } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { ElementContent, TransformLink } from "react-markdown/lib/ast-to-react";
-import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import Markdown, { Options, UrlTransform } from "react-markdown";
 import remarkGfm from 'remark-gfm';
 import './Markdown.css';
 
-type IMarkdownCardProps = {
+interface IMarkdownCardProps extends Options {
     markdownLink: string,
-    transformLinkUri?: TransformLink,
+    transformUrl?: UrlTransform,
     minWidth?: number,
+    maxWidth?: number,
 }
 
 function MarkdownCard(props: IMarkdownCardProps) {
+    const {
+        transformUrl = (url, key, node) => {
+            return url
+        },
+        markdownLink: url,
+        minWidth,
+        maxWidth,
+        ...rest
+    } = props
     const [text, setText] = useState("");
-    const url = props.markdownLink;
-    const transformLinkUri = props.transformLinkUri;
-    const minWidth = props.minWidth;
 
     useEffect(() => {
         fetch(url)
@@ -25,24 +31,24 @@ function MarkdownCard(props: IMarkdownCardProps) {
 
     return (
         <Card
-            // elevation={24}
             sx={{
-                maxWidth: 1000,
+                maxWidth: maxWidth,
                 minWidth: minWidth,
                 paddingX: 4,
                 paddingY: 2,
             }}
         >
-            <ReactMarkdown
+            <Markdown
                 children={text}
                 remarkPlugins={[remarkGfm]}
-                // https://dzone.com/articles/how-to-style-images-with-markdown
-                transformImageUri={(src: string, alt: string, title: string | null) => {
-                    return src + '#markdownimg'
+                urlTransform={(url, key, node) => {
+                    if (key === "src") { // image
+                        // https://dzone.com/articles/how-to-style-images-with-markdown
+                        return url + '#markdownimg'
+                    }
+                    return transformUrl(url, key, node)
                 }}
-                transformLinkUri={transformLinkUri ? transformLinkUri : (href: string, children: Array<ElementContent>, title: string | null) => {
-                    return href
-                }}
+                {...rest}
             />
         </Card>
     );

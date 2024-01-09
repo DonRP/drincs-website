@@ -1,36 +1,19 @@
-import { Button, ButtonSlotsAndSlotProps, Tooltip } from '@mui/joy';
-import { ColorPaletteProp, SxProps, VariantProp } from '@mui/joy/styles/types';
-import { ReactNode } from 'react';
+import { Button, ButtonProps, ButtonTypeMap, Tooltip } from '@mui/joy';
 import DRErrorComponent from './DRErrorComponent';
 
-export interface IDRButtonProps extends ButtonSlotsAndSlotProps {
-    label: string,
-    onClick?: () => void,
-    startIcon?: React.ReactNode,
-    children?: ReactNode,
-    disabled?: boolean,
+export interface IProps extends ButtonProps<ButtonTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+}> {
     ariaLabel?: string,
     marginTop?: number,
     marginBottom?: number,
     marginLeft?: number,
     marginRight?: number,
-    fullWidth?: boolean
-    variant?: VariantProp
-    color?: ColorPaletteProp
-    endIcon?: React.ReactNode
-    sx?: SxProps
-    size?: 'sm' | 'md' | 'lg'
-    loading?: boolean
-    autoFocus?: boolean
 }
 
-function DRButton(props: IDRButtonProps) {
+export default function DRButton(props: IProps) {
     const {
-        label,
-        onClick,
-        startIcon,
         children,
-        disabled,
         ariaLabel,
         marginTop = 20,
         marginBottom = 10,
@@ -39,11 +22,9 @@ function DRButton(props: IDRButtonProps) {
         fullWidth = true,
         variant = "solid",
         color = "primary",
-        endIcon,
         sx,
         size = "lg",
-        loading,
-        autoFocus,
+        ...rest
     } = props;
 
     try {
@@ -52,13 +33,12 @@ function DRButton(props: IDRButtonProps) {
                 title={ariaLabel}
             >
                 <Button
+                    {...rest}
                     fullWidth={fullWidth}
                     title={ariaLabel}
                     variant={variant}
                     color={color}
-                    disabled={disabled}
                     size={size}
-                    onClick={onClick}
                     sx={{
                         marginTop: marginTop,
                         marginBottom: marginBottom,
@@ -66,24 +46,19 @@ function DRButton(props: IDRButtonProps) {
                         marginRight: marginRight,
                         ...sx,
                     }}
-                    startDecorator={startIcon}
-                    endDecorator={endIcon}
-                    loading={loading}
-                    autoFocus={autoFocus}
                 >
                     <strong>
-                        {label}
                         {children}
                     </strong>
                 </Button>
             </Tooltip>
         );
     } catch (error) {
-        return <DRErrorComponent error={error} text={"DRButton"} />
+        return <DRErrorComponent error={error} text={"Button"} />
     }
 }
 
-export function DRButtonNoMargin(props: IDRButtonProps) {
+export function DRButtonNoMargin(props: IProps) {
     return (
         <DRButton
             marginBottom={0}
@@ -95,5 +70,16 @@ export function DRButtonNoMargin(props: IDRButtonProps) {
     );
 }
 
-
-export default DRButton;
+export function DRButtonSignInSide(props: IProps) {
+    return (
+        <DRButton
+            fullWidth
+            color="primary"
+            marginTop={2}
+            marginBottom={1}
+            marginLeft={0}
+            marginRight={0}
+            {...props}
+        />
+    );
+}

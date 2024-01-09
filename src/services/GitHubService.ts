@@ -1,30 +1,30 @@
+import { ProjectsEnum } from "enum/ProjectsEnum";
 import { HttpResponse } from "model/HttpResponse";
+import { MyError } from "model/MyError";
+import { GitHubCreateIssueBody } from "model/git/GitHubCreateIssueBody";
 import BaseRestService from "./BaseRestService";
 
 class GitService extends BaseRestService {
-    async createIssue(repo: string, title: string, body = "", labels: string[] = []): Promise<HttpResponse<any>> {
+    async createIssue(repo: ProjectsEnum, title: string, bodyIssue = "", labels: string[] = []): Promise<HttpResponse<string>> {
         if (!repo) {
             return new HttpResponse()
         }
 
-        return this.postRequest(this.urlwebapi + `/GitHub/CreateIssue?repositoryName=${repo}`, {
-            title,
-            body,
-            labels
-        })
+        let body: GitHubCreateIssueBody = {
+            title: title,
+            body: bodyIssue,
+            labels: labels,
+        }
+
+        return this.postRequest<string>(this.urlwebapi + `/GitHub/CreateIssue?projectId=${repo}`, body)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
-                    this.showMessage(response?.messagesToShow, 'error')
-                    throw new Error(body);
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
-                this.showMessage("The issue has been created. Thank you very much.", 'success');
                 return response;
             })
             .catch((res) => {
-                return res.response.json().then((body: any) => {
-                    this.showError(body)
-                    throw new Error(body);
-                });
+                throw res
             });
     }
 }

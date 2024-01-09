@@ -1,31 +1,46 @@
 import ImageIcon from '@mui/icons-material/Image';
+import SendIcon from '@mui/icons-material/Send';
+import UndoIcon from '@mui/icons-material/Undo';
+import { Theme, useMediaQuery } from '@mui/material';
 import DRAlert from 'components/DRAlert';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRDialog, { IDRDialogProps } from 'components/DRDialog';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import GitService from 'services/GitHubService';
 import { logError } from 'utility/Logger';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 
 interface ReportFormProps<T> extends IDRDialogProps {
     data: T,
     getData: () => ReportBody | undefined,
     clearData: () => void,
-    onClose: () => void,
 }
 
 export interface ReportBody {
-    repo: string,
+    repo: ProjectsEnum,
     title: string,
     body: string,
     labels: string[],
 }
 
+const githubService = new GitService()
+
 function ReportForm<T>(props: ReportFormProps<T>) {
-    const { children, onClose, getData, ...rest } = props;
+    const {
+        children,
+        setOpen,
+        getData,
+        layout,
+        clearData,
+        ...rest
+    } = props;
     const { enqueueSnackbar } = useSnackbar();
     const [loading, setLoading] = useState(false);
-    const githubService = useMemo(() => { return new GitService(enqueueSnackbar) }, [enqueueSnackbar]);
+    const { t } = useTranslation(["translation"]);
+    const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
 
     const handleSend = () => {
         setLoading(true)
@@ -36,9 +51,12 @@ function ReportForm<T>(props: ReportFormProps<T>) {
         }
         githubService.createIssue(data.repo, data.title, data.body, data.labels).then(res => {
             setLoading(false);
-            onClose()
+            setOpen(false)
+            clearData()
+            showToast(t("success_create_issue"), 'success', enqueueSnackbar)
         }).catch(err => {
             logError("send Report", err)
+            showToastByMyError(err, enqueueSnackbar, t)
             setLoading(false);
         })
     }
@@ -46,21 +64,29 @@ function ReportForm<T>(props: ReportFormProps<T>) {
     return (
         <DRDialog
             {...rest}
-            title={"Bug report"}
+            head={t("bug_reports")}
             maxWidth={"md"}
-            onClose={onClose}
+            setOpen={setOpen}
+            layout={smScreen ? "fullscreen" : layout}
+            minWidth={800}
             actions={
                 <>
                     <DRButtonNoMargin
-                        label='Cancel'
-                        onClick={onClose}
-                        disabled={loading}
-                    />
-                    <DRButtonNoMargin
-                        label='Send'
                         onClick={handleSend}
                         loading={loading}
-                    />
+                        endDecorator={<SendIcon />}
+                    >
+                        {t("send")}
+                    </DRButtonNoMargin>
+                    <DRButtonNoMargin
+                        onClick={() => setOpen(false)}
+                        disabled={loading}
+                        variant="outlined"
+                        color="neutral"
+                        startDecorator={<UndoIcon />}
+                    >
+                        {t("cancel")}
+                    </DRButtonNoMargin>
                 </>
             }
         >
@@ -68,7 +94,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             <DRAlert
                 startDecorator={< ImageIcon />}
             >
-                To add images or files you can use WeTransfer (or other methods to share files) and add the link to the text. Or use GitHub
+                {t("for_add_image_into_bug_report")}
             </DRAlert>
 
         </DRDialog>

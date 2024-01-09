@@ -1,10 +1,14 @@
 import Check from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
-import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
+import { BoostyLink, BuyMeACoffeeLink, KofiLink, PatreonLink } from 'constant';
+import { useTranslation } from 'react-i18next';
 import { DRButtonNoMargin } from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
+import BoostyIcon from './Icon/BoostyIcon';
+import BuyMeACoffeeIcon from './Icon/BuyMeACoffeeIcon';
+import KofiIcon from './Icon/KofiIcon';
 import PatreonIcon from './Icon/PatreonIcon';
 
 type IDRSupportCardProps = {
@@ -17,6 +21,7 @@ type IDRSupportCardProps = {
 }
 
 function DRSupportCard(props: IDRSupportCardProps) {
+    const { t } = useTranslation(["translation"]);
     const { title, month_price, year_price, discord_role, news, voting_power } = props;
 
     try {
@@ -38,7 +43,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                 >
                     {month_price}€{' '}
                     <Typography fontSize="sm" textColor="text.tertiary">
-                        / month
+                        {"/ " + t("month").toLocaleLowerCase()}
                     </Typography>
                 </Typography>
                 <Typography
@@ -48,7 +53,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                 >
                     {year_price}€{' '}
                     <Typography fontSize="sm" textColor="text.tertiary">
-                        / year
+                        {"/ " + t("year").toLocaleLowerCase()}
                     </Typography>
                 </Typography>
                 <Divider inset="none" />
@@ -57,19 +62,19 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         <ListItemDecorator>
                             {discord_role ? <Check /> : <ClearIcon />}
                         </ListItemDecorator>
-                        Discord Role
+                        {t("site_role", { site: "Discord" })}
                     </ListItem>
                     <ListItem>
                         <ListItemDecorator>
                             {news ? <Check /> : <ClearIcon />}
                         </ListItemDecorator>
-                        Private News
+                        {t("private_news")}
                     </ListItem>
                     <ListItem>
                         <ListItemDecorator>
                             {voting_power ? <Check /> : <ClearIcon />}
                         </ListItemDecorator>
-                        Voting Power
+                        {t("voting_power")}
                     </ListItem>
                 </List>
                 <Divider inset="none" />
@@ -84,64 +89,108 @@ function DRSupportCard(props: IDRSupportCardProps) {
                     >
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='Buy Me A Coffe'
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
-                                    window.open("https://www.buymeacoffee.com/DRincs")
+                                    window.open(KofiLink)
                                 }}
-                                startIcon={
-                                    <FreeBreakfastIcon fontSize="small" />
+                                startDecorator={
+                                    <KofiIcon />
                                 }
-                                endIcon={
+                                endDecorator={
                                     <DRChip
-                                        label="0%"
                                         size='sm'
-                                        ariaLabel='0% retained by BuyMeACoffe'
+                                        ariaLabel={t("retained_by", { site: "Ko-fi", percent: "0%" })}
                                         sx={{ color: "green" }}
-                                    />
+                                    >
+                                        {"8%"}
+                                    </DRChip>
                                 }
-                            />
+                            >
+                                {"Ko-fi"}
+                            </DRButtonNoMargin>
                         </Grid>
-                        {/* <Grid xs={12}>
-                            <DRButtonNoMargin
-                                title='PayPal'
-                                ariaLabel='0% retained by PayPal'
-                                marginTop={0}
-                                marginBottom={0}
-                                onClick={() => {
-                                    window.open("https://www.paypal.com/paypalme/DRincsProductions")
-                                }}
-                                endIcon={
-                                    <DRChip
-                                        label="0%"
-                                        sx={{ color: "green" }}
-                                    />
-                                }
-                            />
-                        </Grid> */}
                         <Grid xs={12}>
                             <DRButtonNoMargin
-                                label='Patreon'
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
                                 onClick={() => {
-                                    window.open("https://www.patreon.com/DRincs")
+                                    window.open(BuyMeACoffeeLink)
                                 }}
-                                startIcon={
+                                startDecorator={
+                                    <BuyMeACoffeeIcon />
+                                }
+                                endDecorator={
+                                    <DRChip
+                                        size='sm'
+                                        ariaLabel={t("retained_by", { site: "BuyMeACoffe", percent: "0%" })}
+                                        sx={{ color: "green" }}
+                                    >
+                                        {"0%"}
+                                    </DRChip>
+                                }
+                            >
+                                {"Buy Me A Coffe"}
+                            </DRButtonNoMargin>
+                        </Grid>
+                        <Grid xs={12}>
+                            <DRButtonNoMargin
+                                size='sm'
+                                variant="soft"
+                                color="neutral"
+                                onClick={() => {
+                                    window.open(PatreonLink)
+                                }}
+                                startDecorator={
                                     <PatreonIcon />
                                 }
-                                endIcon={
+                                endDecorator={
                                     <DRChip
-                                        label="8%"
                                         size='sm'
-                                        ariaLabel='8% retained by Patreon'
+                                        ariaLabel={t("retained_by", { site: "Patreon", percent: "8%" })}
                                         sx={{ color: "red" }}
-                                    />
+                                    >
+                                        {"8%"}
+                                    </DRChip>
                                 }
-                            />
+                            >
+                                {"Patreon"}
+                            </DRButtonNoMargin>
+                        </Grid>
+                        <Grid
+                            xs={12}
+                            container
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={1}
+                        >
+                            <Grid xs={12}>
+                                <DRButtonNoMargin
+                                    size='sm'
+                                    variant="soft"
+                                    color="neutral"
+                                    onClick={() => {
+                                        window.open(BoostyLink)
+                                    }}
+                                    startDecorator={
+                                        <BoostyIcon />
+                                    }
+                                    endDecorator={
+                                        <DRChip
+                                            size='sm'
+                                            ariaLabel={t("retained_by", { site: "Boosty", percent: "10%" })}
+                                            sx={{ color: "red" }}
+                                        >
+                                            {"8%"}
+                                        </DRChip>
+                                    }
+                                >
+                                    {"Boosty"}
+                                </DRButtonNoMargin>
+                            </Grid>
                         </Grid>
                     </Grid>
                 </CardActions>

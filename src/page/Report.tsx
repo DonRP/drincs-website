@@ -8,17 +8,19 @@ import DiscordBugForm from 'components/ReportForm/DiscordBugForm';
 import WebSiteBugForm from 'components/ReportForm/WebSiteBugForm';
 import { ABFDrepo, WebSiteRepo, discordLink } from 'constant';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { analyticPageView } from 'utility/Analytics';
 function Report() {
     const [openABFDBug, setOpenABFDBug] = useState(false)
     const [openWebSiteBug, setOpenWebSiteBug] = useState(false)
     const [openDiscordBug, setDiscordBug] = useState(false)
+    const { t } = useTranslation(["translation"]);
 
     const rowsABFD: IReportGridRow[] = [
         {
             info: {
-                title: "Bug report",
-                description: "Create a report to help us improve",
+                title: t("bug_reports"),
+                description: t("bug_report_info"),
             },
             link: {
                 website: () => { setOpenABFDBug(true) },
@@ -26,24 +28,24 @@ function Report() {
         },
         {
             info: {
-                title: "Feature request",
-                description: "Suggest an idea for this project",
+                title: t("feature_request"),
+                description: t("feature_request_info"),
             },
             link: {
             }
         },
         {
             info: {
-                title: "Writing or Translation",
-                description: "For issues relating to the Writing or Translation",
+                title: t("writing_or_translation"),
+                description: t("writing_or_translation_info"),
             },
             link: {
             }
         },
         {
             info: {
-                title: "New Quest-Mission",
-                description: "New Quest-Mission",
+                title: t("new_game_quest"),
+                description: t("new_game_quest_info"),
             },
             link: {
             }
@@ -53,8 +55,8 @@ function Report() {
     const rowsWebService: IReportGridRow[] = [
         {
             info: {
-                title: "Bug report",
-                description: "Create a report to help us improve",
+                title: t("bug_reports"),
+                description: t("bug_report_info"),
             },
             link: {
                 website: () => { setOpenWebSiteBug(true) },
@@ -62,8 +64,8 @@ function Report() {
         },
         {
             info: {
-                title: "Feature request",
-                description: "Suggest an idea for this project",
+                title: t("feature_request"),
+                description: t("feature_request_info"),
             },
             link: {
             }
@@ -73,8 +75,8 @@ function Report() {
     const rowsDiscord: IReportGridRow[] = [
         {
             info: {
-                title: "Bug report",
-                description: "Create a report to help us improve",
+                title: t("bug_reports"),
+                description: t("bug_report_info"),
             },
             link: {
                 website: () => { setDiscordBug(true) },
@@ -82,8 +84,8 @@ function Report() {
         },
         {
             info: {
-                title: "Feature request",
-                description: "Suggest an idea for this project",
+                title: t("feature_request"),
+                description: t("feature_request_info"),
             },
             link: {
             }
@@ -103,42 +105,42 @@ function Report() {
                 paddingTop={3}
                 paddingBottom={3}
             >
-                <h2>Report</h2>
+                <h2>{t("reports")}</h2>
                 <DRAlert
                     startDecorator={< DiscordIcon fill={theme.palette.logo.dicord} />}
                 >
-                    Before opening an <i>issue</i> it is recommended to talk about the <i>issue</i> first on <a href={discordLink}>Discord</a>
+                    {t("before_opening_issue_info") + " "}<a href={discordLink}>Discord</a>
                 </DRAlert>
                 <ReportGrid
                     title="A Big Family in Debit"
-                    data={rowsABFD}
-                    height={358}
+                    rows={rowsABFD}
+                    height={302}
                     githubLink={`https://github.com/${ABFDrepo}/issues/new/choose`}
                 />
                 <ReportGrid
                     title="Web Service"
-                    data={rowsWebService}
-                    height={208}
+                    rows={rowsWebService}
+                    height={152}
                     githubLink={`https://github.com/${WebSiteRepo}/issues/new/choose`}
                 />
                 <ReportGrid
                     title="Discord"
-                    data={rowsDiscord}
-                    height={208}
+                    rows={rowsDiscord}
+                    height={152}
                     githubLink='https://github.com/DRincs-Productions/drincs-discord-bot/issues/new/choose'
                 />
             </Grid>
             <ABFDBugForm
                 open={openABFDBug}
-                onClose={() => setOpenABFDBug(false)}
+                setOpen={setOpenABFDBug}
             />
             <WebSiteBugForm
                 open={openWebSiteBug}
-                onClose={() => setOpenWebSiteBug(false)}
+                setOpen={setOpenWebSiteBug}
             />
             <DiscordBugForm
                 open={openDiscordBug}
-                onClose={() => setDiscordBug(false)}
+                setOpen={setDiscordBug}
             />
         </>
     );

@@ -1,14 +1,15 @@
 import DRTextField from 'components/DRTextField';
 import DRTextarea from 'components/DRTextarea';
-import { DiscordRepo } from 'constant';
+import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import ReportForm, { ReportBody } from './ReportForm';
 
 type IProps = {
     open: boolean;
-    onClose: () => void;
+    setOpen: (open: boolean) => void;
 }
 
 class BugType {
@@ -19,16 +20,20 @@ class BugType {
 }
 
 function DiscordBugForm(props: IProps) {
-    const { open, onClose } = props;
+    const {
+        open,
+        setOpen,
+    } = props;
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [data, setData] = useState<BugType>(new BugType())
+    const { t } = useTranslation(["translation"]);
 
     function getData() {
         let error: string[] = []
-        if (isNullOrEmpty(data.description)) {
+        if (isEmptyOrSpaces(data.description)) {
             error.push("description")
         }
-        if (isNullOrEmpty(data.title)) {
+        if (isEmptyOrSpaces(data.title)) {
             error.push("title")
         }
         setErrorFields(error)
@@ -37,20 +42,20 @@ function DiscordBugForm(props: IProps) {
         }
         setErrorFields([])
         let res: ReportBody = {
-            repo: DiscordRepo,
-            title: "[Report WebSite]" + data.title,
+            repo: ProjectsEnum.DiscordBot,
+            title: "[Report] " + data.title,
             body: `### What happened?
 
-            ${data.description}
+${data.description}
+
+### User Nickname
+
+${data.nickname || "_No response_"}
             
-            ### User Nickname
-            
-            ${data.nickname || "_No response_"}
-                        
-            ### Additional Description
-            
-            ${data.additionalDescription || "_No response_"}
-            `,
+### Additional Description
+
+${data.additionalDescription || "_No response_"}
+`,
             labels: ["bug"],
         }
         return res
@@ -59,8 +64,8 @@ function DiscordBugForm(props: IProps) {
     return (
         <ReportForm<BugType>
             open={open}
-            onClose={onClose}
-            title={"Bug report"}
+            setOpen={setOpen}
+            head={t("bug_reports")}
             data={data}
             maxWidth={"md"}
             getData={getData}
@@ -68,36 +73,36 @@ function DiscordBugForm(props: IProps) {
         >
             <DRTextField
                 fieldName="title"
-                label="Title"
+                label={t("title")}
                 required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.title || ""}
                 errorFields={errorFields}
             />
             <DRTextarea
                 fieldName="description"
-                label="What happened?"
-                helperText="Also tell us, what did you expect to happen?"
-                placeholder="Tell us what you see!"
+                label={t("what_happened")}
+                helperText={t("what_happened_helper")}
+                placeholder={t("what_happened_placeholder")}
                 required
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.description || ""}
                 errorFields={errorFields}
             />
             <DRTextarea
                 fieldName="nickname"
-                label="Your Nickname"
-                helperText="Add your contact so we can contact you for more information"
-                placeholder="Discrod: _balck_ram_"
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                label={t("your_nickname")}
+                helperText={t("nickname_helper")}
+                placeholder={t("nickname_placeholder")}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.nickname || ""}
                 errorFields={errorFields}
             />
             <DRTextarea
                 fieldName="additionalDescription"
-                label="Additional Description"
-                helperText="Add a description to help us understand"
-                onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
+                label={t("additional_description")}
+                helperText={t("additional_description_helper")}
+                onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, data, setData)}
                 defaultValue={data?.additionalDescription || ""}
                 errorFields={errorFields}
             />

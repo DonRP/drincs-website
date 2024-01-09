@@ -1,49 +1,46 @@
+import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
+import KeyIcon from '@mui/icons-material/Key';
 import { Grid, Link, Typography } from '@mui/joy';
+import { DRButtonSignInSide } from 'components/DRButton';
 import DRErrorComponent from 'components/DRErrorComponent';
-import DRTextField from 'components/DRTextField';
+import DRTextField, { DRTextFieldPassword } from 'components/DRTextField';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { showMessage } from 'services/BaseRestService';
+import { useTranslation } from 'react-i18next';
+import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { isNullOrEmpty } from 'utility/UtilityFunctionts';
+import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../DRCheckbox';
-import DRButtonSignInSide from './DRButtonSignInSide';
 
 function Login(props: ISignInSidePageProps) {
-    var validator = require('validator');
-    let navigate = useNavigate();
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
     const [errorFields, setErrorFields] = useState<string[]>([])
     const [rememberMe, setRememberMe] = useState<boolean>(true)
     const [openChangePassword, setOpenChangePassword] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(false)
-    const { authService, enqueueSnackbar } = props;
+    const { authService, enqueueSnackbar, onClose } = props;
+    const { t } = useTranslation(["translation"]);
+    const [notValidEmail, setNotValidEmail] = useState<boolean>(false)
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
-        if (isNullOrEmpty(account.email)) {
-            fields.push("email")
+        if (!account.email || notValidEmail) {
+            fields.push('email')
+            setNotValidEmail(true)
         }
-        if (isNullOrEmpty(account.password)) {
+        if (isEmptyOrSpaces(account.password)) {
             fields.push("password")
-        }
-        if (!validator.isEmail(account.email)) {
-            fields.push("email")
-            showMessage(enqueueSnackbar, "The email is invalid", 'error');
         }
         return fields;
     }
 
-    const validateResetPassword = (account: LoginAccount): string[] => {
+    const validateForgotPassword = (account: LoginAccount): string[] => {
         let fields = [];
-        if (isNullOrEmpty(account.email)) {
-            fields.push("email")
-        }
-        if (!validator.isEmail(account.email)) {
-            fields.push("email")
-            showMessage(enqueueSnackbar, "The email is invalid", 'error');
+        if (!account.email || notValidEmail) {
+            fields.push('email')
+            setNotValidEmail(true)
         }
         return fields;
     }
@@ -55,10 +52,11 @@ function Login(props: ISignInSidePageProps) {
         if (errorFields.length === 0) {
             authService.doLogIn(account, rememberMe).then(res => {
                 if (res) {
-                    navigate("/");
+                    onClose()
                 }
                 setLoading(false)
-            }).catch(() => {
+            }).catch((err) => {
+                showToastByMyError(err, enqueueSnackbar, t)
                 setLoading(false)
             })
         }
@@ -67,18 +65,20 @@ function Login(props: ISignInSidePageProps) {
         }
     };
 
-    const handelResetPassword = () => {
+    const handelForgotPassword = () => {
         setLoading(true)
-        let errorFields = validateResetPassword(account)
+        let errorFields = validateForgotPassword(account)
         setErrorFields(errorFields)
         if (errorFields.length === 0) {
-            authService.resetPassword(account.email).then(res => {
+            authService.forgotPassword(account.email).then(res => {
                 if (res) {
+                    showToast(t("success_send_mail_for_reset_password"), 'success', enqueueSnackbar)
                     setOpenChangePassword(false)
                 }
                 setLoading(false)
-            }).catch(() => {
+            }).catch((err) => {
                 setLoading(false)
+                showToastByMyError(err, enqueueSnackbar, t)
             })
         }
         else {
@@ -99,42 +99,66 @@ function Login(props: ISignInSidePageProps) {
                             <Typography
                                 component="h1"
                             >
-                                {"Sign in"}
+                                {t("sign_in")}
                             </Typography>
                         </Grid>
                     </Grid>
                     <DRTextField
                         fieldName="email"
-                        label="Email"
+                        label={t("email")}
                         defaultValue={account.email}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
                         type='email'
                         required
                         autoFocus
                         errorFields={errorFields}
+                        startDecorator={<EmailRoundedIcon />}
+                        addHelperMarginIfIsHidden
+                        helperText={notValidEmail ? t('invalid_email') : ''}
+                        error={notValidEmail}
+                        onBlurGeneric={(fieldName, value) => {
+                            if (value && !checkIfIsValidEmail(account.email)) {
+                                setNotValidEmail(true)
+                            }
+                            else {
+                                setNotValidEmail(false)
+                            }
+                        }}
                     />
-                    <DRTextField
+                    <DRTextFieldPassword
                         fieldName="password"
-                        label="Password"
+                        label={t("password")}
                         defaultValue={account.password}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
-                        type='password'
                         required
                         errorFields={errorFields}
+                        startDecorator={<KeyIcon />}
+                        addHelperMarginIfIsHidden
+                        onKeyDown={(ev) => {
+                            if (ev.key === 'Enter') {
+                                handelLogin()
+                            }
+                        }}
                     />
                     <DRCheckBox
                         fieldName="rememberMe"
-                        label={"Remember me"}
+                        label={t("remember_me")}
                         checked={rememberMe}
-                        onChangeValue={(fieldName, value) => setRememberMe(value)}
+                        onChangeGeneric={(fieldName, value) => {
+                            if (value === null) {
+                                value = false
+                            }
+                            setRememberMe(value)
+                        }}
                     />
                     <DRButtonSignInSide
-                        label='Log in'
                         onClick={handelLogin}
                         loading={loading}
-                    />
+                    >
+                        {t("sign_in")}
+                    </DRButtonSignInSide>
                 </>}
                 {openChangePassword && <>
                     <Grid container
@@ -146,37 +170,50 @@ function Login(props: ISignInSidePageProps) {
                             <Typography
                                 component="h1"
                             >
-                                {"Reset Password"}
+                                {t("reset_password")}
                             </Typography>
                         </Grid>
                     </Grid>
                     <DRTextField
                         fieldName="email"
-                        label="Email"
+                        label={t("email")}
                         defaultValue={account.email}
-                        onChange={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
+                        onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
                         type='email'
                         required
                         autoFocus
                         errorFields={errorFields}
+                        startDecorator={<EmailRoundedIcon />}
+                        addHelperMarginIfIsHidden
+                        error={notValidEmail}
+                        helperText={notValidEmail ? t('invalid_email') : ''}
+                        onBlurGeneric={(fieldName, value) => {
+                            if (value && !checkIfIsValidEmail(account.email)) {
+                                setNotValidEmail(true)
+                            }
+                            else {
+                                setNotValidEmail(false)
+                            }
+                        }}
                     />
                     <DRButtonSignInSide
-                        label='Send email'
-                        onClick={handelResetPassword}
+                        onClick={handelForgotPassword}
                         loading={loading}
-                    />
+                    >
+                        {t("send_mail")}
+                    </DRButtonSignInSide>
                 </>}
                 <Typography
                     mt={0.5}
                     endDecorator={<Link
                         onClick={() => { setOpenChangePassword((value) => !value) }}
                     >
-                        {openChangePassword ? "Back to login" : "Reset password"}
+                        {openChangePassword ? t("back_to_sign_in") : t("reset_password")}
                     </Link>}
                     fontSize="sm"
                 >
-                    {openChangePassword ? "Already have an account?" : "Forgot your password?"}
+                    {openChangePassword ? t("do_have_account") : t("forgot_password")}
                 </Typography>
             </>
         );
