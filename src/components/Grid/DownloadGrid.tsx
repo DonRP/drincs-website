@@ -1,3 +1,4 @@
+import GitHubIcon from '@mui/icons-material/GitHub';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import TranslateIcon from '@mui/icons-material/Translate';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
@@ -145,6 +146,7 @@ interface IDownloadGridProps {
     height?: number,
     openWiki?: () => void
     openDazAssert?: () => void
+    openGithub?: () => void
     translate?: boolean
     logoImage?: string,
 }
@@ -157,6 +159,7 @@ function DownloadGrid(props: IDownloadGridProps) {
         height,
         openWiki,
         openDazAssert,
+        openGithub,
         translate,
         logoImage,
     } = props;
@@ -203,6 +206,17 @@ function DownloadGrid(props: IDownloadGridProps) {
                             onClick={openDazAssert}
                         >
                             <ViewInArIcon />
+                        </DRIconButton>
+                    }
+                    {openGithub &&
+                        <DRIconButton
+                            ariaLabel={"GitHub"}
+                            color="neutral"
+                            size="sm"
+                            sx={{ position: 'absolute', top: '0.875rem', right: openWiki ? translate ? '10.5rem' : '7.5rem' : translate ? '4.5rem' : '1.5rem' }}
+                            onClick={openGithub}
+                        >
+                            <GitHubIcon />
                         </DRIconButton>
                     }
                 </>
