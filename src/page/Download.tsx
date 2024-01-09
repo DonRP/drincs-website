@@ -140,7 +140,7 @@ function Download() {
                 <h2>{t("download")}</h2>
                 <DownloadGrid
                     title="A Big Family in Debit"
-                    // logoImage='https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp'
+                    logoImage='https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp'
                     rows={rowsABFD(t)}
                     height={358}
                     openWiki={() => navigate("/wiki")}

@@ -146,6 +146,7 @@ interface IDownloadGridProps {
     openWiki?: () => void
     openDazAssert?: () => void
     translate?: boolean
+    logoImage?: string,
 }
 
 function DownloadGrid(props: IDownloadGridProps) {
@@ -157,6 +158,7 @@ function DownloadGrid(props: IDownloadGridProps) {
         openWiki,
         openDazAssert,
         translate,
+        logoImage,
     } = props;
     let navigate = useNavigate();
 
@@ -167,6 +169,7 @@ function DownloadGrid(props: IDownloadGridProps) {
             columns={columns(t)}
             height={height}
             hideFooter
+            logoImage={logoImage}
             actions={
                 <>
                     {openWiki &&
