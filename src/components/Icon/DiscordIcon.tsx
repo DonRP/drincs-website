@@ -5,11 +5,9 @@ interface IProps {
     fill?: string;
 }
 
-function DiscordIcon(props: IProps) {
+export default function DiscordIcon(props: IProps) {
     const theme = myUseTheme()
     return <Icon
         fill={props.fill ? props.fill : theme.palette.text.primary}
     />
 }
-
-export default DiscordIcon;

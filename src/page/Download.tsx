@@ -4,6 +4,7 @@ import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import FolderZipIcon from '@mui/icons-material/FolderZip';
 import { Grid } from '@mui/joy';
 import DownloadGrid, { IDownloadGridRow } from 'components/Grid/DownloadGrid';
+import { ABFDrepo } from 'constant';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -140,11 +141,12 @@ function Download() {
                 <h2>{t("download")}</h2>
                 <DownloadGrid
                     title="A Big Family in Debit"
-                    logoImage='https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp'
+                    // logoImage='https://raw.githubusercontent.com/DonRP/ABFD/master/game/gui/main_menu.webp'
                     rows={rowsABFD(t)}
                     height={358}
                     openWiki={() => navigate("/wiki")}
                     openDazAssert={() => navigate("/daz-assert")}
+                    openGithub={() => window.open(`https://github.com/${ABFDrepo}`)}
                 />
             </Grid>
         </>

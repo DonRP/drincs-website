@@ -5,11 +5,9 @@ interface IProps {
     fill?: string;
 }
 
-function BuyMeACoffeeIcon(props: IProps) {
+export default function BuyMeACoffeeIcon(props: IProps) {
     const theme = myUseTheme()
     return <Icon
         fill={props.fill ? props.fill : theme.palette.text.primary}
     />
 }
-
-export default BuyMeACoffeeIcon;
