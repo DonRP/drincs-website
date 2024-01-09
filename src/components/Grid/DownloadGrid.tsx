@@ -171,7 +171,7 @@ function DownloadGrid(props: IDownloadGridProps) {
                 <>
                     {openWiki &&
                         <DRIconButton
-                            ariaLabel="Wiki"
+                            ariaLabel={t("wiki")}
                             color="neutral"
                             size="sm"
                             sx={{ position: 'absolute', top: '0.875rem', right: '1.5rem' }}
@@ -182,7 +182,7 @@ function DownloadGrid(props: IDownloadGridProps) {
                     }
                     {translate &&
                         <DRIconButton
-                            ariaLabel="Translate"
+                            ariaLabel={t("translate")}
                             color="neutral"
                             size="sm"
                             sx={{ position: 'absolute', top: '0.875rem', right: openWiki ? '4.5rem' : '1.5rem' }}
@@ -193,7 +193,7 @@ function DownloadGrid(props: IDownloadGridProps) {
                     }
                     {openDazAssert &&
                         <DRIconButton
-                            ariaLabel="Daz Assert"
+                            ariaLabel={t("daz_assert")}
                             color="neutral"
                             size="sm"
                             sx={{ position: 'absolute', top: '0.875rem', right: openWiki ? translate ? '7.5rem' : '4.5rem' : '1.5rem' }}
