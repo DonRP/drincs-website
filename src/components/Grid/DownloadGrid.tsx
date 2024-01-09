@@ -7,6 +7,7 @@ import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import DRDataGrid from 'components/DRDataGrid';
 import DRIconButton from 'components/DRIconButton';
 import ItchIcon from 'components/Icon/ItchIcon';
+import MegaIcon from 'components/Icon/MegaIcon';
 import { discordLink } from 'constant';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -106,9 +107,7 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
                                     {params.value?.mega &&
                                         <DRButtonNoMargin
                                             variant='soft'
-                                            startDecorator={
-                                                <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
-                                            }
+                                            startDecorator={<MegaIcon />}
                                             onClick={() => {
                                                 window.open(params.value?.mega)
                                             }}
