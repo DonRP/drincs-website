@@ -120,7 +120,6 @@ function SignUp(props: IPros) {
                     setNotValidPassword(!checkIfIsValidPassword(value as string))
                 }}
                 variant="outlined"
-                type='password'
                 required
                 fullWidth
                 autoComplete="current-password"

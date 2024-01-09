@@ -132,7 +132,6 @@ function Login(props: ISignInSidePageProps) {
                         defaultValue={account.password}
                         onChangeGeneric={(fieldName, value) => handleInputChangeByFieldName(fieldName, value, account, setAccount)}
                         variant="outlined"
-                        type='password'
                         required
                         errorFields={errorFields}
                         startDecorator={<KeyIcon />}
