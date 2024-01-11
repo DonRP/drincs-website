@@ -14,11 +14,16 @@ type Resurces = {
 }
 
 const getResurces = () => {
-  let resources: Resurces = {
-    en: require('../src/values/translations/strings_en.json') as Resurce,
-    it: require('../src/values/translations/strings_it.json') as Resurce,
+  try {
+    let resources: Resurces = {
+      en: require('../src/values/translations/strings_en.json') as Resurce,
+      it: require('../src/values/translations/strings_it.json') as Resurce,
+    }
+    return resources
   }
-  return resources
+  catch (error) {
+    return {}
+  }
 }
 
 const getUserLang = (): string => {
