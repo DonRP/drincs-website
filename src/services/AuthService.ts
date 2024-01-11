@@ -81,7 +81,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.getRequest<UserProfile>(this.urlwebapi + `/Auth/GetProfile`, token)
@@ -100,7 +100,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.putRequest<boolean>(this.urlwebapi + `/Auth/ResendVerificationEmail`, undefined, token)
@@ -119,7 +119,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.putRequest<UserProfile>(this.urlwebapi + `/Auth/EditProfile`, profile, token)
@@ -138,7 +138,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.putRequest<boolean>(this.urlwebapi + `/Auth/ChangePassword`, body, token)
@@ -157,7 +157,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.deleteRequest<boolean>(this.urlwebapi + `/Auth/DeleteAccount`, token)
@@ -176,7 +176,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
         let formData = new FormData()
         formData.append('file', image)
@@ -188,6 +188,25 @@ class AuthService extends BaseRestService {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
                 return response.content || ""
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
+    async discordConnect(code: string) {
+        let token = this.geToken()
+        if (!token) {
+            console.error("AuthService.discordConnect token not found")
+            throw new MyError("AuthService.discordConnect token not found", "err_token_not_found")
+        }
+
+        return this.postRequest<boolean>(this.urlwebapi + `/Auth/ConnectDiscord?code=${code}`, undefined, token)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                return true
             })
             .catch((res) => {
                 throw res
