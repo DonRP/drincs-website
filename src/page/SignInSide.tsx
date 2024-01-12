@@ -1,6 +1,7 @@
 import EmailIcon from '@mui/icons-material/Email';
-import { Avatar, AvatarGroup, CssVarsProvider, Grid, Link, Modal, ModalClose, Sheet, Typography } from "@mui/joy";
+import { Avatar, AvatarGroup, CssVarsProvider, Grid, Link, Modal, ModalClose, Typography } from "@mui/joy";
 import Copyright from "components/Copyright";
+import DRSheet from 'components/DRSheet';
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
 import Login from "page/SignInSide/Login";
 import SignUp from "page/SignInSide/SignUp";
@@ -45,17 +46,15 @@ function SignInSide(props: IProps) {
         >
             <CssVarsProvider>
                 <main>
-                    <Sheet
+                    <DRSheet
                         sx={{
-                            maxWidth: 500,
+                            maxWidth: { xs: 350, md: 500 },
                             mx: 'auto', // margin left & right
                             my: 4, // margin top & bottom
                             py: 3, // padding top & bottom
                             px: 2, // padding left & right
                             display: 'flex',
                             flexDirection: 'column',
-                            borderRadius: 'sm',
-                            boxShadow: 'md',
                         }}
                         variant="outlined"
                     >
@@ -150,7 +149,7 @@ function SignInSide(props: IProps) {
                         }
 
                         <Copyright />
-                    </Sheet>
+                    </DRSheet>
                 </main>
             </CssVarsProvider>
         </Modal>
