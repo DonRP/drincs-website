@@ -23,67 +23,75 @@ export default function ConnectionDiscordLoadingPage(props: IProps) {
     useEffect(() => {
         let queryParameters = getURLSearchParams(window.location)
         let code: string | null = queryParameters.get("code")
-        if (!code) {
-            console.error("code not found", "code: " + code)
-            return
-        }
-        let authService = new AuthService()
-        if (type === "connection") {
-            authService.discordConnect(code).then((res) => {
-                if (res) {
-                    setResult((value) => {
-                        if (value === null) {
-                            return { succes: true, error: null }
-                        }
-                        return value
-                    })
-                    return
-                }
-                else {
-                    setResult((value) => {
-                        if (value === null) {
-                            return { succes: false, error: null }
-                        }
-                        return value
-                    })
-                    return
-                }
-            }).catch((err) => {
-                setResult((value) => {
-                    if (value === null) {
-                        return { succes: false, error: err }
+
+        // Debouncing
+        const getData = setTimeout(() => {
+            if (!code) {
+                console.error("code not found", "code: " + code)
+                return
+            }
+            let authService = new AuthService()
+            if (type === "connection") {
+                authService.discordConnect(code).then((res) => {
+                    if (res) {
+                        setResult((value) => {
+                            if (value === null) {
+                                return { succes: true, error: null }
+                            }
+                            return value
+                        })
+                        return
                     }
-                    return value
+                    else {
+                        setResult((value) => {
+                            if (value === null) {
+                                return { succes: false, error: null }
+                            }
+                            return value
+                        })
+                        return
+                    }
+                }).catch((err) => {
+                    setResult((value) => {
+                        if (value === null) {
+                            return { succes: false, error: err }
+                        }
+                        return value
+                    })
                 })
-            })
+            }
+            // else if (type === "login") {
+            //     authService.verify(token, email).then((res) => {
+            //         if (res) {
+            //             setSuccess((value) => {
+            //                 if (value === null) {
+            //                     return true
+            //                 }
+            //                 return value
+            //             })
+            //             return
+            //         }
+            //         setSuccess((value) => {
+            //             if (value === null) {
+            //                 return false
+            //             }
+            //             return value
+            //         })
+            //         return
+            //     }).catch((err) => {
+            //         setSuccess((value) => {
+            //             if (value === null) {
+            //                 return false
+            //             }
+            //             return value
+            //         })
+            //     })
+            // }
+        }, 700)
+
+        return () => {
+            clearTimeout(getData)
         }
-        // else if (type === "login") {
-        //     authService.verify(token, email).then((res) => {
-        //         if (res) {
-        //             setSuccess((value) => {
-        //                 if (value === null) {
-        //                     return true
-        //                 }
-        //                 return value
-        //             })
-        //             return
-        //         }
-        //         setSuccess((value) => {
-        //             if (value === null) {
-        //                 return false
-        //             }
-        //             return value
-        //         })
-        //         return
-        //     }).catch((err) => {
-        //         setSuccess((value) => {
-        //             if (value === null) {
-        //                 return false
-        //             }
-        //             return value
-        //         })
-        //     })
-        // }
     }, [type])
 
     useEffect(() => {
