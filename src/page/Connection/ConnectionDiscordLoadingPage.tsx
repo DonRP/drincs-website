@@ -60,33 +60,35 @@ export default function ConnectionDiscordLoadingPage(props: IProps) {
                     })
                 })
             }
-            // else if (type === "login") {
-            //     authService.verify(token, email).then((res) => {
-            //         if (res) {
-            //             setSuccess((value) => {
-            //                 if (value === null) {
-            //                     return true
-            //                 }
-            //                 return value
-            //             })
-            //             return
-            //         }
-            //         setSuccess((value) => {
-            //             if (value === null) {
-            //                 return false
-            //             }
-            //             return value
-            //         })
-            //         return
-            //     }).catch((err) => {
-            //         setSuccess((value) => {
-            //             if (value === null) {
-            //                 return false
-            //             }
-            //             return value
-            //         })
-            //     })
-            // }
+            else if (type === "login") {
+                authService.discordLogin(code, true).then((res) => {
+                    if (res) {
+                        setResult((value) => {
+                            if (value === null) {
+                                return { succes: true, error: null }
+                            }
+                            return value
+                        })
+                        return
+                    }
+                    else {
+                        setResult((value) => {
+                            if (value === null) {
+                                return { succes: false, error: null }
+                            }
+                            return value
+                        })
+                        return
+                    }
+                }).catch((err) => {
+                    setResult((value) => {
+                        if (value === null) {
+                            return { succes: false, error: err }
+                        }
+                        return value
+                    })
+                })
+            }
         }, 700)
 
         return () => {

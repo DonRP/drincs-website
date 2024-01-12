@@ -213,6 +213,39 @@ class AuthService extends BaseRestService {
             });
     }
 
+    async discordLogin(discord: string, rememberMe: boolean = false) {
+        return this.postRequest<AuthData>(this.urlwebapi + `/Auth/LoginDiscord`, { code: discord })
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                if (rememberMe) {
+                    localStorage.setItem("access_token", response.content.token ?? "");
+                }
+                else {
+                    sessionStorage.setItem("access_token", response.content.token ?? "");
+                }
+                analyticLogin("/Auth/LoginDiscord")
+                return true
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
+    async redirectLoginDiscord() {
+        return this.getRequest(this.urlwebapi + `/Auth/RedirectDiscordLogin`)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                window.open(response.content.toString());
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
     logOut() {
         localStorage.removeItem("access_token");
         sessionStorage.removeItem("access_token");

@@ -1,7 +1,9 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Avatar, AvatarGroup, CssVarsProvider, Grid, Link, Modal, ModalClose, Typography } from "@mui/joy";
 import Copyright from "components/Copyright";
+import { DRButtonSignInSide } from 'components/DRButton';
 import DRSheet from 'components/DRSheet';
+import DiscordIcon from 'components/Icon/DiscordIcon';
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
 import Login from "page/SignInSide/Login";
 import SignUp from "page/SignInSide/SignUp";
@@ -9,6 +11,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AuthService, { isLoggedIn } from "services/AuthService";
 import { analyticPageView } from "utility/Analytics";
+import { showToastByMyError } from 'utility/ShowToast';
 
 export interface ISignInSidePageProps {
     authService: AuthService,
@@ -29,6 +32,7 @@ function SignInSide(props: IProps) {
     const { enqueueSnackbar } = useSnackbar();
     const authService = new AuthService();
     const { onClose, open } = props;
+    const [loadinfDiscord, setLoadingDiscord] = useState<boolean>(false)
 
     return (
         <Modal
@@ -106,6 +110,26 @@ function SignInSide(props: IProps) {
                                 >
                                     {isLogin ? t("dont_have_an_account") : t("do_have_account")}
                                 </Typography>
+
+                                {t("or_with")}
+
+                                <DRButtonSignInSide
+                                    onClick={() => {
+                                        setLoadingDiscord(true)
+                                        authService.redirectLoginDiscord()
+                                            .then(() => {
+                                                setLoadingDiscord(false)
+                                            })
+                                            .catch((error) => {
+                                                setLoadingDiscord(false)
+                                                showToastByMyError(error, enqueueSnackbar, t)
+                                            })
+                                    }}
+                                    loading={loadinfDiscord}
+                                    startDecorator={<DiscordIcon />}
+                                >
+                                    {"Discord"}
+                                </DRButtonSignInSide>
                             </>
                             :
                             <Grid
