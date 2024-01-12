@@ -111,7 +111,12 @@ function SignInSide(props: IProps) {
                                     {isLogin ? t("dont_have_an_account") : t("do_have_account")}
                                 </Typography>
 
-                                {t("or_with")}
+                                <Typography
+                                    level="body-sm"
+                                    sx={{ alignSelf: 'center' }}
+                                >
+                                    {t("or_with")}
+                                </Typography>
 
                                 <DRButtonSignInSide
                                     onClick={() => {
