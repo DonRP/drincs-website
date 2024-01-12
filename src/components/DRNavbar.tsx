@@ -57,9 +57,14 @@ function DRNavbar(props: IDRNavbarProps) {
         data: userInfo = new UserProfile(),
     } = useGetProfileCache({
         catch: (err) => {
+            if (err?.messagesToShow === 'api_user_not_found_or_deleted') {
+                logOutOnClick()
+                return
+            }
             if (err?.messagesToShow === 'api_jwt_expired') {
                 showToast(t("api_jwt_expired"), "warning", enqueueSnackbar)
                 logOutOnClick()
+                return
             }
             showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
         },
