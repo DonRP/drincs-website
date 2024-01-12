@@ -194,14 +194,14 @@ class AuthService extends BaseRestService {
             });
     }
 
-    async discordConnect(code: string) {
+    async discordConnect(discord: string) {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.discordConnect token not found")
             throw new MyError("AuthService.discordConnect token not found", "err_token_not_found")
         }
 
-        return this.postRequest<boolean>(this.urlwebapi + `/Auth/ConnectDiscord?code=${code}`, undefined, token)
+        return this.postRequest<boolean>(this.urlwebapi + `/Auth/ConnectDiscord`, { code: discord }, token)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)

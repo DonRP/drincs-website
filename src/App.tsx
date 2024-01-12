@@ -8,6 +8,7 @@ import ErrorBoundary from 'errer_check/ErrorBoundary';
 import { useI18n } from 'i18n';
 import { SnackbarProvider } from 'notistack';
 import About from 'page/About';
+import ConnectionDiscordSteps from 'page/Connection/ConnectionDiscordSteps';
 import Download from 'page/Download';
 import MyProfile from 'page/MyProfile/MyProfile';
 import MyProfileEdit from 'page/MyProfile/MyProfileEdit';
@@ -76,6 +77,10 @@ function App() {
                                     <Route key="daz-assert" path="/daz-assert" element={<Wiki routeLink="daz-assert" urlRepo={`DRincs-Productions/daz-assert-ABFD-all-in-one`} />} />
                                     <Route key="drincs" path="/drincs" element={<About />} />
                                     <Route key="a-big-family-in-debit" path="/a-big-family-in-debit" element={<About />} />
+                                    <Route key="discord-connect" path="discord-connect" element={<ConnectionDiscordSteps status="loading" type="connection" />} />
+                                    <Route key="discord-login" path="discord-login" element={<ConnectionDiscordSteps status="loading" type="login" />} />
+                                    <Route key="discord-connect-error" path="discord-connect-error" element={<ConnectionDiscordSteps status="error" />} />
+                                    <Route key="discord-connect-success" path="discord-connect-success" element={<ConnectionDiscordSteps status="success" />} />
                                 </Routes>
                                 {isLoggedIn() &&
                                     <Routes>
