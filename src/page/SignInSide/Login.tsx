@@ -12,7 +12,7 @@ import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
 import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
-import DRCheckBox from '../DRCheckbox';
+import DRCheckBox from '../../components/DRCheckbox';
 
 function Login(props: ISignInSidePageProps) {
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());

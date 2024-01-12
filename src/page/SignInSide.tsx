@@ -1,9 +1,9 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Avatar, AvatarGroup, CssVarsProvider, Grid, Link, Modal, ModalClose, Sheet, Typography } from "@mui/joy";
 import Copyright from "components/Copyright";
-import Login from "components/SignInSide/Login";
-import SignUp from "components/SignInSide/SignUp";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
+import Login from "page/SignInSide/Login";
+import SignUp from "page/SignInSide/SignUp";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AuthService, { isLoggedIn } from "services/AuthService";
