@@ -13,6 +13,7 @@ import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
 import DRCheckBox from '../../components/DRCheckbox';
+import OltherLoginButton from './OltherLoginButton';
 
 function Login(props: ISignInSidePageProps) {
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
@@ -159,6 +160,7 @@ function Login(props: ISignInSidePageProps) {
                     >
                         {t("sign_in")}
                     </DRButtonSignInSide>
+                    <OltherLoginButton />
                 </>}
                 {openChangePassword && <>
                     <Grid container

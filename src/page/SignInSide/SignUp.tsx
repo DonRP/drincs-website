@@ -9,6 +9,7 @@ import { checkIfIsValidEmail, checkIfIsValidPassword } from 'utility/EmailPasswo
 import { showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
+import OltherLoginButton from './OltherLoginButton';
 
 interface IPros extends ISignInSidePageProps {
     setEmailVerification: (value: boolean) => void
@@ -138,6 +139,8 @@ function SignUp(props: IPros) {
             >
                 {t("sign_up")}
             </DRButtonSignInSide>
+
+            <OltherLoginButton />
         </>
     );
 }
