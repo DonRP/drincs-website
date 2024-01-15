@@ -55,7 +55,7 @@ export default function ConnectionDiscordSteps(props: IProps) {
                         display: 'flex',
                     }}
                 >
-                    {t('connection_discord')}
+                    {t('discord_connection')}
                 </Typography>
             </Toolbar>
             {getStepContent()}

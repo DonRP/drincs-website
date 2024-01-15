@@ -1,17 +1,23 @@
+import { Warning } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { AppBar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { Avatar, Badge, CircularProgress } from '@mui/joy';
+import { AppBar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
+import { useQueryClient } from '@tanstack/react-query';
 import { materialUseTheme } from 'Theme';
+import { UserProfile } from 'model/Auth/UserProfile';
+import { useSnackbar } from 'notistack';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
-import { isLoggedIn } from 'services/AuthService';
+import AuthService, { isLoggedIn } from 'services/AuthService';
+import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
+import { showToast } from 'utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
 import DRLink from './DRLink';
-import DRNavbarMenu from './DRNavbar/DRNavbarMenu';
 import DRLogo from './String/DRLogo';
 
 // https://mui.com/components/app-bar/
@@ -36,7 +42,34 @@ function DRNavbar(props: IDRNavbarProps) {
     const navigate = useNavigate();
     const { pages = [], supportPage, extern_link = [], openLogin } = props;
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const loginTitle = t("login");
+    const queryClient = useQueryClient()
+    const { enqueueSnackbar } = useSnackbar();
+    const logOutOnClick = () => {
+        let authService = new AuthService();
+        authService.logOut()
+        location.pathname.includes("/profile") && navigate("/");
+        queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+        handleCloseUserMenu()
+    }
+    const {
+        isLoading,
+        data: userInfo = new UserProfile(),
+    } = useGetProfileCache({
+        catch: (err) => {
+            if (err?.messagesToShow === 'api_user_not_found_or_deleted') {
+                logOutOnClick()
+                return
+            }
+            if (err?.messagesToShow === 'api_jwt_expired') {
+                showToast(t("api_jwt_expired"), "warning", enqueueSnackbar)
+                logOutOnClick()
+                return
+            }
+            showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
+        },
+    })
 
     const transitionDuration = {
         enter: materialTheme.transitions.duration.enteringScreen,
@@ -51,6 +84,13 @@ function DRNavbar(props: IDRNavbarProps) {
         setAnchorElNav(null);
     };
 
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorElUser(event.currentTarget);
+    };
+
+    const handleCloseUserMenu = () => {
+        setAnchorElUser(null);
+    };
 
     const goToSupport = () => {
         if (supportPage)
@@ -229,7 +269,62 @@ function DRNavbar(props: IDRNavbarProps) {
                             }
                             {/* PC and Mobile */}
                             {isLoggedIn() &&
-                                <DRNavbarMenu />
+                                <>
+                                    <Tooltip title={t("expand")}>
+                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                            {isLoading
+                                                ?
+                                                <CircularProgress />
+                                                :
+                                                userInfo.haveDiscordAccount
+                                                    ?
+                                                    <Avatar alt={userInfo.displayName} src={userInfo.photoURL} />
+                                                    :
+                                                    <Badge
+                                                        color="warning"
+                                                        badgeContent={
+                                                            <Warning
+                                                                fontSize='small'
+                                                            />
+                                                        }
+                                                        size="sm"
+                                                        anchorOrigin={{
+                                                            vertical: 'bottom',
+                                                            horizontal: 'right',
+                                                        }}
+                                                    >
+                                                        <Avatar alt={userInfo.displayName} src={userInfo.photoURL} />
+                                                    </Badge>
+                                            }
+                                        </IconButton>
+                                    </Tooltip>
+                                    <Menu
+                                        sx={{ mt: '45px' }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorElUser}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'right',
+                                        }}
+                                        open={Boolean(anchorElUser)}
+                                        onClose={handleCloseUserMenu}
+                                    >
+                                        <MenuItem onClick={() => {
+                                            navigate("/profile");
+                                            handleCloseUserMenu()
+                                        }}>
+                                            <Typography textAlign="center">{t("my_profile")}</Typography>
+                                        </MenuItem>
+                                        <MenuItem onClick={logOutOnClick}>
+                                            <Typography textAlign="center">{t("log_out")}</Typography>
+                                        </MenuItem>
+                                    </Menu>
+                                </>
                             }
                         </Toolbar>
                     </Container>
