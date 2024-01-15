@@ -4,4 +4,5 @@ export class UserProfile {
     emailVerified: boolean = false
     email: string = ""
     displayName: string = ""
+    haveDiscordAccount: boolean = false
 }
