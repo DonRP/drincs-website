@@ -1,6 +1,7 @@
 import { Avatar, AvatarGroup, CircularProgress, Grid, Typography } from '@mui/joy';
+import HomeFunctionContext from 'contexts/HomeFunctionContext';
 import { useSnackbar } from 'notistack';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import AuthService from 'services/AuthService';
@@ -19,6 +20,7 @@ export default function ConnectionDiscordLoadingPage(props: IProps) {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
     const [result, setResult] = useState<null | { succes: boolean, error: any }>(null)
+    const homeFunction = useContext(HomeFunctionContext)
 
     useEffect(() => {
         let queryParameters = getURLSearchParams(window.location)
@@ -63,6 +65,7 @@ export default function ConnectionDiscordLoadingPage(props: IProps) {
             else if (type === "login") {
                 authService.discordLogin(code, true).then((res) => {
                     if (res) {
+                        homeFunction.updateAccountEvent()
                         setResult((value) => {
                             if (value === null) {
                                 return { succes: true, error: null }
@@ -94,7 +97,7 @@ export default function ConnectionDiscordLoadingPage(props: IProps) {
         return () => {
             clearTimeout(getData)
         }
-    }, [type])
+    }, [type, homeFunction])
 
     useEffect(() => {
         if (result === null) {
