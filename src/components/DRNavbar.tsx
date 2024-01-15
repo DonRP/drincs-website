@@ -2,8 +2,8 @@ import { Warning } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { Avatar, Badge, CircularProgress } from '@mui/joy';
-import { AppBar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Avatar, Badge, Box, CircularProgress, Typography } from '@mui/joy';
+import { AppBar, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { useQueryClient } from '@tanstack/react-query';
@@ -118,7 +118,6 @@ function DRNavbar(props: IDRNavbarProps) {
                         <Toolbar disableGutters>
                             {/* PC */}
                             <Typography
-                                variant="h6"
                                 noWrap
                                 component="div"
                                 sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
@@ -230,7 +229,9 @@ function DRNavbar(props: IDRNavbarProps) {
                                                 window.open(page.path.toString())
                                             }}
                                         >
-                                            <Typography textAlign="center">
+                                            <Typography
+                                                textAlign="center"
+                                            >
                                                 {page.title}
                                             </Typography>
                                         </MenuItem>
@@ -238,7 +239,6 @@ function DRNavbar(props: IDRNavbarProps) {
                                 </Menu>
                             </Box>
                             <Typography
-                                variant="h6"
                                 noWrap
                                 component="div"
                                 sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
