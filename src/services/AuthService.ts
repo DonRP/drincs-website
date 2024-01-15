@@ -122,7 +122,7 @@ class AuthService extends BaseRestService {
             throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
-        return this.putRequest<UserProfile>(this.urlwebapi + `/Auth/EditProfile`, profile, token)
+        return this.putRequest<boolean>(this.urlwebapi + `/Auth/EditProfile`, profile, token)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)

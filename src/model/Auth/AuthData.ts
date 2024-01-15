@@ -3,4 +3,5 @@ export interface AuthData {
     tokenExpirationTime: number;
     id: string;
     emailVerified: boolean;
+    haveDiscordAccount: boolean;
 }
