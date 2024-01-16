@@ -118,7 +118,10 @@ export default function MyProfile() {
                             variant="outlined"
                             color='success'
                         >
-                            {t("connection_discord_success") + " - " + t("support_development_info")} <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
+                            {t("connection_discord_success") + " - " + t("support_development_info")} <a
+                                href={gitHubLink + "/drincs-website/issues/37"}
+                                target={"_blank"} rel="noreferrer"
+                            >GitHub issue</a>
                         </Alert>}
                         {userInfo.emailVerified && !userInfo.haveDiscordAccount && <Alert
                             startDecorator={<DiscordIcon />}

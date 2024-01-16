@@ -109,7 +109,10 @@ function Report() {
                 <DRAlert
                     startDecorator={< DiscordIcon fill={theme.palette.logo.dicord} />}
                 >
-                    {t("before_opening_issue_info") + " "}<a href={discordLink}>Discord</a>
+                    {t("before_opening_issue_info") + " "}<a
+                        href={discordLink}
+                        target={"_blank"} rel="noreferrer"
+                    >Discord</a>
                 </DRAlert>
                 <ReportGrid
                     title="A Big Family in Debit"

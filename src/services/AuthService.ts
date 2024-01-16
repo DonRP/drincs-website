@@ -239,7 +239,7 @@ class AuthService extends BaseRestService {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
-                window.open(response.content.toString());
+                window.open(response.content.toString(), "_self");
             })
             .catch((res) => {
                 throw res
@@ -252,7 +252,7 @@ class AuthService extends BaseRestService {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
-                window.open(response.content.toString());
+                window.open(response.content.toString(), "_self");
             })
             .catch((res) => {
                 throw res

@@ -159,7 +159,10 @@ function Support() {
                         color="warning"
                         startDecorator={<WarningIcon />}
                     >
-                        {t("support_development_info") + " "} <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
+                        {t("support_development_info") + " "} <a
+                            href={gitHubLink + "/drincs-website/issues/37"}
+                            target={"_blank"} rel="noreferrer"
+                        >GitHub issue</a>
                     </DRAlert>
                     <DRAlert
                         startDecorator={<FavoriteIcon />}
