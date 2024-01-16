@@ -1,16 +1,17 @@
 import { Warning } from '@mui/icons-material';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { Avatar, Badge, Box, CircularProgress, Typography } from '@mui/joy';
-import { AppBar, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip } from '@mui/material';
+import { Avatar, Badge, Box, CircularProgress, Dropdown, Menu, MenuButton, MenuItem, Typography } from '@mui/joy';
+import { AppBar, Button, Container, Grid, IconButton, Toolbar, Tooltip } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { useQueryClient } from '@tanstack/react-query';
 import { materialUseTheme } from 'Theme';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { isLoggedIn } from 'services/AuthService';
@@ -19,9 +20,6 @@ import { showToast } from 'utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
 import DRLink from './DRLink';
 import DRLogo from './String/DRLogo';
-
-// https://mui.com/components/app-bar/
-// https://react-bootstrap.github.io/components/navbar/#home
 
 export type IPageDRNavbar = {
     title: string,
@@ -35,14 +33,12 @@ type IDRNavbarProps = {
     extern_link: IPageDRNavbar[],
 }
 
-function DRNavbar(props: IDRNavbarProps) {
+export default function DRNavbar(props: IDRNavbarProps) {
     const materialTheme = materialUseTheme();
     const { t } = useTranslation(["translation"]);
     const location = useLocation();
     const navigate = useNavigate();
     const { pages = [], supportPage, extern_link = [], openLogin } = props;
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const loginTitle = t("login");
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
@@ -51,7 +47,6 @@ function DRNavbar(props: IDRNavbarProps) {
         authService.logOut()
         location.pathname.includes("/profile") && navigate("/");
         queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
-        handleCloseUserMenu()
     }
     const {
         isLoading,
@@ -74,22 +69,6 @@ function DRNavbar(props: IDRNavbarProps) {
     const transitionDuration = {
         enter: materialTheme.transitions.duration.enteringScreen,
         exit: materialTheme.transitions.duration.leavingScreen,
-    };
-
-    const handleOpenNavMenu = (event: any) => {
-        setAnchorElNav(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
     };
 
     const goToSupport = () => {
@@ -145,10 +124,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                     {pages.map((page) => (
                                         <Button
                                             key={page.title}
-                                            onClick={() => {
-                                                navigate(page.path);
-                                                handleCloseNavMenu()
-                                            }}
+                                            onClick={() => navigate(page.path)}
                                             sx={{ my: 2, color: 'white', display: 'inline-table' }}
                                         >
                                             {page.title}
@@ -180,42 +156,24 @@ function DRNavbar(props: IDRNavbarProps) {
                                 </Grid>
                             </Box>
                             {/* Mobile */}
-                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleOpenNavMenu}
-                                    color="inherit"
+                            <Dropdown sx={{ display: { xs: 'flex', md: 'none' } }}>
+                                <MenuButton
+                                    slots={{ root: IconButton }}
+                                    slotProps={{ root: { variant: 'outlined', color: 'neutral' } }}
+                                    sx={{ display: { xs: 'flex', md: 'none' } }}
                                 >
                                     <MenuIcon />
-                                </IconButton>
+                                </MenuButton>
                                 <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorElNav}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'left',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'left',
-                                    }}
-                                    open={Boolean(anchorElNav)}
-                                    onClose={handleCloseNavMenu}
                                     sx={{
-                                        display: { xs: 'block', md: 'none' },
+                                        zIndex: (theme) => theme.zIndex.tooltip + 1,
+                                        display: { xs: 'flex', md: 'none' },
                                     }}
                                 >
                                     {pages.map((page) => (
                                         <MenuItem
                                             key={page.title}
-                                            onClick={() => {
-                                                navigate(page.path);
-                                                handleCloseNavMenu()
-                                            }}
+                                            onClick={() => navigate(page.path)}
                                         >
                                             <Typography textAlign="center">
                                                 {page.title}
@@ -237,7 +195,8 @@ function DRNavbar(props: IDRNavbarProps) {
                                         </MenuItem>
                                     ))}
                                 </Menu>
-                            </Box>
+                            </Dropdown>
+                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} />
                             <Typography
                                 noWrap
                                 component="div"
@@ -269,9 +228,12 @@ function DRNavbar(props: IDRNavbarProps) {
                             }
                             {/* PC and Mobile */}
                             {isLoggedIn() &&
-                                <>
+                                <Dropdown >
                                     <Tooltip title={t("expand")}>
-                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                        <MenuButton sx={{
+                                            p: 0,
+                                            borderRadius: '50%',
+                                        }}>
                                             {isLoading
                                                 ?
                                                 <CircularProgress />
@@ -296,43 +258,38 @@ function DRNavbar(props: IDRNavbarProps) {
                                                         <Avatar alt={userInfo.displayName} src={userInfo.photoURL} />
                                                     </Badge>
                                             }
-                                        </IconButton>
+                                        </MenuButton>
                                     </Tooltip>
                                     <Menu
-                                        sx={{ mt: '45px' }}
-                                        id="menu-appbar"
-                                        anchorEl={anchorElUser}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
+                                        sx={{
+                                            zIndex: (theme) => theme.zIndex.tooltip + 1,
                                         }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={Boolean(anchorElUser)}
-                                        onClose={handleCloseUserMenu}
                                     >
-                                        <MenuItem onClick={() => {
-                                            navigate("/profile");
-                                            handleCloseUserMenu()
-                                        }}>
-                                            <Typography textAlign="center">{t("my_profile")}</Typography>
+                                        <MenuItem onClick={() => navigate("/profile")}>
+                                            <Typography
+                                                textAlign="center"
+                                                startDecorator={<AssignmentIndIcon />}
+                                            >
+                                                {t("my_profile")}
+                                            </Typography>
                                         </MenuItem>
                                         <MenuItem onClick={logOutOnClick}>
-                                            <Typography textAlign="center">{t("log_out")}</Typography>
+                                            <Typography
+                                                textAlign="center"
+                                                startDecorator={<LogoutIcon />}
+                                            >
+                                                {t("log_out")}
+                                            </Typography>
                                         </MenuItem>
                                     </Menu>
-                                </>
+                                </Dropdown>
                             }
                         </Toolbar>
                     </Container>
                 </AppBar >
                 {/* space for the AppBar */}
-                <Box sx={{ minHeight: 75 }}>
+                <Box sx={{ minHeight: 75 }} />
 
-                </Box>
                 <Zoom
                     in={suppertIsVisible()}
                     timeout={transitionDuration}
@@ -375,5 +332,3 @@ function DRNavbar(props: IDRNavbarProps) {
         return <DRErrorComponent error={error} text={"DRNavbar"} />
     }
 };
-
-export default DRNavbar;
