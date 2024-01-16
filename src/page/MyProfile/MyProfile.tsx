@@ -1,19 +1,25 @@
 import EditIcon from '@mui/icons-material/Edit';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import KeyIcon from '@mui/icons-material/Key';
+import LaunchIcon from '@mui/icons-material/Launch';
+import { Alert } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRChip from 'components/DRChip';
+import { DRIconButtonLoading } from 'components/DRIconButton';
 import { DRTextFieldNotEditable } from 'components/DRTextField';
+import DiscordIcon from 'components/Icon/DiscordIcon';
+import { gitHubLink } from 'constant';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import AuthService from 'services/AuthService';
 import { useGetProfileCache } from 'use_query/useGetUser';
-import { showToast } from 'utility/ShowToast';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 import MyProfileCard from './MyProfileCard';
 import ResendVerificationMailButton from './ResendVerificationMailButton';
 import UploadPhotoProfile from './UploadPhotoProfile';
@@ -23,6 +29,7 @@ export default function MyProfile() {
     const { t } = useTranslation(["translation"]);
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+    const [loadinfDiscord, setLoadingDiscord] = useState<boolean>(false)
     const {
         isLoading,
         data = new UserProfile(),
@@ -106,6 +113,38 @@ export default function MyProfile() {
                         {!isLoading && !userInfo.emailVerified &&
                             <ResendVerificationMailButton />
                         }
+                        {userInfo.haveDiscordAccount && <Alert
+                            startDecorator={<DiscordIcon />}
+                            variant="outlined"
+                            color='success'
+                        >
+                            {t("connection_discord_success") + " - " + t("support_development_info")} <a href={gitHubLink + "/drincs-website/issues/37"}>GitHub issue</a>
+                        </Alert>}
+                        {userInfo.emailVerified && !userInfo.haveDiscordAccount && <Alert
+                            startDecorator={<DiscordIcon />}
+                            variant="outlined"
+                            color="primary"
+                            endDecorator={
+                                <DRIconButtonLoading
+                                    loading={loadinfDiscord}
+                                    onClick={() => {
+                                        let service = new AuthService();
+                                        setLoadingDiscord(true)
+                                        service.redirectConnectDiscord()
+                                            .then(() => {
+                                                setLoadingDiscord(false)
+                                            })
+                                            .catch((error) => {
+                                                setLoadingDiscord(false)
+                                                showToastByMyError(error, enqueueSnackbar, t)
+                                            })
+                                    }}
+                                >
+                                    <LaunchIcon />
+                                </DRIconButtonLoading>
+                            }>
+                            {t("connect_to_discord") + ": " + t("used_support_rewards")}
+                        </Alert>}
                     </Stack>
                 </>
             }
