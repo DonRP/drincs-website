@@ -2,10 +2,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import KeyIcon from '@mui/icons-material/Key';
 import LaunchIcon from '@mui/icons-material/Launch';
-import { Alert } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
+import DRAlert from 'components/DRAlert';
 import { DRButtonNoMargin } from 'components/DRButton';
 import DRChip from 'components/DRChip';
 import { DRIconButtonLoading } from 'components/DRIconButton';
@@ -113,17 +113,17 @@ export default function MyProfile() {
                         {!isLoading && !userInfo.emailVerified &&
                             <ResendVerificationMailButton />
                         }
-                        {userInfo.haveDiscordAccount && <Alert
+                        {userInfo.haveDiscordAccount && <DRAlert
                             startDecorator={<DiscordIcon />}
                             variant="outlined"
                             color='success'
                         >
-                            {t("connection_discord_success") + " - " + t("support_development_info")} <a
+                            {t("connection_discord_success") + " - " + t("support_development_info") + " "} <a
                                 href={gitHubLink + "/drincs-website/issues/37"}
                                 target={"_blank"} rel="noreferrer"
                             >GitHub issue</a>
-                        </Alert>}
-                        {userInfo.emailVerified && !userInfo.haveDiscordAccount && <Alert
+                        </DRAlert>}
+                        {userInfo.emailVerified && !userInfo.haveDiscordAccount && <DRAlert
                             startDecorator={<DiscordIcon />}
                             variant="outlined"
                             color="primary"
@@ -147,7 +147,7 @@ export default function MyProfile() {
                                 </DRIconButtonLoading>
                             }>
                             {t("connect_to_discord") + ": " + t("used_support_rewards")}
-                        </Alert>}
+                        </DRAlert>}
                     </Stack>
                 </>
             }

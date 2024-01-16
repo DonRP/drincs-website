@@ -1,11 +1,9 @@
-import { Alert, AlertSlotsAndSlotProps, ColorPaletteProp, Typography } from '@mui/joy';
-import { ReactNode } from 'react';
+import { Alert, AlertProps, AlertTypeMap, Typography } from '@mui/joy';
 import DRErrorComponent from './DRErrorComponent';
 
-interface IProps extends AlertSlotsAndSlotProps {
-    children?: ReactNode,
-    startDecorator?: ReactNode,
-    color?: ColorPaletteProp
+interface IProps extends AlertProps<AlertTypeMap['defaultComponent'], {
+    component?: React.ElementType;
+}> {
 }
 
 function DRAlert(props: IProps) {
