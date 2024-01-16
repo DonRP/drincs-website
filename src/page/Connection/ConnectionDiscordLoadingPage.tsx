@@ -36,6 +36,7 @@ export default function ConnectionDiscordLoadingPage(props: IProps) {
             if (type === "connection") {
                 authService.discordConnect(code).then((res) => {
                     if (res) {
+                        homeFunction.updateAccountEvent()
                         setResult((value) => {
                             if (value === null) {
                                 return { succes: true, error: null }
@@ -100,18 +101,25 @@ export default function ConnectionDiscordLoadingPage(props: IProps) {
     }, [type, homeFunction])
 
     useEffect(() => {
-        if (result === null) {
-            return
-        }
-        if (result.succes) {
-            setResult(null)
-            navigate('/discord-connect-success');
-            return
-        }
-        else {
-            setResult(null)
-            showToastByMyError(result.error, enqueueSnackbar, t)
-            navigate('/discord-connect-error');
+        // Debouncing
+        const getData = setTimeout(() => {
+            if (result === null) {
+                return
+            }
+            if (result.succes) {
+                setResult(null)
+                navigate('/discord-connect-success');
+                return
+            }
+            else {
+                setResult(null)
+                showToastByMyError(result.error, enqueueSnackbar, t)
+                navigate('/discord-connect-error');
+            }
+        }, 700)
+
+        return () => {
+            clearTimeout(getData)
         }
     }, [result, navigate, enqueueSnackbar, t])
 

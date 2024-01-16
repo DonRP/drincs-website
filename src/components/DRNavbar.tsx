@@ -10,13 +10,15 @@ import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { useQueryClient } from '@tanstack/react-query';
 import { materialUseTheme } from 'Theme';
+import HomeFunctionContext from 'contexts/HomeFunctionContext';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { isLoggedIn } from 'services/AuthService';
 import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
-import { showToast } from 'utility/ShowToast';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
 import DRLink from './DRLink';
 import DRLogo from './String/DRLogo';
@@ -42,12 +44,8 @@ export default function DRNavbar(props: IDRNavbarProps) {
     const loginTitle = t("login");
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
-    const logOutOnClick = () => {
-        let authService = new AuthService();
-        authService.logOut()
-        location.pathname.includes("/profile") && navigate("/");
-        queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
-    }
+    const homeFunction = useContext(HomeFunctionContext)
+    const [loadinfDiscord, setLoadingDiscord] = useState<boolean>(false)
     const {
         isLoading,
         data: userInfo = new UserProfile(),
@@ -65,6 +63,13 @@ export default function DRNavbar(props: IDRNavbarProps) {
             showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
         },
     })
+    const logOutOnClick = () => {
+        let authService = new AuthService();
+        authService.logOut()
+        location.pathname.includes("/profile") && navigate("/");
+        queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+        homeFunction.updateAccountEvent()
+    }
 
     const transitionDuration = {
         enter: materialTheme.transitions.duration.enteringScreen,
@@ -230,10 +235,12 @@ export default function DRNavbar(props: IDRNavbarProps) {
                             {isLoggedIn() &&
                                 <Dropdown >
                                     <Tooltip title={t("expand")}>
-                                        <MenuButton sx={{
-                                            p: 0,
-                                            borderRadius: '50%',
-                                        }}>
+                                        <MenuButton
+                                            slots={{ root: IconButton }}
+                                            sx={{
+                                                p: 0,
+                                            }}
+                                        >
                                             {isLoading
                                                 ?
                                                 <CircularProgress />
@@ -273,6 +280,33 @@ export default function DRNavbar(props: IDRNavbarProps) {
                                                 {t("my_profile")}
                                             </Typography>
                                         </MenuItem>
+                                        {!userInfo.haveDiscordAccount && <MenuItem
+                                            onClick={() => {
+                                                let service = new AuthService();
+                                                setLoadingDiscord(true)
+                                                service.redirectConnectDiscord()
+                                                    .then(() => {
+                                                        setLoadingDiscord(false)
+                                                    })
+                                                    .catch((error) => {
+                                                        setLoadingDiscord(false)
+                                                        showToastByMyError(error, enqueueSnackbar, t)
+                                                    })
+                                            }}
+                                        >
+                                            <Typography
+                                                textAlign="center"
+                                                startDecorator={
+                                                    loadinfDiscord
+                                                        ?
+                                                        <CircularProgress />
+                                                        :
+                                                        <Warning color="warning" />
+                                                }
+                                            >
+                                                {t("connect_to_discord")}
+                                            </Typography>
+                                        </MenuItem>}
                                         <MenuItem onClick={logOutOnClick}>
                                             <Typography
                                                 textAlign="center"
