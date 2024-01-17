@@ -3,7 +3,7 @@ import SendIcon from '@mui/icons-material/Send';
 import UndoIcon from '@mui/icons-material/Undo';
 import { Theme, useMediaQuery } from '@mui/material';
 import DRAlert from 'components/DRAlert';
-import { DRButtonNoMargin } from 'components/DRButton';
+import DRButton from 'components/DRButton';
 import DRDialog, { IDRDialogProps } from 'components/DRDialog';
 import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
@@ -71,14 +71,14 @@ function ReportForm<T>(props: ReportFormProps<T>) {
             minWidth={800}
             actions={
                 <>
-                    <DRButtonNoMargin
+                    <DRButton
                         onClick={handleSend}
                         loading={loading}
                         endDecorator={<SendIcon />}
                     >
                         {t("send")}
-                    </DRButtonNoMargin>
-                    <DRButtonNoMargin
+                    </DRButton>
+                    <DRButton
                         onClick={() => setOpen(false)}
                         disabled={loading}
                         variant="outlined"
@@ -86,7 +86,7 @@ function ReportForm<T>(props: ReportFormProps<T>) {
                         startDecorator={<UndoIcon />}
                     >
                         {t("cancel")}
-                    </DRButtonNoMargin>
+                    </DRButton>
                 </>
             }
         >

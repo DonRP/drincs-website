@@ -1,7 +1,7 @@
 import { ColorPaletteProp } from '@mui/joy';
 import { Theme, useMediaQuery } from '@mui/material';
 import { useState } from 'react';
-import { DRButtonNoMargin } from './DRButton';
+import DRButton from './DRButton';
 import DRDialog, { IDRDialogProps } from './DRDialog';
 
 interface IProps extends IDRDialogProps {
@@ -43,7 +43,7 @@ export default function DRDialogConfirmation(props: IProps) {
             layout={smScreen ? "fullscreen" : layout}
             actions={
                 <>
-                    <DRButtonNoMargin
+                    <DRButton
                         variant="solid"
                         color={buttonColor}
                         onClick={() => {
@@ -66,8 +66,8 @@ export default function DRDialogConfirmation(props: IProps) {
                         loading={loading}
                     >
                         {confirmText || 'Confirm'}
-                    </DRButtonNoMargin>
-                    <DRButtonNoMargin
+                    </DRButton>
+                    <DRButton
                         variant="plain"
                         color="neutral"
                         onClick={() => setOpen(false)}
@@ -75,7 +75,7 @@ export default function DRDialogConfirmation(props: IProps) {
                         disabled={loading}
                     >
                         {cancelText || 'Cancel'}
-                    </DRButtonNoMargin>
+                    </DRButton>
                 </>
             }
             {...rest}

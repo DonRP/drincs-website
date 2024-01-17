@@ -2,11 +2,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import KeyIcon from '@mui/icons-material/Key';
 import LaunchIcon from '@mui/icons-material/Launch';
+import { Grid } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
-import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import DRAlert from 'components/DRAlert';
-import { DRButtonNoMargin } from 'components/DRButton';
+import { DRButtonFab } from 'components/DRButton';
 import DRChip from 'components/DRChip';
 import { DRIconButtonLoading } from 'components/DRIconButton';
 import { DRTextFieldNotEditable } from 'components/DRTextField';
@@ -60,8 +60,16 @@ export default function MyProfile() {
                 </>
             }
             body={
-                <>
-                    <Stack direction="column" spacing={1}>
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="flex-start"
+                    alignItems="flex-start"
+                    spacing={2}
+                >
+                    <Grid
+                        sm={3}
+                    >
                         <AspectRatio
                             ratio="1"
                             maxHeight={200}
@@ -81,82 +89,113 @@ export default function MyProfile() {
                                 })
                             }}
                         />
-                    </Stack>
-                    <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                        <DRTextFieldNotEditable
-                            fieldName="displayName"
-                            label={t("username")}
-                            value={userInfo.displayName}
-                        />
-                        <DRTextFieldNotEditable
-                            fieldName="email"
-                            label={t("email")}
-                            value={userInfo.email}
-                            type='email'
-                            startDecorator={<EmailRoundedIcon />}
-                            endDecorator={
-                                userInfo.emailVerified ?
-                                    <DRChip
-                                        ariaLabel={t("verified")}
-                                        color="success"
-                                    >
-                                        {t("verified")}
-                                    </DRChip>
-                                    :
-                                    <DRChip
-                                        ariaLabel={t("not_verified")}
-                                        color="danger"
-                                    >
-                                        {t("not_verified")}
-                                    </DRChip>
-                            }
-                        />
-                        {!isLoading && !userInfo.emailVerified &&
-                            <ResendVerificationMailButton />
-                        }
-                        {userInfo.haveDiscordAccount && <DRAlert
-                            startDecorator={<DiscordIcon />}
-                            variant="outlined"
-                            color='success'
-                            endDecorator={<UnlinkDiscordButton />}
+                    </Grid>
+                    <Grid
+                        container
+                        direction="row"
+                        justifyContent="flex-start"
+                        alignItems="flex-start"
+                        xs={12}
+                        sm={9}
+                    >
+                        <Grid
+                            xs={12}
                         >
-                            {t("connection_discord_success") + " - " + t("support_development_info") + " "} <a
-                                href={gitHubLink + "/drincs-website/issues/37"}
-                                target={"_blank"} rel="noreferrer"
-                            >GitHub issue</a>
-                        </DRAlert>}
-                        {userInfo.emailVerified && !userInfo.haveDiscordAccount && <DRAlert
-                            startDecorator={<DiscordIcon />}
-                            variant="outlined"
-                            color="primary"
-                            endDecorator={
-                                <DRIconButtonLoading
-                                    loading={loadinfDiscord}
-                                    onClick={() => {
-                                        let service = new AuthService();
-                                        setLoadingDiscord(true)
-                                        service.redirectConnectDiscord()
-                                            .then(() => {
-                                                setLoadingDiscord(false)
-                                            })
-                                            .catch((error) => {
-                                                setLoadingDiscord(false)
-                                                showToastByMyError(error, enqueueSnackbar, t)
-                                            })
-                                    }}
+                            <DRTextFieldNotEditable
+                                fieldName="displayName"
+                                label={t("username")}
+                                value={userInfo.displayName}
+                            />
+                        </Grid>
+                        <Grid
+                            xs={12}
+                        >
+                            <DRTextFieldNotEditable
+                                fieldName="email"
+                                label={t("email")}
+                                value={userInfo.email}
+                                type='email'
+                                startDecorator={<EmailRoundedIcon />}
+                                endDecorator={
+                                    userInfo.emailVerified ?
+                                        <DRChip
+                                            ariaLabel={t("verified")}
+                                            color="success"
+                                        >
+                                            {t("verified")}
+                                        </DRChip>
+                                        :
+                                        <DRChip
+                                            ariaLabel={t("not_verified")}
+                                            color="danger"
+                                        >
+                                            {t("not_verified")}
+                                        </DRChip>
+                                }
+                            />
+                        </Grid>
+                        {!isLoading && !userInfo.emailVerified &&
+                            <Grid
+                                xs={12}
+                            >
+                                <ResendVerificationMailButton />
+                            </Grid>
+                        }
+                        {userInfo.haveDiscordAccount &&
+                            <Grid
+                                xs={12}
+                            >
+                                <DRAlert
+                                    startDecorator={<DiscordIcon />}
+                                    variant="outlined"
+                                    color='success'
+                                    endDecorator={<UnlinkDiscordButton />}
                                 >
-                                    <LaunchIcon />
-                                </DRIconButtonLoading>
-                            }>
-                            {t("connect_to_discord") + ": " + t("used_support_rewards")}
-                        </DRAlert>}
-                    </Stack>
-                </>
+                                    {t("connection_discord_success") + " - " + t("support_development_info") + " "} <a
+                                        href={gitHubLink + "/drincs-website/issues/37"}
+                                        target={"_blank"} rel="noreferrer"
+                                    >GitHub issue</a>
+                                </DRAlert>
+                            </Grid>
+                        }
+                        {userInfo.emailVerified && !userInfo.haveDiscordAccount &&
+                            <Grid
+                                xs={12}
+                            >
+                                <DRAlert
+                                    startDecorator={<DiscordIcon />}
+                                    variant="outlined"
+                                    color="primary"
+                                    endDecorator={
+                                        <DRIconButtonLoading
+                                            loading={loadinfDiscord}
+                                            onClick={() => {
+                                                let service = new AuthService();
+                                                setLoadingDiscord(true)
+                                                service.redirectConnectDiscord()
+                                                    .then(() => {
+                                                        setLoadingDiscord(false)
+                                                    })
+                                                    .catch((error) => {
+                                                        setLoadingDiscord(false)
+                                                        showToastByMyError(error, enqueueSnackbar, t)
+                                                    })
+                                            }}
+                                        >
+                                            <LaunchIcon />
+                                        </DRIconButtonLoading>
+                                    }>
+                                    {t("connect_to_discord") + ": " + t("used_support_rewards")}
+                                </DRAlert>
+                            </Grid>
+                        }
+                    </Grid>
+                </Grid>
             }
             actions={
                 <>
                     <UserDeleteButton />
-                    <DRButtonNoMargin
+                    <DRButtonFab
                         size="sm"
                         disabled={isLoading}
                         sx={{
@@ -167,10 +206,11 @@ export default function MyProfile() {
                             navigate("/profile/change-password");
                         }}
                         startDecorator={<KeyIcon />}
+                        bottom={90}
                     >
                         {t("edit_password")}
-                    </DRButtonNoMargin>
-                    <DRButtonNoMargin
+                    </DRButtonFab>
+                    <DRButtonFab
                         size="sm"
                         variant="solid"
                         disabled={isLoading}
@@ -184,7 +224,7 @@ export default function MyProfile() {
                         startDecorator={<EditIcon />}
                     >
                         {t("edit")}
-                    </DRButtonNoMargin>
+                    </DRButtonFab>
                 </>
             }
         />

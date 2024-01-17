@@ -102,6 +102,10 @@ function About() {
                                     minWidth: "170px",
                                     color: "black",
                                 }}
+                                marginTop={20}
+                                marginBottom={10}
+                                marginLeft={2}
+                                marginRight={2}
                                 startDecorator={<FavoriteIcon />}
                                 onClick={() => {
                                     navigate("/support");
@@ -120,6 +124,10 @@ function About() {
                                     minHeight: "50px",
                                     minWidth: "170px",
                                 }}
+                                marginTop={20}
+                                marginBottom={10}
+                                marginLeft={2}
+                                marginRight={2}
                                 endDecorator={<DownloadIcon />}
                                 onClick={() => {
                                     navigate("/download");

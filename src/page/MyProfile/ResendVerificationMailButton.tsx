@@ -1,6 +1,6 @@
 import CheckIcon from '@mui/icons-material/Check';
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
-import { DRButtonNoMargin } from 'components/DRButton';
+import DRButton from 'components/DRButton';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,7 +14,7 @@ export default function ResendVerificationMailButton() {
     const [loading, setLoading] = useState(false);
 
     return (
-        <DRButtonNoMargin
+        <DRButton
             size="sm"
             variant="outlined"
             color={emailSended ? "success" : undefined}
@@ -35,6 +35,6 @@ export default function ResendVerificationMailButton() {
             }}
         >
             {emailSended ? t("verification_mail_sent") : t("resend_verification_email")}
-        </DRButtonNoMargin>
+        </DRButton>
     );
 }

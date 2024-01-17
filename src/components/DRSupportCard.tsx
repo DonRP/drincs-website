@@ -3,7 +3,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
 import { BoostyLink, BuyMeACoffeeLink, KofiLink, PatreonLink } from 'constant';
 import { useTranslation } from 'react-i18next';
-import { DRButtonNoMargin } from './DRButton';
+import DRButton from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
 import BoostyIcon from './Icon/BoostyIcon';
@@ -88,7 +88,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                         spacing={1}
                     >
                         <Grid xs={12}>
-                            <DRButtonNoMargin
+                            <DRButton
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
@@ -109,10 +109,10 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 }
                             >
                                 {"Ko-fi"}
-                            </DRButtonNoMargin>
+                            </DRButton>
                         </Grid>
                         <Grid xs={12}>
-                            <DRButtonNoMargin
+                            <DRButton
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
@@ -133,10 +133,10 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 }
                             >
                                 {"Buy Me A Coffe"}
-                            </DRButtonNoMargin>
+                            </DRButton>
                         </Grid>
                         <Grid xs={12}>
-                            <DRButtonNoMargin
+                            <DRButton
                                 size='sm'
                                 variant="soft"
                                 color="neutral"
@@ -157,7 +157,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                 }
                             >
                                 {"Patreon"}
-                            </DRButtonNoMargin>
+                            </DRButton>
                         </Grid>
                         <Grid
                             xs={12}
@@ -168,7 +168,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                             spacing={1}
                         >
                             <Grid xs={12}>
-                                <DRButtonNoMargin
+                                <DRButton
                                     size='sm'
                                     variant="soft"
                                     color="neutral"
@@ -189,7 +189,7 @@ function DRSupportCard(props: IDRSupportCardProps) {
                                     }
                                 >
                                     {"Boosty"}
-                                </DRButtonNoMargin>
+                                </DRButton>
                             </Grid>
                         </Grid>
                     </Grid>
