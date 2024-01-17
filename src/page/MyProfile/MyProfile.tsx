@@ -6,7 +6,7 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import DRAlert from 'components/DRAlert';
-import DRButton, { DRButtonFab } from 'components/DRButton';
+import { DRButtonFab } from 'components/DRButton';
 import DRChip from 'components/DRChip';
 import { DRIconButtonLoading } from 'components/DRIconButton';
 import { DRTextFieldNotEditable } from 'components/DRTextField';
@@ -156,7 +156,7 @@ export default function MyProfile() {
             actions={
                 <>
                     <UserDeleteButton />
-                    <DRButton
+                    <DRButtonFab
                         size="sm"
                         disabled={isLoading}
                         sx={{
@@ -167,9 +167,10 @@ export default function MyProfile() {
                             navigate("/profile/change-password");
                         }}
                         startDecorator={<KeyIcon />}
+                        bottom={90}
                     >
                         {t("edit_password")}
-                    </DRButton>
+                    </DRButtonFab>
                     <DRButtonFab
                         size="sm"
                         variant="solid"

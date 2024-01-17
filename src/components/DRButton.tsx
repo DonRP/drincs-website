@@ -78,11 +78,15 @@ export function DRButtonSignInSide(props: IProps) {
 export interface IPropsFab extends IProps {
     fabProps?: FabProps<FabTypeMap['defaultComponent']>
     breakpoints?: Breakpoint,
+    bottom?: number,
+    right?: number,
 }
 export function DRButtonFab(props: IPropsFab) {
     const {
         fabProps,
         breakpoints = 'sm',
+        bottom = 16,
+        right = 16,
         ...rest
     } = props;
     const smScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down(breakpoints));
@@ -105,8 +109,8 @@ export function DRButtonFab(props: IPropsFab) {
                     {...fabProps}
                     sx={{
                         position: 'fixed',
-                        bottom: 16,
-                        right: 16,
+                        bottom: bottom,
+                        right: right,
                         ...fabProps?.sx
                     }}
                 >
