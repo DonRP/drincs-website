@@ -4,15 +4,17 @@ import { Grid, Link, Typography } from '@mui/joy';
 import { DRButtonSignInSide } from 'components/DRButton';
 import DRErrorComponent from 'components/DRErrorComponent';
 import DRTextField, { DRTextFieldPassword } from 'components/DRTextField';
+import HomeFunctionContext from 'contexts/HomeFunctionContext';
 import { LoginAccount } from 'model/Auth/LoginAccount';
 import { ISignInSidePageProps } from 'page/SignInSide';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
 import { showToast, showToastByMyError } from 'utility/ShowToast';
 import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
 import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
-import DRCheckBox from '../DRCheckbox';
+import DRCheckBox from '../../components/DRCheckbox';
+import OltherLoginButton from './OltherLoginButton';
 
 function Login(props: ISignInSidePageProps) {
     const [account, setAccount] = useState<LoginAccount>(new LoginAccount());
@@ -23,6 +25,7 @@ function Login(props: ISignInSidePageProps) {
     const { authService, enqueueSnackbar, onClose } = props;
     const { t } = useTranslation(["translation"]);
     const [notValidEmail, setNotValidEmail] = useState<boolean>(false)
+    const homeFunction = useContext(HomeFunctionContext)
 
     const validateLogin = (account: LoginAccount): string[] => {
         let fields = [];
@@ -55,6 +58,7 @@ function Login(props: ISignInSidePageProps) {
                     onClose()
                 }
                 setLoading(false)
+                homeFunction.updateAccountEvent()
             }).catch((err) => {
                 showToastByMyError(err, enqueueSnackbar, t)
                 setLoading(false)
@@ -159,6 +163,7 @@ function Login(props: ISignInSidePageProps) {
                     >
                         {t("sign_in")}
                     </DRButtonSignInSide>
+                    <OltherLoginButton />
                 </>}
                 {openChangePassword && <>
                     <Grid container

@@ -1,9 +1,11 @@
 import EmailIcon from '@mui/icons-material/Email';
-import { Avatar, AvatarGroup, CssVarsProvider, Grid, Link, Modal, ModalClose, Sheet, Typography } from "@mui/joy";
+import { Avatar, AvatarGroup, CssVarsProvider, DialogContent, DialogTitle, Grid, Link, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
+import { Theme, useMediaQuery } from '@mui/material';
+import { myUseTheme } from 'Theme';
 import Copyright from "components/Copyright";
-import Login from "components/SignInSide/Login";
-import SignUp from "components/SignInSide/SignUp";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
+import Login from "page/SignInSide/Login";
+import SignUp from "page/SignInSide/SignUp";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import AuthService, { isLoggedIn } from "services/AuthService";
@@ -28,6 +30,7 @@ function SignInSide(props: IProps) {
     const { enqueueSnackbar } = useSnackbar();
     const authService = new AuthService();
     const { onClose, open } = props;
+    const xsScreen = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
     return (
         <Modal
@@ -44,31 +47,40 @@ function SignInSide(props: IProps) {
             }}
         >
             <CssVarsProvider>
-                <main>
-                    <Sheet
+                <ModalDialog
+                    sx={{
+                        borderRadius: "lg",
+                        boxShadow: 'md',
+                        border: '1px solid',
+                        borderColor: myUseTheme().palette.neutral[300],
+                    }}
+                    minWidth={500}
+                    variant="outlined"
+                    layout={xsScreen ? "fullscreen" : "center"}
+                >
+                    <DialogTitle
                         sx={{
-                            maxWidth: 500,
-                            mx: 'auto', // margin left & right
-                            my: 4, // margin top & bottom
-                            py: 3, // padding top & bottom
-                            px: 2, // padding left & right
-                            display: 'flex',
-                            flexDirection: 'column',
-                            borderRadius: 'sm',
-                            boxShadow: 'md',
+                            padding: 0.7
                         }}
-                        variant="outlined"
                     >
-                        <ModalClose
-                            variant="outlined"
-                            sx={{
+                    </DialogTitle>
+                    <ModalClose
+                        variant="outlined"
+                        sx={xsScreen ? undefined :
+                            {
                                 top: 'calc(-1/4 * var(--IconButton-size))',
                                 right: 'calc(-1/4 * var(--IconButton-size))',
                                 boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
                                 borderRadius: '50%',
                                 bgcolor: 'background.surface',
-                            }}
-                        />
+                            }
+                        }
+                    />
+                    <DialogContent
+                        sx={{
+                            padding: 0.5
+                        }}
+                    >
                         {!isCheckMail ?
                             <>
                                 <Grid>
@@ -150,8 +162,8 @@ function SignInSide(props: IProps) {
                         }
 
                         <Copyright />
-                    </Sheet>
-                </main>
+                    </DialogContent>
+                </ModalDialog>
             </CssVarsProvider>
         </Modal>
     );

@@ -79,6 +79,7 @@ export function DRButtonSignInSide(props: IProps) {
             marginBottom={1}
             marginLeft={0}
             marginRight={0}
+            size='sm'
             {...props}
         />
     );

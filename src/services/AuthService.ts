@@ -81,7 +81,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.getRequest<UserProfile>(this.urlwebapi + `/Auth/GetProfile`, token)
@@ -100,7 +100,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.putRequest<boolean>(this.urlwebapi + `/Auth/ResendVerificationEmail`, undefined, token)
@@ -119,10 +119,10 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
-        return this.putRequest<UserProfile>(this.urlwebapi + `/Auth/EditProfile`, profile, token)
+        return this.putRequest<boolean>(this.urlwebapi + `/Auth/EditProfile`, profile, token)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
@@ -138,7 +138,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.putRequest<boolean>(this.urlwebapi + `/Auth/ChangePassword`, body, token)
@@ -157,7 +157,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
 
         return this.deleteRequest<boolean>(this.urlwebapi + `/Auth/DeleteAccount`, token)
@@ -176,7 +176,7 @@ class AuthService extends BaseRestService {
         let token = this.geToken()
         if (!token) {
             console.error("AuthService.getProfile token not found")
-            throw new MyError("err_token_not_found")
+            throw new MyError("AuthService.getProfile token not found", "err_token_not_found")
         }
         let formData = new FormData()
         formData.append('file', image)
@@ -188,6 +188,90 @@ class AuthService extends BaseRestService {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
                 }
                 return response.content || ""
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
+    async discordConnect(discord: string) {
+        let token = this.geToken()
+        if (!token) {
+            console.error("AuthService.discordConnect token not found")
+            throw new MyError("AuthService.discordConnect token not found", "err_token_not_found")
+        }
+
+        return this.postRequest<boolean>(this.urlwebapi + `/Auth/ConnectDiscord`, { code: discord }, token)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                return true
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
+    async discordLogin(discord: string, rememberMe: boolean = false) {
+        return this.postRequest<AuthData>(this.urlwebapi + `/Auth/LoginDiscord`, { code: discord })
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                if (rememberMe) {
+                    localStorage.setItem("access_token", response.content.token ?? "");
+                }
+                else {
+                    sessionStorage.setItem("access_token", response.content.token ?? "");
+                }
+                analyticLogin("/Auth/LoginDiscord")
+                return true
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
+    async redirectLoginDiscord() {
+        return this.getRequest(this.urlwebapi + `/Auth/RedirectDiscordLogin`)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                window.open(response.content.toString(), "_self");
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
+    async redirectConnectDiscord() {
+        return this.getRequest(this.urlwebapi + `/Auth/RedirectDiscordConnect`)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode || !response.content) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                window.open(response.content.toString(), "_self");
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
+    async unlinkDiscord() {
+        let token = this.geToken()
+        if (!token) {
+            console.error("AuthService.unlinkDiscord token not found")
+            throw new MyError("AuthService.unlinkDiscord token not found", "err_token_not_found")
+        }
+
+        return this.deleteRequest<boolean>(this.urlwebapi + `/Auth/DeleteDiscordConnection`, token)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                return true
             })
             .catch((res) => {
                 throw res

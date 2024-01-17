@@ -1,26 +1,27 @@
+import { Warning } from '@mui/icons-material';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { CircularProgress } from '@mui/joy';
-import { AppBar, Avatar, Box, Button, Container, Grid, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
+import { Avatar, Badge, Box, CircularProgress, Dropdown, Menu, MenuButton, MenuItem, Typography } from '@mui/joy';
+import { AppBar, Button, Container, Grid, IconButton, Toolbar, Tooltip } from '@mui/material';
 import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import { useQueryClient } from '@tanstack/react-query';
 import { materialUseTheme } from 'Theme';
+import HomeFunctionContext from 'contexts/HomeFunctionContext';
 import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
-import React from 'react';
+import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { To, useLocation, useNavigate } from 'react-router-dom';
 import AuthService, { isLoggedIn } from 'services/AuthService';
 import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
-import { showToast } from 'utility/ShowToast';
+import { showToast, showToastByMyError } from 'utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
 import DRLink from './DRLink';
 import DRLogo from './String/DRLogo';
-
-// https://mui.com/components/app-bar/
-// https://react-bootstrap.github.io/components/navbar/#home
 
 export type IPageDRNavbar = {
     title: string,
@@ -34,56 +35,45 @@ type IDRNavbarProps = {
     extern_link: IPageDRNavbar[],
 }
 
-function DRNavbar(props: IDRNavbarProps) {
+export default function DRNavbar(props: IDRNavbarProps) {
     const materialTheme = materialUseTheme();
     const { t } = useTranslation(["translation"]);
     const location = useLocation();
     const navigate = useNavigate();
     const { pages = [], supportPage, extern_link = [], openLogin } = props;
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
     const loginTitle = t("login");
     const queryClient = useQueryClient()
     const { enqueueSnackbar } = useSnackbar();
-    const logOutOnClick = () => {
-        let authService = new AuthService();
-        authService.logOut()
-        location.pathname.includes("/profile") && navigate("/");
-        queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
-        handleCloseUserMenu()
-    }
+    const homeFunction = useContext(HomeFunctionContext)
+    const [loadinfDiscord, setLoadingDiscord] = useState<boolean>(false)
     const {
         isLoading,
         data: userInfo = new UserProfile(),
     } = useGetProfileCache({
         catch: (err) => {
+            if (err?.messagesToShow === 'api_user_not_found_or_deleted') {
+                logOutOnClick()
+                return
+            }
             if (err?.messagesToShow === 'api_jwt_expired') {
                 showToast(t("api_jwt_expired"), "warning", enqueueSnackbar)
                 logOutOnClick()
+                return
             }
             showToast(t("get_user_profile_error"), "error", enqueueSnackbar)
         },
     })
+    const logOutOnClick = () => {
+        let authService = new AuthService();
+        authService.logOut()
+        location.pathname.includes("/profile") && navigate("/");
+        queryClient.invalidateQueries({ queryKey: [GET_PROFILE_CACHE_KEY] });
+        homeFunction.updateAccountEvent()
+    }
 
     const transitionDuration = {
         enter: materialTheme.transitions.duration.enteringScreen,
         exit: materialTheme.transitions.duration.leavingScreen,
-    };
-
-    const handleOpenNavMenu = (event: any) => {
-        setAnchorElNav(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElUser(event.currentTarget);
-    };
-
-    const handleCloseUserMenu = () => {
-        setAnchorElUser(null);
     };
 
     const goToSupport = () => {
@@ -112,7 +102,6 @@ function DRNavbar(props: IDRNavbarProps) {
                         <Toolbar disableGutters>
                             {/* PC */}
                             <Typography
-                                variant="h6"
                                 noWrap
                                 component="div"
                                 sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
@@ -140,10 +129,7 @@ function DRNavbar(props: IDRNavbarProps) {
                                     {pages.map((page) => (
                                         <Button
                                             key={page.title}
-                                            onClick={() => {
-                                                navigate(page.path);
-                                                handleCloseNavMenu()
-                                            }}
+                                            onClick={() => navigate(page.path)}
                                             sx={{ my: 2, color: 'white', display: 'inline-table' }}
                                         >
                                             {page.title}
@@ -175,42 +161,24 @@ function DRNavbar(props: IDRNavbarProps) {
                                 </Grid>
                             </Box>
                             {/* Mobile */}
-                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleOpenNavMenu}
-                                    color="inherit"
+                            <Dropdown sx={{ display: { xs: 'flex', md: 'none' } }}>
+                                <MenuButton
+                                    slots={{ root: IconButton }}
+                                    slotProps={{ root: { variant: 'outlined', color: 'neutral' } }}
+                                    sx={{ display: { xs: 'flex', md: 'none' } }}
                                 >
                                     <MenuIcon />
-                                </IconButton>
+                                </MenuButton>
                                 <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorElNav}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'left',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'left',
-                                    }}
-                                    open={Boolean(anchorElNav)}
-                                    onClose={handleCloseNavMenu}
                                     sx={{
-                                        display: { xs: 'block', md: 'none' },
+                                        zIndex: (theme) => theme.zIndex.tooltip + 1,
+                                        display: { xs: 'flex', md: 'none' },
                                     }}
                                 >
                                     {pages.map((page) => (
                                         <MenuItem
                                             key={page.title}
-                                            onClick={() => {
-                                                navigate(page.path);
-                                                handleCloseNavMenu()
-                                            }}
+                                            onClick={() => navigate(page.path)}
                                         >
                                             <Typography textAlign="center">
                                                 {page.title}
@@ -224,15 +192,17 @@ function DRNavbar(props: IDRNavbarProps) {
                                                 window.open(page.path.toString())
                                             }}
                                         >
-                                            <Typography textAlign="center">
+                                            <Typography
+                                                textAlign="center"
+                                            >
                                                 {page.title}
                                             </Typography>
                                         </MenuItem>
                                     ))}
                                 </Menu>
-                            </Box>
+                            </Dropdown>
+                            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }} />
                             <Typography
-                                variant="h6"
                                 noWrap
                                 component="div"
                                 sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
@@ -263,48 +233,97 @@ function DRNavbar(props: IDRNavbarProps) {
                             }
                             {/* PC and Mobile */}
                             {isLoggedIn() &&
-                                <>
+                                <Dropdown >
                                     <Tooltip title={t("expand")}>
-                                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                            {isLoading && <CircularProgress />}
-                                            {!isLoading && <Avatar alt={userInfo.displayName} src={userInfo.photoURL} />}
-                                        </IconButton>
+                                        <MenuButton
+                                            slots={{ root: IconButton }}
+                                            sx={{
+                                                p: 0,
+                                            }}
+                                        >
+                                            {isLoading
+                                                ?
+                                                <CircularProgress />
+                                                :
+                                                userInfo.haveDiscordAccount
+                                                    ?
+                                                    <Avatar alt={userInfo.displayName} src={userInfo.photoURL} />
+                                                    :
+                                                    <Badge
+                                                        color="warning"
+                                                        badgeContent={
+                                                            <Warning
+                                                                fontSize='small'
+                                                            />
+                                                        }
+                                                        size="sm"
+                                                        anchorOrigin={{
+                                                            vertical: 'bottom',
+                                                            horizontal: 'right',
+                                                        }}
+                                                    >
+                                                        <Avatar alt={userInfo.displayName} src={userInfo.photoURL} />
+                                                    </Badge>
+                                            }
+                                        </MenuButton>
                                     </Tooltip>
                                     <Menu
-                                        sx={{ mt: '45px' }}
-                                        id="menu-appbar"
-                                        anchorEl={anchorElUser}
-                                        anchorOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
+                                        sx={{
+                                            zIndex: (theme) => theme.zIndex.tooltip + 1,
                                         }}
-                                        keepMounted
-                                        transformOrigin={{
-                                            vertical: 'top',
-                                            horizontal: 'right',
-                                        }}
-                                        open={Boolean(anchorElUser)}
-                                        onClose={handleCloseUserMenu}
                                     >
-                                        <MenuItem onClick={() => {
-                                            navigate("/profile");
-                                            handleCloseUserMenu()
-                                        }}>
-                                            <Typography textAlign="center">{t("my_profile")}</Typography>
+                                        <MenuItem onClick={() => navigate("/profile")}>
+                                            <Typography
+                                                textAlign="center"
+                                                startDecorator={<AssignmentIndIcon />}
+                                            >
+                                                {t("my_profile")}
+                                            </Typography>
                                         </MenuItem>
+                                        {!userInfo.haveDiscordAccount && <MenuItem
+                                            onClick={() => {
+                                                let service = new AuthService();
+                                                setLoadingDiscord(true)
+                                                service.redirectConnectDiscord()
+                                                    .then(() => {
+                                                        setLoadingDiscord(false)
+                                                    })
+                                                    .catch((error) => {
+                                                        setLoadingDiscord(false)
+                                                        showToastByMyError(error, enqueueSnackbar, t)
+                                                    })
+                                            }}
+                                        >
+                                            <Typography
+                                                textAlign="center"
+                                                startDecorator={
+                                                    loadinfDiscord
+                                                        ?
+                                                        <CircularProgress />
+                                                        :
+                                                        <Warning color="warning" />
+                                                }
+                                            >
+                                                {t("connect_to_discord")}
+                                            </Typography>
+                                        </MenuItem>}
                                         <MenuItem onClick={logOutOnClick}>
-                                            <Typography textAlign="center">{t("log_out")}</Typography>
+                                            <Typography
+                                                textAlign="center"
+                                                startDecorator={<LogoutIcon />}
+                                            >
+                                                {t("log_out")}
+                                            </Typography>
                                         </MenuItem>
                                     </Menu>
-                                </>
+                                </Dropdown>
                             }
                         </Toolbar>
                     </Container>
                 </AppBar >
                 {/* space for the AppBar */}
-                <Box sx={{ minHeight: 75 }}>
+                <Box sx={{ minHeight: 75 }} />
 
-                </Box>
                 <Zoom
                     in={suppertIsVisible()}
                     timeout={transitionDuration}
@@ -347,5 +366,3 @@ function DRNavbar(props: IDRNavbarProps) {
         return <DRErrorComponent error={error} text={"DRNavbar"} />
     }
 };
-
-export default DRNavbar;
