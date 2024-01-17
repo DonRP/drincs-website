@@ -2,7 +2,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { Typography } from '@mui/joy';
 import { useQueryClient } from '@tanstack/react-query';
-import { DRButtonNoMargin } from 'components/DRButton';
+import DRButton from 'components/DRButton';
 import DRDialogConfirmation from 'components/DRDialogConfirmation';
 import DRTextField from 'components/DRTextField';
 import { useSnackbar } from 'notistack';
@@ -24,7 +24,7 @@ function UserDeleteButton() {
 
     return (
         <>
-            <DRButtonNoMargin
+            <DRButton
                 size="sm"
                 variant="outlined"
                 color='danger'
@@ -36,7 +36,7 @@ function UserDeleteButton() {
                 }}
             >
                 {t("delete_account")}
-            </DRButtonNoMargin>
+            </DRButton>
             <DRDialogConfirmation
                 open={openDeleteConfirm}
                 setOpen={setOpenDeleteConfirm}

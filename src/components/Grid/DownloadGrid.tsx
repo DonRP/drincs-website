@@ -4,7 +4,7 @@ import DRDataGrid from 'components/DRDataGrid';
 import { discordLink } from 'constant';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { DRButtonNoMargin } from '../DRButton';
+import DRButton from '../DRButton';
 
 type IDownloadLink = {
     mega?: string,
@@ -80,7 +80,7 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
                             >
                                 <Grid>
                                     {params.value?.mediafire &&
-                                        <DRButtonNoMargin
+                                        <DRButton
                                             variant="outlined"
                                             startDecorator={
                                                 <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
@@ -91,12 +91,12 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
                                             color='success'
                                         >
                                             {"Mediafire"}
-                                        </DRButtonNoMargin>
+                                        </DRButton>
                                     }
                                 </Grid>
                                 <Grid>
                                     {params.value?.mega &&
-                                        <DRButtonNoMargin
+                                        <DRButton
                                             variant='soft'
                                             startDecorator={
                                                 <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
@@ -106,12 +106,12 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
                                             }}
                                         >
                                             {"Mega"}
-                                        </DRButtonNoMargin>
+                                        </DRButton>
                                     }
                                 </Grid>
                                 <Grid>
                                     {params.value?.discord &&
-                                        <DRButtonNoMargin
+                                        <DRButton
                                             variant='soft'
                                             startDecorator={
                                                 <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
@@ -121,7 +121,7 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
                                             }}
                                         >
                                             {t("only_supporter")}
-                                        </DRButtonNoMargin>
+                                        </DRButton>
                                     }
                                 </Grid>
                             </Grid>

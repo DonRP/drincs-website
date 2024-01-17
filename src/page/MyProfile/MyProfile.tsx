@@ -6,7 +6,7 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import DRAlert from 'components/DRAlert';
-import { DRButtonNoMargin } from 'components/DRButton';
+import DRButton, { DRButtonFab } from 'components/DRButton';
 import DRChip from 'components/DRChip';
 import { DRIconButtonLoading } from 'components/DRIconButton';
 import { DRTextFieldNotEditable } from 'components/DRTextField';
@@ -156,7 +156,7 @@ export default function MyProfile() {
             actions={
                 <>
                     <UserDeleteButton />
-                    <DRButtonNoMargin
+                    <DRButton
                         size="sm"
                         disabled={isLoading}
                         sx={{
@@ -169,8 +169,8 @@ export default function MyProfile() {
                         startDecorator={<KeyIcon />}
                     >
                         {t("edit_password")}
-                    </DRButtonNoMargin>
-                    <DRButtonNoMargin
+                    </DRButton>
+                    <DRButtonFab
                         size="sm"
                         variant="solid"
                         disabled={isLoading}
@@ -184,7 +184,7 @@ export default function MyProfile() {
                         startDecorator={<EditIcon />}
                     >
                         {t("edit")}
-                    </DRButtonNoMargin>
+                    </DRButtonFab>
                 </>
             }
         />

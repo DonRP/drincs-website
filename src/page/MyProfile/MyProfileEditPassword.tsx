@@ -2,7 +2,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import UndoIcon from '@mui/icons-material/Undo';
 import { Box } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
-import { DRButtonNoMargin } from 'components/DRButton';
+import DRButton from 'components/DRButton';
 import { DRTextFieldPassword } from 'components/DRTextField';
 import { EditPassword } from 'model/Auth/EditPasswordBody';
 import { useSnackbar } from 'notistack';
@@ -119,7 +119,7 @@ export default function MyProfileEditPassword() {
             }
             actions={
                 <>
-                    <DRButtonNoMargin
+                    <DRButton
                         size="sm"
                         variant="outlined"
                         color="neutral"
@@ -133,8 +133,8 @@ export default function MyProfileEditPassword() {
                         startDecorator={<UndoIcon />}
                     >
                         {t("cancel")}
-                    </DRButtonNoMargin>
-                    <DRButtonNoMargin
+                    </DRButton>
+                    <DRButton
                         size="sm"
                         variant="solid"
                         sx={{
@@ -147,7 +147,7 @@ export default function MyProfileEditPassword() {
                         startDecorator={<SaveIcon />}
                     >
                         {t("save")}
-                    </DRButtonNoMargin>
+                    </DRButton>
                 </>
             }
         />

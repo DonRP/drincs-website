@@ -3,7 +3,7 @@ import UndoIcon from '@mui/icons-material/Undo';
 import { Box } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
 import { useQueryClient } from '@tanstack/react-query';
-import { DRButtonNoMargin } from 'components/DRButton';
+import DRButton from 'components/DRButton';
 import DRTextField from 'components/DRTextField';
 import { EditProfile } from 'model/Auth/EditProfile';
 import { UserProfile } from 'model/Auth/UserProfile';
@@ -128,7 +128,7 @@ export default function MyProfileEdit() {
             }
             actions={
                 <>
-                    <DRButtonNoMargin
+                    <DRButton
                         size="sm"
                         variant="outlined"
                         color="neutral"
@@ -142,8 +142,8 @@ export default function MyProfileEdit() {
                         startDecorator={<UndoIcon />}
                     >
                         {t("cancel")}
-                    </DRButtonNoMargin>
-                    <DRButtonNoMargin
+                    </DRButton>
+                    <DRButton
                         size="sm"
                         variant="solid"
                         sx={{
@@ -156,7 +156,7 @@ export default function MyProfileEdit() {
                         startDecorator={<SaveIcon />}
                     >
                         {t("save")}
-                    </DRButtonNoMargin>
+                    </DRButton>
                 </>
             }
         />

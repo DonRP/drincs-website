@@ -62,10 +62,6 @@ function columns(t: TFunction<[string]>): GridColDef<TranslationResultItem>[] {
                         <DRButton
                             color="primary"
                             size="sm"
-                            marginLeft={0}
-                            marginBottom={0}
-                            marginRight={0}
-                            marginTop={0}
                             onClick={() => {
                                 window.open(params.value?.downloadUrl)
                             }}

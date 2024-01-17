@@ -5,7 +5,7 @@ import DRDataGrid from 'components/DRDataGrid';
 import { TFunction, t } from 'i18next';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
-import { DRButtonNoMargin } from '../DRButton';
+import DRButton from '../DRButton';
 
 export type IGifGridRow = {
     logo: ReactElement,
@@ -32,7 +32,7 @@ const columns: (t: TFunction<[string]>) => GridColDef<IGifGridRow>[] = () => {
             renderCell: (params: GridRenderCellParams<IGifGridRow, string>) => (
                 <strong>
                     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                        <DRButtonNoMargin
+                        <DRButton
                             variant="outlined"
                             onClick={() => {
                                 window.open(params.value)
@@ -40,7 +40,7 @@ const columns: (t: TFunction<[string]>) => GridColDef<IGifGridRow>[] = () => {
                             endDecorator={<KeyboardArrowRight />}
                         >
                             {t("start_now")}
-                        </DRButtonNoMargin>
+                        </DRButton>
                     </Box>
                 </strong >
             ),
