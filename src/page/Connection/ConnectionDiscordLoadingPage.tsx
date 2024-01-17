@@ -25,11 +25,28 @@ export default function ConnectionDiscordLoadingPage(props: IProps) {
     useEffect(() => {
         let queryParameters = getURLSearchParams(window.location)
         let code: string | null = queryParameters.get("code")
+        let error: string | null = queryParameters.get("error")
 
         // Debouncing
         const getData = setTimeout(() => {
+            if (error) {
+                console.error("error", "error: " + error)
+                setResult((value) => {
+                    if (value === null) {
+                        return { succes: false, error: error }
+                    }
+                    return value
+                })
+                return
+            }
             if (!code) {
                 console.error("code not found", "code: " + code)
+                setResult((value) => {
+                    if (value === null) {
+                        return { succes: false, error: "code not found" }
+                    }
+                    return value
+                })
                 return
             }
             let authService = new AuthService()
