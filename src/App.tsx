@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { MyTheme } from 'Theme';
 import axios from 'axios';
 import DRNavbar, { IPageDRNavbar } from 'components/DRNavbar';
@@ -72,6 +73,7 @@ function App() {
             <MyTheme>
                 <BrowserRouter>
                     <QueryClientProvider client={queryClient} >
+                        <ReactQueryDevtools initialIsOpen={false} />
                         <RecoilRoot>
                             <SnackbarProvider maxSnack={3}>
                                 <HomeFunctionContext.Provider value={new HomeFunctionContextModel(updateAccountFunction, isLogged)}>

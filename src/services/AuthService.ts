@@ -259,6 +259,25 @@ class AuthService extends BaseRestService {
             });
     }
 
+    async unlinkDiscord() {
+        let token = this.geToken()
+        if (!token) {
+            console.error("AuthService.unlinkDiscord token not found")
+            throw new MyError("AuthService.unlinkDiscord token not found", "err_token_not_found")
+        }
+
+        return this.deleteRequest<boolean>(this.urlwebapi + `/Auth/DeleteDiscordConnection`, token)
+            .then(response => {
+                if (!response || !response.isSuccessStatusCode) {
+                    throw new MyError(response?.messages.toString(), response?.messagesToShow)
+                }
+                return true
+            })
+            .catch((res) => {
+                throw res
+            });
+    }
+
     logOut() {
         localStorage.removeItem("access_token");
         sessionStorage.removeItem("access_token");

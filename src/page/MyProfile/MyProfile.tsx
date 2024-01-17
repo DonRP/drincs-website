@@ -22,6 +22,7 @@ import { useGetProfileCache } from 'use_query/useGetUser';
 import { showToast, showToastByMyError } from 'utility/ShowToast';
 import MyProfileCard from './MyProfileCard';
 import ResendVerificationMailButton from './ResendVerificationMailButton';
+import UnlinkDiscordButton from './UnlinkDiscordButton';
 import UploadPhotoProfile from './UploadPhotoProfile';
 import UserDeleteButton from './UserDeleteButton';
 
@@ -117,6 +118,7 @@ export default function MyProfile() {
                             startDecorator={<DiscordIcon />}
                             variant="outlined"
                             color='success'
+                            endDecorator={<UnlinkDiscordButton />}
                         >
                             {t("connection_discord_success") + " - " + t("support_development_info") + " "} <a
                                 href={gitHubLink + "/drincs-website/issues/37"}
