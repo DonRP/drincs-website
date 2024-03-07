@@ -13,6 +13,7 @@ type Resurces = {
   en: Resurce
   es: Resurce
   fr: Resurce
+  zh: Resurce
 }
 
 const getResurces = () => {
@@ -22,6 +23,7 @@ const getResurces = () => {
       it: require('../src/values/translations/strings_it.json') as Resurce,
       es: require('../src/values/translations/strings_es.json') as Resurce,
       fr: require('../src/values/translations/strings_fr.json') as Resurce,
+      zh: require('../src/values/translations/strings_zh.json') as Resurce,
     }
     return resources
   }
