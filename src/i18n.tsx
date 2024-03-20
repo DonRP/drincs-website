@@ -3,6 +3,9 @@ import LanguageDetector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 import './App.css';
 
+type SupportedLanguages = "en" | "it" | "es" | "fr" | "zh"
+const supportedLanguages: SupportedLanguages[] = ["en", "it", "es", "fr", "zh"];
+
 type Resurce = {
   translation: object
   server_response: object
@@ -32,9 +35,13 @@ const getResurces = () => {
   }
 }
 
-const getUserLang = (): string => {
+const getUserLang = (): SupportedLanguages => {
   let userLang: string = navigator.language || "en";
-  return userLang?.toLocaleLowerCase()?.split("-")[0];
+  userLang = userLang?.toLocaleLowerCase()?.split("-")[0];
+  if (!supportedLanguages.includes(userLang as SupportedLanguages)) {
+    userLang = "en";
+  }
+  return userLang as SupportedLanguages
 }
 
 export const translate = (key: string) => {
