@@ -1,14 +1,14 @@
 import { Grid, Typography } from '@mui/joy';
-import { DRButtonSignInSide } from 'components/DRButton';
-import DRTextField, { DRTextFieldPassword } from "components/DRTextField";
-import { NewAccountRecord } from "model/Auth/NewAccountRecord";
-import { ISignInSidePageProps } from 'page/SignInSide';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { checkIfIsValidEmail, checkIfIsValidPassword } from 'utility/EmailPasswordUtility';
-import { showToastByMyError } from 'utility/ShowToast';
-import { handleInputChangeByFieldName } from "utility/UtilityComponenets";
-import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
+import { DRButtonSignInSide } from '../../components/DRButton';
+import DRTextField, { DRTextFieldPassword } from '../../components/DRTextField';
+import { NewAccountRecord } from '../../model/Auth/NewAccountRecord';
+import { checkIfIsValidEmail, checkIfIsValidPassword } from '../../utility/EmailPasswordUtility';
+import { showToastByMyError } from '../../utility/ShowToast';
+import { handleInputChangeByFieldName } from '../../utility/UtilityComponenets';
+import { isEmptyOrSpaces } from '../../utility/UtilityFunctionts';
+import { ISignInSidePageProps } from '../SignInSide';
 import OltherLoginButton from './OltherLoginButton';
 
 interface IPros extends ISignInSidePageProps {

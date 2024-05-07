@@ -1,4 +1,4 @@
-import { MyError } from "model/MyError";
+import { MyError } from "../model/MyError";
 import BaseRestService from "./BaseRestService";
 
 // https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/1fd23117345cd1dc3e75c7d69efae994e929c279/Tweet-Lookup/get_tweets_with_bearer_token.js

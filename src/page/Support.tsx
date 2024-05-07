@@ -3,18 +3,18 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import WarningIcon from '@mui/icons-material/Warning';
 import { Grid, Stack, Tab, TabList, TabPanel, Tabs, Typography } from "@mui/joy";
-import DRAlert from "components/DRAlert";
-import DRIconButton from 'components/DRIconButton';
-import DRStepperDots from 'components/DRStepperDots';
-import DRSupportCard from "components/DRSupportCard";
-import GifsGrid, { IGifGridRow } from 'components/Grid/GifsGrid';
-import BuyMeACoffeeIcon from 'components/Icon/BuyMeACoffeeIcon';
-import KofiIcon from 'components/Icon/KofiIcon';
-import PayPalIcon from 'components/Icon/PayPalIcon';
-import { BuyMeACoffeeLink, KofiLink, gitHubLink } from "constant";
 import { t } from 'i18next';
 import { ReactElement, useState } from 'react';
-import { analyticPageView } from "utility/Analytics";
+import DRAlert from '../components/DRAlert';
+import DRIconButton from '../components/DRIconButton';
+import DRStepperDots from '../components/DRStepperDots';
+import DRSupportCard from '../components/DRSupportCard';
+import GifsGrid, { IGifGridRow } from '../components/Grid/GifsGrid';
+import BuyMeACoffeeIcon from '../components/Icon/BuyMeACoffeeIcon';
+import KofiIcon from '../components/Icon/KofiIcon';
+import PayPalIcon from '../components/Icon/PayPalIcon';
+import { analyticPageView } from '../utility/Analytics';
+import { BuyMeACoffeeLink, gitHubLink, KofiLink } from '../values/constant';
 
 type SupportDataType = {
     card: ReactElement,

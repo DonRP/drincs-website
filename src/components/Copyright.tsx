@@ -1,5 +1,5 @@
 import { Typography } from "@mui/joy";
-import { gitHubLink } from "constant";
+import { gitHubLink } from "../values/constant";
 import DRLink from "./DRLink";
 
 function Copyright() {

@@ -1,10 +1,10 @@
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRDataGrid from 'components/DRDataGrid';
-import { discordLink } from 'constant';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { discordLink } from '../../values/constant';
 import DRButton from '../DRButton';
+import DRDataGrid from '../DRDataGrid';
 
 type IDownloadLink = {
     mega?: string,

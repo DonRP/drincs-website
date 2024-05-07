@@ -2,16 +2,16 @@ import ImageIcon from '@mui/icons-material/Image';
 import SendIcon from '@mui/icons-material/Send';
 import UndoIcon from '@mui/icons-material/Undo';
 import { Theme, useMediaQuery } from '@mui/material';
-import DRAlert from 'components/DRAlert';
-import DRButton from 'components/DRButton';
-import DRDialog, { IDRDialogProps } from 'components/DRDialog';
-import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import GitService from 'services/GitHubService';
-import { logError } from 'utility/Logger';
-import { showToast, showToastByMyError } from 'utility/ShowToast';
+import { ProjectsEnum } from '../../enum/ProjectsEnum';
+import GitService from '../../services/GitHubService';
+import { logError } from '../../utility/Logger';
+import { showToast, showToastByMyError } from '../../utility/ShowToast';
+import DRAlert from '../DRAlert';
+import DRButton from '../DRButton';
+import DRDialog, { IDRDialogProps } from '../DRDialog';
 
 interface ReportFormProps<T> extends IDRDialogProps {
     data: T,

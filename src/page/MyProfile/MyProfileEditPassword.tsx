@@ -2,17 +2,17 @@ import SaveIcon from '@mui/icons-material/Save';
 import UndoIcon from '@mui/icons-material/Undo';
 import { Box } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
-import DRButton from 'components/DRButton';
-import { DRTextFieldPassword } from 'components/DRTextField';
-import { EditPassword } from 'model/Auth/EditPasswordBody';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import AuthService from 'services/AuthService';
-import { checkIfIsEqualPassword, checkIfIsValidPassword } from 'utility/EmailPasswordUtility';
-import { showToast, showToastByMyError } from 'utility/ShowToast';
-import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
+import DRButton from '../../components/DRButton';
+import { DRTextFieldPassword } from '../../components/DRTextField';
+import { EditPassword } from '../../model/Auth/EditPasswordBody';
+import AuthService from '../../services/AuthService';
+import { checkIfIsEqualPassword, checkIfIsValidPassword } from '../../utility/EmailPasswordUtility';
+import { showToast, showToastByMyError } from '../../utility/ShowToast';
+import { handleInputChangeByFieldName } from '../../utility/UtilityComponenets';
 import MyProfileCard from './MyProfileCard';
 
 export default function MyProfileEditPassword() {

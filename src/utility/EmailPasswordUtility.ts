@@ -1,5 +1,5 @@
-import { validPasswordRegex } from 'constant';
 import * as EmailValidator from 'email-validator';
+import { validPasswordRegex } from '../values/constant';
 
 export function checkIfIsValidEmail(email: string): boolean {
     return EmailValidator.validate(email)

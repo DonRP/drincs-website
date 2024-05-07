@@ -1,19 +1,19 @@
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded';
 import KeyIcon from '@mui/icons-material/Key';
 import { Grid, Link, Typography } from '@mui/joy';
-import { DRButtonSignInSide } from 'components/DRButton';
-import DRErrorComponent from 'components/DRErrorComponent';
-import DRTextField, { DRTextFieldPassword } from 'components/DRTextField';
-import HomeFunctionContext from 'contexts/HomeFunctionContext';
-import { LoginAccount } from 'model/Auth/LoginAccount';
-import { ISignInSidePageProps } from 'page/SignInSide';
 import { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
-import { showToast, showToastByMyError } from 'utility/ShowToast';
-import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
+import { DRButtonSignInSide } from '../../components/DRButton';
 import DRCheckBox from '../../components/DRCheckbox';
+import DRErrorComponent from '../../components/DRErrorComponent';
+import DRTextField, { DRTextFieldPassword } from '../../components/DRTextField';
+import HomeFunctionContext from '../../contexts/HomeFunctionContext';
+import { LoginAccount } from '../../model/Auth/LoginAccount';
+import { checkIfIsValidEmail } from '../../utility/EmailPasswordUtility';
+import { showToast, showToastByMyError } from '../../utility/ShowToast';
+import { handleInputChangeByFieldName } from '../../utility/UtilityComponenets';
+import { isEmptyOrSpaces } from '../../utility/UtilityFunctionts';
+import { ISignInSidePageProps } from '../SignInSide';
 import OltherLoginButton from './OltherLoginButton';
 
 function Login(props: ISignInSidePageProps) {

@@ -1,5 +1,5 @@
-import { myUseTheme } from 'Theme';
-import { ReactComponent as Icon } from 'svg/kofi.svg';
+import { myUseTheme } from '../../Theme';
+import Icon from '../..assets/kofi.svg?react';
 
 interface IProps {
     fill?: string;

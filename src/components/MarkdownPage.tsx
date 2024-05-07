@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material";
-import MarkdownCard from "components/MarkdownCard";
 import './Markdown.css';
+import MarkdownCard from "./MarkdownCard";
 type IHowToTranslateProps = {
     markdownLink: string
 }

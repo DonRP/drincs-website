@@ -2,8 +2,8 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { Box, Grid } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRDataGrid from 'components/DRDataGrid';
-import DRIconButton from 'components/DRIconButton';
+import DRDataGrid from '../DRDataGrid';
+import DRIconButton from '../DRIconButton';
 
 type IReportLink = {
     website?: () => void,

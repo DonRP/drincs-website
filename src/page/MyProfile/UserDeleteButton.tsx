@@ -2,16 +2,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { Typography } from '@mui/joy';
 import { useQueryClient } from '@tanstack/react-query';
-import DRButton from 'components/DRButton';
-import DRDialogConfirmation from 'components/DRDialogConfirmation';
-import DRTextField from 'components/DRTextField';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import AuthService from 'services/AuthService';
-import { GET_PROFILE_CACHE_KEY } from 'use_query/useGetUser';
-import { showToast, showToastByMyError } from 'utility/ShowToast';
+import DRButton from '../../components/DRButton';
+import DRDialogConfirmation from '../../components/DRDialogConfirmation';
+import DRTextField from '../../components/DRTextField';
+import AuthService from '../../services/AuthService';
+import { GET_PROFILE_CACHE_KEY } from '../../use_query/useGetUser';
+import { showToast, showToastByMyError } from '../../utility/ShowToast';
 
 function UserDeleteButton() {
     const [openDeleteConfirm, setOpenDeleteConfirm] = useState<boolean>(false)

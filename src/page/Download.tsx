@@ -3,10 +3,10 @@ import AppleIcon from '@mui/icons-material/Apple';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import FolderZipIcon from '@mui/icons-material/FolderZip';
 import { Grid } from '@mui/joy';
-import DownloadGrid, { IDownloadGridRow } from 'components/Grid/DownloadGrid';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { analyticPageView } from 'utility/Analytics';
+import DownloadGrid, { IDownloadGridRow } from '../components/Grid/DownloadGrid';
+import { analyticPageView } from '../utility/Analytics';
 
 const rowsABFD: (t: TFunction<[string]>) => IDownloadGridRow[] = (t) => {
     return [

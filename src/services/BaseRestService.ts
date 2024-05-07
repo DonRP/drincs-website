@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
-import { HttpResponse } from "model/HttpResponse";
-import { MyError } from "model/MyError";
 import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from "notistack";
-import { logError } from "utility/Logger";
+import { HttpResponse } from "../model/HttpResponse";
+import { MyError } from "../model/MyError";
+import { logError } from "../utility/Logger";
 
 type HeadersType = {
     'Accept': string

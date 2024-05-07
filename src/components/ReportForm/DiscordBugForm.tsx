@@ -1,10 +1,10 @@
-import DRTextField from 'components/DRTextField';
-import DRTextarea from 'components/DRTextarea';
-import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
-import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
+import { ProjectsEnum } from '../../enum/ProjectsEnum';
+import { handleInputChangeByFieldName } from '../../utility/UtilityComponenets';
+import { isEmptyOrSpaces } from '../../utility/UtilityFunctionts';
+import DRTextarea from '../DRTextarea';
+import DRTextField from '../DRTextField';
 import ReportForm, { ReportBody } from './ReportForm';
 
 type IProps = {

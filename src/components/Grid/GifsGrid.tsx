@@ -1,11 +1,11 @@
 import { KeyboardArrowRight } from '@mui/icons-material';
 import { Box } from '@mui/joy';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
-import DRDataGrid from 'components/DRDataGrid';
 import { TFunction, t } from 'i18next';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import DRButton from '../DRButton';
+import DRDataGrid from '../DRDataGrid';
 
 export type IGifGridRow = {
     logo: ReactElement,

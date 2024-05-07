@@ -1,7 +1,7 @@
 import { Typography } from '@mui/joy';
 import { Toolbar } from '@mui/material';
-import DRSheet from 'components/DRSheet';
 import { useTranslation } from 'react-i18next';
+import DRSheet from '../../components/DRSheet';
 import ConnectionDiscordError from './ConnectionDiscordError';
 import ConnectionDiscordLoadingPage from './ConnectionDiscordLoadingPage';
 import ConnectionDiscordSuccessPage from './ConnectionDiscordSuccessPage';

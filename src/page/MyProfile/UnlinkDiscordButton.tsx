@@ -2,14 +2,14 @@ import LinkOffIcon from '@mui/icons-material/LinkOff';
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { Typography } from '@mui/joy';
 import { useQueryClient } from '@tanstack/react-query';
-import DRDialogConfirmation from 'components/DRDialogConfirmation';
-import DRIconButton from 'components/DRIconButton';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import AuthService, { getAccessToken } from 'services/AuthService';
-import { GET_PROFILE_CACHE_KEY } from 'use_query/useGetUser';
-import { showToast, showToastByMyError } from 'utility/ShowToast';
+import DRDialogConfirmation from '../../components/DRDialogConfirmation';
+import DRIconButton from '../../components/DRIconButton';
+import AuthService, { getAccessToken } from '../../services/AuthService';
+import { GET_PROFILE_CACHE_KEY } from '../../use_query/useGetUser';
+import { showToast, showToastByMyError } from '../../utility/ShowToast';
 
 export default function UnlinkDiscordButton() {
     const [openDeleteConfirm, setOpenDeleteConfirm] = useState<boolean>(false)

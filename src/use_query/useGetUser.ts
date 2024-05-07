@@ -1,4 +1,4 @@
-import { UserProfile } from "model/Auth/UserProfile";
+import { UserProfile } from "../model/Auth/UserProfile";
 import AuthService, { getAccessToken, isLoggedIn } from "../services/AuthService";
 import { UseMyQueryProps, useMyQuery } from "./useMyQuery";
 

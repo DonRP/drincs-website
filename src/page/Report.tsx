@@ -1,15 +1,16 @@
 import { Grid } from '@mui/joy';
-import { myUseTheme } from 'Theme';
-import DRAlert from 'components/DRAlert';
-import ReportGrid, { IReportGridRow } from 'components/Grid/ReportGrid';
-import DiscordIcon from 'components/Icon/DiscordIcon';
-import ABFDBugForm from 'components/ReportForm/ABFDBugForm';
-import DiscordBugForm from 'components/ReportForm/DiscordBugForm';
-import WebSiteBugForm from 'components/ReportForm/WebSiteBugForm';
-import { ABFDrepo, WebSiteRepo, discordLink } from 'constant';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { analyticPageView } from 'utility/Analytics';
+import DRAlert from '../components/DRAlert';
+import ReportGrid, { IReportGridRow } from '../components/Grid/ReportGrid';
+import DiscordIcon from '../components/Icon/DiscordIcon';
+import ABFDBugForm from '../components/ReportForm/ABFDBugForm';
+import DiscordBugForm from '../components/ReportForm/DiscordBugForm';
+import WebSiteBugForm from '../components/ReportForm/WebSiteBugForm';
+import { myUseTheme } from '../Theme';
+import { analyticPageView } from '../utility/Analytics';
+import { ABFDrepo, discordLink, WebSiteRepo } from '../values/constant';
+
 function Report() {
     const [openABFDBug, setOpenABFDBug] = useState(false)
     const [openWebSiteBug, setOpenWebSiteBug] = useState(false)

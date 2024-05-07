@@ -1,11 +1,11 @@
 import CheckIcon from '@mui/icons-material/Check';
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
-import DRButton from 'components/DRButton';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import AuthService from 'services/AuthService';
-import { showToastByMyError } from 'utility/ShowToast';
+import DRButton from '../../components/DRButton';
+import AuthService from '../../services/AuthService';
+import { showToastByMyError } from '../../utility/ShowToast';
 
 export default function ResendVerificationMailButton() {
     const { t } = useTranslation(["translation"]);

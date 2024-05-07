@@ -1,8 +1,8 @@
 import Check from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import { Card, CardActions, Divider, Grid, List, ListItem, ListItemDecorator, Typography } from '@mui/joy';
-import { BoostyLink, BuyMeACoffeeLink, KofiLink, PatreonLink } from 'constant';
 import { useTranslation } from 'react-i18next';
+import { BoostyLink, BuyMeACoffeeLink, KofiLink, PatreonLink } from '../values/constant';
 import DRButton from './DRButton';
 import DRChip from './DRChip';
 import DRErrorComponent from './DRErrorComponent';
