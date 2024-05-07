@@ -1,11 +1,11 @@
 {
     "recommendations": [
-        "dsznajder.es7-react-js-snippets",
+        "donjayamanne.githistory",
         "ms-vscode.vscode-typescript-next",
         "dbaeumer.vscode-eslint",
-        "ms-edgedevtools.vscode-edge-devtools",
         "adrianwilczynski.csharp-to-typescript",
-        "github.vscode-pull-request-github",
+        "aaron-bond.better-comments",
+        "antiantisepticeye.vscode-color-picker",
         "eamodio.gitlens"
     ]
 }
