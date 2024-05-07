@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
-import { HttpResponse } from "model/HttpResponse";
-import { MyError } from "model/MyError";
 import { OptionsObject, SnackbarKey, SnackbarMessage, VariantType } from "notistack";
-import { logError } from "utility/Logger";
+import { HttpResponse } from "../model/HttpResponse";
+import { MyError } from "../model/MyError";
+import { logError } from "../utility/Logger";
 
 type HeadersType = {
     'Accept': string
@@ -17,7 +17,7 @@ export const showMessage = (enqueueSnackbar: (message: SnackbarMessage, options?
 const use_local_webapi = false
 
 export function geturlwebapi(): string {
-    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+    if (import.meta.env.PROD && use_local_webapi) {
         return "http://localhost:7289/api"
     }
     else {
@@ -25,7 +25,7 @@ export function geturlwebapi(): string {
     }
 }
 export function geturlwebapiold(): string {
-    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+    if (import.meta.env.PROD && use_local_webapi) {
         return "https://localhost:7289"
     }
     else {
@@ -33,7 +33,7 @@ export function geturlwebapiold(): string {
     }
 }
 export function geturlwebapivercel(): string {
-    if (process.env.NODE_ENV !== 'production' && use_local_webapi) {
+    if (import.meta.env.PROD && use_local_webapi) {
         return "http://localhost:7289/api"
     }
     else {

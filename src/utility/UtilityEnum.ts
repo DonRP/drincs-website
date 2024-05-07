@@ -1,4 +1,4 @@
-import { GenericLookupModel } from "model/GenericLookupModel";
+import { GenericLookupModel } from "../model/GenericLookupModel";
 
 export function getEnumKeys<TOid>(value: string[] | any): TOid[] {
     return Object.values(value) as TOid[];

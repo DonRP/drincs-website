@@ -1,5 +1,5 @@
-import { myUseTheme } from 'Theme';
-import { logError } from 'utility/Logger';
+import { myUseTheme } from '../Theme';
+import { logError } from '../utility/Logger';
 
 type IDRErrorComponentProps = {
     error: any,

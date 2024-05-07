@@ -1,6 +1,6 @@
 import { Skeleton, Table, TableProps } from '@mui/joy';
 import { CSSProperties } from 'react';
-import { isObject } from 'utility/UtilityFunctionts';
+import { isObject } from '../utility/UtilityFunctionts';
 import DRErrorComponent from './DRErrorComponent';
 
 interface IProps extends TableProps {

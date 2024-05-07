@@ -3,19 +3,19 @@ import UndoIcon from '@mui/icons-material/Undo';
 import { Box } from '@mui/joy';
 import Typography from '@mui/joy/Typography';
 import { useQueryClient } from '@tanstack/react-query';
-import DRButton from 'components/DRButton';
-import DRTextField from 'components/DRTextField';
-import { EditProfile } from 'model/Auth/EditProfile';
-import { UserProfile } from 'model/Auth/UserProfile';
 import { useSnackbar } from 'notistack';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import AuthService from 'services/AuthService';
-import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from 'use_query/useGetUser';
-import { checkIfIsValidEmail } from 'utility/EmailPasswordUtility';
-import { showToast, showToastByMyError } from 'utility/ShowToast';
-import { handleInputChangeByFieldName } from 'utility/UtilityComponenets';
+import DRButton from '../../components/DRButton';
+import DRTextField from '../../components/DRTextField';
+import { EditProfile } from '../../model/Auth/EditProfile';
+import { UserProfile } from '../../model/Auth/UserProfile';
+import AuthService from '../../services/AuthService';
+import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from '../../use_query/useGetUser';
+import { checkIfIsValidEmail } from '../../utility/EmailPasswordUtility';
+import { showToast, showToastByMyError } from '../../utility/ShowToast';
+import { handleInputChangeByFieldName } from '../../utility/UtilityComponenets';
 import MyProfileCard from './MyProfileCard';
 
 export default function MyProfileEdit() {

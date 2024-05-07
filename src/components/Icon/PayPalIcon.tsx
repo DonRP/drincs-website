@@ -1,5 +1,5 @@
-import { myUseTheme } from 'Theme';
-import { ReactComponent as Icon } from 'svg/paypal.svg';
+import { myUseTheme } from '../../Theme';
+import Icon from '../../assets/paypal.svg?react';
 
 interface IProps {
     fill?: string;

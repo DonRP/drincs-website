@@ -1,11 +1,11 @@
 import { Typography } from '@mui/joy';
-import { DRButtonSignInSide } from 'components/DRButton';
-import DiscordIcon from 'components/Icon/DiscordIcon';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import AuthService from 'services/AuthService';
-import { showToastByMyError } from 'utility/ShowToast';
+import { DRButtonSignInSide } from '../../components/DRButton';
+import DiscordIcon from '../../components/Icon/DiscordIcon';
+import AuthService from '../../services/AuthService';
+import { showToastByMyError } from '../../utility/ShowToast';
 
 export default function OltherLoginButton() {
     const { t } = useTranslation(["translation"]);

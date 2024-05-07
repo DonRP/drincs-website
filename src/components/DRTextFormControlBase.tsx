@@ -1,6 +1,6 @@
 import { FormControl, FormHelperText, FormLabel, useTheme } from '@mui/joy';
 import { ReactNode } from 'react';
-import { isEmptyOrSpaces } from 'utility/UtilityFunctionts';
+import { isEmptyOrSpaces } from '../utility/UtilityFunctionts';
 import DRErrorComponent from './DRErrorComponent';
 
 export interface IDRTextFormControlBaseProps {

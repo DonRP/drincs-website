@@ -1,9 +1,9 @@
 import EditIcon from '@mui/icons-material/Edit';
 import { Grid } from '@mui/joy';
 import { Fab } from '@mui/material';
-import MarkdownCard from "components/MarkdownCard";
 import { UrlTransform } from "react-markdown";
-import { analyticPageView } from "utility/Analytics";
+import MarkdownCard from '../components/MarkdownCard';
+import { analyticPageView } from '../utility/Analytics';
 
 type WikiProps = {
     urlRepo: string

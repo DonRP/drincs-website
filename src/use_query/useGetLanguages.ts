@@ -1,6 +1,6 @@
-import { ProjectsEnum } from "enum/ProjectsEnum";
-import { TranslationResult } from "model/Translation/TranslationResult";
-import TranslationService from "services/TranslationService";
+import { ProjectsEnum } from "../enum/ProjectsEnum";
+import { TranslationResult } from "../model/Translation/TranslationResult";
+import TranslationService from "../services/TranslationService";
 import { UseMyQueryProps, useMyQuery } from "./useMyQuery";
 
 export const GET_LANGUAGES_CACHE_KEY = "TranslationService.getLanguages";

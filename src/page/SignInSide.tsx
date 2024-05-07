@@ -1,15 +1,15 @@
 import EmailIcon from '@mui/icons-material/Email';
 import { Avatar, AvatarGroup, CssVarsProvider, DialogContent, DialogTitle, Grid, Link, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import { Theme, useMediaQuery } from '@mui/material';
-import { myUseTheme } from 'Theme';
-import Copyright from "components/Copyright";
 import { OptionsObject, SnackbarKey, SnackbarMessage, useSnackbar } from "notistack";
-import Login from "page/SignInSide/Login";
-import SignUp from "page/SignInSide/SignUp";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import AuthService, { isLoggedIn } from "services/AuthService";
-import { analyticPageView } from "utility/Analytics";
+import Copyright from '../components/Copyright';
+import AuthService, { isLoggedIn } from '../services/AuthService';
+import { myUseTheme } from '../Theme';
+import { analyticPageView } from '../utility/Analytics';
+import Login from './SignInSide/Login';
+import SignUp from './SignInSide/SignUp';
 
 export interface ISignInSidePageProps {
     authService: AuthService,

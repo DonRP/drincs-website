@@ -1,13 +1,13 @@
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { AspectRatio } from '@mui/joy';
 import { styled } from '@mui/material/styles';
-import DRDialogConfirmation from 'components/DRDialogConfirmation';
-import DRIconButton from 'components/DRIconButton';
 import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import AuthService from 'services/AuthService';
-import { showToast, showToastByMyError } from 'utility/ShowToast';
+import DRDialogConfirmation from '../../components/DRDialogConfirmation';
+import DRIconButton from '../../components/DRIconButton';
+import AuthService from '../../services/AuthService';
+import { showToast, showToastByMyError } from '../../utility/ShowToast';
 
 const VisuallyHiddenInput = styled('input')({
     clip: 'rect(0 0 0 0)',

@@ -1,7 +1,7 @@
-import { ProjectsEnum } from "enum/ProjectsEnum";
-import { HttpResponse } from "model/HttpResponse";
-import { MyError } from "model/MyError";
-import { GitHubCreateIssueBody } from "model/git/GitHubCreateIssueBody";
+import { ProjectsEnum } from "../enum/ProjectsEnum";
+import { HttpResponse } from "../model/HttpResponse";
+import { MyError } from "../model/MyError";
+import { GitHubCreateIssueBody } from "../model/git/GitHubCreateIssueBody";
 import BaseRestService from "./BaseRestService";
 
 class GitService extends BaseRestService {

@@ -1,4 +1,4 @@
-import { MyError } from "model/MyError";
+import { MyError } from "../model/MyError";
 import BaseRestService from "./BaseRestService";
 
 // https://github.com/twitterdev/Twitter-API-v2-sample-code/blob/1fd23117345cd1dc3e75c7d69efae994e929c279/Tweet-Lookup/get_tweets_with_bearer_token.js
@@ -9,7 +9,7 @@ class TweetService extends BaseRestService {
         if (!userId) {
             return null
         }
-        return this.getRequest(this.url + `users/${userId}`, process.env.REACT_APP_API_KEY_TWITTER)
+        return this.getRequest(this.url + `users/${userId}`, import.meta.env.VITE_API_KEY_TWITTER)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)

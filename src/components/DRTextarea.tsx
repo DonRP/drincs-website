@@ -1,6 +1,6 @@
 import { Textarea, TextareaProps, TextareaTypeMap } from '@mui/joy';
 import { FocusEventHandler } from 'react';
-import { IOnChangeGeneric } from 'utility/UtilityComponenets';
+import { IOnChangeGeneric } from '../utility/UtilityComponenets';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 

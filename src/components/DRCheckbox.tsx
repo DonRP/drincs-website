@@ -1,6 +1,6 @@
 import { Checkbox, CheckboxProps, CheckboxTypeMap } from "@mui/joy";
 import { FocusEventHandler } from "react";
-import { IOnChangeGeneric } from "utility/UtilityComponenets";
+import { IOnChangeGeneric } from "../utility/UtilityComponenets";
 import DRErrorComponent from "./DRErrorComponent";
 
 interface IProps extends CheckboxProps<CheckboxTypeMap['defaultComponent'], {

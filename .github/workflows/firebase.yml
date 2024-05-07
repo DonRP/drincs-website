@@ -27,14 +27,14 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install and ci and build
       env:
-        REACT_APP_LOGTAIL_WEBSITE_KEY: ${{ secrets.LOGTAIL_WEBSITE_KEY }}
-        REACT_APP_FIREBASE_WEBSITE_APIKEY: ${{ secrets.FIREBASE_WEBSITE_APIKEY }}
-        REACT_APP_FIREBASE_WEBSITE_AUTHDOMAIN: ${{ secrets.FIREBASE_WEBSITE_AUTHDOMAIN }}
-        REACT_APP_FIREBASE_WEBSITE_PROJECTID: ${{ secrets.FIREBASE_WEBSITE_PROJECTID }}
-        REACT_APP_FIREBASE_WEBSITE_STORAGEBUCKET: ${{ secrets.FIREBASE_WEBSITE_STORAGEBUCKET }}
-        REACT_APP_FIREBASE_WEBSITE_MESSAGINGSENDERID: ${{ secrets.FIREBASE_WEBSITE_MESSAGINGSENDERID }}
-        REACT_APP_FIREBASE_WEBSITE_APPID: ${{ secrets.FIREBASE_WEBSITE_APPID }}
-        REACT_APP_FIREBASE_WEBSITE_MEASUREMENTID: ${{ secrets.FIREBASE_WEBSITE_MEASUREMENTID }}
+        VITE_LOGTAIL_WEBSITE_KEY: ${{ secrets.LOGTAIL_WEBSITE_KEY }}
+        VITE_FIREBASE_WEBSITE_APIKEY: ${{ secrets.FIREBASE_WEBSITE_APIKEY }}
+        VITE_FIREBASE_WEBSITE_AUTHDOMAIN: ${{ secrets.FIREBASE_WEBSITE_AUTHDOMAIN }}
+        VITE_FIREBASE_WEBSITE_PROJECTID: ${{ secrets.FIREBASE_WEBSITE_PROJECTID }}
+        VITE_FIREBASE_WEBSITE_STORAGEBUCKET: ${{ secrets.FIREBASE_WEBSITE_STORAGEBUCKET }}
+        VITE_FIREBASE_WEBSITE_MESSAGINGSENDERID: ${{ secrets.FIREBASE_WEBSITE_MESSAGINGSENDERID }}
+        VITE_FIREBASE_WEBSITE_APPID: ${{ secrets.FIREBASE_WEBSITE_APPID }}
+        VITE_FIREBASE_WEBSITE_MEASUREMENTID: ${{ secrets.FIREBASE_WEBSITE_MEASUREMENTID }}
       run: |
         git submodule update --init --recursive
         npm install
@@ -43,20 +43,20 @@ jobs:
     - name: Archive Build
       uses: actions/upload-artifact@v3
       with:
-        name: build
-        path: build
+        name: dist
+        path: dist
 
   deploy:
     name: Deploy
-    needs: build
+    needs: dist
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Download Build
         uses: actions/download-artifact@v3
         with:
-          name: build
-          path: build
+          name: dist
+          path: dist
       # https://github.com/FirebaseExtended/action-hosting-deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:

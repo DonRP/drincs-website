@@ -1,6 +1,6 @@
 import { Typography, TypographyProps, TypographyTypeMap } from "@mui/joy";
 import { Theme, useMediaQuery } from "@mui/material";
-import Typewriter from "components/Animation/Typewriter";
+import Typewriter from "../Animation/Typewriter";
 
 interface IProps extends TypographyProps<TypographyTypeMap['defaultComponent'], {
     component?: React.ElementType;

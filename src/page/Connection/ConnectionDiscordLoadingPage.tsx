@@ -1,12 +1,12 @@
 import { Avatar, AvatarGroup, CircularProgress, Grid, Typography } from '@mui/joy';
-import HomeFunctionContext from 'contexts/HomeFunctionContext';
 import { useSnackbar } from 'notistack';
 import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import AuthService from 'services/AuthService';
-import { showToastByMyError } from 'utility/ShowToast';
-import { getURLSearchParams } from 'utility/UrlUtility';
+import HomeFunctionContext from '../../contexts/HomeFunctionContext';
+import AuthService from '../../services/AuthService';
+import { showToastByMyError } from '../../utility/ShowToast';
+import { getURLSearchParams } from '../../utility/UrlUtility';
 
 interface IProps {
     type: "connection" | "login"

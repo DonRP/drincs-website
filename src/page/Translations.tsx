@@ -1,10 +1,10 @@
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import { Grid } from '@mui/joy';
-import DRAlert from 'components/DRAlert';
-import DRTranslationGrid from 'components/DRTranslationGrid';
-import { ProjectsEnum } from 'enum/ProjectsEnum';
 import { useTranslation } from 'react-i18next';
-import { analyticPageView } from 'utility/Analytics';
+import DRAlert from '../components/DRAlert';
+import DRTranslationGrid from '../components/DRTranslationGrid';
+import { ProjectsEnum } from '../enum/ProjectsEnum';
+import { analyticPageView } from '../utility/Analytics';
 
 const OtherTranslationProjects = [
     ProjectsEnum.AFamilyVenture,

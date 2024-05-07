@@ -1,6 +1,6 @@
 import { TFunction } from "i18next";
-import { MyError } from "model/MyError";
 import { EnqueueSnackbar, VariantType } from "notistack";
+import { MyError } from "../model/MyError";
 
 export const showToast = (message: string, variant: VariantType, enqueueSnackbar: EnqueueSnackbar) => {
     enqueueSnackbar(message, { variant });

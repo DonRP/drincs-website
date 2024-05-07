@@ -1,6 +1,6 @@
 import { Autocomplete, AutocompleteChangeDetails, AutocompleteChangeReason, AutocompleteProps, createFilterOptions } from '@mui/joy';
 import { AutocompleteValue } from '@mui/material';
-import { IOnChangeGeneric, findSimilarItemFromLookupByProperty } from 'utility/UtilityComponenets';
+import { IOnChangeGeneric, findSimilarItemFromLookupByProperty } from '../utility/UtilityComponenets';
 import DRErrorComponent from './DRErrorComponent';
 import DRTextFormControlBase, { IDRTextFormControlBaseProps } from './DRTextFormControlBase';
 

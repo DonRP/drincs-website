@@ -1,11 +1,11 @@
-import { AuthData } from "model/Auth/AuthData";
-import { EditPasswordBody } from "model/Auth/EditPasswordBody";
-import { EditProfile } from "model/Auth/EditProfile";
-import { LoginAccount } from "model/Auth/LoginAccount";
-import { NewAccountRecord } from "model/Auth/NewAccountRecord";
-import { UserProfile } from "model/Auth/UserProfile";
-import { MyError } from "model/MyError";
-import { analyticLogin, analyticSignUp } from "utility/Analytics";
+import { AuthData } from "../model/Auth/AuthData";
+import { EditPasswordBody } from "../model/Auth/EditPasswordBody";
+import { EditProfile } from "../model/Auth/EditProfile";
+import { LoginAccount } from "../model/Auth/LoginAccount";
+import { NewAccountRecord } from "../model/Auth/NewAccountRecord";
+import { UserProfile } from "../model/Auth/UserProfile";
+import { MyError } from "../model/MyError";
+import { analyticLogin, analyticSignUp } from "../utility/Analytics";
 import BaseRestService from "./BaseRestService";
 
 export const isLoggedIn = () => {

@@ -1,6 +1,6 @@
-import { ProjectsEnum } from "enum/ProjectsEnum";
-import { MyError } from "model/MyError";
-import { TranslationResult } from "model/Translation/TranslationResult";
+import { ProjectsEnum } from "../enum/ProjectsEnum";
+import { MyError } from "../model/MyError";
+import { TranslationResult } from "../model/Translation/TranslationResult";
 import BaseRestService from "./BaseRestService";
 
 // https://support.crowdin.com/api/v2/

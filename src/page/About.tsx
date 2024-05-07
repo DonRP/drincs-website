@@ -3,10 +3,10 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Grid from '@mui/joy/Grid';
 import { Card, CardMedia } from '@mui/material';
-import DRButton from 'components/DRButton';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import { analyticPageView } from 'utility/Analytics';
+import DRButton from '../components/DRButton';
+import { analyticPageView } from '../utility/Analytics';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
 // https://www.w3schools.com/howto/howto_css_blurred_background.asp
