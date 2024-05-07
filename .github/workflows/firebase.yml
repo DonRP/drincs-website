@@ -43,20 +43,20 @@ jobs:
     - name: Archive Build
       uses: actions/upload-artifact@v3
       with:
-        name: build
-        path: build
+        name: dist
+        path: dist
 
   deploy:
     name: Deploy
-    needs: build
+    needs: dist
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Download Build
         uses: actions/download-artifact@v3
         with:
-          name: build
-          path: build
+          name: dist
+          path: dist
       # https://github.com/FirebaseExtended/action-hosting-deploy
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
