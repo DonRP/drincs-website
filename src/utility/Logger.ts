@@ -2,7 +2,7 @@ import { Logtail } from "@logtail/browser";
 import { analyticException } from "./Analytics";
 
 function logtailIsAvailable(useAnalytic: boolean) {
-    if (process.env.REACT_APP_LOGTAIL_WEBSITE_KEY === undefined) {
+    if (import.meta.env.VITE_LOGTAIL_WEBSITE_KEY === undefined) {
         if (useAnalytic) {
             analyticException("Logtail key not found")
         }
@@ -14,7 +14,7 @@ function logtailIsAvailable(useAnalytic: boolean) {
 export function logInfo(message: string, body: any = "", useAnalytic: boolean = true) {
     if (logtailIsAvailable(useAnalytic)) {
         try {
-            let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
+            let logtail = new Logtail(import.meta.env.VITE_LOGTAIL_WEBSITE_KEY || "");
             logtail.info(message, body);
         }
         catch (ex) {
@@ -31,7 +31,7 @@ export function logInfo(message: string, body: any = "", useAnalytic: boolean = 
 export function logWarn(message: string, body: any = "", useAnalytic: boolean = true) {
     if (logtailIsAvailable(useAnalytic)) {
         try {
-            let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
+            let logtail = new Logtail(import.meta.env.VITE_LOGTAIL_WEBSITE_KEY || "");
             logtail.warn(message, body);
         }
         catch (ex) {
@@ -50,7 +50,7 @@ export function logError(message: string, body: any = "", useAnalytic: boolean =
     }
     if (logtailIsAvailable(useAnalytic)) {
         try {
-            let logtail = new Logtail(process.env.REACT_APP_LOGTAIL_WEBSITE_KEY || "");
+            let logtail = new Logtail(import.meta.env.VITE_LOGTAIL_WEBSITE_KEY || "");
             logtail.error(message, body);
         }
         catch (ex) {

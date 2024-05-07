@@ -8,18 +8,18 @@ export function initializeFirebaseApp() {
     }
 
     initializeApp({
-        apiKey: process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY,
-        authDomain: process.env.REACT_APP_FIREBASE_WEBSITE_AUTHDOMAIN,
-        projectId: process.env.REACT_APP_FIREBASE_WEBSITE_PROJECTID,
-        storageBucket: process.env.REACT_APP_FIREBASE_WEBSITE_STORAGEBUCKET,
-        messagingSenderId: process.env.REACT_APP_FIREBASE_WEBSITE_MESSAGINGSENDERID,
-        appId: process.env.REACT_APP_FIREBASE_WEBSITE_APPID,
-        measurementId: process.env.REACT_APP_FIREBASE_WEBSITE_MEASUREMENTID,
+        apiKey: import.meta.env.VITE_FIREBASE_WEBSITE_APIKEY,
+        authDomain: import.meta.env.VITE_FIREBASE_WEBSITE_AUTHDOMAIN,
+        projectId: import.meta.env.VITE_FIREBASE_WEBSITE_PROJECTID,
+        storageBucket: import.meta.env.VITE_FIREBASE_WEBSITE_STORAGEBUCKET,
+        messagingSenderId: import.meta.env.VITE_FIREBASE_WEBSITE_MESSAGINGSENDERID,
+        appId: import.meta.env.VITE_FIREBASE_WEBSITE_APPID,
+        measurementId: import.meta.env.VITE_FIREBASE_WEBSITE_MEASUREMENTID,
     })
 }
 
 export function firebaseIsAvailable() {
-    if (!process.env.REACT_APP_FIREBASE_WEBSITE_APIKEY) {
+    if (!import.meta.env.VITE_FIREBASE_WEBSITE_APIKEY) {
         logError("Firebase key not found", {}, false)
         return false
     }

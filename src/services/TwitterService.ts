@@ -9,7 +9,7 @@ class TweetService extends BaseRestService {
         if (!userId) {
             return null
         }
-        return this.getRequest(this.url + `users/${userId}`, process.env.REACT_APP_API_KEY_TWITTER)
+        return this.getRequest(this.url + `users/${userId}`, import.meta.env.VITE_API_KEY_TWITTER)
             .then(response => {
                 if (!response || !response.isSuccessStatusCode || !response.content) {
                     throw new MyError(response?.messages.toString(), response?.messagesToShow)
