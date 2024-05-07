@@ -1,3 +1,4 @@
+import { Button } from '@drincs/react-components';
 import styled from '@emotion/styled';
 import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -5,7 +6,6 @@ import Grid from '@mui/joy/Grid';
 import { Card, CardMedia } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import DRButton from '../components/DRButton';
 import { analyticPageView } from '../utility/Analytics';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
@@ -91,7 +91,7 @@ function About() {
                         }}
                     >
                         <Grid>
-                            <DRButton
+                            <Button
                                 key="support"
                                 sx={{
                                     my: 2,
@@ -101,21 +101,21 @@ function About() {
                                     minHeight: "50px",
                                     minWidth: "170px",
                                     color: "black",
+                                    marginTop: 20,
+                                    marginBottom: 10,
+                                    marginLeft: 2,
+                                    marginRight: 2,
                                 }}
-                                marginTop={20}
-                                marginBottom={10}
-                                marginLeft={2}
-                                marginRight={2}
                                 startDecorator={<FavoriteIcon />}
                                 onClick={() => {
                                     navigate("/support");
                                 }}
                             >
                                 {t("support_us").toLocaleUpperCase()}
-                            </DRButton>
+                            </Button>
                         </Grid>
                         <Grid>
-                            <DRButton
+                            <Button
                                 key="download"
                                 sx={{
                                     my: 2,
@@ -123,18 +123,18 @@ function About() {
                                     height: "8vh",
                                     minHeight: "50px",
                                     minWidth: "170px",
+                                    marginTop: 20,
+                                    marginBottom: 10,
+                                    marginLeft: 2,
+                                    marginRight: 2,
                                 }}
-                                marginTop={20}
-                                marginBottom={10}
-                                marginLeft={2}
-                                marginRight={2}
                                 endDecorator={<DownloadIcon />}
                                 onClick={() => {
                                     navigate("/download");
                                 }}
                             >
                                 {t("download").toLocaleUpperCase()}
-                            </DRButton>
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>
