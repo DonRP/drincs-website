@@ -1,5 +1,5 @@
 import { myUseTheme } from '../../Theme';
-import Icon from '../..assets/discord.svg?react';
+import Icon from '../../assets/discord.svg?react';
 
 interface IProps {
     fill?: string;

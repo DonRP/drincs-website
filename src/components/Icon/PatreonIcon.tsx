@@ -1,5 +1,5 @@
 import { myUseTheme } from '../../Theme';
-import Icon from '../..assets/patreon.svg?react';
+import Icon from '../../assets/patreon.svg?react';
 
 interface IProps {
     fill?: string;
