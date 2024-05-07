@@ -1,5 +1,5 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Allow: /
+
+Disallow: # Allow everything
 
 Sitemap: https://drincs-website.web.app/sitemap.xml
