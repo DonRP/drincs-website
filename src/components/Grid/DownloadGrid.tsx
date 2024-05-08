@@ -1,15 +1,12 @@
-import { Box, Grid } from '@mui/joy';
+import { Box, Button, Grid } from '@drincs/react-components';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { discordLink } from '../../values/constant';
-import DRButton from '../DRButton';
 import DRDataGrid from '../DRDataGrid';
+import MegaIcon from '../Icon/MegaIcon';
 
 type IDownloadLink = {
     mega?: string,
-    mediafire?: string,
-    discord?: boolean,
     sha?: string,
 }
 type IDownloadDevice = {
@@ -79,49 +76,19 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
                                 spacing={1}
                             >
                                 <Grid>
-                                    {params.value?.mediafire &&
-                                        <DRButton
-                                            variant="outlined"
-                                            startDecorator={
-                                                <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
-                                            }
-                                            onClick={() => {
-                                                window.open(params.value?.mediafire)
-                                            }}
-                                            color='success'
-                                        >
-                                            {"Mediafire"}
-                                        </DRButton>
-                                    }
-                                </Grid>
-                                <Grid>
                                     {params.value?.mega &&
-                                        <DRButton
+                                        <Button
+                                            size='lg'
                                             variant='soft'
                                             startDecorator={
-                                                <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
+                                                <MegaIcon width={24} height={24} />
                                             }
                                             onClick={() => {
                                                 window.open(params.value?.mega)
                                             }}
                                         >
                                             {"Mega"}
-                                        </DRButton>
-                                    }
-                                </Grid>
-                                <Grid>
-                                    {params.value?.discord &&
-                                        <DRButton
-                                            variant='soft'
-                                            startDecorator={
-                                                <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
-                                            }
-                                            onClick={() => {
-                                                window.open(discordLink)
-                                            }}
-                                        >
-                                            {t("only_supporter")}
-                                        </DRButton>
+                                        </Button>
                                     }
                                 </Grid>
                             </Grid>
