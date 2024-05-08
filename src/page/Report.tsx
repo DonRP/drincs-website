@@ -1,3 +1,4 @@
+import { useTheme } from '@drincs/react-components';
 import { Grid } from '@mui/joy';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +8,6 @@ import DiscordIcon from '../components/Icon/DiscordIcon';
 import ABFDBugForm from '../components/ReportForm/ABFDBugForm';
 import DiscordBugForm from '../components/ReportForm/DiscordBugForm';
 import WebSiteBugForm from '../components/ReportForm/WebSiteBugForm';
-import { myUseTheme } from '../Theme';
 import { analyticPageView } from '../utility/Analytics';
 import { ABFDrepo, discordLink, WebSiteRepo } from '../values/constant';
 
@@ -93,7 +93,7 @@ function Report() {
         },
     ];
 
-    const theme = myUseTheme()
+    const theme = useTheme()
     analyticPageView("Report")
 
     return (

@@ -1,4 +1,4 @@
-import { myUseTheme } from '../../Theme';
+import { useTheme } from '@drincs/react-components';
 import Icon from '../../assets/kofi.svg?react';
 
 interface IProps {
@@ -6,7 +6,7 @@ interface IProps {
 }
 
 function KofiIcon(props: IProps) {
-    const theme = myUseTheme()
+    const theme = useTheme()
     return <Icon
         fill={props.fill ? props.fill : theme.palette.text.primary}
     />

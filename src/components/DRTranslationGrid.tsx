@@ -1,3 +1,4 @@
+import { useTheme } from '@drincs/react-components';
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
@@ -13,7 +14,6 @@ import { TFunction } from 'i18next';
 import * as React from 'react';
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import { useTranslation } from 'react-i18next';
-import { myUseTheme } from '../Theme';
 import { ProjectsEnum } from '../enum/ProjectsEnum';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResultItem } from '../model/Translation/TranslationResult';
 import { GET_LANGUAGES_CACHE_KEY, useGetLanguages } from '../use_query/useGetLanguages';
@@ -153,7 +153,7 @@ type IDRTranslationGridProps = {
 }
 
 function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const theme = myUseTheme()
+    const theme = useTheme()
     const { projectId, height = 350, rowHeight = 75 } = props
     const { t } = useTranslation(["translation"]);
     const queryClient = useQueryClient()
