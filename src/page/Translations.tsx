@@ -1,5 +1,5 @@
+import { Grid } from '@drincs/react-components';
 import EngineeringIcon from '@mui/icons-material/Engineering';
-import { Grid } from '@mui/joy';
 import { useTranslation } from 'react-i18next';
 import DRAlert from '../components/DRAlert';
 import DRTranslationGrid from '../components/DRTranslationGrid';

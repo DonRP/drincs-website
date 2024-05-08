@@ -1,10 +1,10 @@
-import { useTheme } from '@drincs/react-components';
+import { Grid, Typography, useTheme } from '@drincs/react-components';
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ReplayIcon from '@mui/icons-material/Replay';
-import { AspectRatio, Card, CircularProgress, Grid, Skeleton, Typography } from '@mui/joy';
+import { AspectRatio, Card, CircularProgress, Skeleton } from '@mui/joy';
 import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
