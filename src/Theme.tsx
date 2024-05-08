@@ -1,22 +1,19 @@
-import { createPaletteRange, CssVarsProvider, extendTheme } from "@drincs/react-components";
+import { createPaletteRange, CssVarsProvider, extendTheme, PaletteRange } from "@drincs/react-components";
 import { GlobalStyles } from "@mui/joy";
 import "./font.css";
 
 declare module '@mui/joy/styles' {
     interface Palette {
-        olther: {
-            gold: string;
-        };
         logo: {
             dicord: string;
             patreon: string;
             patreonDark: string;
-        };
-        gold: any;
+        }
+        gold: PaletteRange
     }
 
     interface FontFamily {
-        sixtyfour: string
+        "lilita-one": string
     }
     interface ColorPalettePropOverrides {
         'gold': true
@@ -29,15 +26,12 @@ export function MyTheme(props: { children: React.ReactNode }) {
         colorSchemes: {
             light: {
                 palette: {
-                    olther: {
-                        gold: "#FFD700",
-                    },
                     logo: {
                         dicord: "#7289da",
                         patreon: "#f96854",
                         patreonDark: "#052d49",
                     },
-                    gold: createPaletteRange("gold", "#FFD700")
+                    gold: createPaletteRange("gold", "#FFD700", "light", "#000000")
                 },
             },
             dark: {
@@ -47,12 +41,12 @@ export function MyTheme(props: { children: React.ReactNode }) {
                         patreon: "#f96854",
                         patreonDark: "#052d49",
                     },
-                    gold: createPaletteRange("gold", "#FFD700")
+                    gold: createPaletteRange("gold", "#FFD700", "dark", "#000000")
                 },
             },
         },
         fontFamily: {
-            sixtyfour: "Sixtyfour",
+            "lilita-one": "Lilita One",
         },
     });
 
