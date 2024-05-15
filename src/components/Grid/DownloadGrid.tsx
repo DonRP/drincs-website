@@ -2,7 +2,6 @@ import { Box, Button, DataGrid, Grid, Typography } from '@drincs/react-component
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import DRDataGrid from '../DRDataGrid';
 import MegaIcon from '../Icon/MegaIcon';
 
 type IDownloadLink = {
@@ -107,34 +106,26 @@ interface IDownloadGridProps {
     height?: number,
 }
 
-function DownloadGrid(props: IDownloadGridProps) {
+export default function DownloadGrid(props: IDownloadGridProps) {
     const { t } = useTranslation(["translation"]);
     const { title, rows: data, height } = props;
 
-    return (<>
-
-        <DRDataGrid
-            title={title}
-            rows={data}
-            columns={columns(t)}
-            height={height}
-            hideFooter
-        />
+    return (
         <DataGrid
             sx={{
                 minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
                 maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
                 marginTop: 2,
             }}
-            head={<Typography level="title-lg">{title}</Typography>}
+            head={<Typography
+                marginBottom={2}
+                level="title-lg">{title}</Typography>}
             rows={data}
             rowHeight={75}
             columns={columns(t)}
             height={height}
             hideFooter
+            elevation='lg'
         />
-    </>
     );
 }
-
-export default DownloadGrid;

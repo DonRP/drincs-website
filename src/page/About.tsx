@@ -83,7 +83,7 @@ function About() {
                             }}
                             color="gold"
                             size='lg'
-                            elevation={5}
+                            elevation="lg"
                         >
                             <ImageSrc
                                 image="https://firebasestorage.googleapis.com/v0/b/drincs-website.appspot.com/o/public%2Fred_hearts_background.webp?alt=media&token=c92d5f78-1ad3-4c80-a67d-31b02e8832b8"
@@ -112,7 +112,7 @@ function About() {
                                 navigate("/download");
                             }}
                             size='lg'
-                            elevation={5}
+                            elevation="lg"
                         >
                             <Typography
                                 fontSize={{ xs: '25px', md: '35px' }}
