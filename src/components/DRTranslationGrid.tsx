@@ -149,7 +149,7 @@ type IDRTranslationGridProps = {
     rowHeight?: number,
 }
 
-function DRTranslationGrid(props: IDRTranslationGridProps) {
+export default function DRTranslationGrid(props: IDRTranslationGridProps) {
     const theme = useTheme()
     const { projectId, height = 350, rowHeight = 75 } = props
     const { t } = useTranslation(["translation"]);
@@ -304,5 +304,3 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         />
     );
 }
-
-export default DRTranslationGrid;
