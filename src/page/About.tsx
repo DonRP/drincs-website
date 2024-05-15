@@ -1,4 +1,4 @@
-import { Button, Grid, ImageSrc, KeyframePulse, Typography } from '@drincs/react-components';
+import { Button, Grid, ImageSrc, KeyframePulse, Typography, useTheme } from '@drincs/react-components';
 import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Card, CardMedia } from '@mui/material';
@@ -74,6 +74,8 @@ function About() {
                             sx={{
                                 paddingX: 3,
                                 paddingY: 1.5,
+                                border: 2,
+                                borderColor: useTheme().palette.common.black,
                             }}
                             startDecorator={<FavoriteIcon fontSize="large" sx={{ zIndex: 1, color: "#d60000" }} />}
                             onClick={() => {
@@ -81,6 +83,7 @@ function About() {
                             }}
                             color="gold"
                             size='lg'
+                            elevation={5}
                         >
                             <ImageSrc
                                 image="https://firebasestorage.googleapis.com/v0/b/drincs-website.appspot.com/o/public%2Fred_hearts_background.webp?alt=media&token=c92d5f78-1ad3-4c80-a67d-31b02e8832b8"
@@ -101,12 +104,15 @@ function About() {
                             sx={{
                                 paddingX: 3,
                                 paddingY: 1.5,
+                                border: 2,
+                                borderColor: useTheme().palette.common.black,
                             }}
                             startDecorator={<DownloadIcon fontSize="large" />}
                             onClick={() => {
                                 navigate("/download");
                             }}
                             size='lg'
+                            elevation={5}
                         >
                             <Typography
                                 fontSize={{ xs: '25px', md: '35px' }}
