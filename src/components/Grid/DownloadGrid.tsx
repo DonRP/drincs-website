@@ -1,4 +1,4 @@
-import { Box, Button, Grid } from '@drincs/react-components';
+import { Box, Button, DataGrid, Grid, Typography } from '@drincs/react-components';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
@@ -111,7 +111,8 @@ function DownloadGrid(props: IDownloadGridProps) {
     const { t } = useTranslation(["translation"]);
     const { title, rows: data, height } = props;
 
-    return (
+    return (<>
+
         <DRDataGrid
             title={title}
             rows={data}
@@ -119,6 +120,20 @@ function DownloadGrid(props: IDownloadGridProps) {
             height={height}
             hideFooter
         />
+        <DataGrid
+            sx={{
+                minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
+                maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
+                marginTop: 2,
+            }}
+            head={<Typography level="title-lg">{title}</Typography>}
+            rows={data}
+            rowHeight={75}
+            columns={columns(t)}
+            height={height}
+            hideFooter
+        />
+    </>
     );
 }
 
