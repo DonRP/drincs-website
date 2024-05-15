@@ -1,11 +1,9 @@
-import styled from '@emotion/styled';
+import { Button, Grid, ImageSrc, KeyframePulse, Typography, useTheme } from '@drincs/react-components';
 import DownloadIcon from '@mui/icons-material/Download';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import Grid from '@mui/joy/Grid';
 import { Card, CardMedia } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
-import DRButton from '../components/DRButton';
 import { analyticPageView } from '../utility/Analytics';
 
 // https://www.w3schools.com/cssref/pr_background-position.asp
@@ -15,24 +13,6 @@ function About() {
     analyticPageView("About")
     let navigate = useNavigate();
     const { t } = useTranslation(["translation"]);
-
-    const Keyframes = styled("div")({
-        animationName: "pulse",
-        animationDuration: "2s",
-        animationDelay: ".5s",
-
-        "@keyframes pulse": {
-            "0%": {
-                transform: "scale(1)",
-            },
-            "50%": {
-                transform: "scale(1.1)",
-            },
-            "100%": {
-                transform: "scale(1)",
-            }
-        },
-    });
 
     return (
         <>
@@ -63,79 +43,85 @@ function About() {
                             position: "absolute",
                             bottom: "36vh",
                             textAlign: "center!important",
-
-                            animationName: "pulse",
-                            animationDuration: "2s",
-                            animationDelay: ".5s",
                         }}
                     >
-                        <Keyframes>
+                        <KeyframePulse>
                             <CardMedia
-                                image={"/images/logo.webp"}
+                                image={"https://firebasestorage.googleapis.com/v0/b/drincs-website.appspot.com/o/public%2Fa_big_family_logo.webp?alt=media&token=5a6bdc2a-fc25-49a6-bcec-ccc8fde905c6"}
                                 component="img"
                                 sx={{
                                     maxWidth: 600,
                                 }}
                             />
-                        </Keyframes>
+                        </KeyframePulse>
                     </Grid>
-                    <Grid
-                        container
-                        direction={{ xs: "column", md: "row" }}
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={{ xs: 1, sm: 3 }}
-                        sx={{
-                            position: "absolute",
-                            bottom: "50px",
-                        }}
-                    >
-                        <Grid>
-                            <DRButton
-                                key="support"
-                                sx={{
-                                    my: 2,
-                                    backgroundColor: "gold",
-                                    width: "40vh",
-                                    height: "8vh",
-                                    minHeight: "50px",
-                                    minWidth: "170px",
-                                    color: "black",
-                                }}
-                                marginTop={20}
-                                marginBottom={10}
-                                marginLeft={2}
-                                marginRight={2}
-                                startDecorator={<FavoriteIcon />}
-                                onClick={() => {
-                                    navigate("/support");
-                                }}
+                </Grid>
+                <Grid
+                    container
+                    direction={{ xs: "column", md: "row" }}
+                    justifyContent="center"
+                    alignItems="center"
+                    spacing={{ xs: 1, md: 10 }}
+                    sx={{
+                        position: "absolute",
+                        bottom: "10%",
+                        left: 0,
+                        right: 0,
+                    }}
+                >
+                    <Grid>
+                        <Button
+                            sx={{
+                                paddingX: 3,
+                                paddingY: 1.5,
+                                border: 2,
+                                borderColor: useTheme().palette.common.black,
+                            }}
+                            startDecorator={<FavoriteIcon fontSize="large" sx={{ zIndex: 1, color: "#d60000" }} />}
+                            onClick={() => {
+                                navigate("/support");
+                            }}
+                            color="gold"
+                            size='lg'
+                            elevation="lg"
+                        >
+                            <ImageSrc
+                                image="https://firebasestorage.googleapis.com/v0/b/drincs-website.appspot.com/o/public%2Fred_hearts_background.webp?alt=media&token=c92d5f78-1ad3-4c80-a67d-31b02e8832b8"
+                                style={{ opacity: 0.1 }}
+                            />
+                            <Typography
+                                fontSize={{ xs: '25px', md: '35px' }}
+                                fontFamily="lilita-one"
+                                textColor="gold.solidColor"
+                                sx={{ zIndex: 1 }}
                             >
                                 {t("support_us").toLocaleUpperCase()}
-                            </DRButton>
-                        </Grid>
-                        <Grid>
-                            <DRButton
-                                key="download"
-                                sx={{
-                                    my: 2,
-                                    width: "40vh",
-                                    height: "8vh",
-                                    minHeight: "50px",
-                                    minWidth: "170px",
-                                }}
-                                marginTop={20}
-                                marginBottom={10}
-                                marginLeft={2}
-                                marginRight={2}
-                                endDecorator={<DownloadIcon />}
-                                onClick={() => {
-                                    navigate("/download");
-                                }}
+                            </Typography>
+                        </Button>
+                    </Grid>
+                    <Grid>
+                        <Button
+                            sx={{
+                                paddingX: 3,
+                                paddingY: 1.5,
+                                border: 2,
+                                borderColor: useTheme().palette.common.black,
+                            }}
+                            startDecorator={<DownloadIcon fontSize="large" />}
+                            onClick={() => {
+                                navigate("/download");
+                            }}
+                            size='lg'
+                            elevation="lg"
+                        >
+                            <Typography
+                                fontSize={{ xs: '25px', md: '35px' }}
+                                fontFamily="lilita-one"
+                                textColor="primary.solidColor"
                             >
                                 {t("download").toLocaleUpperCase()}
-                            </DRButton>
-                        </Grid>
+                            </Typography>
+                        </Button>
                     </Grid>
                 </Grid>
             </Card>

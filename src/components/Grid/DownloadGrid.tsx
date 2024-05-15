@@ -1,15 +1,11 @@
-import { Box, Grid } from '@mui/joy';
+import { Box, Button, DataGrid, Grid, Typography } from '@drincs/react-components';
 import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { discordLink } from '../../values/constant';
-import DRButton from '../DRButton';
-import DRDataGrid from '../DRDataGrid';
+import MegaIcon from '../Icon/MegaIcon';
 
 type IDownloadLink = {
     mega?: string,
-    mediafire?: string,
-    discord?: boolean,
     sha?: string,
 }
 type IDownloadDevice = {
@@ -79,49 +75,19 @@ const columns: (t: TFunction<[string]>) => GridColDef<IDownloadGridRow>[] = (t) 
                                 spacing={1}
                             >
                                 <Grid>
-                                    {params.value?.mediafire &&
-                                        <DRButton
-                                            variant="outlined"
-                                            startDecorator={
-                                                <img src="https://cdn.worldvectorlogo.com/logos/mediafire-1.svg" width={24} height={24} alt="Logo" />
-                                            }
-                                            onClick={() => {
-                                                window.open(params.value?.mediafire)
-                                            }}
-                                            color='success'
-                                        >
-                                            {"Mediafire"}
-                                        </DRButton>
-                                    }
-                                </Grid>
-                                <Grid>
                                     {params.value?.mega &&
-                                        <DRButton
+                                        <Button
+                                            size='lg'
                                             variant='soft'
                                             startDecorator={
-                                                <img src="https://seeklogo.com/images/M/mega-icon-logo-75FF6A408B-seeklogo.com.png" width={24} height={24} alt="Logo" />
+                                                <MegaIcon width={24} height={24} />
                                             }
                                             onClick={() => {
                                                 window.open(params.value?.mega)
                                             }}
                                         >
                                             {"Mega"}
-                                        </DRButton>
-                                    }
-                                </Grid>
-                                <Grid>
-                                    {params.value?.discord &&
-                                        <DRButton
-                                            variant='soft'
-                                            startDecorator={
-                                                <img src="https://www.svgrepo.com/show/331368/discord-v2.svg" width={24} height={24} alt="Logo" />
-                                            }
-                                            onClick={() => {
-                                                window.open(discordLink)
-                                            }}
-                                        >
-                                            {t("only_supporter")}
-                                        </DRButton>
+                                        </Button>
                                     }
                                 </Grid>
                             </Grid>
@@ -140,19 +106,26 @@ interface IDownloadGridProps {
     height?: number,
 }
 
-function DownloadGrid(props: IDownloadGridProps) {
+export default function DownloadGrid(props: IDownloadGridProps) {
     const { t } = useTranslation(["translation"]);
     const { title, rows: data, height } = props;
 
     return (
-        <DRDataGrid
-            title={title}
+        <DataGrid
+            sx={{
+                minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
+                maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
+                marginTop: 2,
+            }}
+            head={<Typography
+                marginBottom={2}
+                level="title-lg">{title}</Typography>}
             rows={data}
+            rowHeight={75}
             columns={columns(t)}
             height={height}
             hideFooter
+            elevation='lg'
         />
     );
 }
-
-export default DownloadGrid;

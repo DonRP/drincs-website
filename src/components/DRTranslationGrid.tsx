@@ -1,26 +1,23 @@
+import { Button, DataGrid, Grid, IconButton, RoundIconButton, Sheet, Typography, useTheme } from '@drincs/react-components';
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import GTranslateIcon from '@mui/icons-material/GTranslate';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import ReplayIcon from '@mui/icons-material/Replay';
-import { AspectRatio, Card, CircularProgress, Grid, Skeleton, Typography } from '@mui/joy';
+import { AspectRatio, CircularProgress, Skeleton } from '@mui/joy';
 import { CardActionArea, Collapse } from '@mui/material';
 import { Box } from '@mui/system';
-import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import * as locales from '@mui/x-data-grid/locales';
 import { useQueryClient } from '@tanstack/react-query';
 import { TFunction } from 'i18next';
 import * as React from 'react';
 import { FlagIcon, FlagIconCode } from 'react-flag-kit';
 import { useTranslation } from 'react-i18next';
-import { myUseTheme } from '../Theme';
 import { ProjectsEnum } from '../enum/ProjectsEnum';
 import { GitHubTranslationRelease, TargetLanguages, TranslationResultItem } from '../model/Translation/TranslationResult';
 import { GET_LANGUAGES_CACHE_KEY, useGetLanguages } from '../use_query/useGetLanguages';
-import DRButton from './DRButton';
 import { getLanguageDataGrid } from './DRDataGrid';
-import DRErrorComponent from './DRErrorComponent';
-import DRIconButton from './DRIconButton';
 
 function columns(t: TFunction<[string]>): GridColDef<TranslationResultItem>[] {
     return [
@@ -59,7 +56,7 @@ function columns(t: TFunction<[string]>): GridColDef<TranslationResultItem>[] {
             renderCell: (params: GridRenderCellParams<TranslationResultItem, GitHubTranslationRelease>) => (
                 <strong>
                     {params.value &&
-                        <DRButton
+                        <Button
                             color="primary"
                             size="sm"
                             onClick={() => {
@@ -68,7 +65,7 @@ function columns(t: TFunction<[string]>): GridColDef<TranslationResultItem>[] {
                             startDecorator={<DownloadIcon />}
                         >
                             {params.value?.version}
-                        </DRButton>
+                        </Button>
                     }
                 </strong>
             ),
@@ -152,8 +149,8 @@ type IDRTranslationGridProps = {
     rowHeight?: number,
 }
 
-function DRTranslationGrid(props: IDRTranslationGridProps) {
-    const theme = myUseTheme()
+export default function DRTranslationGrid(props: IDRTranslationGridProps) {
+    const theme = useTheme()
     const { projectId, height = 350, rowHeight = 75 } = props
     const { t } = useTranslation(["translation"]);
     const queryClient = useQueryClient()
@@ -170,69 +167,125 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
         setExpanded(!expanded);
     };
 
-    try {
+    if (isError) {
         return (
-            <>
-                <Card
+            <IconButton
+                sx={{
+                    minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
+                    maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
+                }}
+                variant="solid"
+                ariaLabel={t("reload")}
+                color="danger"
+                size="sm"
+                onClick={() => {
+                    queryClient.invalidateQueries({ queryKey: [GET_LANGUAGES_CACHE_KEY, projectId.toString()] });
+                }}
+            >
+                <ReplayIcon />
+            </IconButton>
+        )
+    }
+
+    if (isLoading || !data) {
+        return (
+            <Sheet
+                sx={{
+                    minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
+                    maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
+                }}
+            >
+                <Box
                     sx={{
-                        minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
-                        maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
-                        backgroundColor: isError ? theme.palette.danger[500] : null,
+                        padding: 2,
                     }}
                 >
-                    {isError &&
-                        <DRIconButton
-                            ariaLabel={t("reload")}
+                    <Skeleton
+                        variant="text"
+                        sx={{
+                            fontSize: '2rem',
+                        }}
+                    />
+                    <Skeleton
+                        variant="rectangular"
+                        height={200}
+                        sx={{
+                            marginTop: 2,
+                            paddingX: 2,
+                        }}
+                    />
+                    <Skeleton
+                        variant="rectangular"
+                        height={height}
+                        sx={{
+                            marginTop: 2,
+                            paddingX: 2,
+                        }}
+                    />
+                </Box>
+            </Sheet>
+        )
+    }
+
+    return (
+        <DataGrid
+            sx={{
+                minWidth: { xs: 350, sm: 550, md: 700, lg: 900 },
+                maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
+                backgroundColor: isError ? theme.palette.danger[500] : null,
+            }}
+            rows={data.list}
+            columns={columns(t)}
+            rowHeight={rowHeight}
+            localeText={
+                getLanguageDataGrid(locales)
+            }
+            head={
+                <div>
+                    <Typography marginBottom={2} level="title-lg">{data.name}</Typography>
+                    <Box
+                        sx={{ position: 'absolute', top: '0.875rem', right: '9.5rem' }}
+                    >
+                        <RoundIconButton
+                            ariaLabel={t("info")}
                             color="neutral"
                             size="sm"
-                            onClick={() => {
-                                queryClient.invalidateQueries({ queryKey: [GET_LANGUAGES_CACHE_KEY, projectId.toString()] });
+                            onClick={handleExpandClick}
+                            variant="outlined"
+                        >
+                            <HelpOutlineIcon />
+                        </RoundIconButton>
+                    </Box>
+                    <Button
+                        color="primary"
+                        fullWidth={false}
+                        disabled={!data.crowdinLink}
+                        onClick={() => {
+                            window.open(data.crowdinLink)
+                        }}
+                        endDecorator={<GTranslateIcon />}
+                        size="sm"
+                        sx={{ position: 'absolute', top: '0.875rem', right: '1.1rem' }}
+                    >
+                        {t("translate")}
+                    </Button>
+                    {data.logo &&
+                        <CardActionArea
+                            onClick={handleExpandClick}
+                            sx={{
+                                maxWidth: 900,
+                                maxHeight: 900,
+                                marginBottom: 2,
+                                borderRadius: 2,
                             }}
                         >
-                            <ReplayIcon />
-                        </DRIconButton>
-                    }
-                    {data &&
-                        <div>
-                            <Typography level="title-lg">{data.name}</Typography>
-                            <DRIconButton
-                                ariaLabel={t("info")}
-                                color="neutral"
-                                size="sm"
-                                sx={{ position: 'absolute', top: '0.875rem', right: '9.5rem' }}
-                                onClick={handleExpandClick}
-                            >
-                                <HelpOutlineIcon />
-                            </DRIconButton>
-                            <DRButton
-                                color="primary"
-                                fullWidth={false}
-                                marginLeft={16}
-                                marginBottom={10}
-                                marginRight={0}
-                                marginTop={0}
-                                disabled={!data?.crowdinLink}
-                                onClick={() => {
-                                    window.open(data?.crowdinLink)
+                            <AspectRatio
+                                minHeight={200}
+                                maxHeight={250}
+                                sx={{
+                                    borderRadius: 5,
                                 }}
-                                endDecorator={<GTranslateIcon />}
-                                size="sm"
-                                sx={{ position: 'absolute', top: '0.875rem', right: '1.1rem' }}
                             >
-                                {t("translate")}
-                            </DRButton>
-                        </div>
-                    }
-                    {isLoading &&
-                        <Skeleton variant="text" sx={{ fontSize: '2rem' }} />
-                    }
-                    {data?.logo &&
-                        <CardActionArea onClick={handleExpandClick} sx={{ maxWidth: 900, maxHeight: 900 }}>
-                            {/* <CardMedia
-                                component="img"
-                                image={data?.logo || ""}
-                            /> */}
-                            <AspectRatio minHeight={200} maxHeight={250}>
                                 <img
                                     src={data.logo}
                                     alt=''
@@ -240,12 +293,7 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             </AspectRatio>
                         </CardActionArea>
                     }
-                    {isLoading &&
-                        <Skeleton variant="rectangular" width={{ xs: 350, sm: 550, md: 700, lg: 900 }} height={200}
-                            sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
-                        />
-                    }
-                    {data?.description &&
+                    {data.description &&
                         <Collapse in={expanded} timeout="auto" unmountOnExit>
                             <Typography
                             // paragraph
@@ -254,27 +302,8 @@ function DRTranslationGrid(props: IDRTranslationGridProps) {
                             </Typography>
                         </Collapse>
                     }
-                    {data?.list && <div style={{ height: height, width: '100%' }}>
-                        <DataGrid
-                            rows={data.list}
-                            columns={columns(t)}
-                            rowHeight={rowHeight}
-                            localeText={
-                                getLanguageDataGrid(locales)
-                            }
-                        />
-                    </div>}
-                    {isLoading &&
-                        <Skeleton variant="rectangular" width={{ xs: 350, sm: 550, md: 700, lg: 900 }} height={height}
-                            sx={{ maxWidth: { xs: 450, sm: 550, md: 700, lg: 900 } }}
-                        />
-                    }
-                </Card>
-            </>
-        );
-    } catch (error) {
-        return <DRErrorComponent error={error} text={"DRTranslationGrid"} />
-    }
+                </div>
+            }
+        />
+    );
 }
-
-export default DRTranslationGrid;

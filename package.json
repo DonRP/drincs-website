@@ -12,13 +12,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.4",
-    "@emotion/styled": "^11.11.5",
+    "@drincs/react-components": "^0.2.6",
     "@firebase/analytics": "^0.10.2",
     "@logtail/browser": "^0.4.21",
-    "@mui/icons-material": "^5.15.16",
-    "@mui/joy": "^5.0.0-beta.36",
-    "@mui/material": "^5.15.16",
     "@mui/x-data-grid": "^7.3.2",
     "@tanstack/react-query": "^5.35.1",
     "axios": "^1.6.8",

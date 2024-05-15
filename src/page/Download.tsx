@@ -1,8 +1,8 @@
+import { Grid } from '@drincs/react-components';
 import AndroidIcon from '@mui/icons-material/Android';
 import AppleIcon from '@mui/icons-material/Apple';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
 import FolderZipIcon from '@mui/icons-material/FolderZip';
-import { Grid } from '@mui/joy';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import DownloadGrid, { IDownloadGridRow } from '../components/Grid/DownloadGrid';

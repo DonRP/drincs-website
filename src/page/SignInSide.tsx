@@ -1,3 +1,4 @@
+import { useTheme } from "@drincs/react-components";
 import EmailIcon from '@mui/icons-material/Email';
 import { Avatar, AvatarGroup, CssVarsProvider, DialogContent, DialogTitle, Grid, Link, Modal, ModalClose, ModalDialog, Typography } from "@mui/joy";
 import { Theme, useMediaQuery } from '@mui/material';
@@ -6,7 +7,6 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Copyright from '../components/Copyright';
 import AuthService, { isLoggedIn } from '../services/AuthService';
-import { myUseTheme } from '../Theme';
 import { analyticPageView } from '../utility/Analytics';
 import Login from './SignInSide/Login';
 import SignUp from './SignInSide/SignUp';
@@ -52,7 +52,7 @@ function SignInSide(props: IProps) {
                         borderRadius: "lg",
                         boxShadow: 'md',
                         border: '1px solid',
-                        borderColor: myUseTheme().palette.neutral[300],
+                        borderColor: useTheme().palette.neutral[300],
                     }}
                     minWidth={500}
                     variant="outlined"

@@ -1,15 +1,14 @@
-import { myUseTheme } from '../../Theme';
+import { useTheme } from '@drincs/react-components';
+import { SVGAttributes } from 'react';
 import Icon from '../../assets/paypal.svg?react';
 
-interface IProps {
-    fill?: string;
-}
-
-function PayPalIcon(props: IProps) {
-    const theme = myUseTheme()
+export default function PayPalIcon(props: SVGAttributes<SVGSVGElement>) {
+    const {
+        fill = useTheme().palette.text.primary,
+        ...rest
+    } = props
     return <Icon
-        fill={props.fill ? props.fill : theme.palette.text.primary}
+        fill={fill}
+        {...rest}
     />
 }
-
-export default PayPalIcon;

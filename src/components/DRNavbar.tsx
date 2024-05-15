@@ -1,3 +1,4 @@
+import { useThemeMaterial } from '@drincs/react-components';
 import { Warning } from '@mui/icons-material';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -16,7 +17,6 @@ import { To, useLocation, useNavigate } from 'react-router-dom';
 import HomeFunctionContext from '../contexts/HomeFunctionContext';
 import { UserProfile } from '../model/Auth/UserProfile';
 import AuthService, { isLoggedIn } from '../services/AuthService';
-import { materialUseTheme } from '../Theme';
 import { GET_PROFILE_CACHE_KEY, useGetProfileCache } from '../use_query/useGetUser';
 import { showToast, showToastByMyError } from '../utility/ShowToast';
 import DRErrorComponent from './DRErrorComponent';
@@ -36,7 +36,7 @@ type IDRNavbarProps = {
 }
 
 export default function DRNavbar(props: IDRNavbarProps) {
-    const materialTheme = materialUseTheme();
+    const materialTheme = useThemeMaterial();
     const { t } = useTranslation(["translation"]);
     const location = useLocation();
     const navigate = useNavigate();

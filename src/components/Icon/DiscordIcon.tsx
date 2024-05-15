@@ -1,15 +1,14 @@
-import { myUseTheme } from '../../Theme';
+import { useTheme } from '@drincs/react-components';
+import { SVGAttributes } from 'react';
 import Icon from '../../assets/discord.svg?react';
 
-interface IProps {
-    fill?: string;
-}
-
-function DiscordIcon(props: IProps) {
-    const theme = myUseTheme()
+export default function DiscordIcon(props: SVGAttributes<SVGSVGElement>) {
+    const {
+        fill = useTheme().palette.text.primary,
+        ...rest
+    } = props
     return <Icon
-        fill={props.fill ? props.fill : theme.palette.text.primary}
+        fill={fill}
+        {...rest}
     />
 }
-
-export default DiscordIcon;
