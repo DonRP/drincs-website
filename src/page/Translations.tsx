@@ -1,7 +1,6 @@
-import { Grid } from '@drincs/react-components';
+import { Alert, Grid } from '@drincs/react-components';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import { useTranslation } from 'react-i18next';
-import DRAlert from '../components/DRAlert';
 import DRTranslationGrid from '../components/DRTranslationGrid';
 import { ProjectsEnum } from '../enum/ProjectsEnum';
 import { analyticPageView } from '../utility/Analytics';
@@ -29,12 +28,12 @@ function Translations() {
             paddingY={3}
         >
             <h2>{t("other_games")}</h2>
-            <DRAlert
+            <Alert
                 startDecorator={<EngineeringIcon />}
                 color="warning"
             >
                 {t("slow_loading_info")}
-            </DRAlert>
+            </Alert>
             {OtherTranslationProjects.map((item) =>
                 <Grid
                     key={item}
