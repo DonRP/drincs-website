@@ -15,7 +15,7 @@ const OtherTranslationProjects = [
     ProjectsEnum.WitchHunter,
 ]
 
-function Translations() {
+export default function Translations() {
     const { t } = useTranslation(["translation"]);
     analyticPageView("Translations")
 
@@ -50,5 +50,3 @@ function Translations() {
         </Grid>
     );
 }
-
-export default Translations;
