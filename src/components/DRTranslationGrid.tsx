@@ -195,31 +195,34 @@ export default function DRTranslationGrid(props: IDRTranslationGridProps) {
                     maxWidth: { xs: 450, sm: 450, md: 850, lg: 900 },
                 }}
             >
-                <Skeleton
-                    variant="text"
+                <Box
                     sx={{
-                        fontSize: '2rem',
-                        marginTop: 2,
-                        paddingX: 2,
+                        padding: 2,
                     }}
-                />
-                <Skeleton
-                    variant="rectangular"
-                    height={200}
-                    sx={{
-                        marginTop: 2,
-                        paddingX: 2,
-                    }}
-                />
-                <Skeleton
-                    variant="rectangular"
-                    height={height}
-                    sx={{
-                        marginTop: 2,
-                        paddingX: 2,
-                        marginBottom: 1,
-                    }}
-                />
+                >
+                    <Skeleton
+                        variant="text"
+                        sx={{
+                            fontSize: '2rem',
+                        }}
+                    />
+                    <Skeleton
+                        variant="rectangular"
+                        height={200}
+                        sx={{
+                            marginTop: 2,
+                            paddingX: 2,
+                        }}
+                    />
+                    <Skeleton
+                        variant="rectangular"
+                        height={height}
+                        sx={{
+                            marginTop: 2,
+                            paddingX: 2,
+                        }}
+                    />
+                </Box>
             </Sheet>
         )
     }
