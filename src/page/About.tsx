@@ -43,10 +43,6 @@ function About() {
                             position: "absolute",
                             bottom: "36vh",
                             textAlign: "center!important",
-
-                            animationName: "pulse",
-                            animationDuration: "2s",
-                            animationDelay: ".5s",
                         }}
                     >
                         <KeyframePulse>
