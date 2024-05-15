@@ -31,6 +31,7 @@ function Translations() {
             <Alert
                 startDecorator={<EngineeringIcon />}
                 color="warning"
+                elevation="sm"
             >
                 {t("slow_loading_info")}
             </Alert>
