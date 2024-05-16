@@ -1,24 +1,6 @@
-import { createPaletteRange, CssVarsProvider, extendTheme, PaletteRange } from "@drincs/react-components";
+import { createPaletteRange, CssVarsProvider, extendTheme } from "@drincs/react-components";
 import { GlobalStyles } from "@mui/joy";
 import "./font.css";
-
-declare module '@mui/joy/styles' {
-    interface Palette {
-        logo: {
-            dicord: string;
-            patreon: string;
-            patreonDark: string;
-        }
-        gold: PaletteRange
-    }
-
-    interface FontFamily {
-        "lilita-one": string
-    }
-    interface ColorPalettePropOverrides {
-        'gold': true
-    }
-}
 
 export function MyTheme(props: { children: React.ReactNode }) {
 
